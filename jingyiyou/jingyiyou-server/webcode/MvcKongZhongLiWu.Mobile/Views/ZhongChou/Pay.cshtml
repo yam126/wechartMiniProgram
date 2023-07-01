@@ -1,0 +1,136 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "确认付款";
+}
+@section scripts{
+
+    <script src="~/Scripts/jweixin-1.0.0.js"></script>
+}
+<script type="text/javascript">
+    
+
+    $(document).ready(function () {
+        @*jQuery.post("/pay/checkpay?orderid=@ViewBag.orderid", {}, function (res) {
+            if (res.state == 'error') {
+                window.location = res.url;
+            }
+        }, "json");*@
+
+    });
+
+    function onBridgeReady(data) {
+        
+        WeixinJSBridge.invoke(
+        'getBrandWCPayRequest',data ,
+        function (res) {
+            
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                window.location = "/zhongchou/ok?orderid=@ViewBag.orderid";
+            }
+            else {
+                //alert(res.err_msg);
+                ispaying = false;
+                showAlertMessage("支付失败,请稍后再试！");
+                //window.location = "/Myorder/";
+            }
+            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+        }
+
+        );
+    }
+    var ispaying = false;
+    function dopayment() {
+        
+        if (ispaying == true) {
+            return false;
+        }
+        ispaying = true;
+        var wayofpay = $('input:radio[name=wayofpay]:checked').val();  
+        if (wayofpay=="2") {
+            onBridgeReady(@Html.Raw(ViewBag.paydata));
+        }else{
+            $("#btnsubmit").click();
+        }
+
+        
+    }
+
+    
+
+</script>
+
+
+<div class="flow-checkout">
+    @using (Html.BeginForm("Pay", "zhongchou", FormMethod.Post, new { id = "dopayform" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        
+        <section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+            <p><b>资助金额</b></p>
+            <ul>
+                <li>
+                    <dl>
+                        <dt class="pull-left">
+                            
+                        </dt>                        
+                        <dd class="pull-right">￥@ViewBag.Payment 元</dd>
+                    </dl>
+                </li>
+            </ul>
+        </section>
+
+        <section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion">
+
+
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapsePay">
+                <p><b>支付方式</b><span class="label ect-bg-colory">必填</span></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            @if (SessionHelper.CurMemberInfo.Balance < ViewBag.Payment)
+            {
+                ViewBag.yuestr = "disabled='true'";
+                ViewBag.needpayment = "[您还需要支付 ￥" + (ViewBag.Payment - SessionHelper.CurMemberInfo.Balance) + "]";
+                ViewBag.otherpaycheck = "checked='checked'";
+            }
+            else
+            {
+                ViewBag.yuecheck = "checked='checked'";
+            }
+            <div id="collapsePay" class="panel-collapse " style="padding-bottom:2em;">
+                <ul class="ect-radio">
+                    <li>
+                        <input name="wayofpay" type="radio" @ViewBag.yuestr id="payment_1" @ViewBag.yuecheck value="0" checked="checked" iscod="0" style="vertical-align:middle">
+                        <label for="payment_1">余额支付 [￥@Html.Raw(SessionHelper.CurMemberInfo.Balance)元]<i></i></label>
+                    </li>
+                    @if (ViewBag.isweixin == true) { 
+                    <li>
+                        <input name="wayofpay" type="radio" id="payment_3" value="2" @ViewBag.otherpaycheck iscod="0" style="vertical-align:middle">
+                        <label for="payment_3">微信支付 <c>@ViewBag.needpayment</c><i></i></label>
+                    </li>
+                    }
+                        <li>
+                            <input name="wayofpay" type="radio" id="payment_2" value="1" @ViewBag.otherpaycheck iscod="0" style="vertical-align:middle">
+                            <label for="payment_2">支付宝（手机版）<c>@ViewBag.needpayment</c><i></i></label>
+                        </li>
+                   
+                       
+                    
+
+                </ul>
+            </div>
+
+        </section>
+        <div class="bottomhoder"></div>
+
+
+
+        <input type="submit" name="submit" id="btnsubmit" style="display:none;" />
+        <input type="hidden" name="orderid" value="@ViewBag.orderid" />
+    }
+</div>
+<div class="btnpanel">
+    <input type="button" name="submit" value="确认支付" onclick="return dopayment();" class="btn btn-info ect-colorf button_only btn-red">
+</div>

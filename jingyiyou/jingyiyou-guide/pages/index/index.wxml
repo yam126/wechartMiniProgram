@@ -1,0 +1,115 @@
+<!--index.wxml-->
+<view class="page">
+    <!--用户头像-->
+    <view class="userinfo">
+        <block wx:if="{{canIUseOpenData&&guideInfo==null}}">
+            <view class="userinfo-avatar" bindtap="bindViewTap">
+                <open-data type="userAvatarUrl"></open-data>
+            </view>
+            <open-data type="userNickName"></open-data>
+        </block>
+        <block wx:elif="{{guideInfo!=null}}">
+            <image class="userinfo-avatar" src='{{guideInfo.HeadUrl}}' />
+            <view class="userName">{{guideInfo.Name}}</view>
+        </block>
+        <block wx:elif="{{!hasUserInfo}}" style="display: none;">
+            <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+            <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+            <view wx:else> 请使用1.4.4及以上版本基础库 </view>
+        </block>
+        <block wx:else>
+            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+    </view>
+    <!--/用户头像-->
+    <!--统计信息-->
+    <view class="guide-statistics">
+        <view class="statistics-item">
+            <view class="statistics-number">
+                {{orderNumber==0?'---':orderNumber}}
+            </view>
+            <view class="statistics-label">
+                接单数
+            </view>
+        </view>
+        <view class="statistics-item">
+            <view class="statistics-number">
+                {{toDayOrderNum==0?'---':toDayOrderNum}}
+            </view>
+            <view class="statistics-label">
+                今日接单
+            </view>
+        </view>
+        <view class="statistics-item">
+            <view class="statistics-number">
+                {{totalRevenue==0?'---':totalRevenue}}
+            </view>
+            <view class="statistics-label">
+                收入总额
+            </view>
+        </view>
+        <view class="statistics-item">
+            <view class="statistics-number">
+                {{withDrawable==0?'---':withDrawable}}
+            </view>
+            <view class="statistics-label">
+                可提现
+            </view>
+        </view>
+    </view>
+    <!--/统计信息-->
+    <!--状态切换-->
+    <view bindtap="showPopup" class="status-change">
+        <view class="label">
+            状态切换
+        </view>
+        <view wx:if="{{nowStatus==0}}" class="status-arrow">
+            空闲<text decode="true">&nbsp;&gt;</text>
+        </view>
+        <view wx:elif="{{nowStatus==1}}" class="status-arrow">
+            讲解中<text decode="true">&nbsp;&gt;</text>
+        </view>
+        <view wx:elif="{{nowStatus==2}}" class="status-arrow">
+            休息<text decode="true">&nbsp;&gt;</text>
+        </view>               
+    </view>
+    <!--/状态切换-->
+    <!--我的订单-->
+    <view bindtap="gotoMyOrder" class="my-order">
+        <view class="label">
+            我的订单
+        </view>
+        <view class="my-order-arrow">
+            <text decode="true">&nbsp;&gt;</text>
+        </view>
+    </view>
+    <!--/我的订单-->
+    <!--个人编辑-->
+    <view bindtap="gotoMyEdit" class="my-order">
+        <view class="label">
+            个人编辑
+        </view>
+        <view class="my-order-arrow">
+            <text decode="true">&nbsp;&gt;</text>
+        </view>
+    </view>
+    <!--/个人编辑-->
+    <!--状态切换弹出框-->
+    <popup id='popup' 
+    image=''
+    title='状态切换'
+    content='' 
+    btn_no='' 
+    btn_ok='' 
+    bind:error="_error" 
+    bind:success="_success">
+    </popup>
+    <!--/状态切换弹出框-->
+    <inputDialog
+     id="inputPhoneNum"
+     title="输入手机号"
+     Placeholder="请输入手机号"
+     bind:successPhoneNumber="_successPhoneNumber"
+      ></inputDialog>
+</view>

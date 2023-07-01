@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "存快递-输入密码";
+}
+
+
+<script type="text/javascript">
+    function ok() {
+        if ($('.passinput').val()=="") {
+            alert("请输入密码！");
+            return false;
+        }
+        return true;
+    }
+</script>
+<style type="text/css">
+    .outdiv {
+        text-align: center;
+        padding-right: 1em;
+        padding-left: 1em;
+    }
+
+    .titlediv {
+        height: 15em;
+        width: 100%;
+        /*margin-left:1em;*/
+        margin-right: 1em;
+        background-color: #fff;
+        vertical-align: middle;
+        text-align: center;
+        /*line-height: 16em;*/
+        font-weight: bold;
+        padding-top: 7.5em;        
+        border-radius: 5px;
+        font-size: larger;
+    }
+
+    .passinput {
+        width: 80%;
+        margin-top: 2em;
+    }
+
+    .btnsubmit {
+        margin-top: 2em;
+    }
+      .myred{
+        color:orangered;
+        font-weight:700;
+    }
+</style>
+<div class="outdiv">
+    <form action="/main/checkpasskd" method="post">
+        <div class="titlediv">
+            请输入<a class="myred">快递单号</a>或<a class="myred">收件人手机号</a><br /> 或其他自定义密码！
+        </div>
+        <input class="passinput" name="passinput" placeholder="在这里输入密码" />
+        <button type="submit" class="btn btn-info ect-colorf btnsubmit" onclick="return ok()">确&nbsp;&nbsp;定</button>
+    </form>
+</div>
+

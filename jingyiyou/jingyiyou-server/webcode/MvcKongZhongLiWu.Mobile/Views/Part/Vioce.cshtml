@@ -1,0 +1,262 @@
+﻿
+@Html.Partial("~/views/part/jsconfig.cshtml")
+
+<script type="text/javascript">
+    //alert(1);
+        //var jsApiList = new Array();
+        jsApiList = jsApiList.concat(['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice']);
+    var localId_main = '';
+    var serverId_main = '@ViewBag.mediaid';
+    wx.ready(function () {
+        wx.onVoiceRecordEnd({
+            // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+            complete: function (res) {
+                alert("录音完毕！");
+                localId_main = res.localId;
+                fucrec();
+            }
+        });
+        wx.onVoicePlayEnd({
+            success: function (res) {
+                fucplay();
+                alert("播放完毕！");
+                //var localId = res.localId; // 返回音频的本地ID
+            }
+        });
+    });
+    function beginrec() {
+        wx.startRecord();
+    }
+    function stoprec() {
+        wx.stopRecord({
+            success: function (res) {
+                localId_main = res.localId;
+                //uploadrec();
+            }
+        });
+    }
+
+    function downrec() {
+        if ('@ViewBag.mediaid' != '') {
+            //将录音down到服务器
+            jQuery.post("/wxapi/UploadVioce", { mediaid: '@ViewBag.mediaid', orderid: '@ViewBag.orderid' }, function (rec) {
+                if (rec.state == 'ok') {
+                    wx.downloadVoice({
+                        serverId: rec.mediaid, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                        isShowProgressTips: 1, // 默认为1，显示进度提示
+                        success: function (res) {
+                            localId_main = res.localId; // 返回音频的本地ID
+                        }
+                    });
+                }
+
+            }, "json");
+        }
+
+
+    }
+    function uploadrec() {
+        wx.uploadVoice({
+            localId: localId_main, // 需要上传的音频的本地ID，由stopRecord接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+                serverId_main = res.serverId; // 返回音频的服务器端ID
+
+                //将录音down到服务器
+                $.ajax({
+                    async: false,
+                    url: '/wxapi/DownVioce',
+                    type: "post",
+                    dataType: 'json',
+                    data: { mediaid: serverId_main, orderid: '@ViewBag.orderid' },
+                    timeout: 5000,
+                    success: function (json) {//客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+                        $('.bgcover').hide();
+                        checkvioce();
+                    },
+                    error: function (xhr) {
+                        //jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了
+                        //请求出错处理
+                        alert("请求出错(请检查相关度网络状况.)");
+                    }
+                });
+
+            }
+        });
+    }
+    function playrec() {
+        //downrec();
+        wx.playVoice({
+            localId: localId_main // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function pauseplay() {
+        stopplay();
+        //wx.pauseVoice({
+        //    localId: localId_main // 需要暂停的音频的本地ID，由stopRecord接口获得
+        //});
+    }
+    function stopplay() {
+        wx.stopVoice({
+            localId: localId_main // 需要停止的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function show_rec_panel() {
+        if (serverId_main!='') {
+            $('.btn_play').removeClass('hiddencss');
+        }
+        $('.bgcover').show();
+        downrec();
+    }
+    function fucrec() {
+        $('.btn_play').removeClass('hiddencss');
+        if ($('.btn_rec').hasClass('btn_stop_rec')) {
+            //停止录音
+            stoprec();
+            $('.btn_rec').removeClass("btn_stop_rec");
+           
+
+        } else {
+            if (serverId_main != '') {
+                if (!confirm("重新录制将会删除当前的录音，是否继续？")) {
+                    return;
+                }
+            }
+            if ($('.btn_play').hasClass('btn_pause')) {
+                fucplay();
+            }
+            //开始录音
+            beginrec();
+            $('.btn_rec').addClass("btn_stop_rec");
+        }
+    }
+    function fucplay() {
+        if ($('.btn_play').hasClass('btn_pause')) {
+            //停止播放
+            pauseplay();
+            $('.btn_play').removeClass("btn_pause");
+        } else {
+            //开始播放
+            if ($('.btn_rec').hasClass('btn_stop_rec')) {
+                alert("请先结束录制！");
+                return;
+            }
+            playrec();
+            $('.btn_play').addClass("btn_pause");
+        }
+    }
+    function btnOK() {
+        if ($('.btn_rec').hasClass('btn_stop_rec')) {
+            alert("请先结束录制！");
+            return;
+        }
+        if (localId_main != '') {
+            stoprec();
+            pauseplay();
+            $('.btn_play').removeClass("btn_pause");
+            uploadrec();
+        } else {
+            $('.bgcover').hide();
+        }
+        checkvioce();
+
+    }
+    function checkvioce() {
+        if (serverId_main == '') {
+            $('.novioce').html("暂无录音");
+        } else {
+            $('.novioce').html("已有录音");
+            $('.needect').addClass('hiddencss');
+        }
+    }
+    $(function () {
+        checkvioce();
+    });
+</script>
+
+<style type="text/css">
+    .bgcover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        z-index: 20000;
+    }
+
+    .paly_bg {
+        position: fixed;
+        height: 12em;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        z-index: 30000;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        vertical-align: middle;
+        margin: auto;
+        line-height:12em;
+    }
+
+    .btn_play {
+        display: inline-block;
+        width: 4em;
+        height: 4em;
+        background: url('../../images/play.png') no-repeat center center;
+        background-size: 100% auto;
+        z-index: 100;
+        vertical-align: middle;
+        
+    }
+
+    .btn_pause {
+        background: url('../../images/pause.png') no-repeat center center;
+        background-size: 100% auto;
+    }
+
+
+    .btn_rec {
+        display: inline-block;
+        width: 6em;
+        height: 6em;
+        background: url('../../images/player_rec.png') no-repeat center center;
+        background-size: 100% auto;
+        z-index: 100;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+
+    .btn_stop_rec {
+        background: url('../../images/stop_rec.png') no-repeat center center;
+        background-size: 100% auto;
+    }
+
+    .btn_play_span {
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
+
+    .btnok {
+        margin-left: 15px;
+    }
+
+    .lithepass {
+        display: block !important;
+    }
+
+    .hiddencss {
+        display: none !important;
+    }
+</style>
+
+<div id="paly_cover" class="bgcover" style="display:none;">
+
+
+    <div class="paly_bg">
+        <i onclick="fucplay()" class="btn_play hiddencss"></i><i onclick="fucrec()" class="btn_rec"></i>
+        <input type="button" class="btnok btn btn-info" value="完成" onclick="btnOK()">
+    </div>
+</div>

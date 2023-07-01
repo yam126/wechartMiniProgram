@@ -1,0 +1,107 @@
+<!--pages/myedit/myedit.wxml-->
+<view class="page">
+    <form bindsubmit="saveData">
+        <!--头像上传-->
+        <view class="userFace-container">
+            <view class="label">
+                头像上传
+            </view>
+            <view bindtap="showChoseUserFaceImage" class="image-container">
+                <image src="{{userFaceUrl}}" />
+                <view class="tips">
+                    点击上传
+                </view>
+            </view>
+        </view>
+        <!--/头像上传-->
+        <!--视频上传-->
+        <view class="video-container">
+            <view class="label">
+                宣传视频
+            </view>
+            <view bindtap="showChoseVideo" class="image-container">
+                <image style="display:{{userVideoFile==null?'block':'none'}}" src="{{userVideoUrl}}" />
+                <video id="myVideo" style="display:{{userVideoFile!=null?'block':'none'}}" object-fit="cover" src="{{userVideoUrl}}"></video>
+                <view class="tips">
+                    点击上传
+                </view>
+            </view>
+        </view>
+        <!--/视频上传-->
+        <!--昵称-->
+        <view class="nickname-contianer">
+            <view class="label">
+                昵称
+            </view>
+            <view class="txtNickName-contianer">
+                <input name='nickName' class="txtNickName" placeholder="请输入昵称" value="{{userNickName}}" />
+            </view>
+        </view>
+        <!--/昵称-->
+        <!--手机号-->
+        <view class="mobileNumber-contianer">
+            <view class="label">
+                手机号
+            </view>
+            <view class="txtMobileNumber-contianer">
+                <input name="PhoneNumber" class="txtMobileNumber" value="{{userPhoneNumber}}" placeholder="请输入手机号" />
+            </view>
+            <view class="getMobileNumber-contianer">
+                <view class="btnGetMobileNumber">获取</view>
+            </view>
+        </view>
+        <!--/手机号-->
+        <!--身份证号-->
+        <view class="idcard-contianer">
+            <view class="label">
+                身份证
+            </view>
+            <view class="txtIdCard-contianer">
+                <input name="IDCard" class="txtIdCard" value="{{IDCard}}" placeholder="请输入身份证号" />
+            </view>
+        </view>
+        <!--/身份证号-->
+        <!--个人介绍-->
+        <view class="PersonalIntroduction-container">
+            <view class="label">个人介绍</view>
+            <view class="txtarea-container">
+                <textarea name="Intorduction" class="txtIntorduction" value="{{Intorduction}}" placeholder="请输入个人介绍"></textarea>
+            </view>
+        </view>
+        <!--/个人介绍-->
+        <!--标签-->
+        <vie class="tag-container">
+            <view class="label">
+                标签
+            </view>
+            <view class="tag-list-container">
+                <view wx:for="{{Skills}}" wx:key="{{index}}" wx:for-item="skillItem" bindtap="removeSkills" data-index="{{index}}" class="tag-item">
+                    {{skillItem.text}}
+                </view>
+                <view bindtap="inputSkills" class="add-item">
+                    +
+                </view>
+            </view>
+        </vie>
+        <!--/标签-->
+        <!--可讲解景点-->
+        <view class="Attractions">
+            <view class="label">
+                可讲解景点
+            </view>
+            <view class="Attractions-list-container">
+                <view wx:for="{{SkillPoints}}" wx:key="{{index}}" wx:for-item="SkillPointsItem" bindtap="removeSkillPoints" data-index="{{index}}" class="Attractions-item">
+                    {{SkillPointsItem.text}}
+                </view>
+                <view bindtap="inputSkillPoints" class="add-item">+</view>
+            </view>
+        </view>
+        <!--/可讲解景点-->
+        <view class="btnSave-container">
+            <button form-type="submit" class="btnSave">
+                保存
+            </button>
+        </view>
+    </form>
+    <inputDialog id="inputPhoneNum" title="请输入内容" Placeholder="请输入内容" bind:successPhoneNumber="_successPhoneNumber"></inputDialog>
+</view>

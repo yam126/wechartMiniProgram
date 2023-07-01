@@ -1,0 +1,315 @@
+﻿@using ncc2019.Common.Tool
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/ectouch.css">
+    <link rel="stylesheet" href="~/css/photoswipe.css">
+    <link href="~/css/style.css" rel="stylesheet" />
+    @*<link href="~/css/style.css" rel="stylesheet" />*@
+    <script type="text/javascript" src="~/scripts/m/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/m/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/scripts/m/jquery.json.js"></script>
+    <script type="text/javascript" src="~/scripts/m/common.js"></script>
+    <script type="text/javascript" src="~/scripts/m/jquery.more.js"></script>
+    <script type="text/javascript" src="~/scripts/m/utils.js"></script>
+    <script type="text/javascript" src="~/scripts/m/touchslide.1.1.js"></script>
+    <script type="text/javascript" src="~/scripts/m/ectouch.js"></script>
+    @RenderSection("scripts", required: false)
+    <style type="text/css">
+        /*.butonset i {
+            font-size:18px;
+        }*/
+
+        .guanzhu {
+            position: absolute;
+            /*top: 1.42857143;*/
+            width: 100%;
+            height: 4.2em;
+            z-index: 999;
+            background-color: rgba(51,51,51,0.8);
+            padding: 0px;
+            vertical-align: middle;
+            max-width: 640px;
+            display: none;
+            color: #ffffff;
+        }
+        .guanzhu img {
+            width:4em;
+            height:4em;
+        }
+         .guanzhu .guanzhuleft {
+                float: left;
+                display: inline-block;
+                margin-left: 10px;
+                margin-top: 7px;
+                /*padding:10px;*/
+            }
+
+            .guanzhu .guanzhuright {
+                float: right;
+                margin-right: 10px;
+                margin-top: 7px;
+                /*width: 100px;*/
+                display: inline-block;
+            }
+
+        .btnguanzhu {
+            margin-top: 5px;
+            font-size: 14px !important;
+            background: rgba(237,19,90,1) !important;
+        }
+
+        .etc_menu {
+            box-sizing: border-box;
+            display: none;
+            position: absolute;
+            right: 10px;
+            bottom: 50px;
+            width: 100px;
+            padding: 2px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            text-align: center;
+            background: #fff;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="con">
+        @*<div class="ect-bg">
+            <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>@ViewBag.Title</span> <a href="javascript:;" onclick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+            <nav class="ect-nav ect-nav-list" style="display:none;">
+                <ul class="ect-diaplay-box text-center butonset">
+                    <li class="ect-box-flex"><a href="/zhongchou/"><i class="ect-icon-zhongchou"></i>众筹礼物</a></li>
+                    <li class="ect-box-flex"><a href="/home/category"><i class="ect-icon ect-icon-cate"></i>分类</a></li>
+                    <li class="ect-box-flex"><a href="javascript:openSearch();"><i class="ect-icon ect-icon-search"></i>搜索</a></li>
+                    <li class="ect-box-flex"><a href="/myorder?type=send"><i class="ect-icon-sendgift"></i>送的礼物</a></li>
+                    <li class="ect-box-flex"><a href="/myorder?type=get"><i class="ect-icon-getgift"></i>收的礼物</a></li>
+                    <li class="ect-box-flex"><a href="/my/"><i class="ect-icon ect-icon-user"></i>个人中心</a></li>
+                </ul>
+            </nav>
+        </div>*@
+        @if (SessionHelper.CurMemberInfo!=null&&SessionHelper.CurMemberInfo.IsGuanZhu == false)
+        {
+            <div class="guanzhu">
+                <div style="float:left;vertical-align:middle;line-height:4.2em;padding-left:5px;"> <img src="/favicon.ico?v=2.0" style="border-radius: 20px;" /> </div>
+                <div class="guanzhuleft"><p style="font-size:1.5em">关注智裹裹，</p><p style="font-size:.8em">为您提供最酷，最超前的收快递方式！</p></div>
+                <div class="guanzhuright"><button type="button" class="btn btn-info ect-colorf btnguanzhu" onclick="window.location = 'http://mp.weixin.qq.com/s/GdvjqbLTdyOBgbeH7Aazgg'">一键关注</button></div>
+            </div>}
+        <div class="alert alert-danger" style="display:none;">
+        </div>
+        <div class="alert alert-success" style="display:none;">
+        </div>
+
+        @Html.Raw( ViewBag.error)
+        @Html.Raw(ViewBag.info)
+        @RenderBody()
+
+    </div>
+
+    <ul class="etc_menu open">
+        <li class="ect-box-flex"><a href="/">首页</a></li>
+        <li class="ect-box-flex"><a href="/home/category">分类</a></li>
+        <li class="ect-box-flex"><a href="javascript:openSearch();">搜索</a></li>
+        <li class="ect-box-flex"><a href="/myorder?type=send">送的礼物</a></li>
+        <li class="ect-box-flex"><a href="/myorder?type=get">收的礼物</a></li>
+        <li class="ect-box-flex"><a href="/my/">个人中心</a></li>
+
+    </ul>
+
+    <div class="search" style="display:none;">
+        <div class="ect-bg">
+            <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onclick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+        </div>
+        <div class="ect-padding-lr">
+            <form action="/Search" method="get" id="searchForm" name="searchForm">
+                <div class="input-search">
+                    <span>
+                        <input name="key" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+                    </span>
+                    <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </form>
+            @*<div class="hot-search">
+                    <p>
+                        <h4 class="title"><b>热门搜索：</b></h4>
+                    </p>
+
+                    <a href="index.php@m=default&c=category&a=top_all.htm"></a>
+
+                </div>*@
+
+        </div>
+    </div>
+    @*<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>*@
+
+
+    <script type="text/javascript">
+        /*弹出评论层并隐藏其他层*/
+        function openSearch() {
+            if ($(".con").css("display") != "none") {
+                $(".con").hide();
+                $(".search").show();
+            }
+        }
+        function closeSearch() {
+            if ($(".con").css("display") == "none") {
+                $(".con").show();
+                $(".search").hide();
+            }
+        }
+        //通用-警示框
+        function showAlertMessage(message) {
+            $('.alert-danger').html("<strong>出错啦！</strong> " + message + "<br />");
+            $('.alert-danger').show();
+            setTimeout(hidMessage, 2000);
+        }
+        function showSuccessMessage(message) {
+            $('.alert-success').html("" + message + "<br />");
+            $('.alert-success').show();
+            setTimeout(hidMessage, 1000);
+        }
+        function hidMessage() {
+            $('.alert-danger').hide();
+            $('.alert-success').hide();
+        }
+        $(function () {
+            hidbanner();
+            if ("@ViewBag.dangermessage" != "") {
+                showAlertMessage("@ViewBag.dangermessage");
+
+            }
+            if ("@ViewBag.successmessage" != "") {
+                showSuccessMessage("@ViewBag.successmessage");
+
+            }
+            $('.main').click(function () {
+                if ($('.nav-stretch').hasClass('current')) {
+                    $('.nav-stretch').removeClass("current");
+                }
+                else {
+                    $('.nav-stretch').addClass("current");
+                }
+            });
+        });
+        function hidbanner() {
+            $('.con .ect-bg').hide();
+        }
+        function showguanzhu() {
+            $('.guanzhu').show();
+        }
+        function hidhistory() {
+            $('.con .ect-icon-history').hide();
+        }
+        function hidmune() {
+            $('.con .ect-icon-mune').hide();
+        }
+    </script>
+    <img src="@ViewBag.cnzz" width="0" height="0" />
+    <div class="nav-stretch wxmovie-nav btnhome ">
+        <ul>
+            <li>
+                <a class="main ">
+                    <i class="ico-main"></i>
+                </a>
+            </li>
+            <li class="link home"><a href ="/">首页</a></li>
+            <li class="link find"><a  href="/guide/sendto">发现</a></li>
+            <li class="link sort"><a href="/home/category">分类</a></li>
+            <li class="link my"><a  href="/my" class="need-login">我的</a></li>
+        </ul>
+    </div>
+    
+    <style type="text/css">
+        .nav-stretch {
+            position: fixed;
+            z-index: 10002;
+            left: 15px;
+            bottom: 50px;
+            overflow: hidden;
+            width: 3em;
+            height: 3em;
+            -webkit-border-radius: 3em;
+            border-radius: 3em;
+            -webkit-box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+            -webkit-transition: 300ms all ease;
+            transition: 300ms all ease;
+            display:none;
+        }
+
+            .nav-stretch.current {
+                width: 20em;
+                -webkit-box-shadow: inherit;
+                box-shadow: inherit;
+            }
+
+            .nav-stretch .link a {
+                font-size: 1.2em;
+                color: #fff;
+                
+            }
+            .nav-stretch .link  {
+                width:4em;
+            }
+                
+
+        .nav-stretch ul {
+            overflow: hidden;
+            height: 100%;
+            line-height: 3em;
+        }
+
+            .nav-stretch ul li {
+                float: left;
+                width: 3em;
+                height: 100%;
+                text-align: center;
+                
+            }
+
+            .nav-stretch ul li i, .nav-stretch ul li a {
+                display: block;
+                
+            }
+        [class^="ico-"] {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            font-family: 'ico-webfont';
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            color: #fff;
+        }
+
+        .ico-main {
+            width: 3em;
+            height: 3em;
+            line-height: 3em;
+        }
+
+            .ico-main:after {
+                content: "T";
+                font-size: 1.5em;
+            }
+
+        .current .ico-main:after {
+            content: "l";
+            font-size: 1.5em;
+        }
+    </style>
+</body>
+</html>

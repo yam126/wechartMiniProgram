@@ -1,0 +1,2798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KongZhongLiWuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="PassWord" Type="varchar" MaxLength="50" />
+          <Property Name="ChannelID" Type="int" />
+          <Property Name="TheType" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="AUserNum" Type="int" />
+          <Property Name="AccEndDate" Type="datetime" />
+          <Property Name="VIPEndDate" Type="datetime" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="VUserCount" Type="int" />
+          <Property Name="MaxVUserCount" Type="int" />
+          <Property Name="RegistDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ActionLog">
+          <Key>
+            <PropertyRef Name="ActionLogID" />
+          </Key>
+          <Property Name="ActionLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="ActionDate" Type="datetime" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="AtionType" Type="int" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="RecName" Type="varchar" MaxLength="50" />
+          <Property Name="Memo" Type="varchar" MaxLength="300" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Apply">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="Good" Type="varchar" MaxLength="2000" />
+          <Property Name="Intro" Type="varchar" MaxLength="2000" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CarCall">
+          <Key>
+            <PropertyRef Name="CarCallID" />
+          </Key>
+          <Property Name="CarCallID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarNo" Type="varchar" MaxLength="50" />
+          <Property Name="CarName" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ISRecWXMessage" Type="int" />
+          <Property Name="ISShowPhone" Type="int" />
+          <Property Name="ISHidePhone" Type="int" />
+          <Property Name="QrCodeURL" Type="varchar" MaxLength="500" />
+          <Property Name="WXOpenID" Type="varchar" MaxLength="50" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="CFJControl">
+          <Key>
+            <PropertyRef Name="CFJControlID" />
+          </Key>
+          <Property Name="CFJControlID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="DelayTime" Type="int" />
+          <Property Name="IsRun" Type="int" />
+          <Property Name="ExeTime" Type="datetime" />
+          <Property Name="MachineCode" Type="varchar" MaxLength="50" />
+          <Property Name="Command" Type="varchar" MaxLength="50" />
+          <Property Name="WXOpenID" Type="varchar" MaxLength="100" />
+          <Property Name="CFJQrCode" Type="varchar" MaxLength="50" />
+          <Property Name="CZIP" Type="varchar" MaxLength="100" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="100" />
+          <Property Name="Param" Type="varchar" MaxLength="100" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="Func" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CFJMachine">
+          <Key>
+            <PropertyRef Name="CFJMachineID" />
+          </Key>
+          <Property Name="CFJMachineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MachineCode" Type="varchar" MaxLength="50" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="MachineName" Type="varchar" MaxLength="50" />
+          <Property Name="UniversityName" Type="varchar" MaxLength="50" />
+          <Property Name="RoomNo" Type="varchar" MaxLength="50" />
+          <Property Name="IP" Type="varchar" MaxLength="100" />
+          <Property Name="CZIP" Type="varchar" MaxLength="100" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="100" />
+          <Property Name="LastDate" Type="datetime" />
+          <Property Name="enabled" Type="int" />
+          <Property Name="DelayTime" Type="int" />
+        </EntityType>
+        <EntityType Name="CFJMemberType">
+          <Key>
+            <PropertyRef Name="CFJMemberTypeID" />
+          </Key>
+          <Property Name="CFJMemberTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberType" Type="int" />
+          <Property Name="DelayTime" Type="int" />
+          <Property Name="DayCount" Type="int" />
+          <Property Name="YearCount" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="MonthCount" Type="int" />
+          <Property Name="Payment" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Memo" Type="varchar" MaxLength="100" />
+          <Property Name="IsPublic" Type="int" />
+        </EntityType>
+        <EntityType Name="CFJPay">
+          <Key>
+            <PropertyRef Name="CFJPayID" />
+          </Key>
+          <Property Name="CFJPayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="MemberTypeID" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="NeedPay" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="HeadImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CFJQrCode">
+          <Key>
+            <PropertyRef Name="CFJQrCodeID" />
+          </Key>
+          <Property Name="CFJQrCodeID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="IsUsed" Type="int" />
+          <Property Name="UsedDate" Type="datetime" />
+          <Property Name="MachineCode" Type="varchar" MaxLength="50" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="ChannelID" />
+          </Key>
+          <Property Name="ChannelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Desc" Type="varchar" MaxLength="500" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="SMSTag" Type="varchar" MaxLength="50" />
+          <Property Name="ImgURL" Type="varchar" MaxLength="500" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Intro" Type="varchar" MaxLength="300" />
+          <Property Name="IsKaMi" Type="int" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="Content" Type="varchar" MaxLength="1000" />
+          <Property Name="WxVioceMediaID" Type="varchar" MaxLength="100" />
+          <Property Name="WxVioceUploadDate" Type="datetime" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="HeadImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="ToMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="Comments_copy">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="Content" Type="varchar" MaxLength="1000" />
+          <Property Name="WxVioceMediaID" Type="varchar" MaxLength="100" />
+          <Property Name="WxVioceUploadDate" Type="datetime" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="HeadImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="ToMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="CommonLog">
+          <Key>
+            <PropertyRef Name="CommonLogID" />
+          </Key>
+          <Property Name="CommonLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Agent" Type="varchar" MaxLength="500" />
+          <Property Name="Content" Type="varchar" MaxLength="500" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CommonPay">
+          <Key>
+            <PropertyRef Name="CommonPayID" />
+          </Key>
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="PayType" Type="int" />
+          <Property Name="NeedPay" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="HeadImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="CommonPayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodID" Type="int" />
+          <Property Name="PayDirection" Type="int" />
+          <Property Name="PayStatus" Type="int" />
+          <Property Name="RefOrderID" Type="int" />
+          <Property Name="TotalPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PayDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="FeedBackID" />
+          </Key>
+          <Property Name="FeedBackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TheContent" Type="varchar" MaxLength="2000" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="OperID" Type="int" />
+        </EntityType>
+        <EntityType Name="GetPassword">
+          <Key>
+            <PropertyRef Name="GetPasswordID" />
+          </Key>
+          <Property Name="GetPasswordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="varchar" MaxLength="100" />
+          <Property Name="RefEmail" Type="varchar" MaxLength="100" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="GetDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GongGao">
+          <Key>
+            <PropertyRef Name="GongGaoID" />
+          </Key>
+          <Property Name="GongGaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="varchar" MaxLength="500" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="QuanZiID" Type="int" />
+        </EntityType>
+        <EntityType Name="GoodProperty">
+          <Key>
+            <PropertyRef Name="GoodPropertyID" />
+          </Key>
+          <Property Name="GoodPropertyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Content" Type="varchar" MaxLength="500" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="GoodID" Type="int" />
+          <Property Name="AddMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="GoodRight">
+          <Key>
+            <PropertyRef Name="GoodRightID" />
+          </Key>
+          <Property Name="GoodRightID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodID" Type="int" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="Param" Type="varchar" MaxLength="200" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="GoodID" />
+          </Key>
+          <Property Name="GoodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="TotalNum" Type="int" />
+          <Property Name="BuyCount" Type="int" />
+          <Property Name="ImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="Intro" Type="varchar" MaxLength="500" />
+          <Property Name="Tags" Type="varchar" MaxLength="500" />
+          <Property Name="Desc" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="BannerImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="IsShowBanner" Type="int" />
+          <Property Name="BannerOrder" Type="int" />
+          <Property Name="ViewCount" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="GoodOrder" Type="int" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="OrgPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="Memo" Type="varchar" MaxLength="2000" />
+          <Property Name="GoodType" Type="int" />
+          <Property Name="Param" Type="varchar" MaxLength="300" />
+          <Property Name="NeedTiLiNum" Type="int" />
+          <Property Name="DownPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="ExpressFee" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="JoinPeopleNum" Type="int" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="Payment2" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="DayPrice" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="SecurityPrice" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="WuLiuType" Type="varchar" MaxLength="1" />
+          <Property Name="RefMemberID" Type="int" />
+          <Property Name="SellType" Type="int" />
+          <Property Name="XiaoQuID" Type="int" />
+          <Property Name="Call" Type="varchar" MaxLength="300" />
+          <Property Name="ImgList" Type="varchar" MaxLength="1000" />
+          <Property Name="NiceName" Type="varchar" MaxLength="50" />
+          <Property Name="AddMemberHeadImgURL" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="GoodSort">
+          <Key>
+            <PropertyRef Name="GoodSortID" />
+          </Key>
+          <Property Name="GoodSortID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="Enabled" Type="int" />
+          <Property Name="GoodSortOrder" Type="int" />
+          <Property Name="ShowInIndex" Type="int" />
+          <Property Name="ShowName" Type="varchar" MaxLength="50" />
+          <Property Name="AddMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="GoodSortMapping">
+          <Key>
+            <PropertyRef Name="GoodSortMapping1" />
+          </Key>
+          <Property Name="GoodSortMapping1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodID" Type="int" />
+          <Property Name="GoodSortID" Type="int" />
+        </EntityType>
+        <EntityType Name="Guide">
+          <Key>
+            <PropertyRef Name="GuideID" />
+          </Key>
+          <Property Name="GuideID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="GuideNo" Type="varchar" MaxLength="100" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Skills" Type="varchar" MaxLength="1000" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="1000" />
+          <Property Name="Payment" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="StartLevel" Type="float" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="Times" Type="int" />
+          <Property Name="BusyStatus" Type="int" />
+          <Property Name="HeadUrl" Type="varchar" MaxLength="1000" />
+          <Property Name="VideoShowUrl" Type="varchar" MaxLength="1000" />
+          <Property Name="SkillPoints" Type="varchar" MaxLength="1000" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="IDCard" Type="varchar" MaxLength="50" />
+          <Property Name="Intorduction" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Info">
+          <Key>
+            <PropertyRef Name="InfoID" />
+          </Key>
+          <Property Name="InfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TheContent" Type="varchar(max)" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="OpeUserID" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="500" />
+          <Property Name="UpeDate" Type="datetime" />
+          <Property Name="ViewCount" Type="int" />
+          <Property Name="ShareImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="ShareTitle" Type="varchar" MaxLength="100" />
+          <Property Name="ShareIntro" Type="varchar" MaxLength="500" />
+          <Property Name="IsShowInBanner" Type="int" />
+          <Property Name="BannerImgUrl" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="KeFuMessage">
+          <Key>
+            <PropertyRef Name="KeFuMessageID" />
+          </Key>
+          <Property Name="KeFuMessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Desc" Type="varchar" MaxLength="500" />
+          <Property Name="FromMemberID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="KuaiDiSet">
+          <Key>
+            <PropertyRef Name="KuaiDiSetID" />
+          </Key>
+          <Property Name="KuaiDiSetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="100" />
+          <Property Name="CompanyCode" Type="varchar" MaxLength="100" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="MemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="LoginLogID" />
+          </Key>
+          <Property Name="LoginLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime" />
+          <Property Name="IP" Type="varchar" MaxLength="100" />
+          <Property Name="Agent" Type="varchar" MaxLength="1000" />
+          <Property Name="SystemInfo" Type="varchar" MaxLength="100" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="RefMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="Lottery">
+          <Key>
+            <PropertyRef Name="LotteryID" />
+          </Key>
+          <Property Name="LotteryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="Intro" Type="varchar" MaxLength="50" />
+          <Property Name="TheOrder" Type="int" />
+          <Property Name="ImgUrl" Type="varchar" MaxLength="500" />
+          <Property Name="SellerID" Type="int" />
+          <Property Name="Enabled" Type="int" />
+        </EntityType>
+        <EntityType Name="LotterySellerRef">
+          <Key>
+            <PropertyRef Name="LotterySellerRefID" />
+          </Key>
+          <Property Name="LotterySellerRefID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LotteryID" Type="int" />
+          <Property Name="SellerID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="OpeMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="LoginName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="LoginCount" Type="int" />
+          <Property Name="RegDate" Type="datetime" />
+          <Property Name="LastDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Balance" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="NiceName" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="Birth" Type="datetime" />
+          <Property Name="Balance_back" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="WechatOpenid" Type="varchar" MaxLength="50" />
+          <Property Name="HeadImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Province" Type="varchar" MaxLength="50" />
+          <Property Name="TheType" Type="int" />
+          <Property Name="IsGuanZhu" Type="int" />
+          <Property Name="Unionid" Type="varchar" MaxLength="100" />
+          <Property Name="UserLevel" Type="int" />
+          <Property Name="RefMemberID" Type="int" />
+          <Property Name="TiLiNum" Type="int" />
+          <Property Name="ISCFJUser" Type="int" />
+          <Property Name="CFJMemberTypeID" Type="int" />
+          <Property Name="CFJDayCount" Type="int" />
+          <Property Name="CFJYearCount" Type="int" />
+          <Property Name="Token" Type="varchar" MaxLength="50" />
+          <Property Name="Session_key" Type="varchar" MaxLength="100" />
+          <Property Name="XiaoQuID" Type="int" />
+          <Property Name="QuanIDs" Type="varchar" MaxLength="500" />
+          <Property Name="RenZhengUrl" Type="varchar" MaxLength="500" />
+          <Property Name="IsRenZhengPass" Type="int" />
+          <Property Name="RefSellerID" Type="int" />
+          <Property Name="IsAuthen" Type="int" />
+          <Property Name="RealName" Type="varchar" MaxLength="50" />
+          <Property Name="IDCard" Type="varchar" MaxLength="50" />
+          <Property Name="OwnerSellerID" Type="int" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromMemberID" Type="int" />
+          <Property Name="ToMenberID" Type="int" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="FromName" Type="varchar" MaxLength="50" />
+          <Property Name="FromImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <EntityType Name="NCCLottery">
+          <Key>
+            <PropertyRef Name="NCCLotteryID" />
+          </Key>
+          <Property Name="NCCLotteryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="Intro" Type="varchar" MaxLength="50" />
+          <Property Name="TheOrder" Type="int" />
+          <Property Name="ImgUrl" Type="varchar" MaxLength="500" />
+          <Property Name="ImgUrl1" Type="varchar" MaxLength="500" />
+          <Property Name="ImgUrl2" Type="varchar" MaxLength="500" />
+          <Property Name="OrgImgUrl1" Type="varchar" MaxLength="500" />
+          <Property Name="OrgImgUrl2" Type="varchar" MaxLength="500" />
+          <Property Name="LotteryNo" Type="varchar" MaxLength="100" />
+          <Property Name="PrizeStatus" Type="int" />
+          <Property Name="PrizeDate" Type="datetime" />
+          <Property Name="RefOrderID" Type="int" />
+          <Property Name="RefLotteryID" Type="int" />
+          <Property Name="Bonus" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="RefMemberID" Type="int" />
+          <Property Name="RefSellerID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="IsBeep" Type="int" />
+          <Property Name="BeginOpenDate" Type="datetime" />
+          <Property Name="EndOpenDate" Type="datetime" />
+          <Property Name="LotteryStatus" Type="int" />
+          <Property Name="PayBackReason" Type="varchar" MaxLength="100" />
+          <Property Name="IsNotifyBuyerPrizeInfo" Type="int" />
+          <Property Name="NotifyBuyerPrizeInfoDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NCCOrders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="PayStatus" Type="int" />
+          <Property Name="OrderStatus" Type="int" />
+          <Property Name="Memo" Type="varchar" MaxLength="300" />
+          <Property Name="NeedPay" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="OrderType" Type="int" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PayDate" Type="datetime" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="PlayBeginDate" Type="datetime" />
+          <Property Name="PlayEndDate" Type="datetime" />
+          <Property Name="BuyNum" Type="int" />
+          <Property Name="LotteryID" Type="int" />
+          <Property Name="Exchanged" Type="int" />
+          <Property Name="ExchangeDate" Type="datetime" />
+          <Property Name="ExchangeMemberID" Type="int" />
+          <Property Name="SellerID" Type="int" />
+          <Property Name="MemberHeadUrl" Type="varchar" MaxLength="500" />
+          <Property Name="OrderNo" Type="varchar" MaxLength="100" />
+          <Property Name="NCCLotteryID" Type="int" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="300" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ImgURL" Type="varchar" MaxLength="300" />
+          <Property Name="Author" Type="varchar" MaxLength="30" />
+          <Property Name="IsPublish" Type="int" />
+        </EntityType>
+        <EntityType Name="OnLineVersion">
+          <Key>
+            <PropertyRef Name="OnLineVersionID" />
+          </Key>
+          <Property Name="OnLineVersionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Version" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="Memo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="GuideID" Type="int" />
+          <Property Name="MemberOpenid" Type="varchar" MaxLength="100" />
+          <Property Name="ServiceMinute" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PayStatus" Type="int" />
+          <Property Name="OrderStatus" Type="int" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="20" />
+          <Property Name="PayType" Type="int" />
+          <Property Name="NeedPay" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Property" Type="varchar" MaxLength="100" />
+          <Property Name="OrderType" Type="int" />
+          <Property Name="GuideOpenid" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PayLog">
+          <Key>
+            <PropertyRef Name="PayLogID" />
+          </Key>
+          <Property Name="PayLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="InDate" Type="datetime" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="PayDirection" Type="int" />
+          <Property Name="RefOrderID" Type="int" />
+          <Property Name="Param" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pin">
+          <Key>
+            <PropertyRef Name="PinID" />
+          </Key>
+          <Property Name="PinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="Content" Type="varchar" MaxLength="500" />
+          <Property Name="Call" Type="varchar" MaxLength="300" />
+          <Property Name="MemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="QuanZi">
+          <Key>
+            <PropertyRef Name="QuanZiID" />
+          </Key>
+          <Property Name="QuanZiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="PeopleNum" Type="int" />
+          <Property Name="XiaoQuID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="GongGao" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Address" Type="varchar" MaxLength="300" />
+          <Property Name="Phone" Type="varchar" MaxLength="100" />
+          <Property Name="SellerNo" Type="varchar" MaxLength="100" />
+          <Property Name="IsOnline" Type="int" />
+          <Property Name="TheOrder" Type="int" />
+          <Property Name="QueueNum" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="VideoShowURL" Type="varchar" MaxLength="500" />
+          <Property Name="VideoPushURL" Type="varchar" MaxLength="500" />
+          <Property Name="ShortName" Type="varchar" MaxLength="50" />
+          <Property Name="LastDate" Type="datetime" />
+          <Property Name="ManagerMemberID" Type="int" />
+        </EntityType>
+        <EntityType Name="ShangJia">
+          <Key>
+            <PropertyRef Name="ShangJiaID" />
+          </Key>
+          <Property Name="ShangJiaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="300" />
+          <Property Name="Address" Type="varchar" MaxLength="300" />
+          <Property Name="Call" Type="varchar" MaxLength="300" />
+          <Property Name="Desc" Type="varchar" MaxLength="2000" />
+          <Property Name="ImgList" Type="varchar" MaxLength="3000" />
+          <Property Name="NeedPayQr" Type="int" />
+          <Property Name="ManagerName" Type="varchar" MaxLength="100" />
+          <Property Name="ManagerCall" Type="varchar" MaxLength="100" />
+          <Property Name="QrCodeUrl" Type="varchar" MaxLength="300" />
+          <Property Name="ISPassed" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="XiaoQuID" Type="int" />
+          <Property Name="ImgUrl" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="TongZhi">
+          <Key>
+            <PropertyRef Name="TongZhiID" />
+          </Key>
+          <Property Name="TongZhiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="varchar" MaxLength="500" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="QuanZiID" Type="int" />
+        </EntityType>
+        <EntityType Name="VIPUser">
+          <Key>
+            <PropertyRef Name="VIPUserID" />
+          </Key>
+          <Property Name="VIPUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="11" />
+          <Property Name="AccountID" Type="int" />
+          <Property Name="VerifyCode" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="int" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="GetVerifyCodeCount" Type="int" />
+          <Property Name="PayState" Type="int" />
+          <Property Name="PayEndDate" Type="datetime" />
+          <Property Name="SMSState" Type="int" />
+          <Property Name="VerifyContent" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="XiaoQu">
+          <Key>
+            <PropertyRef Name="XiaoQuID" />
+          </Key>
+          <Property Name="XiaoQuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="AddMemberID" Type="int" />
+          <Property Name="SampleName" Type="varchar" MaxLength="50" />
+          <Property Name="Memo" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="ZGGBBS">
+          <Key>
+            <PropertyRef Name="BBSID" />
+          </Key>
+          <Property Name="BBSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Content" Type="varchar" MaxLength="300" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="OpenID" Type="varchar" MaxLength="50" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ImgList" Type="varchar" MaxLength="500" />
+          <Property Name="QuanZiID" Type="int" />
+          <Property Name="XiaoQuID" Type="int" />
+        </EntityType>
+        <EntityType Name="ZGGKey">
+          <Key>
+            <PropertyRef Name="ZGGKeyID" />
+          </Key>
+          <Property Name="ZGGKeyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="OwnerWXID" Type="varchar" MaxLength="50" />
+          <Property Name="UserWXID" Type="varchar" MaxLength="50" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="UseDate" Type="datetime" />
+          <Property Name="AccpteDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="ZGGMachineID" Type="int" />
+        </EntityType>
+        <EntityType Name="ZGGLocation">
+          <Key>
+            <PropertyRef Name="ZGGLocationID" />
+          </Key>
+          <Property Name="ZGGLocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Precision" Type="float" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="WXOpenID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ZGGMachine">
+          <Key>
+            <PropertyRef Name="MachineID" />
+          </Key>
+          <Property Name="MachineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ShowCode" Type="varchar" MaxLength="20" />
+          <Property Name="BackCode" Type="varchar" MaxLength="50" />
+          <Property Name="WxOpenID" Type="varchar" MaxLength="50" />
+          <Property Name="QrUrl" Type="varchar" MaxLength="500" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="OwnerName" Type="varchar" MaxLength="50" />
+          <Property Name="IsShared" Type="int" />
+          <Property Name="IsLocked" Type="int" />
+          <Property Name="OpenUserID" Type="int" />
+          <Property Name="PassWord" Type="varchar" MaxLength="50" />
+          <Property Name="GuiGe" Type="varchar" MaxLength="50" />
+          <Property Name="UserPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="CompanyPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="StrategyPayment" Type="int" />
+          <Property Name="ZGGUseControlID" Type="int" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Precision" Type="float" />
+        </EntityType>
+        <EntityType Name="ZGGPay">
+          <Key>
+            <PropertyRef Name="ZGGPayID" />
+          </Key>
+          <Property Name="ZGGPayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="MemberTypeID" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="NeedPay" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="HeadImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="UseControlID" Type="int" />
+        </EntityType>
+        <EntityType Name="ZGGUseControl">
+          <Key>
+            <PropertyRef Name="ZGGUseControlID" />
+          </Key>
+          <Property Name="ZGGUseControlID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NeighborUserID" Type="int" />
+          <Property Name="PutInDate" Type="datetime" />
+          <Property Name="KDUserID" Type="int" />
+          <Property Name="GetOutDate" Type="datetime" />
+          <Property Name="IsPrivate" Type="int" />
+          <Property Name="PaymentType" Type="int" />
+          <Property Name="Payed" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PayState" Type="int" />
+          <Property Name="ZGGPayID" Type="int" />
+          <Property Name="ZGGMachineID" Type="int" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ncc2019db.dbo.vw_Orders”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="vw_Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="GuideID" Type="int" />
+          <Property Name="MemberOpenid" Type="varchar" MaxLength="100" />
+          <Property Name="ServiceMinute" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="PayStatus" Type="int" />
+          <Property Name="OrderStatus" Type="int" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="20" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+          <Property Name="PayType" Type="int" />
+          <Property Name="NeedPay" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Property" Type="varchar" MaxLength="100" />
+          <Property Name="OrderType" Type="int" />
+          <Property Name="GuideOpenid" Type="varchar" MaxLength="100" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="GuideNo" Type="varchar" MaxLength="100" />
+          <Property Name="Expr1" Type="varchar" MaxLength="500" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Skills" Type="varchar" MaxLength="1000" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="1000" />
+          <Property Name="Expr2" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="StartLevel" Type="float" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="IDCard" Type="varchar" MaxLength="50" />
+          <Property Name="BusyStatus" Type="int" />
+          <Property Name="SkillPoints" Type="varchar" MaxLength="1000" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="KongZhongLiWuModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionLog" EntityType="Self.ActionLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Apply" EntityType="Self.Apply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarCall" EntityType="Self.CarCall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CFJControl" EntityType="Self.CFJControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CFJMachine" EntityType="Self.CFJMachine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CFJMemberType" EntityType="Self.CFJMemberType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CFJPay" EntityType="Self.CFJPay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CFJQrCode" EntityType="Self.CFJQrCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Channel" EntityType="Self.Channel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments_copy" EntityType="Self.Comments_copy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommonLog" EntityType="Self.CommonLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommonPay" EntityType="Self.CommonPay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GetPassword" EntityType="Self.GetPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GongGao" EntityType="Self.GongGao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodProperty" EntityType="Self.GoodProperty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodRight" EntityType="Self.GoodRight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodSort" EntityType="Self.GoodSort" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodSortMapping" EntityType="Self.GoodSortMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Guide" EntityType="Self.Guide" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Info" EntityType="Self.Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KeFuMessage" EntityType="Self.KeFuMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KuaiDiSet" EntityType="Self.KuaiDiSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginLog" EntityType="Self.LoginLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lottery" EntityType="Self.Lottery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LotterySellerRef" EntityType="Self.LotterySellerRef" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NCCLottery" EntityType="Self.NCCLottery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NCCOrders" EntityType="Self.NCCOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnLineVersion" EntityType="Self.OnLineVersion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayLog" EntityType="Self.PayLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pin" EntityType="Self.Pin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuanZi" EntityType="Self.QuanZi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShangJia" EntityType="Self.ShangJia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TongZhi" EntityType="Self.TongZhi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VIPUser" EntityType="Self.VIPUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="XiaoQu" EntityType="Self.XiaoQu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZGGBBS" EntityType="Self.ZGGBBS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZGGKey" EntityType="Self.ZGGKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZGGLocation" EntityType="Self.ZGGLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZGGMachine" EntityType="Self.ZGGMachine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZGGPay" EntityType="Self.ZGGPay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZGGUseControl" EntityType="Self.ZGGUseControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_Orders" EntityType="Self.vw_Orders" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_Orders].[OrderID] AS [OrderID], 
+[vw_Orders].[MemberID] AS [MemberID], 
+[vw_Orders].[GuideID] AS [GuideID], 
+[vw_Orders].[MemberOpenid] AS [MemberOpenid], 
+[vw_Orders].[ServiceMinute] AS [ServiceMinute], 
+[vw_Orders].[AddDate] AS [AddDate], 
+[vw_Orders].[Payment] AS [Payment], 
+[vw_Orders].[TotalPayment] AS [TotalPayment], 
+[vw_Orders].[PayStatus] AS [PayStatus], 
+[vw_Orders].[OrderStatus] AS [OrderStatus], 
+[vw_Orders].[ShortUrl] AS [ShortUrl], 
+[vw_Orders].[Memo] AS [Memo], 
+[vw_Orders].[PayType] AS [PayType], 
+[vw_Orders].[NeedPay] AS [NeedPay], 
+[vw_Orders].[EndDate] AS [EndDate], 
+[vw_Orders].[Property] AS [Property], 
+[vw_Orders].[OrderType] AS [OrderType], 
+[vw_Orders].[GuideOpenid] AS [GuideOpenid], 
+[vw_Orders].[AccountID] AS [AccountID], 
+[vw_Orders].[Name] AS [Name], 
+[vw_Orders].[GuideNo] AS [GuideNo], 
+[vw_Orders].[Expr1] AS [Expr1], 
+[vw_Orders].[Status] AS [Status], 
+[vw_Orders].[Skills] AS [Skills], 
+[vw_Orders].[ImageUrl] AS [ImageUrl], 
+[vw_Orders].[Expr2] AS [Expr2], 
+[vw_Orders].[StartLevel] AS [StartLevel], 
+[vw_Orders].[PhoneNumber] AS [PhoneNumber], 
+[vw_Orders].[IDCard] AS [IDCard], 
+[vw_Orders].[BusyStatus] AS [BusyStatus], 
+[vw_Orders].[SkillPoints] AS [SkillPoints], 
+[vw_Orders].[Phone] AS [Phone]
+FROM [dbo].[vw_Orders] AS [vw_Orders]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KongZhongLiWuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RecName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="GoodSort">
+          <Key>
+            <PropertyRef Name="GoodSortID" />
+          </Key>
+          <Property Name="GoodSortID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="Enabled" Type="Int32" />
+          <Property Name="GoodSortOrder" Type="Int32" />
+          <Property Name="ShowInIndex" Type="Int32" />
+          <Property Name="ShowName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="LoginLogID" />
+          </Key>
+          <Property Name="LoginLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginTime" Type="DateTime" Precision="3" />
+          <Property Name="IP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Agent" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SystemInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="RefMemberID" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ncc2019Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Address" EntityType="Self.Address" />
+          <EntitySet Name="GoodSort" EntityType="Self.GoodSort" />
+          <EntitySet Name="LoginLog" EntityType="Self.LoginLog" />
+          <EntitySet Name="Info" EntityType="KongZhongLiWuModel.Info" />
+          <EntitySet Name="FeedBack" EntityType="KongZhongLiWuModel.FeedBack" />
+          <EntitySet Name="GetPassword" EntityType="KongZhongLiWuModel.GetPassword" />
+          <EntitySet Name="PayLog" EntityType="KongZhongLiWuModel.PayLog" />
+          <EntitySet Name="ActionLog" EntityType="KongZhongLiWuModel.ActionLog" />
+          <EntitySet Name="Comments" EntityType="KongZhongLiWuModel.Comments" />
+          <EntitySet Name="GoodProperty" EntityType="KongZhongLiWuModel.GoodProperty" />
+          <EntitySet Name="Messages" EntityType="KongZhongLiWuModel.Messages" />
+          <EntitySet Name="CommonLog" EntityType="KongZhongLiWuModel.CommonLog" />
+          <EntitySet Name="GoodRight" EntityType="KongZhongLiWuModel.GoodRight" />
+          <EntitySet Name="KuaiDiSet" EntityType="KongZhongLiWuModel.KuaiDiSet" />
+          <EntitySet Name="CommonPay" EntityType="KongZhongLiWuModel.CommonPay" />
+          <EntitySet Name="CFJQrCode" EntityType="KongZhongLiWuModel.CFJQrCode" />
+          <EntitySet Name="CFJMemberType" EntityType="KongZhongLiWuModel.CFJMemberType" />
+          <EntitySet Name="CFJPay" EntityType="KongZhongLiWuModel.CFJPay" />
+          <EntitySet Name="GoodSortMapping" EntityType="KongZhongLiWuModel.GoodSortMapping" />
+          <EntitySet Name="Comments_copy" EntityType="KongZhongLiWuModel.Comments_copy" />
+          <EntitySet Name="ZGGKey" EntityType="KongZhongLiWuModel.ZGGKey" />
+          <EntitySet Name="ZGGMachine" EntityType="KongZhongLiWuModel.ZGGMachine" />
+          <EntitySet Name="ZGGPay" EntityType="KongZhongLiWuModel.ZGGPay" />
+          <EntitySet Name="ZGGUseControl" EntityType="KongZhongLiWuModel.ZGGUseControl" />
+          <EntitySet Name="CFJControl" EntityType="KongZhongLiWuModel.CFJControl" />
+          <EntitySet Name="CFJMachine" EntityType="KongZhongLiWuModel.CFJMachine" />
+          <EntitySet Name="Goods" EntityType="KongZhongLiWuModel.Goods" />
+          <EntitySet Name="Members" EntityType="KongZhongLiWuModel.Members" />
+          <EntitySet Name="ZGGLocation" EntityType="KongZhongLiWuModel.ZGGLocation" />
+          <EntitySet Name="ZGGBBS" EntityType="KongZhongLiWuModel.ZGGBBS" />
+          <EntitySet Name="News" EntityType="KongZhongLiWuModel.News" />
+          <EntitySet Name="Apply" EntityType="KongZhongLiWuModel.Apply" />
+          <EntitySet Name="Pin" EntityType="KongZhongLiWuModel.Pin" />
+          <EntitySet Name="OnLineVersion" EntityType="KongZhongLiWuModel.OnLineVersion" />
+          <EntitySet Name="QuanZi" EntityType="KongZhongLiWuModel.QuanZi" />
+          <EntitySet Name="XiaoQu" EntityType="KongZhongLiWuModel.XiaoQu" />
+          <EntitySet Name="GongGao" EntityType="KongZhongLiWuModel.GongGao" />
+          <EntitySet Name="TongZhi" EntityType="KongZhongLiWuModel.TongZhi" />
+          <EntitySet Name="ShangJia" EntityType="KongZhongLiWuModel.ShangJia" />
+          <EntitySet Name="CarCall" EntityType="KongZhongLiWuModel.CarCall" />
+          <EntitySet Name="Account" EntityType="KongZhongLiWuModel.Account" />
+          <EntitySet Name="Channel" EntityType="KongZhongLiWuModel.Channel" />
+          <EntitySet Name="VIPUser" EntityType="KongZhongLiWuModel.VIPUser" />
+          <EntitySet Name="Lottery" EntityType="KongZhongLiWuModel.Lottery" />
+          <EntitySet Name="Seller" EntityType="KongZhongLiWuModel.Seller" />
+          <EntitySet Name="NCCLottery" EntityType="KongZhongLiWuModel.NCCLottery" />
+          <EntitySet Name="NCCOrders" EntityType="KongZhongLiWuModel.NCCOrders" />
+          <EntitySet Name="LotterySellerRef" EntityType="KongZhongLiWuModel.LotterySellerRef" />
+          <EntitySet Name="KeFuMessage" EntityType="KongZhongLiWuModel.KeFuMessage" />
+          <EntitySet Name="Guide" EntityType="KongZhongLiWuModel.Guide" />
+          <EntitySet Name="Orders" EntityType="KongZhongLiWuModel.Orders" />
+          <EntitySet Name="vw_Orders" EntityType="KongZhongLiWuModel.vw_Orders" />
+        </EntityContainer>
+        <EntityType Name="Info">
+          <Key>
+            <PropertyRef Name="InfoID" />
+          </Key>
+          <Property Type="Int32" Name="InfoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TheContent" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AddDate" Precision="3" />
+          <Property Type="Int32" Name="OpeUserID" />
+          <Property Type="String" Name="Title" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="UpeDate" Precision="3" />
+          <Property Name="ViewCount" Type="Int32" />
+          <Property Name="ShareImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ShareTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ShareIntro" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsShowInBanner" Type="Int32" />
+          <Property Name="BannerImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FeedBack">
+          <Key>
+            <PropertyRef Name="FeedBackID" />
+          </Key>
+          <Property Name="FeedBackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TheContent" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="OperID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GetPassword">
+          <Key>
+            <PropertyRef Name="GetPasswordID" />
+          </Key>
+          <Property Name="GetPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RefEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="GetDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PayLog">
+          <Key>
+            <PropertyRef Name="PayLogID" />
+          </Key>
+          <Property Name="PayLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="InDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="PayDirection" Type="Int32" />
+          <Property Name="RefOrderID" Type="Int32" />
+          <Property Name="Param" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ActionLog">
+          <Key>
+            <PropertyRef Name="ActionLogID" />
+          </Key>
+          <Property Name="ActionLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="ActionDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="AtionType" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="WxVioceMediaID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WxVioceUploadDate" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ToMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GoodProperty">
+          <Key>
+            <PropertyRef Name="GoodPropertyID" />
+          </Key>
+          <Property Name="GoodPropertyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="GoodID" Type="Int32" />
+          <Property Name="AddMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromMemberID" Type="Int32" />
+          <Property Name="ToMenberID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="FromName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FromImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CommonLog">
+          <Key>
+            <PropertyRef Name="CommonLogID" />
+          </Key>
+          <Property Name="CommonLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Agent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="GoodRight">
+          <Key>
+            <PropertyRef Name="GoodRightID" />
+          </Key>
+          <Property Name="GoodRightID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodID" Type="Int32" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="Param" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="KuaiDiSet">
+          <Key>
+            <PropertyRef Name="KuaiDiSetID" />
+          </Key>
+          <Property Name="KuaiDiSetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CommonPay">
+          <Key>
+            <PropertyRef Name="CommonPayID" />
+          </Key>
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="PayType" Type="Int32" />
+          <Property Name="NeedPay" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommonPayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodID" Type="Int32" />
+          <Property Name="PayDirection" Type="Int32" />
+          <Property Name="PayStatus" Type="Int32" />
+          <Property Name="RefOrderID" Type="Int32" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PayDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CFJQrCode">
+          <Key>
+            <PropertyRef Name="CFJQrCodeID" />
+          </Key>
+          <Property Name="CFJQrCodeID" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="IsUsed" Type="Int32" />
+          <Property Name="UsedDate" Type="DateTime" Precision="3" />
+          <Property Name="MachineCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GroupCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CFJMemberType">
+          <Key>
+            <PropertyRef Name="CFJMemberTypeID" />
+          </Key>
+          <Property Name="CFJMemberTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberType" Type="Int32" />
+          <Property Name="DelayTime" Type="Int32" />
+          <Property Name="DayCount" Type="Int32" />
+          <Property Name="YearCount" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MonthCount" Type="Int32" />
+          <Property Name="Payment" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Memo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsPublic" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CFJPay">
+          <Key>
+            <PropertyRef Name="CFJPayID" />
+          </Key>
+          <Property Name="CFJPayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="MemberTypeID" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="NeedPay" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GoodSortMapping">
+          <Key>
+            <PropertyRef Name="GoodSortMapping1" />
+          </Key>
+          <Property Name="GoodSortMapping1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodID" Type="Int32" />
+          <Property Name="GoodSortID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Comments_copy">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="WxVioceMediaID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WxVioceUploadDate" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ToMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ZGGKey">
+          <Key>
+            <PropertyRef Name="ZGGKeyID" />
+          </Key>
+          <Property Name="ZGGKeyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerWXID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserWXID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="UseDate" Type="DateTime" Precision="3" />
+          <Property Name="AccpteDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="ZGGMachineID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ZGGMachine">
+          <Key>
+            <PropertyRef Name="MachineID" />
+          </Key>
+          <Property Name="MachineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShowCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BackCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WxOpenID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QrUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsShared" Type="Int32" />
+          <Property Name="IsLocked" Type="Int32" />
+          <Property Name="OpenUserID" Type="Int32" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GuiGe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="CompanyPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="StrategyPayment" Type="Int32" />
+          <Property Name="ZGGUseControlID" Type="Int32" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Precision" Type="Double" />
+        </EntityType>
+        <EntityType Name="ZGGPay">
+          <Key>
+            <PropertyRef Name="ZGGPayID" />
+          </Key>
+          <Property Name="ZGGPayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="MemberTypeID" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="NeedPay" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UseControlID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ZGGUseControl">
+          <Key>
+            <PropertyRef Name="ZGGUseControlID" />
+          </Key>
+          <Property Name="ZGGUseControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NeighborUserID" Type="Int32" />
+          <Property Name="PutInDate" Type="DateTime" Precision="3" />
+          <Property Name="KDUserID" Type="Int32" />
+          <Property Name="GetOutDate" Type="DateTime" Precision="3" />
+          <Property Name="IsPrivate" Type="Int32" />
+          <Property Name="PaymentType" Type="Int32" />
+          <Property Name="Payed" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PayState" Type="Int32" />
+          <Property Name="ZGGPayID" Type="Int32" />
+          <Property Name="ZGGMachineID" Type="Int32" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CFJControl">
+          <Key>
+            <PropertyRef Name="CFJControlID" />
+          </Key>
+          <Property Name="CFJControlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="DelayTime" Type="Int32" />
+          <Property Name="IsRun" Type="Int32" />
+          <Property Name="ExeTime" Type="DateTime" Precision="3" />
+          <Property Name="MachineCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Command" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WXOpenID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CFJQrCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CZIP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GroupCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Param" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="Func" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CFJMachine">
+          <Key>
+            <PropertyRef Name="CFJMachineID" />
+          </Key>
+          <Property Name="CFJMachineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MachineCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="MachineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UniversityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoomNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CZIP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GroupCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastDate" Type="DateTime" Precision="3" />
+          <Property Name="enabled" Type="Int32" />
+          <Property Name="DelayTime" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="GoodID" />
+          </Key>
+          <Property Name="GoodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TotalNum" Type="Int32" />
+          <Property Name="BuyCount" Type="Int32" />
+          <Property Name="ImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Intro" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="BannerImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="IsShowBanner" Type="Int32" />
+          <Property Name="BannerOrder" Type="Int32" />
+          <Property Name="ViewCount" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="GoodOrder" Type="Int32" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="OrgPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Memo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="GoodType" Type="Int32" />
+          <Property Name="Param" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NeedTiLiNum" Type="Int32" />
+          <Property Name="DownPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="ExpressFee" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="JoinPeopleNum" Type="Int32" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="Payment2" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="DayPrice" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="SecurityPrice" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="WuLiuType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="RefMemberID" Type="Int32" />
+          <Property Name="SellType" Type="Int32" />
+          <Property Name="XiaoQuID" Type="Int32" />
+          <Property Name="Call" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ImgList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="NiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddMemberHeadImgURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginCount" Type="Int32" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="LastDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Balance" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="Birth" Type="DateTime" Precision="3" />
+          <Property Name="Balance_back" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="WechatOpenid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HeadImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TheType" Type="Int32" />
+          <Property Name="IsGuanZhu" Type="Int32" />
+          <Property Name="Unionid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserLevel" Type="Int32" />
+          <Property Name="RefMemberID" Type="Int32" />
+          <Property Name="TiLiNum" Type="Int32" />
+          <Property Name="ISCFJUser" Type="Int32" />
+          <Property Name="CFJMemberTypeID" Type="Int32" />
+          <Property Name="CFJDayCount" Type="Int32" />
+          <Property Name="CFJYearCount" Type="Int32" />
+          <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Session_key" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="XiaoQuID" Type="Int32" />
+          <Property Name="QuanIDs" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RenZhengUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsRenZhengPass" Type="Int32" />
+          <Property Name="RefSellerID" Type="Int32" />
+          <Property Name="IsAuthen" Type="Int32" />
+          <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OwnerSellerID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ZGGLocation">
+          <Key>
+            <PropertyRef Name="ZGGLocationID" />
+          </Key>
+          <Property Name="ZGGLocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Precision" Type="Double" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="WXOpenID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ZGGBBS">
+          <Key>
+            <PropertyRef Name="BBSID" />
+          </Key>
+          <Property Name="BBSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="OpenID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ImgList" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="QuanZiID" Type="Int32" />
+          <Property Name="XiaoQuID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ImgURL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IsPublish" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Apply">
+          <Key>
+            <PropertyRef Name="ApplyID" />
+          </Key>
+          <Property Name="ApplyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Good" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Intro" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Pin">
+          <Key>
+            <PropertyRef Name="PinID" />
+          </Key>
+          <Property Name="PinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Call" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="MemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OnLineVersion">
+          <Key>
+            <PropertyRef Name="OnLineVersionID" />
+          </Key>
+          <Property Name="OnLineVersionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Version" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="Memo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="QuanZi">
+          <Key>
+            <PropertyRef Name="QuanZiID" />
+          </Key>
+          <Property Name="QuanZiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PeopleNum" Type="Int32" />
+          <Property Name="XiaoQuID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="GongGao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="XiaoQu">
+          <Key>
+            <PropertyRef Name="XiaoQuID" />
+          </Key>
+          <Property Name="XiaoQuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="SampleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="GongGao">
+          <Key>
+            <PropertyRef Name="GongGaoID" />
+          </Key>
+          <Property Name="GongGaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="QuanZiID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TongZhi">
+          <Key>
+            <PropertyRef Name="TongZhiID" />
+          </Key>
+          <Property Name="TongZhiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="QuanZiID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ShangJia">
+          <Key>
+            <PropertyRef Name="ShangJiaID" />
+          </Key>
+          <Property Name="ShangJiaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Call" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Desc" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="ImgList" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="NeedPayQr" Type="Int32" />
+          <Property Name="ManagerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerCall" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="QrCodeUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ISPassed" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="AddMemberID" Type="Int32" />
+          <Property Name="XiaoQuID" Type="Int32" />
+          <Property Name="ImgUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CarCall">
+          <Key>
+            <PropertyRef Name="CarCallID" />
+          </Key>
+          <Property Name="CarCallID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISRecWXMessage" Type="Int32" />
+          <Property Name="ISShowPhone" Type="Int32" />
+          <Property Name="ISHidePhone" Type="Int32" />
+          <Property Name="QrCodeURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="WXOpenID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ChannelID" Type="Int32" />
+          <Property Name="TheType" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="AUserNum" Type="Int32" />
+          <Property Name="AccEndDate" Type="DateTime" Precision="3" />
+          <Property Name="VIPEndDate" Type="DateTime" Precision="3" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="VUserCount" Type="Int32" />
+          <Property Name="MaxVUserCount" Type="Int32" />
+          <Property Name="RegistDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Channel">
+          <Key>
+            <PropertyRef Name="ChannelID" />
+          </Key>
+          <Property Name="ChannelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Desc" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="SMSTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImgURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Intro" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="IsKaMi" Type="Int32" />
+        </EntityType>
+        <EntityType Name="VIPUser">
+          <Key>
+            <PropertyRef Name="VIPUserID" />
+          </Key>
+          <Property Name="VIPUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="AccountID" Type="Int32" />
+          <Property Name="VerifyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="GetVerifyCodeCount" Type="Int32" />
+          <Property Name="PayState" Type="Int32" />
+          <Property Name="PayEndDate" Type="DateTime" Precision="3" />
+          <Property Name="SMSState" Type="Int32" />
+          <Property Name="VerifyContent" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Lottery">
+          <Key>
+            <PropertyRef Name="LotteryID" />
+          </Key>
+          <Property Name="LotteryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Intro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TheOrder" Type="Int32" />
+          <Property Name="ImgUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SellerID" Type="Int32" />
+          <Property Name="Enabled" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SellerNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsOnline" Type="Int32" />
+          <Property Name="TheOrder" Type="Int32" />
+          <Property Name="QueueNum" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="VideoShowURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="VideoPushURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastDate" Type="DateTime" Precision="3" />
+          <Property Name="ManagerMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="NCCLottery">
+          <Key>
+            <PropertyRef Name="NCCLotteryID" />
+          </Key>
+          <Property Name="NCCLotteryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Intro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TheOrder" Type="Int32" />
+          <Property Name="ImgUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ImgUrl1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ImgUrl2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OrgImgUrl1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OrgImgUrl2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="LotteryNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PrizeStatus" Type="Int32" />
+          <Property Name="PrizeDate" Type="DateTime" Precision="3" />
+          <Property Name="RefOrderID" Type="Int32" />
+          <Property Name="RefLotteryID" Type="Int32" />
+          <Property Name="Bonus" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="RefMemberID" Type="Int32" />
+          <Property Name="RefSellerID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="IsBeep" Type="Int32" />
+          <Property Name="BeginOpenDate" Type="DateTime" Precision="3" />
+          <Property Name="EndOpenDate" Type="DateTime" Precision="3" />
+          <Property Name="LotteryStatus" Type="Int32" />
+          <Property Name="PayBackReason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsNotifyBuyerPrizeInfo" Type="Int32" />
+          <Property Name="NotifyBuyerPrizeInfoDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="NCCOrders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="PayStatus" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NeedPay" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="OrderType" Type="Int32" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PayDate" Type="DateTime" Precision="3" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlayBeginDate" Type="DateTime" Precision="3" />
+          <Property Name="PlayEndDate" Type="DateTime" Precision="3" />
+          <Property Name="BuyNum" Type="Int32" />
+          <Property Name="LotteryID" Type="Int32" />
+          <Property Name="Exchanged" Type="Int32" />
+          <Property Name="ExchangeDate" Type="DateTime" Precision="3" />
+          <Property Name="ExchangeMemberID" Type="Int32" />
+          <Property Name="SellerID" Type="Int32" />
+          <Property Name="MemberHeadUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OrderNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NCCLotteryID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LotterySellerRef">
+          <Key>
+            <PropertyRef Name="LotterySellerRefID" />
+          </Key>
+          <Property Name="LotterySellerRefID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LotteryID" Type="Int32" />
+          <Property Name="SellerID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="OpeMemberID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KeFuMessage">
+          <Key>
+            <PropertyRef Name="KeFuMessageID" />
+          </Key>
+          <Property Name="KeFuMessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Desc" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FromMemberID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Guide">
+          <Key>
+            <PropertyRef Name="GuideID" />
+          </Key>
+          <Property Name="GuideID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GuideNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Skills" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Payment" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="StartLevel" Type="Double" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="Times" Type="Int32" />
+          <Property Name="BusyStatus" Type="Int32" />
+          <Property Name="HeadUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="VideoShowUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SkillPoints" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Intorduction" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="GuideID" Type="Int32" />
+          <Property Name="MemberOpenid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceMinute" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PayStatus" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ShortUrl" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PayType" Type="Int32" />
+          <Property Name="NeedPay" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Property" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderType" Type="Int32" />
+          <Property Name="GuideOpenid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="GuideID" Type="Int32" />
+          <Property Name="MemberOpenid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceMinute" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="PayStatus" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <Property Name="ShortUrl" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PayType" Type="Int32" />
+          <Property Name="NeedPay" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Property" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderType" Type="Int32" />
+          <Property Name="GuideOpenid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GuideNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Expr1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Skills" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Expr2" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="StartLevel" Type="Double" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusyStatus" Type="Int32" />
+          <Property Name="SkillPoints" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KongZhongLiWuModelStoreContainer" CdmEntityContainer="ncc2019Entities">
+    <EntitySetMapping Name="Address">
+      <EntityTypeMapping TypeName="IsTypeOf(KongZhongLiWuModel.Address)">
+        <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="RecName" ColumnName="RecName" />
+          <ScalarProperty Name="Memo" ColumnName="Memo" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodSort">
+      <EntityTypeMapping TypeName="IsTypeOf(KongZhongLiWuModel.GoodSort)">
+        <MappingFragment StoreEntitySet="GoodSort">
+          <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="ShowName" ColumnName="ShowName" />
+                <ScalarProperty Name="ShowInIndex" ColumnName="ShowInIndex" />
+                <ScalarProperty Name="GoodSortOrder" ColumnName="GoodSortOrder" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="GoodSortID" ColumnName="GoodSortID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoginLog">
+      <EntityTypeMapping TypeName="IsTypeOf(KongZhongLiWuModel.LoginLog)">
+        <MappingFragment StoreEntitySet="LoginLog">
+          <ScalarProperty Name="RefMemberID" ColumnName="RefMemberID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="LoginLogID" ColumnName="LoginLogID" />
+          <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="Agent" ColumnName="Agent" />
+          <ScalarProperty Name="SystemInfo" ColumnName="SystemInfo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Info">
+      <EntityTypeMapping TypeName="IsTypeOf(KongZhongLiWuModel.Info)">
+        <MappingFragment StoreEntitySet="Info">
+          <ScalarProperty Name="BannerImgUrl" ColumnName="BannerImgUrl" />
+                <ScalarProperty Name="IsShowInBanner" ColumnName="IsShowInBanner" />
+                <ScalarProperty Name="ShareIntro" ColumnName="ShareIntro" />
+                <ScalarProperty Name="ShareTitle" ColumnName="ShareTitle" />
+                <ScalarProperty Name="ShareImgUrl" ColumnName="ShareImgUrl" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="InfoID" ColumnName="InfoID" />
+          <ScalarProperty Name="TheContent" ColumnName="TheContent" />
+          <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+          <ScalarProperty Name="OpeUserID" ColumnName="OpeUserID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="UpeDate" ColumnName="UpeDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="FeedBack">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.FeedBack">
+              <MappingFragment StoreEntitySet="FeedBack">
+                <ScalarProperty Name="OperID" ColumnName="OperID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="TheContent" ColumnName="TheContent" />
+                <ScalarProperty Name="FeedBackID" ColumnName="FeedBackID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GetPassword">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.GetPassword">
+              <MappingFragment StoreEntitySet="GetPassword">
+                <ScalarProperty Name="GetDate" ColumnName="GetDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="RefEmail" ColumnName="RefEmail" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="GetPasswordID" ColumnName="GetPasswordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayLog">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.PayLog">
+              <MappingFragment StoreEntitySet="PayLog">
+                <ScalarProperty Name="Param" ColumnName="Param" />
+                <ScalarProperty Name="RefOrderID" ColumnName="RefOrderID" />
+                <ScalarProperty Name="PayDirection" ColumnName="PayDirection" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="InDate" ColumnName="InDate" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="PayLogID" ColumnName="PayLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionLog">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ActionLog">
+              <MappingFragment StoreEntitySet="ActionLog">
+                <ScalarProperty Name="AtionType" ColumnName="AtionType" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ActionLogID" ColumnName="ActionLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Comments">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="ToMemberID" ColumnName="ToMemberID" />
+                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WxVioceUploadDate" ColumnName="WxVioceUploadDate" />
+                <ScalarProperty Name="WxVioceMediaID" ColumnName="WxVioceMediaID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodProperty">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.GoodProperty">
+              <MappingFragment StoreEntitySet="GoodProperty">
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GoodPropertyID" ColumnName="GoodPropertyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FromImgUrl" ColumnName="FromImgUrl" />
+                <ScalarProperty Name="FromName" ColumnName="FromName" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ToMenberID" ColumnName="ToMenberID" />
+                <ScalarProperty Name="FromMemberID" ColumnName="FromMemberID" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommonLog">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CommonLog">
+              <MappingFragment StoreEntitySet="CommonLog">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Agent" ColumnName="Agent" />
+                <ScalarProperty Name="CommonLogID" ColumnName="CommonLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodRight">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.GoodRight">
+              <MappingFragment StoreEntitySet="GoodRight">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Param" ColumnName="Param" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+                <ScalarProperty Name="GoodRightID" ColumnName="GoodRightID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KuaiDiSet">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.KuaiDiSet">
+              <MappingFragment StoreEntitySet="KuaiDiSet">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="KuaiDiSetID" ColumnName="KuaiDiSetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommonPay">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CommonPay">
+              <MappingFragment StoreEntitySet="CommonPay">
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="RefOrderID" ColumnName="RefOrderID" />
+                <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
+                <ScalarProperty Name="PayDirection" ColumnName="PayDirection" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+                <ScalarProperty Name="CommonPayID" ColumnName="CommonPayID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
+                <ScalarProperty Name="NeedPay" ColumnName="NeedPay" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CFJQrCode">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CFJQrCode">
+              <MappingFragment StoreEntitySet="CFJQrCode">
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="MachineCode" ColumnName="MachineCode" />
+                <ScalarProperty Name="UsedDate" ColumnName="UsedDate" />
+                <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CFJQrCodeID" ColumnName="CFJQrCodeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CFJMemberType">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CFJMemberType">
+              <MappingFragment StoreEntitySet="CFJMemberType">
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="MonthCount" ColumnName="MonthCount" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="YearCount" ColumnName="YearCount" />
+                <ScalarProperty Name="DayCount" ColumnName="DayCount" />
+                <ScalarProperty Name="DelayTime" ColumnName="DelayTime" />
+                <ScalarProperty Name="MemberType" ColumnName="MemberType" />
+                <ScalarProperty Name="CFJMemberTypeID" ColumnName="CFJMemberTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CFJPay">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CFJPay">
+              <MappingFragment StoreEntitySet="CFJPay">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
+                <ScalarProperty Name="NeedPay" ColumnName="NeedPay" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="MemberTypeID" ColumnName="MemberTypeID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="CFJPayID" ColumnName="CFJPayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodSortMapping">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.GoodSortMapping">
+              <MappingFragment StoreEntitySet="GoodSortMapping">
+                <ScalarProperty Name="GoodSortID" ColumnName="GoodSortID" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+                <ScalarProperty Name="GoodSortMapping1" ColumnName="GoodSortMapping1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments_copy">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Comments_copy">
+              <MappingFragment StoreEntitySet="Comments_copy">
+                <ScalarProperty Name="ToMemberID" ColumnName="ToMemberID" />
+                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WxVioceUploadDate" ColumnName="WxVioceUploadDate" />
+                <ScalarProperty Name="WxVioceMediaID" ColumnName="WxVioceMediaID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZGGKey">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ZGGKey">
+              <MappingFragment StoreEntitySet="ZGGKey">
+                <ScalarProperty Name="ZGGMachineID" ColumnName="ZGGMachineID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="AccpteDate" ColumnName="AccpteDate" />
+                <ScalarProperty Name="UseDate" ColumnName="UseDate" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="UserWXID" ColumnName="UserWXID" />
+                <ScalarProperty Name="OwnerWXID" ColumnName="OwnerWXID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ZGGKeyID" ColumnName="ZGGKeyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZGGMachine">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ZGGMachine">
+              <MappingFragment StoreEntitySet="ZGGMachine">
+                <ScalarProperty Name="Precision" ColumnName="Precision" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ZGGUseControlID" ColumnName="ZGGUseControlID" />
+                <ScalarProperty Name="StrategyPayment" ColumnName="StrategyPayment" />
+                <ScalarProperty Name="CompanyPayment" ColumnName="CompanyPayment" />
+                <ScalarProperty Name="UserPayment" ColumnName="UserPayment" />
+                <ScalarProperty Name="GuiGe" ColumnName="GuiGe" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="OpenUserID" ColumnName="OpenUserID" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="IsShared" ColumnName="IsShared" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="QrUrl" ColumnName="QrUrl" />
+                <ScalarProperty Name="WxOpenID" ColumnName="WxOpenID" />
+                <ScalarProperty Name="BackCode" ColumnName="BackCode" />
+                <ScalarProperty Name="ShowCode" ColumnName="ShowCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZGGPay">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ZGGPay">
+              <MappingFragment StoreEntitySet="ZGGPay">
+                <ScalarProperty Name="UseControlID" ColumnName="UseControlID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
+                <ScalarProperty Name="NeedPay" ColumnName="NeedPay" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="MemberTypeID" ColumnName="MemberTypeID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="ZGGPayID" ColumnName="ZGGPayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZGGUseControl">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ZGGUseControl">
+              <MappingFragment StoreEntitySet="ZGGUseControl">
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="ZGGMachineID" ColumnName="ZGGMachineID" />
+                <ScalarProperty Name="ZGGPayID" ColumnName="ZGGPayID" />
+                <ScalarProperty Name="PayState" ColumnName="PayState" />
+                <ScalarProperty Name="Payed" ColumnName="Payed" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="IsPrivate" ColumnName="IsPrivate" />
+                <ScalarProperty Name="GetOutDate" ColumnName="GetOutDate" />
+                <ScalarProperty Name="KDUserID" ColumnName="KDUserID" />
+                <ScalarProperty Name="PutInDate" ColumnName="PutInDate" />
+                <ScalarProperty Name="NeighborUserID" ColumnName="NeighborUserID" />
+                <ScalarProperty Name="ZGGUseControlID" ColumnName="ZGGUseControlID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CFJControl">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CFJControl">
+              <MappingFragment StoreEntitySet="CFJControl">
+                <ScalarProperty Name="Func" ColumnName="Func" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="Param" ColumnName="Param" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="CZIP" ColumnName="CZIP" />
+                <ScalarProperty Name="CFJQrCode" ColumnName="CFJQrCode" />
+                <ScalarProperty Name="WXOpenID" ColumnName="WXOpenID" />
+                <ScalarProperty Name="Command" ColumnName="Command" />
+                <ScalarProperty Name="MachineCode" ColumnName="MachineCode" />
+                <ScalarProperty Name="ExeTime" ColumnName="ExeTime" />
+                <ScalarProperty Name="IsRun" ColumnName="IsRun" />
+                <ScalarProperty Name="DelayTime" ColumnName="DelayTime" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="CFJControlID" ColumnName="CFJControlID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CFJMachine">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CFJMachine">
+              <MappingFragment StoreEntitySet="CFJMachine">
+                <ScalarProperty Name="DelayTime" ColumnName="DelayTime" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="CZIP" ColumnName="CZIP" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+                <ScalarProperty Name="UniversityName" ColumnName="UniversityName" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="MachineCode" ColumnName="MachineCode" />
+                <ScalarProperty Name="CFJMachineID" ColumnName="CFJMachineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Goods">
+              <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="AddMemberHeadImgURL" ColumnName="AddMemberHeadImgURL" />
+                <ScalarProperty Name="NiceName" ColumnName="NiceName" />
+                <ScalarProperty Name="ImgList" ColumnName="ImgList" />
+                <ScalarProperty Name="Call" ColumnName="Call" />
+                <ScalarProperty Name="XiaoQuID" ColumnName="XiaoQuID" />
+                <ScalarProperty Name="SellType" ColumnName="SellType" />
+                <ScalarProperty Name="RefMemberID" ColumnName="RefMemberID" />
+                <ScalarProperty Name="WuLiuType" ColumnName="WuLiuType" />
+                <ScalarProperty Name="SecurityPrice" ColumnName="SecurityPrice" />
+                <ScalarProperty Name="DayPrice" ColumnName="DayPrice" />
+                <ScalarProperty Name="Payment2" ColumnName="Payment2" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="JoinPeopleNum" ColumnName="JoinPeopleNum" />
+                <ScalarProperty Name="ExpressFee" ColumnName="ExpressFee" />
+                <ScalarProperty Name="DownPayment" ColumnName="DownPayment" />
+                <ScalarProperty Name="NeedTiLiNum" ColumnName="NeedTiLiNum" />
+                <ScalarProperty Name="Param" ColumnName="Param" />
+                <ScalarProperty Name="GoodType" ColumnName="GoodType" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="OrgPayment" ColumnName="OrgPayment" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="GoodOrder" ColumnName="GoodOrder" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="BannerOrder" ColumnName="BannerOrder" />
+                <ScalarProperty Name="IsShowBanner" ColumnName="IsShowBanner" />
+                <ScalarProperty Name="BannerImgUrl" ColumnName="BannerImgUrl" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+                <ScalarProperty Name="TotalNum" ColumnName="TotalNum" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Members">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="OwnerSellerID" ColumnName="OwnerSellerID" />
+                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="IsAuthen" ColumnName="IsAuthen" />
+                <ScalarProperty Name="RefSellerID" ColumnName="RefSellerID" />
+                <ScalarProperty Name="IsRenZhengPass" ColumnName="IsRenZhengPass" />
+                <ScalarProperty Name="RenZhengUrl" ColumnName="RenZhengUrl" />
+                <ScalarProperty Name="QuanIDs" ColumnName="QuanIDs" />
+                <ScalarProperty Name="XiaoQuID" ColumnName="XiaoQuID" />
+                <ScalarProperty Name="Session_key" ColumnName="Session_key" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="CFJYearCount" ColumnName="CFJYearCount" />
+                <ScalarProperty Name="CFJDayCount" ColumnName="CFJDayCount" />
+                <ScalarProperty Name="CFJMemberTypeID" ColumnName="CFJMemberTypeID" />
+                <ScalarProperty Name="ISCFJUser" ColumnName="ISCFJUser" />
+                <ScalarProperty Name="TiLiNum" ColumnName="TiLiNum" />
+                <ScalarProperty Name="RefMemberID" ColumnName="RefMemberID" />
+                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+                <ScalarProperty Name="Unionid" ColumnName="Unionid" />
+                <ScalarProperty Name="IsGuanZhu" ColumnName="IsGuanZhu" />
+                <ScalarProperty Name="TheType" ColumnName="TheType" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="HeadImgUrl" ColumnName="HeadImgUrl" />
+                <ScalarProperty Name="WechatOpenid" ColumnName="WechatOpenid" />
+                <ScalarProperty Name="Balance_back" ColumnName="Balance_back" />
+                <ScalarProperty Name="Birth" ColumnName="Birth" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="NiceName" ColumnName="NiceName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="LoginCount" ColumnName="LoginCount" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZGGLocation">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ZGGLocation">
+              <MappingFragment StoreEntitySet="ZGGLocation">
+                <ScalarProperty Name="WXOpenID" ColumnName="WXOpenID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Precision" ColumnName="Precision" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ZGGLocationID" ColumnName="ZGGLocationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZGGBBS">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ZGGBBS">
+              <MappingFragment StoreEntitySet="ZGGBBS">
+                <ScalarProperty Name="XiaoQuID" ColumnName="XiaoQuID" />
+                <ScalarProperty Name="QuanZiID" ColumnName="QuanZiID" />
+                <ScalarProperty Name="ImgList" ColumnName="ImgList" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="BBSID" ColumnName="BBSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apply">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Apply">
+              <MappingFragment StoreEntitySet="Apply">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="Good" ColumnName="Good" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ApplyID" ColumnName="ApplyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pin">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Pin">
+              <MappingFragment StoreEntitySet="Pin">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Call" ColumnName="Call" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PinID" ColumnName="PinID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnLineVersion">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.OnLineVersion">
+              <MappingFragment StoreEntitySet="OnLineVersion">
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="OnLineVersionID" ColumnName="OnLineVersionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuanZi">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.QuanZi">
+              <MappingFragment StoreEntitySet="QuanZi">
+                <ScalarProperty Name="GongGao" ColumnName="GongGao" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="XiaoQuID" ColumnName="XiaoQuID" />
+                <ScalarProperty Name="PeopleNum" ColumnName="PeopleNum" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="QuanZiID" ColumnName="QuanZiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XiaoQu">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.XiaoQu">
+              <MappingFragment StoreEntitySet="XiaoQu">
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="SampleName" ColumnName="SampleName" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="XiaoQuID" ColumnName="XiaoQuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GongGao">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.GongGao">
+              <MappingFragment StoreEntitySet="GongGao">
+                <ScalarProperty Name="QuanZiID" ColumnName="QuanZiID" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="GongGaoID" ColumnName="GongGaoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TongZhi">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.TongZhi">
+              <MappingFragment StoreEntitySet="TongZhi">
+                <ScalarProperty Name="QuanZiID" ColumnName="QuanZiID" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="TongZhiID" ColumnName="TongZhiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShangJia">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.ShangJia">
+              <MappingFragment StoreEntitySet="ShangJia">
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="XiaoQuID" ColumnName="XiaoQuID" />
+                <ScalarProperty Name="AddMemberID" ColumnName="AddMemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="ISPassed" ColumnName="ISPassed" />
+                <ScalarProperty Name="QrCodeUrl" ColumnName="QrCodeUrl" />
+                <ScalarProperty Name="ManagerCall" ColumnName="ManagerCall" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+                <ScalarProperty Name="NeedPayQr" ColumnName="NeedPayQr" />
+                <ScalarProperty Name="ImgList" ColumnName="ImgList" />
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+                <ScalarProperty Name="Call" ColumnName="Call" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ShangJiaID" ColumnName="ShangJiaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarCall">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.CarCall">
+              <MappingFragment StoreEntitySet="CarCall">
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="WXOpenID" ColumnName="WXOpenID" />
+                <ScalarProperty Name="QrCodeURL" ColumnName="QrCodeURL" />
+                <ScalarProperty Name="ISHidePhone" ColumnName="ISHidePhone" />
+                <ScalarProperty Name="ISShowPhone" ColumnName="ISShowPhone" />
+                <ScalarProperty Name="ISRecWXMessage" ColumnName="ISRecWXMessage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CarName" ColumnName="CarName" />
+                <ScalarProperty Name="CarNo" ColumnName="CarNo" />
+                <ScalarProperty Name="CarCallID" ColumnName="CarCallID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="RegistDate" ColumnName="RegistDate" />
+                <ScalarProperty Name="MaxVUserCount" ColumnName="MaxVUserCount" />
+                <ScalarProperty Name="VUserCount" ColumnName="VUserCount" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="VIPEndDate" ColumnName="VIPEndDate" />
+                <ScalarProperty Name="AccEndDate" ColumnName="AccEndDate" />
+                <ScalarProperty Name="AUserNum" ColumnName="AUserNum" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="TheType" ColumnName="TheType" />
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Channel">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Channel">
+              <MappingFragment StoreEntitySet="Channel">
+                <ScalarProperty Name="IsKaMi" ColumnName="IsKaMi" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+                <ScalarProperty Name="SMSTag" ColumnName="SMSTag" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ChannelID" ColumnName="ChannelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VIPUser">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.VIPUser">
+              <MappingFragment StoreEntitySet="VIPUser">
+                <ScalarProperty Name="VerifyContent" ColumnName="VerifyContent" />
+                <ScalarProperty Name="SMSState" ColumnName="SMSState" />
+                <ScalarProperty Name="PayEndDate" ColumnName="PayEndDate" />
+                <ScalarProperty Name="PayState" ColumnName="PayState" />
+                <ScalarProperty Name="GetVerifyCodeCount" ColumnName="GetVerifyCodeCount" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="VerifyCode" ColumnName="VerifyCode" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="VIPUserID" ColumnName="VIPUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lottery">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Lottery">
+              <MappingFragment StoreEntitySet="Lottery">
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="TheOrder" ColumnName="TheOrder" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LotteryID" ColumnName="LotteryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seller">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Seller">
+              <MappingFragment StoreEntitySet="Seller">
+                <ScalarProperty Name="ManagerMemberID" ColumnName="ManagerMemberID" />
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="VideoPushURL" ColumnName="VideoPushURL" />
+                <ScalarProperty Name="VideoShowURL" ColumnName="VideoShowURL" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="QueueNum" ColumnName="QueueNum" />
+                <ScalarProperty Name="TheOrder" ColumnName="TheOrder" />
+                <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+                <ScalarProperty Name="SellerNo" ColumnName="SellerNo" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NCCLottery">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.NCCLottery">
+              <MappingFragment StoreEntitySet="NCCLottery">
+                <ScalarProperty Name="NotifyBuyerPrizeInfoDate" ColumnName="NotifyBuyerPrizeInfoDate" />
+                <ScalarProperty Name="IsNotifyBuyerPrizeInfo" ColumnName="IsNotifyBuyerPrizeInfo" />
+                <ScalarProperty Name="PayBackReason" ColumnName="PayBackReason" />
+                <ScalarProperty Name="LotteryStatus" ColumnName="LotteryStatus" />
+                <ScalarProperty Name="EndOpenDate" ColumnName="EndOpenDate" />
+                <ScalarProperty Name="BeginOpenDate" ColumnName="BeginOpenDate" />
+                <ScalarProperty Name="IsBeep" ColumnName="IsBeep" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="RefSellerID" ColumnName="RefSellerID" />
+                <ScalarProperty Name="RefMemberID" ColumnName="RefMemberID" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="RefLotteryID" ColumnName="RefLotteryID" />
+                <ScalarProperty Name="RefOrderID" ColumnName="RefOrderID" />
+                <ScalarProperty Name="PrizeDate" ColumnName="PrizeDate" />
+                <ScalarProperty Name="PrizeStatus" ColumnName="PrizeStatus" />
+                <ScalarProperty Name="LotteryNo" ColumnName="LotteryNo" />
+                <ScalarProperty Name="OrgImgUrl2" ColumnName="OrgImgUrl2" />
+                <ScalarProperty Name="OrgImgUrl1" ColumnName="OrgImgUrl1" />
+                <ScalarProperty Name="ImgUrl2" ColumnName="ImgUrl2" />
+                <ScalarProperty Name="ImgUrl1" ColumnName="ImgUrl1" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="TheOrder" ColumnName="TheOrder" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NCCLotteryID" ColumnName="NCCLotteryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NCCOrders">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.NCCOrders">
+              <MappingFragment StoreEntitySet="NCCOrders">
+                <ScalarProperty Name="NCCLotteryID" ColumnName="NCCLotteryID" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="MemberHeadUrl" ColumnName="MemberHeadUrl" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="ExchangeMemberID" ColumnName="ExchangeMemberID" />
+                <ScalarProperty Name="ExchangeDate" ColumnName="ExchangeDate" />
+                <ScalarProperty Name="Exchanged" ColumnName="Exchanged" />
+                <ScalarProperty Name="LotteryID" ColumnName="LotteryID" />
+                <ScalarProperty Name="BuyNum" ColumnName="BuyNum" />
+                <ScalarProperty Name="PlayEndDate" ColumnName="PlayEndDate" />
+                <ScalarProperty Name="PlayBeginDate" ColumnName="PlayBeginDate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="NeedPay" ColumnName="NeedPay" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LotterySellerRef">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.LotterySellerRef">
+              <MappingFragment StoreEntitySet="LotterySellerRef">
+                <ScalarProperty Name="OpeMemberID" ColumnName="OpeMemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="LotteryID" ColumnName="LotteryID" />
+                <ScalarProperty Name="LotterySellerRefID" ColumnName="LotterySellerRefID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KeFuMessage">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.KeFuMessage">
+              <MappingFragment StoreEntitySet="KeFuMessage">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="FromMemberID" ColumnName="FromMemberID" />
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="KeFuMessageID" ColumnName="KeFuMessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Guide">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Guide">
+              <MappingFragment StoreEntitySet="Guide">
+                <ScalarProperty Name="Intorduction" ColumnName="Intorduction" />
+                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SkillPoints" ColumnName="SkillPoints" />
+                <ScalarProperty Name="VideoShowUrl" ColumnName="VideoShowUrl" />
+                <ScalarProperty Name="HeadUrl" ColumnName="HeadUrl" />
+                <ScalarProperty Name="BusyStatus" ColumnName="BusyStatus" />
+                <ScalarProperty Name="Times" ColumnName="Times" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="StartLevel" ColumnName="StartLevel" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="GuideNo" ColumnName="GuideNo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GuideID" ColumnName="GuideID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="GuideOpenid" ColumnName="GuideOpenid" />
+                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+                <ScalarProperty Name="Property" ColumnName="Property" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="NeedPay" ColumnName="NeedPay" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="ServiceMinute" ColumnName="ServiceMinute" />
+                <ScalarProperty Name="MemberOpenid" ColumnName="MemberOpenid" />
+                <ScalarProperty Name="GuideID" ColumnName="GuideID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Orders">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.vw_Orders">
+              <MappingFragment StoreEntitySet="vw_Orders">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="SkillPoints" ColumnName="SkillPoints" />
+                <ScalarProperty Name="BusyStatus" ColumnName="BusyStatus" />
+                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="StartLevel" ColumnName="StartLevel" />
+                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="GuideNo" ColumnName="GuideNo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="GuideOpenid" ColumnName="GuideOpenid" />
+                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+                <ScalarProperty Name="Property" ColumnName="Property" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="NeedPay" ColumnName="NeedPay" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="ServiceMinute" ColumnName="ServiceMinute" />
+                <ScalarProperty Name="MemberOpenid" ColumnName="MemberOpenid" />
+                <ScalarProperty Name="GuideID" ColumnName="GuideID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

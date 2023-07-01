@@ -1,0 +1,205 @@
+﻿@model ncc2019.Orders
+@using ncc2019
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+@using ncc2019.Common.BLL
+@{
+    ViewBag.Title = "众筹礼物";
+}
+<style type="text/css">
+    .saycontent dd font {
+        color: rgba(87,107,149,1);
+    }
+
+    .user-order {
+        border-radius: 6px;
+        border: 1px #e3e3e3 solid;
+        border-bottom: 1px #e3e3e3 solid !important;
+    }
+
+    .yuanxing img, .single_item img {
+        width: 3em;
+        height: 3em;
+        border-radius: 50%;
+    }
+
+    .yuanxing dl {
+        margin-left: 4em;
+    }
+
+    .bottomzhouchou {
+        color: #999;
+        font-size: 12px;
+    }
+
+        .bottomzhouchou font {
+            color: #016db7;
+        }
+
+    .btnsmall {
+        float: right;
+    }
+
+    .saystc button {
+        font-size: 1em;
+    }
+
+    .input-group-addon {
+        color: #fff;
+        background: #5babe6 !important;
+        border-color: #46b8da;
+    }
+
+    .btnpanel2 {
+        /*margin-top: 0.7em;*/
+      
+    }
+
+    .form-control {
+        height: 3.5em;
+        font-size: 16px;
+    }
+
+    .guanzhu {
+        position: inherit;
+    }
+</style>
+@{
+    decimal totalpayment = ZhongChouPayBLL.GetTotalPaymentByOrderID(new ncc2019Entities(), Model.OrderID);
+    int count = ZhongChouPayBLL.GetPayCount(new ncc2019Entities(), Model.OrderID);
+}
+<div class="panel-body yuanxing">
+    <img src="@Model.Members.HeadImgUrl" class="pull-left ">
+    <dl style="margin-right:20px">
+        <dt>@Model.Members.Name</dt>
+        <dd class="bottomzhouchou">
+            <span>礼物价值&nbsp;<font>@Model.TotalPayment</font>&nbsp;&nbsp;&nbsp;已筹&nbsp;<font>@totalpayment.ToString("0")</font>元&nbsp;&nbsp;&nbsp;支持&nbsp;<font>@count</font>次</span>&nbsp;&nbsp;&nbsp;剩余&nbsp;<font>@ViewBag.days</font>天
+        </dd>
+    </dl>
+
+</div>
+<div id="focus" class="focus goods-focus ect-padding-lr ect-margin-tb">
+    <div class="ect-pro-list user-order" style="border-bottom:none;">
+        <ul>
+            <li class="single_item" id="more_element_1" onclick="javascript: window.location = '/zhongchou/good?orderid=@ViewBag.orderid&id=@Model.GoodID&type=view'">
+                <img src="@Model.Goods.ImgUrl" class="pull-left">
+                <dl style="margin-right:20px">
+                    <dt>
+                        <h4 class="title">@Model.Goods.Name</h4>
+                    </dt>
+                    <dd>@Model.Goods.Intro</dd>
+                </dl>
+                <i class="pull-right fa fa-angle-right"></i>
+            </li>
+        </ul>
+    </div>
+    <div style="margin-top:1em"></div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.Raw(Model.SayEtc)
+        </div>
+    </div>
+    <div style="margin-top:1em"></div>
+    @if (((IQueryable<ZhongChouPay>)ViewBag.paylist).Count() > 0)
+    {
+
+
+        foreach (var pay in (IQueryable<ZhongChouPay>)ViewBag.paylist)
+        {
+            <div class="ect-pro-list user-order">
+                <ul>
+                    <li class="single_item saystc">
+                        <img src="@pay.HeadImgUrl" class="pull-left" style="width:3em;height:3em;">
+                        <dl style="margin-right: 20px ;margin-left:5em;" class="saycontent saycontent_@DESEncrypt.Encrypt(pay.MemberID.Value)" data-name="@pay.Name">
+                            <dt>
+                                <h4 class="title"><font class="fontcol">@pay.Name</font> 支持了 <font class="fontcol">@pay.Payment.Value.ToString("0")</font> 元</h4>
+                                @if (SessionHelper.CurMemberInfo.MemnerID == pay.MemberID || SessionHelper.CurMemberInfo.MemnerID == Model.MemberID)
+                                {
+
+                                    <button type="button" class="btn btn-info ect-colorf btnsmall" onclick="begincall('@DESEncrypt.Encrypt(pay.MemberID.Value)')">回复</button>
+                                }
+                            </dt>
+                            @{
+
+                                var commentlist = from c in (List<Comments>)ViewBag.commentList where c.MemberID == pay.MemberID || c.ToMemberID == pay.MemberID select c;
+                                //if (SessionHelper.CurMemberInfo.MemnerID == pay.MemberID)
+                                //{
+                                //    commentlist = from c in (List<Comments>)ViewBag.commentList where c.ToMemberID == pay.MemberID select c;
+                                //}
+                            }
+                            @foreach (var comment in commentlist)
+                            {
+
+                                <dd><font class="fontcol">@comment.Name 说：</font>@comment.Content</dd>
+                            }
+
+
+                        </dl>
+
+                    </li>
+                </ul>
+            </div>
+        <div style="margin-top:1em;"></div>
+        }
+
+    }
+    @using (Html.BeginForm("MemberList", "zhongchou", new { orderid = @ViewBag.orderid }, FormMethod.Post, new { id = "formok" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <input type="hidden" id="orderid" name="orderid" value="@ViewBag.orderid" />
+        <input type="hidden" id="tomemberid" name="tomemberid" value="" />
+        <input type="hidden" id="saycontent" name="saycontent" value="" />
+    }
+</div>
+<div style="margin-top:3em;"></div>
+<div class="btnpanel btnsendcss">
+
+    <div class="input-group btnpanel2">
+        <input type="text" id="sayback" name="sayback" class="form-control" placeholder="跟Ta说点啥吧！" aria-describedby="basic-addon2">
+        <span class="input-group-addon " id="basic-addon2" onclick="saytoback();">发送</span>
+    </div>
+</div>
+<div class="btnpanel btncss">
+    @if (Model.OrderStatus==(int)OrderStatus.众筹成功)
+    {
+        <button type="button" class="btn btn-info ect-colorf button_only" onclick="window.location='/zhongchou/'">众筹已结束，我也筹一个</button>
+    }else if(Model.OrderStatus==(int)OrderStatus.众筹中){
+        <button type="button" class="btn btn-info ect-colorf button_only" onclick="btn_ok()">支持Ta</button>
+    }else{
+        <button type="button" class="btn btn-info ect-colorf button_only" onclick="window.location='/zhongchou/'">众筹已结束，我也筹一个</button>
+    }
+        
+    
+
+</div>
+
+<script type="text/javascript">
+
+    function btn_ok() {
+        window.location = "/zhongchou/PayDetail/?orderid=@ViewBag.orderid";
+    }
+    $(function () {
+        $('.con .ect-bg').hide();
+        $('.guanzhu').show();
+    });
+    var tomemberid;
+    function begincall(memberid) {
+        $('#tomemberid').val(memberid);
+        $('.btncss').hide();
+        $('.btnsendcss').show();
+    }
+    function saytoback() {
+        $('#saycontent').val($("#sayback").val());
+        $("#sayback").val('');
+
+        jQuery.post("/zhongchou/MemberList", { orderid: '@ViewBag.orderid', tomemberid: $('#tomemberid').val(), saycontent: $('#saycontent').val() }, function (rec) {
+            if (rec.state == 'ok') {
+                $('.saycontent_'+$('#tomemberid').val()).append("<dd><font class='fontco'>" + rec.name + " 说：</font>" + $('#saycontent').val() + "</dd>");
+            }
+
+        }, "json");
+
+       // $('#formok').submit();
+    }
+</script>

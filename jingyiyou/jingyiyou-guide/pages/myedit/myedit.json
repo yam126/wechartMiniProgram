@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "个人编辑",
+    "usingComponents": {
+        "inputDialog":"../../components/inputDialog/inputDialog"
+    }
+}

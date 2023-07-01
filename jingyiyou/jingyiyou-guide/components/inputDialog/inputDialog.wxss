@@ -1,0 +1,103 @@
+/* components/inputDialog/inputDialog.wxss */
+.inputDialogContainer {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #101419;
+}
+
+.toast-box {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 300;
+}
+
+.toastbg {
+    opacity: 0.2;
+    background-color: black;
+    position:absolute;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.showToast {
+    position:absolute;
+    opacity:1;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 40%;
+}
+
+.toast-title {
+    background-color: #2196f3;
+    color:white;
+    text-align: center;
+    border-top-left-radius: 16rpx;
+    border-top-right-radius: 16rpx;
+}
+
+.toast-main {
+    width: 100%;
+    height: 75rpx;
+    margin-top: -47rpx;
+    background-color: white;
+    text-align:center;
+}
+
+.toast-input {
+    margin-left: 6.5%;
+    width:87%;
+    margin-top: -29rpx;
+    height: 43rpx;
+    border: 1px solid #ddd;
+}
+
+.toast-input input {
+    width: 100%;
+    height: 100%;
+    font-size: 25rpx;
+    margin-top:-55rpx;
+}
+
+.toast-button {
+    display:flex;
+    width: 100%;
+    height:95rpx;
+    margin-top: -52rpx;
+    background-color: white;
+    border-bottom-left-radius: 15rpx;
+    border-bottom-right-radius: 15rpx;
+    flex-direction: row;
+}
+
+.cancel, .success {
+    width: 50%;
+    height: 95rpx;
+
+}
+
+.cancel button {
+    color: #999;
+    width: 100%;
+    height: 97%;
+    margin-top: -45rpx;
+    font-size: 30rpx;
+    background-color: white;
+    border-radius: 0px;
+    border-bottom-left-radius: 16rpx;
+    
+}
+
+.success button {
+    color:#1d2228;
+    width: 100%;
+    height: 97%;
+    margin-top: -45rpx;
+    font-size: 30rpx;    
+    background-color: white;
+    border-radius: 0px;
+    border-bottom-left-radius: 16rpx;    
+}

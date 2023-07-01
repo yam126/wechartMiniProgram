@@ -1,0 +1,45 @@
+﻿@{
+
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        var height = $(window).height();
+        $('.outdiv').height(height);
+        //$('.outdiv').css("line-height", height+"px");
+    });
+    function btn1() {
+        window.location = "@ViewBag.btn1url";
+    }
+    function btn2() {
+        window.location = "@ViewBag.btn2url";
+    }
+    function btn3() {
+        window.location = "@ViewBag.btn3url";
+    }
+</script>
+<style>
+    .outdiv {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .lj {
+        margin-top: 100px;
+        height: 80px;
+        width: 80% !important;
+    }
+
+    .kd {
+        margin-top: 80px;
+        height: 80px;
+        width: 80% !important;
+    }
+</style>
+
+<div class="outdiv">
+    <button type="submit" class="btn btn-info ect-colorf button_only lj" onclick="return btn1()">@ViewBag.btn1name</button>
+    <button type="submit" class="btn btn-info ect-colorf button_only kd" onclick="return btn2()">@ViewBag.btn2name</button>
+    <button type="submit" class="btn btn-info ect-colorf button_only kd" onclick="return btn3()">@ViewBag.btn2name</button>
+</div>

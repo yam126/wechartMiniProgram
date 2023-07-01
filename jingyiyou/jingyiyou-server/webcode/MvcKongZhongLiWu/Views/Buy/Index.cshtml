@@ -1,0 +1,236 @@
+﻿@model ncc2019.Goods
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "购买";
+}
+<script src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("form").validate({
+            rules: {
+                num: {
+                    required: true,
+                    min: 1,
+                    max: 10,
+                    digits: true
+                }
+            },
+            messages: {
+                num: {
+                    required: "请输入购买数量",
+                    min: "购买数量不能小于1",
+                    max: "购买数量不能大于10",
+                    digits: "请输入正确的数量"
+                }
+            },
+            errorPlacement: function (error, element) {
+                error.appendTo("error");
+
+            }
+        });
+    });
+    function rbhiddenpass() {
+
+        $('.pthepass').addClass('hiddencss');
+    }
+    function rbshowpass() {
+        $('.pthepass').removeClass("hiddencss");
+    }
+</script>
+<style type="text/css">
+    .thepass p, .way p {
+       display:inline;
+        padding-left: 10px;
+    }
+
+    .rbcheck p label, .rbcheck p input[type=radio] {
+        cursor: pointer;
+    }
+
+    .hiddencss {
+        display: none !important;
+    }
+    .nav {
+        margin-bottom:10px;
+    }
+     .nav > li {
+        position: relative;
+        display: block;
+    }
+
+    .nav-pills > li {
+        float: left;
+    }
+
+        .nav-pills > li + li {
+            margin-left: 2px;
+        }
+
+    a {
+        color: #337ab7;        
+        text-decoration: none;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .nav-pills > li > a {
+        border-radius: 4px;
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: #fff;
+        background-color: #337ab7;
+        
+        /*background-color: #5bc0de;*/
+    }
+
+</style>
+<div style="height:10px;" ></div>
+@using (Html.BeginForm("DoPay", "Buy", FormMethod.Post, new { id = "detail" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="block table">
+        <div class="flowBox">
+            @*<ul class="nav nav-pills" role="tablist">
+                <li class="active" role="presentation"><a href="#">送给Ta</a></li>
+                <li role="presentation"><a href="#">送给自己</a></li>
+            </ul>
+            <div class="clearfix"></div>
+            <div style="height:10px;"></div>*@
+            <h6><span>收礼人信息</span></h6>
+            <table border="0" cellspacing="1" cellpadding="5" width="99%" bgcolor="#dddddd" align="center">
+
+                <tbody>
+                    <tr>
+                        <td bgcolor="#ffffff">接收礼物人姓名：</td>
+                        <td bgcolor="#ffffff">
+                            <input class="inputBg" id="toname" name="toname" type="text" value="">
+                            (必填)
+                        </td>
+                        <td bgcolor="#ffffff">显示给对方的昵称：</td>
+                        <td bgcolor="#ffffff"><input class="inputBg" id="fromname" name="fromname" type="text" value="@SessionHelper.CurMemberInfo.Name">(必填)</td>
+                    </tr>
+
+
+                    <tr>
+                        <td bgcolor="#ffffff">打开礼物是否需要密码：</td>
+                        <td class="thepass rbcheck" bgcolor="#ffffff" colspan="3">
+                            <p onclick="rbhiddenpass()"><input type="radio" name="needpass" id="check1" value="1" checked="checked" /><label for="check1">免密码模式</label></p>
+                            <p style="cursor:pointer" onclick="rbshowpass()"><input type="radio" name="needpass" value="2" id="check2" /><label for="check2">需要密码打开礼物</label></p>
+                            <p class="pthepass hiddencss">
+                                <input class="inputBg" id="thepass" name="thepass" type="text" value="">
+                                (必填) 请填写6-20位字母或数字组成的密码
+                            </p>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td bgcolor="#ffffff">祝福他/她就说点啥：</td>
+                        <td bgcolor="#ffffff" colspan="3">
+                            <textarea id="sayect" name="sayect" class="inputBg" style="width:700px;height:70px;"></textarea>
+                        </td>
+
+                    </tr>
+                    @*<tr>
+                            <td bgcolor="#ffffff">备注:</td>
+                            <td bgcolor="#ffffff" colspan="3">
+                                <textarea id="memo" name="memo" class="inputBg" style="width:700px;height:150px;"></textarea>
+
+                            </td>
+
+                        </tr>*@
+                    @*<tr >
+                            <td bgcolor="#ffffff" colspan="4" align="center">
+                                <input class="bnt_blue_2" name="Submit" value="确 定" type="submit" />
+                            </td>
+                        </tr>*@
+                </tbody>
+            </table>
+            <input type="hidden" value="@ViewBag.OrderID" name="orderid" />
+        </div>
+        <div class="flowBox">
+
+            <h6><span>订单信息</span></h6>
+
+            <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                <tbody>
+                    <tr align="center">
+                        <td bgcolor="#ffffff" width="200px">@Model.Name</td>
+                        <td bgcolor="#ffffff" width="150px"><img width="150px" height="150px" src="@Model.ImgUrl" /></td>
+                        <td bgcolor="#ffffff">x @ViewBag.num</td>
+                        <td bgcolor="#ffffff">
+                            快递费：@ncc2019.Common.BLL.SettingBLL.GetDeliverFee() 元<br />
+                            共计：@Html.Raw(ViewBag.num * Model.Payment + ncc2019.Common.BLL.SettingBLL.GetDeliverFee()) 元
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            @if (SessionHelper.CurMemberInfo.Balance < (Model.Payment * Model.TotalNum + ncc2019.Common.BLL.SettingBLL.GetDeliverFee()))
+            {
+                ViewBag.yuestr = "disabled='true'";
+                ViewBag.alipaySel = "checked='true'";
+                ViewBag.payment = "[您还需要支付 ￥" + (Model.Payment - SessionHelper.CurMemberInfo.Balance) + "]";
+
+            }
+            else
+            {
+                ViewBag.yuestrSel = "checked='true'";
+            }
+
+            <div style="margin:auto;width:900px;align-items:center;">
+                <div class="detial">
+
+                </div>
+                <div class="way rbcheck" style="text-align:center;margin:0 auto;width:500px;">
+
+                    <p><input id="yue" name="wayofpay" @ViewBag.yuestr @ViewBag.yuestrSel type="radio" value="0" /><label for="yue">余额支付 [￥@Html.Raw(SessionHelper.CurMemberInfo.Balance)元]</label></p>
+                    <p><input id="zhifubao" name="wayofpay" type="radio" value="1" @ViewBag.alipaySel /><label for="zhifubao">支付宝 @ViewBag.payment</label></p>
+                    <div class="clearfix"></div>
+                </div>
+                
+                <div class="pay" style="text-align:center;float:none;">
+                    <br />
+                    @*<input id="txtNum" name="num" type="text" value="@ViewBag.num" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />@Model.Payment <error style="color:red"></error>
+                        <input id="Button1" type="submit" value="确定" />*@
+                    @*<a id="pay" href="javascript:;" onclick="return dopay()" target="_blank"></a>*@
+                    <input id="Button1" class="bnt_blue_2" type="submit" value="购买" />
+                </div>
+                <input type="hidden" name="num" value="@ViewBag.num" />
+                <input type="hidden" name="goodid" value="@Model.GoodID" />
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+}
+<div style="height:50px;"></div>
+<script type="text/javascript">
+
+    function dopay() {
+        if ($('input[name="wayofpay"]:checked').val() == "0") {
+            $('#pay').attr('target', '_self');
+            $('#pay').attr('href', '/buy/dopay?num=@ViewBag.num&goodid=@Model.GoodID&wayofpay=' + $('input[name="wayofpay"]:checked').val());
+        } else {
+            $('#pay').attr('href', '/buy/dopay?num=@ViewBag.num&goodid=@Model.GoodID&wayofpay=' + $('input[name="wayofpay"]:checked').val());
+        }
+
+
+        return true;
+    }
+
+</script>
+
+
+
+  
+
+

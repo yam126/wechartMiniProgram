@@ -1,0 +1,47 @@
+﻿@model DBModel.LoginLog
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>LoginLog</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LoginTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LoginTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IP)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IP)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Agent)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Agent)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SystemInfo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SystemInfo)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

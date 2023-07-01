@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "智能吹风机使用条款";
+}
+<style type="text/css">
+    .join {
+        margin-left: 3.5em;
+    }
+</style>
+<script type="text/javascript">
+ $(function () {
+     hidhistory();
+     hidmune();
+ }); function gotopay() {
+     window.location = "/cfjwx/?flag=1";
+ }
+
+</script>
+@*<h3 class="lihead"> 智能吹风机使用条款：</h3>*@
+<br />
+<div style="width:100%;height:100%;padding:2em;">
+    <p style="font-size:1.5em">　　1.智能吹风机采用预存手机话费，免费使用的会员制。</p>
+    @*<p>2.使用此设备需预存36或48元手机费，注册成功后次月开始分期返回3元或4元到制定手机号码，12个月后返回全部。</p>*@
+    <p style="font-size:1.5em">　　2.平台会不定期免费发放电影票，节日礼品等赠品发到你的微信，请即时领取。</p>
+</div>
+<div class="btnpanel">
+    <input type="button" name="submit" value="同 意" onclick="return gotopay();" class="btn btn-info btn-red  ect-colorf">
+    <input type="button" name="submit" value="不同意" class="btn btn-info ect-colorf join">
+</div>

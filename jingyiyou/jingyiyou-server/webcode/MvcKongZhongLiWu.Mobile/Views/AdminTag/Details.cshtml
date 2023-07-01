@@ -1,0 +1,36 @@
+﻿@model DBModel.Tags
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Tag</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AddDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Memo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Memo)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TagID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "用户选择";
+}
+
+<script type="text/javascript">
+    $(function () {
+        var height = $(window).height();
+        $('.outdiv').height(height);
+        //$('.outdiv').css("line-height", height+"px");
+    });
+    function linju() {
+        window.location = "/main/neighbour";
+    }
+    function kuaidi() {
+        window.location = "/main/courier";
+    }
+</script>
+<style>
+    .outdiv {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .lj {
+        margin-top: 100px;
+       height:80px;
+       width:80% !important;
+    }
+
+    .kd {
+        margin-top: 80px;
+        height:80px;
+        width:80% !important;
+    }
+
+
+</style>
+
+                <div class="outdiv">
+                    <button type="submit" class="btn btn-info ect-colorf button_only lj" onclick="return linju()">我是邻居</button>
+                    <button type="submit" class="btn btn-info ect-colorf button_only kd" onclick="return kuaidi()">我是快递员</button>
+                </div>
+

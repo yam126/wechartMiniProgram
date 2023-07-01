@@ -1,0 +1,24 @@
+/* pages/waitingorder/waitingorder.wxss */
+.tips {
+    min-width: 275rpx;
+    width: auto;
+    height: 80rpx;
+    line-height: 80rpx;
+    position: absolute;
+    top: 960rpx;
+    left: 21rpx;
+    font-size: 35rpx;
+    text-align: center;
+    color: blanchedalmond;
+    border-radius: 30rpx;
+    background-color: rgba(0, 0, 0, 0.432);
+}
+
+.floatingWindow {
+    width: 270rpx;
+    height: 315rpx;
+    top: 27rpx;
+    left: 430rpx;
+    position: absolute;
+    background-color: rgba(207, 204, 198, 0.678);
+}

@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "生日快乐";
+}
+<style type="text/css">
+    #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #fff;
+        z-index: 9999;
+    }
+
+        #loading .pic {
+            margin: 0 auto;
+            width: 220px;
+            height: 220px;
+            margin-top: 100px;
+        }
+
+            #loading .pic img {
+                width: 220px;
+                height: 220px;
+            }
+
+    #checked {
+        font-family: "Lucida Grande", Verdana, Arial, sans-serif, Helvetica;
+        width: 50px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        margin: 0px auto;
+        z-index: 2000;
+    }
+
+        #checked .btn_audio {
+            float: left;
+            width: 50px;
+            height: 50px;
+            display: block;
+        }
+
+    .guanzhu {
+        position: inherit;
+    }
+
+    body {
+        background: rgba(244,154,192,1);
+    }
+
+    .con {
+        background: rgba(244,154,192,1);
+    }
+</style>
+<script src="~/Scripts/jweixin-1.0.0.js"></script>
+
+<div id="loading">
+    <div class="logo"></div>
+    <div class="pic"><img src="/images/loading3.gif?t=1"></div>
+</div>
+<link rel="stylesheet" type="text/css" href="/css/cards/animate.css">
+<link rel="stylesheet" href="/css/cards/main.css" /><div id="main">
+    <div id="layer1" class="animation" data-animation="fadeIn 1.0s ease 3.3s 1 forwards"></div>
+    <div id="layer2" class="animation" data-animation="flash 3.0s ease 3.3s infinite forwards"></div>
+    <div id="layer3" class="animation" data-animation="flip 1.0s ease 1.3s 1 forwards"></div>
+    <div id="layer4" class="animation" data-animation="swingTop 4.0s ease 0.3s infinite forwards"></div>
+    <div id="layer5" class="animation" data-animation="fadeInDown 1.5s ease 2.6s 1 forwards"></div>
+
+    <div id="con" class="animation" data-animation="fadeIn 1.5s ease 5.0s 1 forwards">
+        <p>@ViewBag.sayetc </p>
+        <h2>@ViewBag.fromname</h2>
+    </div><div id="checked">
+        <span class="btn_audio">
+            <img src="/images/btn01_audio.png" alt="声音" width=50 style="display: inline;">
+            <img src="/images/btn02_audio.png" width=50 alt="声音" style="display: none;">
+        </span>
+        @if (ViewBag.hasvioce == true)
+        {
+            ViewBag.src = ViewBag.viocesrc;
+        }
+        else
+        {
+            ViewBag.src = "/images/shengri.mp3";
+        }
+
+
+        <audio id="car_audio" loop="loop" src="@ViewBag.src" autoplay preload="preload"></audio>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(window).load(function () {
+        $("#loading").fadeOut();
+        $("#main .animation").each(function () {
+            var dataanimation = $(this).attr("data-animation");
+            $(this).css({ 'animation': dataanimation, '-moz-animation': dataanimation, '-webkit-animation': dataanimation, '-o-animation': dataanimation });
+        });
+    });
+    var mainResize = function () {
+        var ht = $(window).height();
+        var mw = $("#main").width();
+        var mh = $("#main").height();
+        var sc = ht / mh;
+        var mt = (mh * sc - mh) / 2;
+        var ml = (mw * sc - mw) / 2;
+        $("#main").css({ "margin-top": mt, "-moz-transform": "scale(" + sc + ")", "-o-transform": "scale(" + sc + ")", "-webkit-transform": "scale(" + sc + ")" });
+        if ($(window).width() < 640 && mw == 640) {
+            $("#main").css({ "margin-left": ml });
+        }
+        if ($(window).width() > 800) {
+            $("#qrcode").qrcode({
+                render: "canvas",
+                width: 200,
+                height: 200,
+                text: window.location.href
+            });
+            $("#qrcode").fadeIn();
+        } else { $("#qrcode").fadeOut(); }
+    };
+    $(window).resize(function () {
+        mainResize();
+    });
+    $(document).ready(function () {
+        $('.guanzhu').show();
+        $('.ect-bg').hide();
+        mainResize();
+        $("#loading").click(function () { $("#loading").fadeOut(); audio_switch(); });
+    });
+    $(window).load(function () {
+        audio_switch();
+    });
+    $('#bgmusic').change(function () {
+        if ($(this).attr('checked') == "checked" || $(this).attr('checked') == "true") {
+
+            playrec();
+        }
+        else {
+
+            pauseplay();
+        }
+    });
+    /*
+	** 声音功能的控制
+	*/
+    var audio_switch_btn = false,			//声音开关控制值
+        audio_btn = true,		//声音播放完毕
+        audio_loop = false,		//声音循环
+        audioTime = null,         //声音播放延时
+        audioTimeT = null,			//记录上次播放时间
+        audio_interval = null,			//声音循环控制器
+        audio_start = null,			//声音加载完毕
+        audio_stop = null,			//声音是否在停止
+        mousedown = null			//PC鼠标控制鼠标按下获取值
+    $(function () {
+        //获取声音元件
+        var btn_au = $(".btn_audio");
+
+        //绑定点击事件
+        btn_au.on('click', audio_switch);
+        if (audio_switch_btn) {
+            playrec();
+            btn_au.find("img").eq(1).css("display", "none");
+            btn_au.find("img").eq(0).css("display", "inline");
+        }
+        else {
+            pauseplay();
+            btn_au.find("img").eq(0).css("display", "none");
+            btn_au.find("img").eq(1).css("display", "inline");
+        }
+    })
+    function audio_switch() {
+        if ($("#car_audio") == undefined) {
+            return;
+        }
+        if (audio_switch_btn) {
+            //关闭声音
+
+            pauseplay();
+            audio_switch_btn = false;
+            $("#car_audio")[0].currentTime = 0;
+            $(".btn_audio").find("img").eq(0).css("display", "none");
+            $(".btn_audio").find("img").eq(1).css("display", "inline");
+        }
+            //开启声音
+        else {
+
+            audio_switch_btn = true;
+            playrec();
+            $(".btn_audio").find("img").eq(1).css("display", "none");
+            $(".btn_audio").find("img").eq(0).css("display", "inline");
+        }
+    }
+    function playrec() {
+        $("#car_audio")[0].play();
+       
+    }
+    function pauseplay() {
+        $("#car_audio")[0].pause();
+       
+    }
+</script>

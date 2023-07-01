@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e94cc76d5de44144bd385ee9d6d35a65" Name="Diagram1" ZoomLevel="106">
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Address" Width="1.5" PointX="2.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GoodSort" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.LoginLog" Width="1.5" PointX="8.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Info" Width="1.5" PointX="5.125" PointY="10.625" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.FeedBack" Width="1.5" PointX="8.375" PointY="7.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GetPassword" Width="1.5" PointX="8.375" PointY="10.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.PayLog" Width="1.5" PointX="10.375" PointY="10.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ActionLog" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Comments" Width="1.5" PointX="12.375" PointY="6.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GoodProperty" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Messages" Width="1.5" PointX="7.375" PointY="13.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CommonLog" Width="1.5" PointX="13.375" PointY="13.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GoodRight" Width="1.5" PointX="14.375" PointY="9.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.KuaiDiSet" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CommonPay" Width="1.5" PointX="15.375" PointY="12.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CFJQrCode" Width="1.5" PointX="16.375" PointY="9.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CFJMemberType" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CFJPay" Width="1.5" PointX="3.375" PointY="17.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GoodSortMapping" Width="1.5" PointX="5.375" PointY="17.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Comments_copy" Width="1.5" PointX="9.375" PointY="17.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ZGGKey" Width="1.5" PointX="17.75" PointY="16.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ZGGMachine" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ZGGPay" Width="1.5" PointX="18.75" PointY="9.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ZGGUseControl" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CFJControl" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CFJMachine" Width="1.5" PointX="11.375" PointY="16.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Goods" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Members" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ZGGLocation" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ZGGBBS" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.News" Width="1.5" PointX="13.375" PointY="16.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Apply" Width="1.5" PointX="11.375" PointY="20.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Pin" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.OnLineVersion" Width="1.5" PointX="14.75" PointY="6.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.QuanZi" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.XiaoQu" Width="1.5" PointX="16.75" PointY="6.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GongGao" Width="1.5" PointX="17.375" PointY="13.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.TongZhi" Width="1.5" PointX="19.375" PointY="6.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.ShangJia" Width="1.5" PointX="20.375" PointY="13.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.CarCall" Width="1.5" PointX="13.375" PointY="20.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Account" Width="1.5" PointX="15.375" PointY="20.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Channel" Width="1.5" PointX="17.375" PointY="20.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.VIPUser" Width="1.5" PointX="20.375" PointY="18.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Lottery" Width="1.5" PointX="7.375" PointY="21.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Seller" Width="1.5" PointX="22.375" PointY="13.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.NCCLottery" Width="1.5" PointX="22.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.NCCOrders" Width="1.5" PointX="21.375" PointY="6.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.LotterySellerRef" Width="1.5" PointX="22.375" PointY="18.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.KeFuMessage" Width="1.5" PointX="22.375" PointY="21.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Guide" Width="1.5" PointX="0.75" PointY="23.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Orders" Width="1.5" PointX="3.375" PointY="21.75" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.vw_Orders" Width="1.5" PointX="19.375" PointY="23.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

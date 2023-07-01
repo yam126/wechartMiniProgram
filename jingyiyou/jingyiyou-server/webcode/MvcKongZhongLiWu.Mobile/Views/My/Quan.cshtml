@@ -1,0 +1,201 @@
+﻿@model IEnumerable<ncc2019.Quan>
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+@using ncc2019.Common.BLL
+@{
+    ViewBag.Title = "我的优惠券";
+}
+
+<style type="text/css">
+    .mod-coupon .coupon-list-wrap {
+        /*position: absolute;
+        top: 96px;
+        left: 0;
+        right: 0;
+        bottom: 10px;*/
+        padding: 0 10px;
+        background-color: #fff;
+    }
+
+    ol, ul {
+        list-style: none;
+    }
+
+    ul, menu, dir {
+        display: block;
+        list-style-type: disc;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        /*-webkit-padding-start: 40px;*/
+    }
+
+    .mod-coupon .coupon-item {
+        position: relative;
+        height: 110px;
+        margin: 15px 0;
+        -webkit-transition: height .2s;
+        display: -webkit-box;
+        color: #999;
+        overflow: hidden;
+    }
+
+        .mod-coupon .coupon-item.coupon-item-status-0 {
+            color: #000;
+        }
+
+    .mod-coupon .coupon-item-status-0 .coupon-item-bg {
+        background-color: #e3f4fe;
+    }
+
+    .mod-coupon .coupon-item-status-0 .coupon-item-time {
+        background-color: #b5c4c9;
+    }
+    .mod-coupon .coupon-item-value {
+        width: 75px;
+        line-height: 110px;
+        height: 100%;
+        text-align: center;
+        position: relative;
+    }
+
+    .mod-coupon .coupon-item-bg {
+        background-color: #f2f2f2;
+    }
+
+    .mod-coupon .coupon-info-right {
+        -webkit-box-flex: 1;
+        box-sizing: border-box;
+        padding: 10px;
+        position: relative;
+    }
+
+
+    .mod-coupon .coupon-item-name {
+        font-size: 16px;
+    }
+
+    .mod-coupon .coupon-item-description {
+        line-height: 16px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-size: 12px;
+        height: 34px;
+        overflow: hidden;
+    }
+
+    .mod-coupon .cuupon-item-pwd {
+        display: none;
+    }
+
+    .mod-coupon .coupon-item-status-0 .coupon-info-right:after {
+        background-color: #b5c4c9;
+    }
+
+    .mod-coupon .coupon-info-right:after {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 80%;
+        background-color: #b5c4c9;
+        top: 10%;
+        left: -2px;
+    }
+
+    .mod-coupon .coupon-item-radius-top {
+        top: 0;
+        -webkit-transform: rotate(180deg);
+    }
+
+    .mod-coupon .coupon-item-radius {
+        position: absolute;
+        width: 100%;
+        height: 7px;
+        left: 0;
+        background: url('/images/juchi.png');
+    }
+
+    .mod-coupon .coupon-item-radius-bottom {
+        bottom: 0;
+    }
+
+    .mod-coupon .coupon-item-status {
+        position: absolute;
+        width: 31.2%;
+        right: 10px;
+        top: 10px;
+    }
+
+    .mod-coupon .icon_mycoupon_used {
+        background-image: url(/images/used.png);
+    }
+
+    .mod-coupon .icon_mycoupon_expired {
+        background-image: url(/images/expired.png);
+    }
+
+    .mod-coupon .icon_mycoupon_expired, .mod-coupon .icon_mycoupon_used {
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        padding-top: 55.6%;
+        width: 100%;
+    }
+</style>
+
+
+
+    @if (Model.Count() == 0)
+{
+    <div class="panel-body text-center">
+        <h3 style="margin-top:50px">暂无优惠券</h3>
+
+    </div>
+}
+else
+{
+
+
+
+    @*<img class="imgquan" src="/images/quan10_used.png" />*@
+    <div class="mod-coupon">
+        <div class="coupon-list-wrap iscroll-container" data-iscroll-id="3" style="overflow-y: hidden;max-width:640px;">
+            <ul class="coupon-list" style="-webkit-transition: -webkit-transform 0ms; transition: -webkit-transform 0ms; -webkit-transform-origin: 0px 0px; -webkit-transform: translate3d(0px, 0px, 0px);">
+                @foreach (var item in Model)
+                {
+                    <li class="coupon-item coupon-item-status-0">
+                        <div class="coupon-item-value coupon-item-bg">@Html.Raw(item.Price.Value.ToString("0"))元</div>
+                        <div class="coupon-info-right coupon-item-bg">
+                            <div class="coupon-item-name">@Html.Raw(item.Price.Value.ToString("0"))元代金券【无使用门槛】</div>
+                            <div class="coupon-item-time">有效期:@Html.Raw(item.BeginDate.Value.ToString("yyyy-MM-dd") + "至" + item.EndDate.Value.ToString("yyyy-MM-dd"))</div>
+                            <div class="coupon-item-description">可以任意在【空中礼物】购买任何东西，每笔订单只能使用一张代金券。</div>
+                            @*<div class="cuupon-item-pwd">72252d9c</div>*@
+                        </div>
+                        <div class="coupon-item-radius coupon-item-radius-top"></div>
+                        <div class="coupon-item-radius coupon-item-radius-bottom"></div>
+                        <div class="coupon-item-status">
+                            @if (QuanBLL.QuanIsExpired(item.EndDate))
+                            {
+                                <span class="icon_mycoupon_expired"></span>
+                                @*<span class="icon_mycoupon_used"></span>*@
+                            }
+                        </div>
+                    </li>
+
+
+
+
+                }
+            </ul>
+        </div>
+    </div>
+    }
+
+<style type="text/css">
+    .imgquan {
+        width: 100%;
+        margin-top: 10px;
+    }
+</style>

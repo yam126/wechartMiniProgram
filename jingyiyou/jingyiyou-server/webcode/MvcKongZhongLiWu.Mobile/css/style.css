@@ -1,0 +1,105 @@
+﻿
+.button_only {
+    width: 90% !important;
+    /*background: rgba(237,19,90,1) !important;*/
+}
+
+.btn-red {
+    background: rgba(237,19,90,1) !important;
+}
+
+.btn-weixinpay {
+    width: 70% !important;
+}
+
+.help {
+    margin-right: 10px;
+}
+
+    .help img {
+        width: 2em;
+        height: 2em;
+    }
+
+
+.panel-info {
+    background: #fff;
+    z-index: 99999;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100em;
+    max-width: 640px;
+    overflow: hidden;
+}
+
+.panel-content {
+    overflow: auto;
+    /*width:100%;*/
+}
+
+.btn-close {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    background-image: url(/images/close.png);
+    background-repeat: no-repeat;
+    background-size: 2em;
+    width: 2em;
+    height: 2em;
+    z-index: 9999999;
+    opacity: 0.6;
+}
+
+.btnpanel {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 640px;
+    height: 3.8em;
+    border-top: 1px solid black;
+    border-top-color: rgba(204, 195, 195, 0.87);
+    background: rgba(246, 246, 246, 1);
+    _bottom: auto;
+    _position: absolute;
+    z-index: 1000;
+    vertical-align: middle;
+    line-height: 3.5em;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+    .btnpanel button {
+        width: 8em;
+        margin-top: 5px;
+        margin-bottom: 7px;
+    }
+
+    .btnpanel .btnshare {
+        float: left;
+        margin-left: 20px;
+        background: rgba(237,19,90,1) !important;
+    }
+
+    .btnpanel .btnshowroute {
+        float: right;
+        margin-right: 20px;
+    }
+
+.kz-panel button {
+    width: 8em;
+    margin-top: 5px;
+    margin-bottom: 7px;
+}
+
+.kz-panel .btnshare {
+    float: left;
+    margin-left: 20px;
+    background: rgba(237,19,90,1) !important;
+}
+
+.kz-panel .btnshowroute {
+    float: right;
+    margin-right: 20px;
+}

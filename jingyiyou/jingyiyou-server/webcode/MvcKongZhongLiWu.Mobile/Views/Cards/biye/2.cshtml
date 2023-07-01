@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "毕业啦";
+}
+@section scripts{
+    <meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+}
+
+<link href="~/css/cards/default.css" rel="stylesheet" />
+<script src="~/Scripts/cards/functions.js"></script>
+<script src="~/Scripts/cards/garden.js"></script>
+
+<style>
+    .video {
+        position: absolute;
+        top: 50px;
+        width: 520px;
+        height: 390px;
+    }
+
+    #loveHeart {
+        float: left;
+        width: 640px;
+        height: 595px;
+        /*position: absolute;
+            top: 0;
+            left: 0;*/
+    }
+
+    #garden {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #fff;
+        z-index: 9999;
+    }
+
+        #loading .pic {
+            margin: 0 auto;
+            width: 220px;
+            height: 220px;
+            margin-top: 100px;
+        }
+
+            #loading .pic img {
+                width: 220px;
+                height: 220px;
+            }
+
+    #checked {
+        font-family: "Lucida Grande", Verdana, Arial, sans-serif, Helvetica;
+        width: 50px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        margin: 0px auto;
+        z-index: 2000;
+    }
+
+        #checked .btn_audio {
+            float: left;
+            width: 50px;
+            height: 50px;
+            display: block;
+        }
+
+    .guanzhu {
+        position: inherit;
+    }
+
+    .bg {
+        width: 100%;
+        text-align: center;
+        margin-top: 2em;
+    }
+
+    body, #mainDiv {
+        background: rgba(220,232,255,1);
+    }
+
+    .hiddencss {
+        display: none;
+    }
+    #code p, #code h2{
+        color:#000;
+    }
+</style>
+
+<div id="loading">
+    <div class="logo"></div>
+    <div class="pic"><img src="/images/loading3.gif?t=1"></div>
+</div>
+<div class="bg" style="position:absolute;"><img style="" src="/images/cards/biye2.jpg" /> </div>
+
+
+<div id="mainDiv" >
+    <div id="content">
+        <div id="loveHeart"><canvas id="garden"></canvas></div>
+        <div id="code" class="zq2">
+            <p>@ViewBag.sayetc</p>
+            <h2>@ViewBag.fromname</h2>
+        </div>
+    </div>
+    @if (ViewBag.hasvioce == true)
+    {
+        ViewBag.display = "";
+        ViewBag.src = ViewBag.viocesrc;
+    }
+    else
+    {
+        ViewBag.display = "hiddencss";
+        ViewBag.src = "";
+    }
+    <div id="checked" class="video @ViewBag.display">
+        <span class="btn_audio">
+            <img src="/images/btn01_audio.png" alt="声音" width=50 style="display: inline;">
+            <img src="/images/btn02_audio.png" width=50 alt="声音" style="display: none;">
+        </span>
+        <audio id="car_audio" loop="loop" src="@ViewBag.src" autoplay preload="preload"></audio>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var offsetX = $("#loveHeart").width() / 2;
+    var offsetY = $("#loveHeart").height() / 2 - 55;
+
+    startHeartAnimation();
+    adjustCodePosition();
+    $("#code").typewriter();
+    $("#loading").hide();
+    $(function () {
+        //alert(clientWidth);
+        $('.guanzhu').show();
+        $('.ect-bg').hide();
+    });
+</script>

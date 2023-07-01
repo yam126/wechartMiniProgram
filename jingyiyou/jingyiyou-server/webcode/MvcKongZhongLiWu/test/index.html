@@ -1,0 +1,701 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="icon" href="animated_favicon.gif" type="image/gif" />
+    <link href="themes/ecmoban_vjia/style.css" rel="stylesheet" type="text/css" />    
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body class="index_page">
+    
+    <div class="top_nav">
+       
+        <div class="block">
+
+            <ul class="top_bav_l">
+                <li class="top_sc">
+                    <a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏我们</a>
+                </li>
+                <li>关注我们：</li>
+                <li style="border:none" class="menuPopup" onmouseover="sw_nav(1,1);" onmouseout="sw_nav(1,0);">
+                    <a id="HandleLI_1" href="javascript:;" title="微博" class="attention"></a>
+                    <div id=DisSub_1 class="top_nav_box  top_weibo">
+                        <a href="../../e.weibo.com/ECMBT" target="_blank" title="新浪微博" class="top_weibo"></a>
+                        <a href="../../e.t.qq.com/ecmoban_com" target="_blank" title="QQ微博" class="top_qq"></a>
+                    </div>
+                </li>
+                <li class="menuPopup" onmouseover="sw_nav(2,1);" onmouseout="sw_nav(2,0);">
+                    <a id="HandleLI_2" href="javascript:;" title="微信" class="top_weixin"></a>
+                    <div id=DisSub_2 class="  weixinBox" style="display: none;">
+                        <img src="themes/ecmoban_vjia/images/weixin.png" />
+                    </div>
+                </li>
+            </ul>
+
+            <div class="header_r">
+
+                <script type="text/javascript" src="js/transport.js"></script>
+                <script type="text/javascript" src="js/utils.js"></script>        <font id="ECS_MEMBERZONE">
+
+
+                    欢迎光临本店，<a href="user.php">登录</a> | <a href="user.php@act=register">注册</a> |
+
+
+                </font>
+                <a href="flow.php">查看购物车</a>
+                |
+                <a href="pick_out.php">选购中心</a>
+                |
+                <a href="tag_cloud.php">标签云</a>
+                |
+                <a href="quotation.php">报价单</a>
+
+            </div>
+        </div>
+    </div>
+    <div style="background:#f8f7f7" class="clearfix">
+        <div class="block header">
+            <div class="top">
+                <a href="index.php" class="logo"><img src="themes/ecmoban_vjia/images/logo.gif" />  </a>
+                <div class="head_r">
+                    <div class="top_search">
+                      
+                        <form id="searchForm" name="searchForm" method="get" action="search.php" onsubmit="return checkSearchForm()" style="_position:relative; top:5px;">
+                            <input name="keywords" type="text" id="keyword" class="keyword" value="" />
+                            <input value="搜索" id="seachbtn" type="submit" />
+                        </form>
+                        <div class="vjia-suggest-container">
+                            <div class="vjia-suggest-content"></div>
+                            <ol></ol>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="search_tig">
+                            <a href="search.php@keywords=_25E5_25AF_258C_25E5_25A3_25AB" target="_blank" class="track">富士</a>
+                            <a href="search.php@keywords=_25E4_25B8_2596_25E5_25AE_25B6_25E6_25B8_2585_25E6_25B4_2581" target="_blank" class="track">世家清洁</a>
+                            <a href="search.php@keywords=_25E9_259B_25B7_25E8_25BE_25BE" target="_blank" class="track">雷达</a>
+                            <a href="search.php@keywords=OLAY_25E9_25BB_2584_25E9_25A3_259E_25E7_25BA_25A2_25E9_25A3_259F_25E5_2593_2581" target="_blank" class="track">OLAY黄飞红食品</a>
+                            <a href="search.php@keywords=_25E8_259A_258A_25E5_25B8_2590_25E5_2587_2589_25E5_25B8_25AD" target="_blank" class="track">蚊帐凉席</a>
+                            <a href="search.php@keywords=_25E7_2594_25B5_25E8_2584_2591_25E6_25A1_258C" target="_blank" class="track">电脑桌</a>
+                            <a href="search.php@keywords=zippo" target="_blank" class="track">zippo</a>
+                            <a href="search.php@keywords=Gucci" target="_blank" class="track">Gucci</a>
+                        </div>
+                    </div>
+                    <div class="top_shopCart clearfix">
+                        <b>
+                            <span id="ECS_CARTINFO">
+                                <a href="flow.php" title="查看购物车">0</a>
+                            </span>
+                        </b>
+                        <a class="jiesuan" href="flow.php">去结算</a>
+                    </div>
+                    <div class="top_goodness">
+                        <img src="themes/ecmoban_vjia/images/service.gif" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+
+    <div class="menu_box clearfix">
+        <div class="block">
+            <div class="menu">
+                <a href="index.php" class="cur">首页<span></span></a>
+                <a href="category.php@id=132">
+                    男装 <span></span>
+                </a>
+
+                <a href="category.php@id=170">
+                    裤子 <span></span>
+                </a>
+
+                <a href="topic.php@topic_id=2">
+                    专题 <span></span>
+                </a>
+
+                <a href="flash_sale.php">
+                    秒杀 <span></span>
+                </a>
+
+                <a href="category.php@id=662">
+                    美妆团购 <span></span>
+                </a>
+
+                <a href="allcate.php">
+                    产品中心 <span></span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="block clearfix">
+        <div class="AreaL">
+            <div id="category_tree">
+                <div class="tit">所有商品分类</div>
+                <dl class="clearfix">
+                    <div class="dt" >
+
+                        <div id="HandleLI2_1">
+                            <a class="a"
+                               href="category.php@id=132">
+                                男装  <img src="themes/ecmoban_vjia/images/biao8.gif" />
+                            </a>
+                        </div>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <div class="dt">
+
+                        <div id="HandleLI2_1">
+                            <a class="a"
+                               href="category.php@id=132">
+                                男装  <img src="themes/ecmoban_vjia/images/biao8.gif" />
+                            </a>
+                        </div>
+                    </div>
+                </dl>
+                <div class="blank"></div>
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <a href='affiche.php@ad_id=193&uri=_2523'
+                               target='_blank'>
+                                <img src='data/afficheimg/1381299093755023959.jpg' width='216' height='172'
+                                     border='0' />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="blank"></div>
+
+            </div>
+            <div style="float:right; width:994px;">
+
+                <style type="text/css">
+
+                    .container, .container *{margin:0; padding:0;}
+                    .container{width:994px; height:410px; overflow:hidden;position:relative;}
+                    .slider{position:absolute;}
+                    .slider li{list-style:none;display:inline;}
+                    .slider img{width:994px; height:410px; display:block;}
+                    .slider2{width:2000px;}
+                    .slider2 li{float:left;}
+                    .num{position:absolute; right:5px; bottom:5px;}
+                    .num li{
+                        float: left;
+                        color: #d71437;
+                        text-align: center;
+                        line-height: 16px;
+                        width: 16px;
+                        height: 16px;
+                        font-family: Arial;
+                        font-size: 12px;
+                        cursor: pointer;
+                        overflow: hidden;
+                        margin: 3px 1px;
+                        border: 1px solid #d71437;
+                        background-color: #fff;
+                    }
+                    .num li.on{
+                        color: #fff;
+                        line-height: 21px;
+                        width: 21px;
+                        height: 21px;
+                        font-size: 16px;
+                        margin: 0 1px;
+                        border: 0;
+                        background-color: #d71437;
+                        font-weight: bold;
+                    }
+                </style>
+                <div class="container" id="idTransformView">
+                    <ul class="slider" id="idSlider">
+                        <li><a href="../..//default.htm" target="_blank"><img src="data/afficheimg/20131009xrmbkm.jpg" /></a></li>
+                        <li><a href="../..//default.htm" target="_blank"><img src="data/afficheimg/20131009hqwgmz.jpg" /></a></li>
+                        <li><a href="../..//default.htm" target="_blank"><img src="data/afficheimg/20131009fxbkbq.jpg" /></a></li>
+
+                    </ul>
+                    <ul class="num" id="idNum">
+
+
+                        <li>
+                            1
+                        </li>
+                        <li>
+                            2
+                        </li>
+                        <li>
+                            3
+                        </li>
+
+                    </ul>
+                </div>
+                
+
+
+
+
+                <div class="blank5"></div>
+                <div class="blank"></div>
+
+                <div class="sale_box clearfix">
+                    <div class="tit"><span>特价商品</span></div>
+
+                    <div class="clearfix">
+
+                        <ul class="clearfix">
+                            <li class="goodsimg"><a href="goods.php@id=134"><img src="images/201310/thumb_img/134_thumb_G_1380647163699.jpg" border="0" alt="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色" class="B_blue" /></a></li>
+                            <li>
+                                <p><a href="goods.php@id=134" title="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色">天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色</a></p>
+                                促销价：<font class="f1">110元</font>
+                            </li>
+                        </ul>
+
+                        <ul class="clearfix">
+                            <li class="goodsimg"><a href="goods.php@id=136"><img src="images/201310/thumb_img/136_thumb_G_1380647873871.jpg" border="0" alt="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长" class="B_blue" /></a></li>
+                            <li>
+                                <p><a href="goods.php@id=136" title="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长">Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长</a></p>
+                                促销价：<font class="f1">110元</font>
+                            </li>
+                        </ul>
+
+                        <ul class="clearfix">
+                            <li class="goodsimg"><a href="goods.php@id=140"><img src="images/201310/thumb_img/140_thumb_G_1380647948693.jpg" border="0" alt="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣" class="B_blue" /></a></li>
+                            <li>
+                                <p><a href="goods.php@id=140" title="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣">GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣</a></p>
+                                促销价：<font class="f1">110元</font>
+                            </li>
+                        </ul>
+
+                        <ul class="clearfix">
+                            <li class="goodsimg"><a href="goods.php@id=139"><img src="images/201310/thumb_img/139_thumb_G_1380647936181.jpg" border="0" alt="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812" class="B_blue" /></a></li>
+                            <li>
+                                <p><a href="goods.php@id=139" title="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812">SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812</a></p>
+                                促销价：<font class="f1">110元</font>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="blank"></div>
+
+            </div>
+
+
+            <div class="blank"></div>
+
+
+            <div class="goodsBox_1">
+
+
+
+                <div class="xm-box">
+                    <h4 class="title"><span>新品上架</span> <a class="more" href="search.php@intro=new">更多</a></h4>
+                    <div class="blank"></div>
+                    <div id="show_new_area" class="clearfix">
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=140"><img src="images/201310/thumb_img/140_thumb_G_1380647948693.jpg" alt="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=140" title="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣">GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=138"><img src="images/201310/thumb_img/138_thumb_G_1380647918079.jpg" alt="ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=138" title="ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9">ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                120元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=139"><img src="images/201310/thumb_img/139_thumb_G_1380647936181.jpg" alt="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=139" title="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812">SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=141"><img src="images/201310/thumb_img/141_thumb_G_1380647968600.jpg" alt="茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=141" title="茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气">茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=137"><img src="images/201310/thumb_img/137_thumb_G_1380647890611.jpg" alt="桑缇 2013秋季新款 韩版修身圆领外套ST133W540" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=137" title="桑缇 2013秋季新款 韩版修身圆领外套ST133W540">桑缇 2013秋季新款 韩版修身圆领外套ST133W540</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                120元
+                            </font>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="blank"></div>
+                <div class="xm-box">
+                    <h4 class="title"><span>热卖商品</span> <a class="more" href="search.php@intro=hot">更多</a></h4>
+                    <div class="blank"></div>
+                    <div id="show_hot_area" class="clearfix">
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=134"><img src="images/201310/thumb_img/134_thumb_G_1380647163699.jpg" alt="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=134" title="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色">天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=136"><img src="images/201310/thumb_img/136_thumb_G_1380647873871.jpg" alt="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=136" title="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长">Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=140"><img src="images/201310/thumb_img/140_thumb_G_1380647948693.jpg" alt="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=140" title="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣">GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=138"><img src="images/201310/thumb_img/138_thumb_G_1380647918079.jpg" alt="ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=138" title="ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9">ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                120元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=137"><img src="images/201310/thumb_img/137_thumb_G_1380647890611.jpg" alt="桑缇 2013秋季新款 韩版修身圆领外套ST133W540" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=137" title="桑缇 2013秋季新款 韩版修身圆领外套ST133W540">桑缇 2013秋季新款 韩版修身圆领外套ST133W540</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                120元
+                            </font>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="blank"></div>
+                <div class="xm-box">
+                    <h4 class="title"><span>精品推荐</span> <a class="more" href="search.php@intro=best">更多</a></h4>
+                    <div class="blank"></div>
+                    <div id="show_best_area" class="clearfix">
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=134"><img src="images/201310/thumb_img/134_thumb_G_1380647163699.jpg" alt="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=134" title="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色">天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=136"><img src="images/201310/thumb_img/136_thumb_G_1380647873871.jpg" alt="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=136" title="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长">Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=138"><img src="images/201310/thumb_img/138_thumb_G_1380647918079.jpg" alt="ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=138" title="ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9">ANDO STORE 安都韩版显瘦女裙雪纺两件套连衣裙9</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                120元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=139"><img src="images/201310/thumb_img/139_thumb_G_1380647936181.jpg" alt="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=139" title="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812">SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=141"><img src="images/201310/thumb_img/141_thumb_G_1380647968600.jpg" alt="茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=141" title="茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气">茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气</a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="blank"></div>
+
+                <div class="xm-box">
+                    <h4 class="title"><span>女装</span> <a class="more" href="category.php@id=21">更多</a></h4>
+                    <div class="blank"></div>
+                    <div id="show_hot_area" class="clearfix">
+
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=134"><img src="images/201310/thumb_img/134_thumb_G_1380647163699.jpg" alt="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=134" title="天使之城 新款 手工珍珠金线蕾丝衫雪纺衫LM0304 白色"></a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=136"><img src="images/201310/thumb_img/136_thumb_G_1380647873871.jpg" alt="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=136" title="Souline 素缕 《斑驳》2013秋款新女棉麻刺绣长"></a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=140"><img src="images/201310/thumb_img/140_thumb_G_1380647948693.jpg" alt="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=140" title="GOLDFARM 高梵 2013夏装新款 雪纺复古印花连衣"></a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=141"><img src="images/201310/thumb_img/141_thumb_G_1380647968600.jpg" alt="茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=141" title="茵克拉芙 2013夏装女装春款连衣裙碎花雪纺OL气"></a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                        <div class="goodsItem">
+
+                            <a href="goods.php@id=139"><img src="images/201310/thumb_img/139_thumb_G_1380647936181.jpg" alt="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812" class="goodsimg" /></a><br />
+                            <p class="f1"><a href="goods.php@id=139" title="SDEER 圣迪奥 女夏装拼接感双层裙摆连衣裙22812"></a></p>
+
+
+                            市场价：<font class="market">144元</font> <br />
+
+                            本店价：<font class="f1">
+                                110元
+                            </font>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="blank"></div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div id="VjiaFooter" class="block">
+            <div class="foot">
+                <div class="f_t">
+                    <div class="email">
+                        Email订阅最新特惠信息：
+                        <input type="text" id="user_email" class="inp" maxlength="100" onclick="javascript:this.value='';" style="vertical-align:middle" />
+                        <input type="image" style="vertical-align:middle" src="themes/ecmoban_vjia/images/subscibe.gif" class="subscribe_forindex" value="订阅" onclick="add_email_list();" />
+                        <span></span>
+                    </div>
+                    <ul class="phone">
+                        <li class="goodness">
+                            <img src="themes/ecmoban_vjia/images/fot_service.jpg" />
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+
+
+
+                <div class="f_b clearfix">
+                    <div class="help">
+                        <ul class="noborder_l">
+                            <li class="t"><a href='article_cat.php@id=5' title="新手上路 ">新手上路 </a></li>
+                            <li><a href="article.php@id=9">售后流程</a></li>
+                            <li><a href="article.php@id=10">购物流程</a></li>
+                            <li><a href="article.php@id=11">订购方式</a></li>
+                        </ul>
+                        <ul>
+                            <li class="t"><a href='article_cat.php@id=6' title="购物常识 ">购物常识 </a></li>
+                            <li><a href="article.php@id=12">如何分辨原装电池</a></li>
+                            <li><a href="article.php@id=13">如何分辨水货手机</a></li>
+                            <li><a href="article.php@id=14">如何享受全国联保</a></li>
+                        </ul>
+                        <ul>
+                            <li class="t"><a href='article_cat.php@id=7' title="配送与支付 ">配送与支付 </a></li>
+                            <li><a href="article.php@id=15">货到付款区域</a></li>
+                            <li><a href="article.php@id=16">配送支付智能查询</a></li>
+                            <li><a href="article.php@id=17">支付方式说明</a></li>
+                        </ul>
+                        <ul>
+                            <li class="t"><a href='article_cat.php@id=10' title="会员中心">会员中心</a></li>
+                            <li><a href="article.php@id=18">资金管理</a></li>
+                            <li><a href="article.php@id=19">我的收藏</a></li>
+                            <li><a href="article.php@id=20">我的订单</a></li>
+                        </ul>
+                        <ul class="noborder_r">
+                            <li class="t"><a href='article_cat.php@id=8' title="服务保证 ">服务保证 </a></li>
+                            <li><a href="article.php@id=21">退换货原则</a></li>
+                            <li><a href="article.php@id=22">售后服务保证</a></li>
+                            <li><a href="article.php@id=23">产品质量保证</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="box_1">
+                <div class="links clearfix">
+                    [<a href="../../www.ecmoban.com/default.htm" target="_blank" title="ecshop模板堂">ecshop模板堂</a>]
+                </div>
+            </div>
+            <div class="blank"></div>
+            <div class="copyRight">
+                <div class="f_nav">
+                    <a href="article.php@id=1">免责条款</a>
+                    |
+                    <a href="article.php@id=2">隐私保护</a>
+                    |
+                    <a href="article.php@id=3">咨询热点</a>
+                    |
+                    <a href="article.php@id=4">联系我们</a>
+                    |
+                    <a href="article.php@id=5">公司简介</a>
+                    |
+                    <a href="wholesale.php">批发方案</a>
+                    |
+                    <a href="myship.php">配送方式</a>
+                </div>
+                <div style=" line-height:22px;">
+
+                    &copy; 2005-2014 ECSHOP模板堂（www.ecmoban.com）专业ECSHOP模板制作 版权所有，并保留所有权利。  <br />
+                    <a href="../../www.ecshop.com/default.htm" target="_blank" style=" font-family:Verdana; font-size:11px;">Powered&nbsp;by&nbsp;<strong><span style="color: #3366FF">ECShop</span>&nbsp;<span style="color: #FF9966">v2.7.3</span></strong></a>&nbsp;<br />
+
+
+                </div>
+
+                <div class="blank"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</body>
+</html>

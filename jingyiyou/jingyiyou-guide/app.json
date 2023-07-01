@@ -1,0 +1,39 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/logs/logs",
+        "pages/waitingorder/waitingorder",
+        "pages/myorder/myorder",
+        "pages/myedit/myedit",
+        "pages/regist/regist"
+    ],
+    "tabBar": {
+        "custom": true,
+        "color": "#7A7E83",
+        "selectedColor": "#FF0000",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/waitingorder/waitingorder",
+                "iconPath": "images/waitingorder.jpg",
+                "selectedIconPath": "images/waitingorder.jpg",
+                "text": "接单"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "iconPath": "images/my.jpg",
+                "selectedIconPath": "images/my.jpg",
+                "text": "我的"
+            }
+        ]
+    },
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "京易游导游端",
+        "navigationBarTextStyle": "black"
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
+}

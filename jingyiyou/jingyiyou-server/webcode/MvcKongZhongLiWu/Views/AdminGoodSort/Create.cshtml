@@ -1,0 +1,80 @@
+﻿@model ncc2019.GoodSort
+
+@{
+    ViewBag.Title = "添加";
+}
+
+<div class="Area">
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>GoodSort</legend>
+
+            <div class="editor-label">
+                显示名称
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+
+            @*<div class="editor-label">
+            @Html.LabelFor(model => model.ParentID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentID)
+            @Html.ValidationMessageFor(model => model.ParentID)
+        </div>*@
+
+
+            <div class="editor-label">
+                是否启用
+            </div>
+            <div class="editor-field">
+
+                @Html.DropDownList("Enabled", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.ShiFouStatus), Model.Enabled.ToString()))
+            </div>
+
+            <div class="editor-label">
+                排序
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.GoodSortOrder)
+                @Html.ValidationMessageFor(model => model.GoodSortOrder)
+            </div>
+
+            <div class="editor-label">
+                是否显示在web首页
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ShowInIndex", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.ShiFouStatus), Model.ShowInIndex.ToString()))
+            </div>
+
+            @*<div class="editor-label">
+            @Html.LabelFor(model => model.ShowName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ShowName)
+            @Html.ValidationMessageFor(model => model.ShowName)
+        </div>*@
+            <br />
+            <br />
+            <p>
+                <input type="submit" class="myButton" value="添   加" />
+            </p>
+        </fieldset>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</div>

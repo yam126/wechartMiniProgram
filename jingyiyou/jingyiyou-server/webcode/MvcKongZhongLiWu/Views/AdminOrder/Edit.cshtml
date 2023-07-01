@@ -1,0 +1,181 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Model
+@{
+    ViewBag.Title = "Edit";
+}
+<style type="text/css">
+    .box_1 input{
+        width:400px;
+    }
+</style>
+
+<div class="Area">
+    <div class="box_1">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Order</legend>
+
+                @Html.HiddenFor(model => model.OrderID)
+
+                <div class="editor-label">
+                    下单人
+                </div>
+                <div class="editor-field">
+                    @MemberInfo.GetMemberName(Model.MemberID.Value)
+                </div>
+
+                <div class="editor-label">
+                    礼物名称
+                </div>
+                <div class="editor-field">
+                    @Model.Goods.Name
+                </div>
+
+                <div class="editor-label">
+                    购买数量
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.BuyNum)
+                    @Html.ValidationMessageFor(model => model.BuyNum)
+                </div>
+
+                <div class="editor-label">
+                    单个礼物价格
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Payment)
+                    @Html.ValidationMessageFor(model => model.Payment)
+                </div>
+
+                <div class="editor-label">
+                    订单总价
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TotalPayment)
+                    @Html.ValidationMessageFor(model => model.TotalPayment)
+                </div>
+
+
+                <div class="editor-label">
+                    支付状态
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("PayStatus", EnumTool.ConvertList(typeof(PayStatus), Model.PayStatus.ToString()))
+                </div>
+
+                <div class="editor-label">
+                    快递状态
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("TranceStatus", EnumTool.ConvertList(typeof(TransferStatus), Model.TranceStatus.ToString()))
+                </div>
+
+                <div class="editor-label">
+                    订单状态
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("OrderStatus", EnumTool.ConvertList(typeof(OrderStatus), Model.OrderStatus.ToString()))
+                </div>
+
+                <div class="editor-label">
+                    备注
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Memo)
+                    @Html.ValidationMessageFor(model => model.Memo)
+                </div>
+
+                <div class="editor-label">
+                    短链接
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ShortUrl)
+                    @Html.ValidationMessageFor(model => model.ShortUrl)
+                </div>
+
+                <div class="editor-label">
+                    给Ta留言
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SayEtc)
+                    @Html.ValidationMessageFor(model => model.SayEtc)
+                </div>
+
+                <div class="editor-label">
+                    接收人姓名
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ToName)
+                    @Html.ValidationMessageFor(model => model.ToName)
+                </div>
+
+                <div class="editor-label">
+                    接收人电话
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ToPhone)
+                    @Html.ValidationMessageFor(model => model.ToPhone)
+                </div>
+
+                <div class="editor-label">
+                    接收人地址
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ToAddress)
+                    @Html.ValidationMessageFor(model => model.ToAddress)
+                </div>
+
+                <div class="editor-label">
+                    打开礼物人
+                </div>
+                <div class="editor-field">                   
+                    @Html.EditorFor(model => model.ToMemberID)
+                </div>
+                <div class="editor-label">
+                    打开礼物人OpenID
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ToWeChatOpenid)
+                </div>
+
+                <div class="editor-label">
+                    礼物送达时间
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ToDate)
+                    @Html.ValidationMessageFor(model => model.ToDate)
+                </div>
+                <div class="editor-label">
+                    快递公司
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DeliveryCompany)
+                    @Html.ValidationMessageFor(model => model.DeliveryCompany)
+                </div>
+                <div class="editor-label">
+                    快递单号
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DeliveryNo)
+                    @Html.ValidationMessageFor(model => model.DeliveryNo)
+                </div>
+                <div>
+                    <br />
+                    <input type="submit" value="保存" />
+                </div>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

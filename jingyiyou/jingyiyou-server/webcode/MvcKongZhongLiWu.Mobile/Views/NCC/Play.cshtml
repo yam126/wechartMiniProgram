@@ -1,0 +1,226 @@
+﻿@{
+    ViewBag.Title = "Play";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <script src="~/Scripts/m/jquery.min.js"></script>
+    <link href="~/Scripts/player/video.css" rel="stylesheet" />
+    <script src="~/Scripts/player/video.js"></script>
+    <script src="~/Scripts/player/videojs-contrib-hls.js"></script>
+    <script src="~/Scripts/player/flv.js"></script>
+</head>
+<body>
+    <video id="my-player"
+           class="video-js"
+           controls
+           preload="auto"
+           poster="http://vjs.zencdn.net/v/oceans.png">
+        @*<source src='http://push.ncc.renxingpao.com/test/s03.m3u8' type="application/x-mpegURL" >*@
+        <source src='http://m.ncc.renxingpao.com/other/test.flv' type="video/mp4">
+        </video>
+     
+  
+    <style type="text/css">
+        body{
+          margin:0px;
+        }
+        .video-js2q {
+            /*top: 160px;
+            left: -159px;*/
+            top: 0px;
+            left: 0px;
+            
+            position: absolute;
+        }
+        .video-js23 {
+            top: 0px;
+            right: 0px;
+            position: absolute;
+        }
+        .video-js2 {
+            transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+        }
+        #my-player1 {
+            right: 0px;
+            bottom: 0px;
+            /*position: absolute;*/
+        }
+    </style>
+    @*<div id="playercontainer"></div>
+    <script type="text/javascript" src="http://cyberplayer.bcelive.com/demo/new/player/cyberplayer.js"></script>*@
+    <script type="text/javascript">
+      
+        
+        var myPlayer;
+        function fullscreen() {
+            isfullscreen = !isfullscreen;
+            //alert(0)
+            
+           
+
+            if (isfullscreen == true) {
+                $('#my-player').addClass('video-js2');
+                $('#my-player').css('top', (winheight - winwidth) / 2);
+                $('#my-player').css('left', -(winheight - winwidth) / 2);
+                $('#my-player').width(winheight);
+                $('#my-player').height(winwidth);
+                
+               
+            } else {
+                $('#my-player').removeClass('video-js2');
+                $('#my-player').css('top', 0);
+                $('#my-player').css('left', 0);
+                $('#my-player').width(winwidth);
+                $('#my-player').height(winwidth/1.777);
+            }
+           
+            
+        }
+        var winwidth = 0;
+        var winheight = 0;
+        var isfullscreen = false;
+        $(function () {
+            winwidth = $(window).width();
+            winheight = $(window).height();
+            console.info('width:' + winwidth)
+            console.info('height:' + winheight)
+            myPlayer = videojs('my-player', {
+                techOrder: ['html5', 'flvjs'],
+                flvjs: {
+                    mediaDataSource: {
+                        isLive: true,
+                        cors: true,
+                        withCredentials: false,
+                    },
+                }
+                bigPlayButton: true,
+                textTrackDisplay: false,
+                posterImage: true,
+                errorDisplay: false,
+                controlBar: true
+            }, function () {
+                console.log(this)
+                this.on('loadedmetadata', function () {
+                    console.log('loadedmetadata');
+                    //加载到元数据后开始播放视频
+                    startVideo();
+                })
+                //var holder = myPlayer.requestFullscreen;
+                myPlayer.requestFullscreen = function () {
+                    //debugger;
+                    //holder();
+                    fullscreen();
+                }
+
+                this.on('fullscreenchange', function (e) {
+                    //isfullscreen = !isfullscreen;
+                    console.log('fullscreenchange:' )
+                    //fullscreen();
+                })
+                this.on('firstplay', function () {
+                    console.log('firstplay')
+                })
+                this.on('loadstart', function () {
+                    //开始加载
+                    console.log('loadstart')
+                })
+                this.on('loadeddata', function () {
+                    console.log('loadeddata')
+                })
+                this.on('seeking', function () {
+                    //正在去拿视频流的路上
+                    console.log('seeking')
+                })
+                this.on('seeked', function () {
+                    //已经拿到视频流,可以播放
+                    console.log('seeked')
+                })
+                this.on('waiting', function () {
+                    console.log('waiting')
+                })
+                this.on('pause', function () {
+                    console.log('pause')
+                })
+                this.on('play', function () {
+                    console.log('play')
+                })
+
+            });
+
+             //$('#my-player').click(function () {
+             //    fullscreen();
+             //})
+
+
+            var isVideoBreak;
+            function startVideo() {
+
+                myPlayer.play();
+
+
+                //微信内全屏支持
+                //document.getElementById('my-player').style.width = window.screen.width + "px";
+                //document.getElementById('my-player').style.height = window.screen.height + "px";
+                $('#my-player').width(winwidth);
+                $('#my-player').height(winwidth/1.777);
+
+                //判断开始播放视频，移除高斯模糊等待层
+                var isVideoPlaying = setInterval(function () {
+                    var currentTime = myPlayer.currentTime();
+                    if (currentTime > 0) {
+                        $('.vjs-poster').remove();
+                        clearInterval(isVideoPlaying);
+                    }
+                }, 200)
+
+                //判断视频是否卡住，卡主3s重新load视频
+                var lastTime = -1,
+                    tryTimes = 0;
+
+                clearInterval(isVideoBreak);
+                isVideoBreak = setInterval(function () {
+                    var currentTime = myPlayer.currentTime();
+                    console.log('currentTime' + currentTime + 'lastTime' + lastTime);
+
+                    if (currentTime == lastTime) {
+                        //此时视频已卡主3s
+                        //设置当前播放时间为超时时间，此时videojs会在play()后把currentTime设置为0
+                        myPlayer.currentTime(currentTime + 10000);
+                        myPlayer.play();
+
+                        //尝试5次播放后，如仍未播放成功提示刷新
+                        if (++tryTimes > 5) {
+                            alert('您的网速有点慢，刷新下试试');
+                            tryTimes = 0;
+                        }
+                    } else {
+                        lastTime = currentTime;
+                        tryTimes = 0;
+                    }
+                }, 3000)
+
+            }
+
+            startVideo();
+           
+        })
+       
+    </script>
+   
+ 
+  
+
+
+    
+    <button type="button" onclick="fullscreen()">全屏</button>
+</body>
+</html>

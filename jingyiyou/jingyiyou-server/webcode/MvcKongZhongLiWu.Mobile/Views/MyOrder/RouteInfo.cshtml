@@ -1,0 +1,46 @@
+﻿@model ncc2019.Orders
+@{
+    ViewBag.Title = "物流信息";
+}
+<style type="text/css">
+    .pand-center {
+        margin: auto;
+        text-align: center;
+        width: 100%;
+        border-top: 1px solid black;
+        border-top-color: rgba(204, 195, 195, 0.87);
+    }
+    .panel-body h5, .panel-body h5 p {
+        display:inline-block;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        var json=@Html.Raw(ViewBag.json);
+        if (json.data.length==0) {
+            //$('<div class="panel-body pand-center">暂无物流信息</div>').appendTo(".panel");
+            $('.pand-center').html('暂无物流信息');
+            //$(".blankex").attr("style","text-align:center;line-height:300px;");
+        }
+        else {
+            for (var i = 0; i < json.data.length; i++) {
+                $('<div class="panel-body pand-center"><label>' + json.data[i].time + '</label><label>' + json.data[i].context + '</label></div>').appendTo(".panel");
+            }
+        }
+
+    });
+</script>
+<div class="panel">
+    <div class="panel-body">
+        <a><h5>姓名：</h5> <label>@Model.ToName</label></a>
+    </div>
+    <div class="panel-body">
+        <a><h5>电话：</h5> <label>@Model.ToPhone</label></a>
+    </div>
+    <div class="panel-body">
+        <a><h5>地址：</h5> <label>@Model.ToAddress</label></a>
+    </div>
+    <div class="panel-body  pand-center">
+        @Html.Raw(ViewBag.info)
+    </div>
+</div>

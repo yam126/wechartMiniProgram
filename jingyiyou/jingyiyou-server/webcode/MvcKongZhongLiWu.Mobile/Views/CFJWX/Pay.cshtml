@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "支付";
+}
+
+<script type="text/javascript">
+    $(function () {
+        hidhistory();
+        hidmune();
+    });
+    function onBridgeReady(data) {
+
+        WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', data,
+        function (res) {
+
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                window.location = "/cfj/ok";
+            }
+            else {
+                //alert(res.err_msg);
+                ispaying = false;
+                showAlertMessage("支付失败,请稍后再试！");
+                //window.location = "/Myorder/";
+            }
+            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+        }
+
+        );
+    }
+    var ispaying = false;
+    function dopayment() {
+
+        //if (ispaying == true) {
+        //    return false;
+        //}
+        ispaying = true;
+        onBridgeReady(@Html.Raw(ViewBag.paydata));
+
+
+
+    }
+</script>
+<section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+    <p><b>@ViewBag.name</b></p>
+    <ul>
+        <li>
+            <dl>
+                <dt class="pull-left">
+                    @ViewBag.memo
+                </dt>
+                <dd class="pull-right">￥@ViewBag.payment 元</dd>
+            </dl>
+        </li>
+    </ul>
+</section>
+
+<section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion">
+    <div class="btnpanel">
+        <input type="button" name="submit" value="付  款" onclick="return dopayment();" class="btn btn-info ect-colorf button_only btn-red">
+    </div>
+    </section>

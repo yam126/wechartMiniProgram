@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ncc2019.Orders>
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+
+ 
+<script src="~/Scripts/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+    });
+</script>
+   <div class="blank"></div>
+<div class="block clearfix">
+    <div class="Area">
+        <div class="box">
+            <div class="box_1">
+                <div style="_height: 1%; min-height: 300px;" class="userCenterBox boxCenterList clearfix">
+                    <h5><span>@ViewBag.Title</span></h5>
+                    <div class="blank"></div>
+                    <table border="0" cellspacing="1" cellpadding="5" width="100%"  bgcolor="#dddddd">
+                        <tbody>
+                            <tr align="center">
+                                <td bgcolor="#ffffff">礼物名称</td>
+                                <td bgcolor="#ffffff">单价</td>
+                                <td bgcolor="#ffffff">购买数量</td>
+                                <td bgcolor="#ffffff">支付金额</td>
+                                <td bgcolor="#ffffff">支付状态</td>
+                                <td bgcolor="#ffffff">支付时间</td>
+                                <td bgcolor="#ffffff">操作</td>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td bgcolor="#ffffff">
+                                       <a href="/Home/Details?id=@item.GoodID" target="_blank" style="text-decoration:underline;"> @item.Goods.Name</a>
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @item.Payment
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @item.BuyNum
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @item.TotalPayment
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @EnumTool.GetEnumName(typeof(PayStatus), item.PayStatus)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @item.AddDate
+                                    </td>
+                                    <td bgcolor="#ffffff" style="text-align:center;">
+                                        @if (item.PayStatus == (int)PayStatus.未支付)
+                                        {
+                                            <a href="/pay?orderid=@DESEncrypt.Encrypt( item.OrderID)" style="text-decoration:underline;" target="_blank">支付</a> @Html.Raw("&nbsp;")
+                                        }
+                                        else
+                                        {
+                                            if (item.IsForMe==(int)ShiFouStatus.否||item.IsForMe==null)
+                                            {
+                                                <a href="/send?orderid=@DESEncrypt.Encrypt( item.OrderID)" style="text-decoration:underline;" target="_blank">发送</a>@Html.Raw("&nbsp;")
+                                                <a href="/myorder/Details?orderid=@DESEncrypt.Encrypt( item.OrderID)" style="text-decoration:underline;" target="_blank">详情</a>@Html.Raw("&nbsp;")    
+                                            }
+                                            else
+                                            {
+                                                <a href="/myorder/MyDetails?orderid=@DESEncrypt.Encrypt( item.OrderID)" style="text-decoration:underline;" target="_blank">详情</a>@Html.Raw("&nbsp;")
+                                            }
+                                            
+                                            if (!(item.IsForMe == (int)ShiFouStatus.否 || item.IsForMe == null))
+                                            {
+                                                <a target="_blank" style="text-decoration:underline;" href="/Myorder/Route?orderid=@DESEncrypt.Encrypt(item.OrderID)">物流信息</a>
+                                            }
+                                        }                                      
+                                        @if (ViewBag.type == "get") {
+                                        <a target="_blank" href="/Myorder/Route?orderid=@DESEncrypt.Encrypt(item.OrderID)">物流</a>
+                                        @*<a target="_blank" href="~/PreView?orderid=@ncc2019.Common.Tool.DESEncrypt.Encrypt(item.OrderID.ToString())">预览</a>*@
+                                        }
+                                        
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="blank5"></div>
+
+                    <form method="get" name="selectPageForm" action="/mbvjia/user.php">
+
+                        <div id="pager" class="pagebar">
+                            <span style="margin-right: 10px;" class="f_l ">总计 <b>@Model.Count()</b>  个记录</span>
+
+                        </div>
+
+                    </form>
+                    
+      
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,138 @@
+﻿@model Good
+
+@{
+    ViewBag.Title = "ProductEdit";
+}
+<script charset="utf-8" src="../../editor/kindeditor.js"></script>
+<h2>Edit</h2>
+
+@{Html.EnableClientValidation(false);}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary(true);
+
+
+    <fieldset>
+        <legend>Good</legend>
+
+        @Html.HiddenFor(model => model.GoodID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            产品分组
+        </div>
+        <div class="editor-field">
+            @foreach (SelectListItem item in ViewBag.SortList)
+            {
+                var ischecked = "";
+                if (item.Selected)
+                {
+                    ischecked = "checked='checked'";
+                }
+                <input id="@item.Value" name="goodsort" type="checkbox" value="@item.Value" @ischecked />
+                <label for="@item.Value">@item.Text</label>
+
+            }
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Payment)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Payment)
+            @Html.ValidationMessageFor(model => model.Payment)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TotalNum)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TotalNum)
+            @Html.ValidationMessageFor(model => model.TotalNum)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BuyCount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BuyCount)
+            @Html.ValidationMessageFor(model => model.BuyCount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ImgUrl)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ImgUrl)
+            @Html.ValidationMessageFor(model => model.ImgUrl)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Intro)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Intro)
+            @Html.ValidationMessageFor(model => model.Intro)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tags)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Tags)
+            @Html.ValidationMessageFor(model => model.Tags)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Desc)
+        </div>
+        <div class="editor-field" id="editor_id">
+
+            <textarea id='demo_12_id' name='Desc' style='width:700px;height:300px;'>
+                @Html.Raw(Model.Desc)
+            </textarea>
+
+
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+<script>
+    var editor_id = 'demo_12_id';
+    var _imageUploadJson = "../tool/upload/upload_json.ashx";
+    //var _fileManagerJson = "../tool/upload/file_manager_json.ashx";
+    //var _allowFileManager = true;
+    var editor;
+    var options = {
+        filterMode: false,
+        uploadJson: _imageUploadJson
+    };
+
+    //$("<textarea id='demo_12_id' name='content' style='width:700px;height:300px;' ></textarea>").appendTo("#editor_id");
+
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#demo_12_id');
+    });
+
+</script>
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "物流信息";
+}
+<style type="text/css">
+    .box td
+    {
+        background-color: #ffffff;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        var json=@Html.Raw(ViewBag.json);
+        if (json.data!=null&&json.data.length==0) {
+            $('<tr><td align="middle">暂无物流信息</td></tr>').appendTo("#id_content");
+            $(".blankex").attr("style","text-align:center;line-height:300px;");
+        }
+        else {
+            for (var i = 0; i < json.data.length; i++) {
+                $('<tr><td  align="right">' + json.data[i].time + '</td><td>' + json.data[i].context + '</td></tr>').appendTo("#id_content");
+            }
+        }
+
+    });
+</script>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="Area">
+    <div class="box">
+        @Html.Raw(ViewBag.info)
+        <div class="blankex" >
+            <table style="margin:auto;" border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                <tbody id="id_content"></tbody>
+            </table>
+        </div>
+    </div>
+</div>

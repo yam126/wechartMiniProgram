@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ncc2019.Members>
+@{
+    ViewBag.Title = "我发展的用户";
+}
+<style type="text/css">
+    .imgp {
+        width: 3em !important;
+        height: 3em !important;
+    }
+</style>
+@foreach (var item in Model)
+{
+    <div  class="ect-pro-list user-order" style="border-bottom:none;">
+        <ul id="J_ItemList">
+            <li class="single_item">
+                <img src="@item.HeadImgUrl"  class="pull-left imgp">
+                <dl style="margin-right:20px">
+                    <dt>
+                        <h4 class="title">@item.Name</h4>
+                    </dt>
+                    @*<dd> </dd>*@
+                </dl>
+                @*<i class="pull-right fa fa-angle-right"></i>*@
+            </li>
+
+        </ul>
+    </div>
+
+}

@@ -1,0 +1,41 @@
+<!--components/popup/popup.wxml-->
+<view class="popup" hidden="{{flag}}">
+  <view class='popup-container'>
+    <view wx:if="{{title}}" class="popup-title">{{title}}</view>
+    <view>
+    </view>
+    <view class="popup-con">
+      <!--<image src="{{image}}" />-->
+      <!--状态选项-->
+      <view bindtap="changeBusyState" data-BusyState="0" class="option-item">
+       <image class="icon" src='../../images/idle.svg'/>
+       <view class="label">
+         空闲
+       </view>
+       <image wx:if="{{BusyStatus==0}}" class="icon" src='../../images/checkmark.svg'/>
+      </view>
+      <!--/状态选项-->
+      <!--状态选项-->
+      <view bindtap="changeBusyState" data-BusyState="1" style="border: none;" class="option-item">
+       <image class="icon" src='../../images/working.svg'/>
+       <view class="label">
+         讲解中
+       </view>
+       <image wx:if="{{BusyStatus==1}}" class="icon" src='../../images/checkmark.svg'/>
+      </view>
+      <!--/状态选项-->
+      <!--状态选项-->
+      <view bindtap="changeBusyState" data-BusyState="2" class="option-item">
+       <image class="icon" src='../../images/rest.svg'/>
+       <view class="label">
+         休息
+       </view>
+       <image wx:if="{{BusyStatus==2}}" class="icon" src='../../images/checkmark.svg'/>
+      </view>
+      <!--/状态选项-->             
+    </view>
+    <view class="popup-btn">
+      <text class="btn-ok" bindtap='_success'>关闭</text>
+    </view>
+  </view>
+</view>

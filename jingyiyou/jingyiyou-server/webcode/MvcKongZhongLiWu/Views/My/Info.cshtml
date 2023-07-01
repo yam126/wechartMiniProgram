@@ -1,0 +1,134 @@
+﻿@model ncc2019.Members
+@{
+    ViewBag.Title = "Info";
+}
+@Html.Raw(ViewBag.Message)
+
+<script src="~/Scripts/birthday.js"></script>
+<script>
+    function checkpass() {
+    }
+    $(function () {
+        $.ms_DatePicker({
+            YearSelector: ".sel_year",
+            MonthSelector: ".sel_month",
+            DaySelector: ".sel_day"
+        });
+    });
+</script>
+<div class="blank5"></div>
+<div class="block clearfix">
+
+    @Html.Partial("~/views/part/MyLeft.cshtml", ncc2019.Common.Enum.MyPageType.MyInfo);
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                @using (Html.BeginForm("DoChangeInfo", "My", FormMethod.Post, new { id = "changeinfo" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+
+                        <h5><span>个人资料修改</span></h5>
+
+                        <div class="blank"></div>
+                        <table border="0" align="left" cellpadding="3" cellspacing="5">
+                            <tr>
+                                <td align="right">登陆名</td>
+                                <td>
+                                    <span>@Model.LoginName</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">真实姓名</td>
+                                <td>
+                                    <input name="name" type="text" id="name" size="20" class="inputBg" value="@Model.Name" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">昵称</td>
+                                <td>
+                                    <input name="nicename" type="text" id="nicename" size="20" class="inputBg" value="@Model.NiceName" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">Email</td>
+                                <td>
+                                    <input name="email" type="text" id="email" size="20" class="inputBg" value="@Model.Email" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">手机</td>
+                                <td>
+                                    <input name="phone" type="text" id="phone" size="20" class="inputBg" value="@Model.Phone" />
+
+                                </td>
+                            </tr>
+                            @{
+                    var relyear = "";
+                    var relmonth = "";
+                    var relday = "";
+                    if (@Model.Birth != null)
+                    {
+
+
+                        if (@Model.Birth.Value.Year > 100)
+                        {
+                            relyear = Model.Birth.Value.Year.ToString();
+                        }
+                        if (@Model.Birth.Value.Month > 0)
+                        {
+                            relmonth = Model.Birth.Value.Month.ToString();
+                        }
+                        if (@Model.Birth.Value.Day > 0)
+                        {
+                            relday = Model.Birth.Value.Day.ToString();
+                        }
+                    }
+                            }
+                            <tr>
+                                <td align="right">出生日期</td>
+                                <td>
+                                    <select name="birth_year" class="sel_year" rel="@relyear" > </select> 年
+                                    <select name="birth_month" class="sel_month" rel="@relmonth"> </select> 月
+                                    <select name="birth_day" class="sel_day" rel="@relday"> </select> 日
+                                </td>
+                            </tr>
+                            @{
+                    var man = "";
+                    var woman = "";
+                    if (Model.Sex == 1)
+                    {
+                        man = "checked='checked'";
+                    }
+                    else
+                    {
+                        woman = "checked='checked'";
+                    }
+                 
+                    }
+                    <tr>
+                        <td align="right">性别</td>
+                        <td>
+                            <input id="rbman" name="sex" type="radio" value="1" @man /><label for="rbman">男 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input id="rbwoman" name="sex" type="radio" value="0" @woman /><label for="rbwoman">女 </label>
+                        </td>
+                    </tr>
+                                <tr>
+                                   
+                                    <td colspan="2">
+                                        <input type="submit" class="myButton" value="保   存" onclick="return checkpass()" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                                <input id="birth" name="birth" type="hidden" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>

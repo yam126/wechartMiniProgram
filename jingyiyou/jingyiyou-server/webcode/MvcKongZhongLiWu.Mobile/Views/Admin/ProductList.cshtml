@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DBModel.Goods>
+@{
+    ViewBag.Title = "ProductList";
+}
+
+
+<div class="block clearfix">
+
+    <div class="AreaL" style="margin-top:0px;">
+        <div class="box">
+            <div class="box_1">
+                <div class="userCenterBox">
+                    <div class="userMenu">
+                        <a href="user.php"><img src="~/css/images/u3.gif" qvod="0"> 欢迎页</a>
+                        <a href="user.php?act=profile"><img src="~/css/images/u3.gif" qvod="0"> 用户信息</a>
+                        <a class="curs" href="ProductList"><img src="~/css/images/u3.gif" qvod="0"> 产品列表</a>
+                        <a href="user.php?act=address_list"><img src="~/css/images/u3.gif" qvod="0"> 收货地址</a>
+                        <a href="user.php?act=collection_list"><img src="~/css/images/u3.gif" qvod="0"> 我的收藏</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+
+
+
+
+                    <h5><span>我的订单</span></h5>
+                    <div class="blank"></div>
+                    <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                        <tbody>
+                            <tr align="center">
+                                <td bgcolor="#ffffff">@Html.DisplayNameFor(model => model.Name)</td>
+                                <td bgcolor="#ffffff">@Html.DisplayNameFor(model => model.Payment)</td>
+                                <td bgcolor="#ffffff">@Html.DisplayNameFor(model => model.TotalNum)</td>
+                                <td bgcolor="#ffffff">@Html.DisplayNameFor(model => model.BuyCount)</td>
+                                <td bgcolor="#ffffff">@Html.DisplayNameFor(model => model.Tags)</td>
+                                <td bgcolor="#ffffff">操作</td></tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.Payment)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.TotalNum)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.BuyCount)
+                                    </td>
+
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.Tags)
+                                    </td>
+
+                                    <td bgcolor="#ffffff">
+                                        @Html.ActionLink("Edit", "ProductEdit", new { id = item.GoodID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.GoodID }) |
+                                        @Html.ActionLink("Delete", "ProductDelete", new { id = item.GoodID })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="blank5"></div>
+
+                    <form method="get" name="selectPageForm" action="/mbvjia/user.php">
+
+                        <div id="pager" class="pagebar">
+                            <span style="margin-right: 10px;" class="f_l ">总计 <b>0</b>  个记录</span>
+
+                        </div>
+
+                    </form>
+
+                    <div class="blank5"></div>
+                    <div class="blank"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    

@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "会说话的书签";
+}
+<style type="text/css">
+    .checkout-select > a{
+        line-height:1.4;
+        height:100%;
+    }
+    .body-button{
+        text-align:center;
+    }
+</style>
+<script type="text/javascript">
+    @*wx.config({
+        debug: true,
+        appId: '@ViewBag.js_json.appId',
+        timestamp: '@ViewBag.js_json.timeStamp',
+        nonceStr: '@ViewBag.js_json.nonceStr',
+        signature: '@ViewBag.js_json.paySign',
+        jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice', 'chooseImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });*@
+    function chooseImage() {
+        wx.chooseImage({
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                alert(localIds);
+            }
+        });
+    }
+    $(function () {
+        showguanzhu();
+        hidhistory();
+        hidmune();
+    });
+    function btn_ok() {
+        //获取音频ID
+
+    }
+</script>
+
+@Html.Partial("~/views/part/vioce.cshtml")
+@using (Html.BeginForm("edit", "qrcode", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div class="panel panel-body">
+    <div class="panel-body">
+        <h4>请写下您的留言内容！</h4>
+    </div>
+    <div class="panel-body">
+        <textarea name="content" id="content" placeholder="留言内容！" style="width:100%;height:15em"></textarea>
+    </div>
+</div>
+
+    @if (ViewBag.isweixin == true)
+{
+    <div class="panel panel-body">
+        <section class="ect-margin-tb ect-padding-lr checkout-select">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" onclick="chooseImage()">
+                <i class="glyphicon glyphicon-record" style="color: #FF6633"></i> <b>点击留下您的声音祝福</b> <span class="label ect-bg-colory novioce">暂无录音</span>
+            </a>
+        </section>
+    </div>
+        @*<div class="panel panel-body">
+            <div class="body-button">
+                <button type="button" class="btn btn-info ect-colorf button_only">添加图片</button>
+            </div>
+            
+            </div>*@
+}
+    @*<img src="wxLocalResource://45821435446940" width="20px" height="20px" />*@
+
+
+
+<input type="hidden" value="@ViewBag.orderid" name="orderid" id="orderid" />
+<input type="hidden" value="@ViewBag.goodid" name="goodid" id="goodid" />
+}
+@*<div style="margin-top:3em;"></div>*@
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btn_ok()">保   存</button>
+
+</div>

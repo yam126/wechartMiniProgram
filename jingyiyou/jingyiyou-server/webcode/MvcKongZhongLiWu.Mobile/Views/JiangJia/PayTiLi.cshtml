@@ -1,0 +1,141 @@
+﻿@model ncc2019.CommonPay
+@using ncc2019.Common.HtmlExt
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "确定支付";
+}
+<script src="~/Scripts/jweixin-1.0.0.js"></script>
+<link href="~/css/index.css" rel="stylesheet" />
+<script type="text/javascript">
+    
+    $(function () {
+        $('.ect-bg').hide();
+        $(".select").each(function () {
+            $(this).click(function () {
+                $(".select .selects").removeClass("select_ed");
+                $(this).find(".selects").addClass("select_ed");
+            });
+        });
+    });
+    function onBridgeReady(data) {
+        //alert(data.appId);
+        WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', data,
+        function (res) {
+
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                window.location = "/jiangjia/oktili";
+            }
+            else {
+                alert(res.err_msg);
+                ispaying = false;
+                showAlertMessage("支付失败,请稍后再试！");
+                //window.location = "/Myorder/";
+            }
+            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+        }
+
+        );
+    }
+    var ispaying = false;
+    function dopayment() {
+
+        if (ispaying == true) {
+            return false;
+        }
+        ispaying = true;
+        var wayofpay = "";//$('input:radio[name=wayofpay]:checked').val();
+        $('.select').each(function () {
+            if ($(this).find('.selects').hasClass('select_ed') && !$(this).find('.selects').hasClass('select_dis')) {
+                wayofpay = $(this).data('val');
+            }
+        });
+        
+        $('#wayofpay2').val(wayofpay);
+        if (wayofpay == "2") {
+            onBridgeReady(@Html.Raw(ViewBag.paydata));
+        } else {
+            $("#dopayform").submit();
+        }
+
+
+    }
+</script>
+<div class="container">
+    <div class="top clear">
+        <div class="user fl"><img src="@SessionHelper.CurMemberInfo.HeadImgUrl" /><span class="f18">@SessionHelper.CurMemberInfo.Name</span></div>
+        <div class="fl t_mid">
+            <span class="f18 fl">体力值</span>
+            <div class="add fl ">
+                <img class="img1" src="/images/lw.png" />
+                <span>@SessionHelper.CurMemberInfo.TiLiNum</span>
+                <a href="" class="a_click"><img src="/images/jia.png" /></a>
+            </div>
+        </div>
+        @*<div class="fr"><a href=""><img src="/images/sl.png" /></a></div>*@
+    </div>
+    @using (Html.BeginForm("Paytili", "jiangjia", FormMethod.Post, new { id = "dopayform" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="content content1">
+            <div class="list1">
+
+                <p class="p">体力：<span class="fr">@(Model.Payment)个</span></p>
+                <p class="p p4">共计：￥<span class="red">@Model.NeedPay</span>元</p>
+            </div>
+            @if (SessionHelper.CurMemberInfo.Balance < Model.NeedPay)
+            {
+                ViewBag.yuecheck = "select_dis";
+                ViewBag.needpayment = "[还要支付 ￥" + (Model.Payment - SessionHelper.CurMemberInfo.Balance) + "]";
+                ViewBag.otherpaycheck = "checked='checked'";
+                
+            }
+            else
+            {
+
+                ViewBag.yuecheck = "select_ed";
+                
+            }
+            <div class="qrdd">
+                <div class="select clear" data-val="0">
+                    <div class="img fl"><img src="/images/img1.jpg" /></div>
+                    <p class="fl">
+                        <em>个人账户支付</em><br />
+                        <span>使用账户余额。[￥@Html.Raw(SessionHelper.CurMemberInfo.Balance)元]</span>
+                    </p>
+                    <label class="selects fr @ViewBag.yuecheck" for="selected1"></label><input type="radio"  value="0" name="wayofpay" class="inputs fl" id="selected1" />
+                </div>
+                @if (ViewBag.isweixin == true)
+                {
+                    <div class="select clear" data-val="2">
+                        <div class="img fl"><img src="/images/img3.jpg" /></div>
+                        <p class="fl">
+                            <em>微信支付</em><c>@ViewBag.needpayment</c><br />
+                            <span>推荐使用微信支付</span>
+                        </p>
+                        <label class="selects fr" for="selected3"></label><input type="radio" value="2" name="wayofpay" class="inputs fl" id="selected3" />
+                    </div>
+                }
+                <div class="select clear" data-val="1">
+                    <div class="img fl"><img src="/images/img2.jpg" /></div>
+                    <p class="fl">
+                        <em>支付宝支付</em><c>@ViewBag.needpayment</c><br />
+                        <span>需要在浏览器里面打开完成支付</span>
+                    </p>
+                    <label class="selects fr" for="selected2"></label><input type="radio" value="1" name="wayofpay" class="inputs fl" id="selected2" />
+                </div>
+            </div>
+        </div>
+
+
+        <input type="hidden" name="pid" value="@ViewBag.pid" />
+    <input type="hidden" id="wayofpay2" name="wayofpay2" value="" />
+    }
+    @*<div class="bottom" onclick=""><a href="#">确认付款</a></div>*@
+</div>
+<div class="btnpanel">
+    <input type="button" name="submit" value="确认支付" onclick="return dopayment();" class="btn btn-info ect-colorf button_only btn-red">
+</div>

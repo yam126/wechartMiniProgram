@@ -1,0 +1,123 @@
+﻿@model ncc2019.Members
+@using ncc2019
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Member</legend>
+
+        @Html.HiddenFor(model => model.MemberID)
+
+        <div class="editor-label">
+           姓名
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+           登录名
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LoginName)
+            @Html.ValidationMessageFor(model => model.LoginName)
+        </div>
+
+        <div class="editor-label">
+           密码
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div class="editor-label">
+            生日
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Birth)
+            @Html.ValidationMessageFor(model => model.Birth)
+        </div>
+        <div class="editor-label">
+            是否关注
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IsGuanZhu", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.ShiFouStatus), Model.IsGuanZhu.ToString()))
+            @Html.ValidationMessageFor(model => model.IsGuanZhu)
+        </div>
+        <div class="editor-label">
+            微信openid
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WechatOpenid)
+            @Html.ValidationMessageFor(model => model.WechatOpenid)
+        </div>
+        <div class="editor-label">
+            状态
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Status", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.MemmberStatus), Model.Status.ToString()))
+            @Html.ValidationMessageFor(model => model.Status)
+        </div>
+        <div class="editor-label">
+            用户等级
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("UserLevel", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.UserLevel), Model.UserLevel.ToString()))
+            @Html.ValidationMessageFor(model => model.UserLevel)
+        </div>
+        <div class="editor-label">
+            登录次数
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.LoginCount)
+            
+        </div>
+
+        <div class="editor-label">
+            注册时间
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.RegDate)
+            
+        </div>
+
+        <div class="editor-label">
+            最后登录时间
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.LastDate)           
+        </div>
+        <div class="editor-label">
+            账户
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Balance)
+        </div>
+        <div class="editor-label">
+            副账户
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Balance_back)
+        </div>
+       
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

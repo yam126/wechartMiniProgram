@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "微信扫一扫登陆";
+}
+@*<link href="themes/ecmoban_vjia/style.css" rel="stylesheet" type="text/css" />*@
+@*<script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>*@
+<div>
+
+    <div class="usBox clearfix">
+        <div class="usBox_1">
+            <div class="login_tab">
+                <ul>
+                    <li><a href="~/Login">用户登录</a></li>
+                    <li class="active"><a href="~/Login/weixinlogin">微信登录</a></li>
+                    <li><a href="~/Login/Reg">用户注册</a></li>
+                </ul>
+            </div>
+            <div style="width:300px;margin:auto;text-align:center;">
+                <img width="200px" height="200px" src="@ViewBag.imgurl" />
+                <p><h4>通过微信扫一扫即可登录</h4></p>
+            </div>
+            <div class="blank"></div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        setInterval(function () {
+            jQuery.post("/login/checkweixin", { param: '@ViewBag.guid' }, function (res) {
+                if (res.state == "ok") {
+                    window.location = res.url;
+                } else if (res.state == "error") {
+                    return false;
+                }
+            }, "json");
+        }, 1000);
+    })
+</script>

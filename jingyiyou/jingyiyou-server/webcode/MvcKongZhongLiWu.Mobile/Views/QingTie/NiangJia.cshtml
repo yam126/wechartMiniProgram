@@ -1,0 +1,3040 @@
+﻿@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="robots" content="noindex">
+
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    <meta name="viewport" content="width=320, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <title>Bin❤He邀你分享 wedding Time</title>
+    <meta name="description" content="Bin❤He邀你分享 wedding Time" />  
+    <meta property="og:site_name" content="kongzhongliwu.com" />
+    <meta property="og:image" content="/images/qingtie/2015/37/IMG_4212.JPG" />
+
+
+
+    <script src="/scripts/qingtie/jquery-latest.js"></script>
+    <script type="text/javascript" src="/scripts/qingtie/jquery-ui-1.8.18.full.min.js"></script>
+    <script type="text/javascript" src="/scripts/qingtie/jquery.jplayer.min.js"></script>
+    <script src="/scripts/qingtie/getscript.js"></script>
+
+    @Html.Partial("~/views/part/share.cshtml")
+   
+
+    <script type="text/javascript">
+        jsApiList = jsApiList.concat(['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']);
+        $(function () {
+            objShare = {
+                title: "Bin❤He邀你分享 wedding Time",
+                desc: "2015年10月06日 11时30分 同聚德饭店 周斌&张赫",
+                link: "http://m.kongzhongliwu.com/qingtie/niangjia",
+                imgUrl: "http://m.kongzhongliwu.com/images/qingtie/2015/37/main.JPG",
+                type: "",
+                dataUrl: "",
+                success: null,
+                cancel: null
+            };
+        });
+
+        var instanceClose;
+        function addWinOnloadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            } else {
+                window.onload = function () {
+                    if (oldonload) {
+                        oldonload();
+                    }
+                    func();
+                }
+            }
+        }
+
+    </script>
+
+
+    <link rel="stylesheet" href="/css/qingtie/animate.min.css" tppabs="http://cn.youvivid.net/css/animate.min.css">
+    <link href="/code.photoswipe-3.0.5/3.0.5/examples/styles_leo3.css" tppabs="http://cn.youvivid.net/code.photoswipe-3.0.5/3.0.5/examples/styles_leo3.css" type="text/css" rel="stylesheet" />
+    <link href="/code.photoswipe-3.0.5/3.0.5/photoswipe.css" tppabs="http://cn.youvivid.net/code.photoswipe-3.0.5/3.0.5/photoswipe.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/code.photoswipe-3.0.5/3.0.5/lib/klass.min.js" tppabs="http://cn.youvivid.net/code.photoswipe-3.0.5/3.0.5/lib/klass.min.js"></script>
+    <script type="text/javascript" src="/code.photoswipe-3.0.5/3.0.5/code.photoswipe.jquery-3.0.5.min.js" tppabs="http://cn.youvivid.net/code.photoswipe-3.0.5/3.0.5/code.photoswipe.jquery-3.0.5.min.js"></script>
+
+
+    <script type="text/javascript">
+
+
+
+        var invite_styletype = 1;
+
+        function processButtonBackground() {
+
+            if (invite_styletype == 1) {
+                $("h3:visible>.button").each(function (index) {
+                    //$('#detail' + $(this).attr('id').split('button')[1]).attr('id', 'detail' + (index + 1) );
+                    $(this).attr('id', 'button' + (index + 1));
+                });
+
+                $("h3:visible+div>.detail").each(function (index) {
+                    $(this).attr('id', 'detail' + (index + 1))
+                });
+
+            }
+        }
+
+        function initProcessButtonBackground() {
+
+            if (invite_styletype == 1) {
+                $("h3:visible>.button").each(function (index) {
+                    $(this).attr('id', 'button' + (index + 1))
+                });
+                $("h3:visible+div>.detail").each(function (index) {
+                    $(this).attr('id', 'detail' + (index + 1))
+                });
+            } else {
+                $("h3>.button").each(function (index) {
+                    $(this).attr('id', $(this).attr('name'))
+                });
+                $("h3+div>.detail").each(function (index) {
+                    $(this).attr('id', $(this).attr('name'))
+                });
+            }
+
+
+        }
+
+
+        var oldFunc;
+        var mapCallBackFunc = function () { };
+
+
+
+
+        var dragFlag3380250 = false;
+        var start3380250 = 0, end3380250 = 0;
+
+        function thisTouchStart3380250(e) {
+            dragFlag3380250 = true;
+            start3380250 = e.touches[0].pageY;
+        }
+
+        function thisTouchEnd3380250() {
+            dragFlag3380250 = false;
+        }
+
+        function thisTouchMove3380250(e) {
+            if (!dragFlag3380250) return;
+            end3380250 = e.touches[0].pageY;
+            window.scrollBy(0, (start3380250 - end3380250));
+        }
+
+
+
+
+        var map3380250 = null;
+        var marker3380250;
+        var map3380250_zoom = 16;
+        var map3380250_latcenter = 37.078056;
+        var map3380250_lngcenter = 114.488709;
+        var map3380250_latmarker = 37.078056;
+        var map3380250_lngmarker = 114.488709;
+        //114.488709,37.078056
+
+        function initialize3380250() {
+            //alert('initialize3380250');
+
+            if (typeof BMap === 'undefined') {
+                // return
+                return false;
+            };
+            //Baidu MAP Control
+
+            map3380250 = new BMap.Map("map_canvas3380250", { enableMapClick: false });
+            //alert (map3380250_latcenter + "," + map3380250_lngcenter);
+
+            //var point = new BMap.Point(116.404, 39.915);  // ?建?坐?
+            //var point = new BMap.Point(map3380250_lngcenter, map3380250_latcenter );  // ?建?坐?
+
+
+            map3380250.centerAndZoom(new BMap.Point(map3380250_lngcenter, map3380250_latcenter), 16);                 // 初始化地?，?置中心?坐?和地???
+
+            //var opts = {type: BMAP_NAVIGATION_CONTROL_ZOOM};
+
+            var opts = { anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_ZOOM };
+            map3380250.addControl(new BMap.NavigationControl(opts));
+            //map3380250.addControl(new BMap.ScaleControl());
+            //map3380250.addControl(new BMap.OverviewMapControl());
+            //map3380250.addControl(new BMap.MapTypeControl());
+            //var opts = {anchor: BMAP_ANCHOR_BOTTOM_RIGHT }
+            //map3380250.addControl(new CopyrightControl(opts));
+
+
+
+            // ?建???象
+
+
+
+
+            var myIcon = new BMap.Icon("/images/qingtie/mobile_invite/map_marker.png", new BMap.Size(34, 34), {
+                // 指定定位位置。
+                // ??注?示在地?上?，其所指向的地理位置距离??左上
+                // 角各偏移10像素和25像素。您可以看到在本例中?位置即是
+                // ??中央下端的尖角位置。
+                offset: new BMap.Size(17, 34),
+                // ?置?片偏移。
+                // ?您需要?一幅?大的?片中截取某部分作??注???，您
+                // 需要指定大?的偏移位置，此做法与css sprites技??似。
+                imageOffset: new BMap.Size(0, 0)   // ?置?片偏移
+            });
+            // ?建?注?象并添加到地?
+
+
+
+            marker3380250 = new BMap.Marker(new BMap.Point(map3380250_lngmarker, map3380250_latmarker), { icon: myIcon }); // ?建?注
+
+            /*
+                var infoContent = '<div style="margin:0;line-height:16px;padding:1px;">' +
+                  //              '<img src="img/baidu.jpg" alt=""style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>' +
+                                //'地址：北京市海淀区上地十街10号<br/>电话：(010)59928888<br/>' +
+                                '<input name="map_direction_button3380250" type="button" disabled value="地圖導航" />' +
+                              '</div>';
+
+                //创建检索信息窗口对象
+
+
+                var opts = {
+                    title  : "百度地圖導航",      //标题
+                    width  : 0,             //宽度
+                    height : 0,              //高度
+                    maxWidth : 120,
+                    enableAutoPan : true,     //自动平移
+                    enableMessage: false //是否启用发送到手机
+                }
+                var infoWindow = new BMap.InfoWindow(infoContent, opts);  // 创建信息窗口对象
+                map3380250.openInfoWindow(infoWindow, map3380250.getCenter());      // 打开信息窗口
+                var infoWindow = new BMap.InfoWindow(infoContent);  // 创建信息窗口对象
+                marker3380250.addEventListener("click", function(){
+                   this.openInfoWindow(infoWindow);
+                   //图片加载完毕重绘infowindow
+                   //document.getElementById('imgDemo').onload = function (){
+                    //   infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                   //}
+                });
+
+            */
+            /*
+                var searchInfoWindow = null;
+                searchInfoWindow = new BMapLib.SearchInfoWindow(map3380250, infoContent, {
+                        title  : "百度大厦",      //标题
+                        width  : 200,             //宽度
+                        height : 80,              //高度
+                        panel  : "panel",         //检索结果面板
+                        enableAutoPan : true,     //自动平移
+                        searchTypes   :[
+                            //BMAPLIB_TAB_SEARCH,   //周边检索
+                            BMAPLIB_TAB_TO_HERE  //到这里去
+                            //BMAPLIB_TAB_FROM_HERE //从这里出发
+                        ]
+                    });
+                marker3380250.addEventListener("click", function(e){
+                    searchInfoWindow.open(marker3380250);
+                })
+
+            */
+
+
+            map3380250.addOverlay(marker3380250);
+
+
+
+
+
+        }
+
+
+        //baidu map
+
+        function setMapCenter3380250(lng, lat) {
+            map3380250.setCenter(new BMap.Point(lng, lat));
+            map3380250_latcenter = lat;
+            map3380250_lngcenter = lng;
+
+        }
+
+        function setMapZoom3380250(zoom) {
+            map3380250.setZoom(zoom);
+            map3380250_zoom = zoom;
+
+        }
+
+        function setMarkerPos3380250(lng, lat) {
+            //alert(pnt);
+            marker3380250.setPosition(new BMap.Point(lng, lat));
+            map3380250_latmarker = lat;
+            map3380250_lngmarker = lng;
+
+        }
+
+
+
+        var dragFlag3380254 = false;
+        var start3380254 = 0, end3380254 = 0;
+
+        function thisTouchStart3380254(e) {
+            dragFlag3380254 = true;
+            start3380254 = e.touches[0].pageY;
+        }
+
+        function thisTouchEnd3380254() {
+            dragFlag3380254 = false;
+        }
+
+        function thisTouchMove3380254(e) {
+            if (!dragFlag3380254) return;
+            end3380254 = e.touches[0].pageY;
+            window.scrollBy(0, (start3380254 - end3380254));
+        }
+
+
+
+
+        var map3380254 = null;
+        var marker3380254;
+        var map3380254_zoom = 16;
+        var map3380254_latcenter = 31.240629;
+        var map3380254_lngcenter = 121.512625;
+        var map3380254_latmarker = 31.241401;
+        var map3380254_lngmarker = 121.512876;
+        //12744671.925,4423879;12745280.425,4424200
+        //114.488709,37.078056
+        //772,251
+
+        function initialize3380254() {
+            //alert('initialize3380254');
+
+            if (typeof BMap === 'undefined') {
+                // return
+                return false;
+            };
+            //Baidu MAP Control
+
+            map3380254 = new BMap.Map("map_canvas3380254", { enableMapClick: false });
+            //alert (map3380254_latcenter + "," + map3380254_lngcenter);
+
+            //var point = new BMap.Point(116.404, 39.915);  // ?建?坐?
+            //var point = new BMap.Point(map3380254_lngcenter, map3380254_latcenter );  // ?建?坐?
+
+
+            map3380254.centerAndZoom(new BMap.Point(map3380254_lngcenter, map3380254_latcenter), 16);                 // 初始化地?，?置中心?坐?和地???
+
+            //var opts = {type: BMAP_NAVIGATION_CONTROL_ZOOM};
+
+            var opts = { anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_ZOOM };
+            map3380254.addControl(new BMap.NavigationControl(opts));
+            //map3380254.addControl(new BMap.ScaleControl());
+            //map3380254.addControl(new BMap.OverviewMapControl());
+            //map3380254.addControl(new BMap.MapTypeControl());
+            //var opts = {anchor: BMAP_ANCHOR_BOTTOM_RIGHT }
+            //map3380254.addControl(new CopyrightControl(opts));
+
+
+
+            // ?建???象
+
+
+
+
+            var myIcon = new BMap.Icon("/images/qingtie/mobile_invite/map_marker.png", new BMap.Size(34, 34), {
+                // 指定定位位置。
+                // ??注?示在地?上?，其所指向的地理位置距离??左上
+                // 角各偏移10像素和25像素。您可以看到在本例中?位置即是
+                // ??中央下端的尖角位置。
+                offset: new BMap.Size(17, 34),
+                // ?置?片偏移。
+                // ?您需要?一幅?大的?片中截取某部分作??注???，您
+                // 需要指定大?的偏移位置，此做法与css sprites技??似。
+                imageOffset: new BMap.Size(0, 0)   // ?置?片偏移
+            });
+            // ?建?注?象并添加到地?
+
+
+
+            marker3380254 = new BMap.Marker(new BMap.Point(map3380254_lngmarker, map3380254_latmarker), { icon: myIcon }); // ?建?注
+
+            /*
+                var infoContent = '<div style="margin:0;line-height:16px;padding:1px;">' +
+                  //              '<img src="img/baidu.jpg" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>' +
+                                //'地址：北京市海淀区上地十街10号<br/>电话：(010)59928888<br/>' +
+                                '<input name="map_direction_button3380254" type="button" disabled value="地圖導航" />' +
+                              '</div>';
+
+                //创建检索信息窗口对象
+
+
+                var opts = {
+                    title  : "百度地圖導航",      //标题
+                    width  : 0,             //宽度
+                    height : 0,              //高度
+                    maxWidth : 120,
+                    enableAutoPan : true,     //自动平移
+                    enableMessage: false //是否启用发送到手机
+                }
+                var infoWindow = new BMap.InfoWindow(infoContent, opts);  // 创建信息窗口对象
+                map3380254.openInfoWindow(infoWindow, map3380254.getCenter());      // 打开信息窗口
+                var infoWindow = new BMap.InfoWindow(infoContent);  // 创建信息窗口对象
+                marker3380254.addEventListener("click", function(){
+                   this.openInfoWindow(infoWindow);
+                   //图片加载完毕重绘infowindow
+                   //document.getElementById('imgDemo').onload = function (){
+                    //   infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                   //}
+                });
+
+            */
+            /*
+                var searchInfoWindow = null;
+                searchInfoWindow = new BMapLib.SearchInfoWindow(map3380254, infoContent, {
+                        title  : "百度大厦",      //标题
+                        width  : 200,             //宽度
+                        height : 80,              //高度
+                        panel  : "panel",         //检索结果面板
+                        enableAutoPan : true,     //自动平移
+                        searchTypes   :[
+                            //BMAPLIB_TAB_SEARCH,   //周边检索
+                            BMAPLIB_TAB_TO_HERE  //到这里去
+                            //BMAPLIB_TAB_FROM_HERE //从这里出发
+                        ]
+                    });
+                marker3380254.addEventListener("click", function(e){
+                    searchInfoWindow.open(marker3380254);
+                })
+
+            */
+
+
+            map3380254.addOverlay(marker3380254);
+
+
+
+
+
+        }
+
+
+        //baidu map
+
+        function setMapCenter3380254(lng, lat) {
+            map3380254.setCenter(new BMap.Point(lng, lat));
+            map3380254_latcenter = lat;
+            map3380254_lngcenter = lng;
+
+        }
+
+        function setMapZoom3380254(zoom) {
+            map3380254.setZoom(zoom);
+            map3380254_zoom = zoom;
+
+        }
+
+        function setMarkerPos3380254(lng, lat) {
+            //alert(pnt);
+            marker3380254.setPosition(new BMap.Point(lng, lat));
+            map3380254_latmarker = lat;
+            map3380254_lngmarker = lng;
+
+        }
+
+
+
+
+
+
+
+
+
+        $(document).ready(function () {
+
+
+            $("#accordion").accordion({ autoHeight: false }, { collapsible: true, active: false });
+
+
+            //$("#accordion").accordion("activate",0);
+            //$("#accordion").accordion("activate","#accordion10");
+
+            $("#accordion").bind('accordionchange', function (event, ui) {
+                //   ui.newHeader // jQuery object, activated header
+                //   ui.oldHeader // jQuery object, previous header
+                //   ui.newContent // jQuery object, activated content
+                //   ui.oldContent // jQuery object, previous content
+                //console.log(ui);
+                // console.log($("#accordion").accordion( "option", "active" ));
+                if ($(ui.newHeader).offset() != null) {
+                    $('html, body').animate({ scrollTop: $(ui.newHeader).offset().top });
+                }
+                bVideoPlaying = 0;
+                //alert("audioPlayer.paused=" + audioPlayer.paused + ", bMute=" + bMute)
+                if (bMute == 0) {
+                    $("#jquery_jplayer_1").jPlayer("play");
+                }
+
+            });
+
+            var bReloadWebFontOnce3380246 = 1;
+
+            $("#accordion").bind('accordionchangestart', function (event, ui) {
+                if (ui.newContent.attr('id') == 'invite_detail_content3380246' && bReloadWebFontOnce3380246 == 1) {
+                    //alert("reloadwebfont");
+                    //$("#invite_detail_editor3380246").hide();
+                    reloadWebFont3380246();
+                    bReloadWebFontOnce3380246 = 0;
+                    //$("#invite_detail_editor3380246").show();
+                }
+            });
+
+
+            /*
+                        $("#accordion").bind('accordionchange', function(event, ui) {
+                            if (ui.newContent.attr('id') == 'invite_detail_content3380247'  )
+                            {
+
+                                var cw = $('.gallery').width() * 0.33333 ; // 0.222 = 0.3333*0.6666
+                                alert("open: cw="+cw + ", gallery width=" + $('.gallery').width());
+                                $('.gallery li a .thumb').css({
+                                    'height': cw + 'px'
+                                });
+
+
+                            }
+                        });
+            */
+
+            $("#accordion").bind('accordionchange', function (event, ui) {
+                // ui.newHeader // jQuery object, activated header
+                // ui.oldHeader // jQuery object, previous header
+                // ui.newContent // jQuery object, activated content
+                // ui.oldContent // jQuery object, previous content
+                //  alert($(ui.newContent).attr("id") + " was opened, " + $(ui.oldContent).attr("id") + " was closed");
+                //   console.log(ui.newHeader.attr('id'));
+                if (ui.newContent.attr('id') == 'invite_detail_content3380250' && !map3380250 && $("#invite_detail_mapimgurl3380250").val() == '') {
+                    //alert("initialize3380250");
+                    initialize3380250();
+                }
+
+
+            });
+
+            var mapCanvas = document.getElementById("map_canvas3380250");
+
+            if (!mapCanvas.addEventListener) {
+                mapCanvas.attachEvent("touchstart", thisTouchStart3380250, true);
+                mapCanvas.attachEvent("touchend", thisTouchEnd3380250, true);
+                mapCanvas.attachEvent("touchmove", thisTouchMove3380250, true);
+            } else {
+                mapCanvas.addEventListener("touchstart", thisTouchStart3380250, true);
+                mapCanvas.addEventListener("touchend", thisTouchEnd3380250, true);
+                mapCanvas.addEventListener("touchmove", thisTouchMove3380250, true);
+            }
+
+            var bReloadWebFontOnce3380253 = 1;
+
+            $("#accordion").bind('accordionchangestart', function (event, ui) {
+                if (ui.newContent.attr('id') == 'invite_detail_content3380253' && bReloadWebFontOnce3380253 == 1) {
+                    //alert("reloadwebfont");
+                    //$("#invite_detail_editor3380253").hide();
+                    reloadWebFont3380253();
+                    bReloadWebFontOnce3380253 = 0;
+                    //$("#invite_detail_editor3380253").show();
+                }
+            });
+
+
+            /*
+                        $("#accordion").bind('accordionchange', function(event, ui) {
+                            if (ui.newContent.attr('id') == 'invite_detail_content3380255'  )
+                            {
+
+                                var cw = $('.gallery').width() * 0.33333 ; // 0.222 = 0.3333*0.6666
+                                alert("open: cw="+cw + ", gallery width=" + $('.gallery').width());
+                                $('.gallery li a .thumb').css({
+                                    'height': cw + 'px'
+                                });
+
+
+                            }
+                        });
+            */
+
+            var bReloadWebFontOnce3380256 = 1;
+
+            $("#accordion").bind('accordionchangestart', function (event, ui) {
+                if (ui.newContent.attr('id') == 'invite_detail_content3380256' && bReloadWebFontOnce3380256 == 1) {
+                    //alert("reloadwebfont");
+                    //$("#invite_detail_editor3380256").hide();
+                    reloadWebFont3380256();
+                    bReloadWebFontOnce3380256 = 0;
+                    //$("#invite_detail_editor3380256").show();
+                }
+            });
+
+
+            var bReloadWebFontOnce3380257 = 1;
+
+            $("#accordion").bind('accordionchangestart', function (event, ui) {
+                if (ui.newContent.attr('id') == 'invite_detail_content3380257' && bReloadWebFontOnce3380257 == 1) {
+                    //alert("reloadwebfont");
+                    //$("#invite_detail_editor3380257").hide();
+                    reloadWebFont3380257();
+                    bReloadWebFontOnce3380257 = 0;
+                    //$("#invite_detail_editor3380257").show();
+                }
+            });
+
+
+
+
+        });
+
+
+
+        var bPlayVideo = 1;
+
+        function clickObj(o) {
+            //    alert('clicked');
+            //	bPlayVideo=0;
+            var o = document.getElementById(o);
+
+            if (document.all) {
+                o.click();
+                //o.fireEvent("onclick");
+
+            } else {
+
+                var e = document.createEvent('MouseEvent');
+                e.initEvent('click', false, false);
+                o.dispatchEvent(e);
+            }
+
+        }
+
+
+    </script>
+
+
+
+
+    <script type="text/javascript">
+
+
+        function loadScript() {
+            //alert("load map");
+            var script = document.createElement("script");
+            //script.src = "../api.map.baidu.com/api-type=quick&v=1.0&ak=HACDI785p3wu9r5kynf6fY1i&callback=loadSearchInfoWindow"/*tpa=http://api.map.baidu.com/api?type=quick&v=1.0&ak=HACDI785p3wu9r5kynf6fY1i&callback=loadSearchInfoWindow*/;//MOBILE
+            script.src = "http://api.map.baidu.com/api?type=quick&v=1.0&ak=GGHjdGVTWFUr03A05LWpvovk&callback=loadSearchInfoWindow";//此为v1.5版本的引用方式
+
+            // http://api.map.baidu.com/api?v=1.5&ak=您的密钥&callback=initialize"; //此为v1.4版本及以前版本的引用方式
+            document.body.appendChild(script);
+
+
+        }
+        //window.onload = loadScript;
+        /////addWinOnloadEvent(loadScript);
+
+    </script>
+
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+
+
+    <script type="text/javascript">
+
+        function parseYoutubeVID(url) {
+            //urlBuf = url.toLowerCase();
+            urlBuf = url;
+
+            var youtubeVID = urlBuf.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+            if (youtubeVID != null) {
+                return youtubeVID[1];
+            } else {
+                return "ERR";
+            }
+
+        }
+
+    </script>
+
+
+
+
+    <script language='javascript'>
+
+
+        function init() {
+
+
+        }
+
+
+        function replaceAll(oldStr, findStr, repStr) {
+
+            var srchNdx = 0;
+
+            var newStr = "";
+            while (oldStr.indexOf(findStr, srchNdx) != -1) {
+                newStr += oldStr.substring(srchNdx, oldStr.indexOf(findStr, srchNdx));
+                newStr += repStr;
+                srchNdx = (oldStr.indexOf(findStr, srchNdx) + findStr.length);
+            }
+            newStr += oldStr.substring(srchNdx, oldStr.length);
+
+            return newStr;
+        }
+
+        /*
+        function getGlobalMobile(no) {
+            start = String(no.slice(0,1));
+            if (start == "+" ) {
+                return String(no.slice(1,no.length))
+            } else {
+                if (start == "0") {
+                    return  "86" + String(no.slice(1,no.length))
+                } else {
+                    return "86" + no
+                }
+            }
+        }
+        */
+
+        function getGlobalMobile(no) {
+            var tmp_no, inter_no;
+            var preset_cc = '86';
+            start = String(no.slice(0, 1));
+            if (start == "+") {
+                tmp_no = String(no.slice(1, no.length)); //remove leading +
+                if (String(tmp_no.slice(0, preset_cc.length)) == preset_cc && String(tmp_no.slice(preset_cc.length, preset_cc.length + 1)) == '0') {
+                    inter_no = preset_cc + String(tmp_no.slice(preset_cc.length + 1, tmp_no.length));
+                } else {
+                    inter_no = tmp_no;
+                }
+            } else {
+                if (start == "0") {
+                    inter_no = preset_cc + String(no.slice(1, no.length))
+                } else {
+                    if (String(no.slice(0, preset_cc.length)) == preset_cc) {
+                        if (String(no.slice(preset_cc.length, preset_cc.length + 1)) == '0') {
+                            inter_no = preset_cc + String(no.slice(preset_cc.length + 1, no.length));
+                        } else {
+                            inter_no = no;
+                        }
+                    } else {
+                        inter_no = preset_cc + no;
+                    }
+                }
+            }
+            return inter_no;
+
+        }
+
+
+        function checkMobileNumber(mo) {
+
+
+
+            if (String(mo.slice(0, 1)) == "+") {
+                if (isNaN(mo.slice(1, mo.length))) {
+                    return false;
+                }
+                if (mo.length < 5) {
+                    return false;
+                }
+            } else {
+                if (isNaN(mo)) {
+                    return false;
+                }
+                if (mo.length < 6) {
+                    return false;
+                }
+            }
+            return true
+        }
+
+
+
+
+        function isIns2() {
+
+
+            if (document.rform.remindname.value.length == 0) {
+
+
+                alertify.alert('请输入姓名！', function (e) {
+                    if (e) {
+                        document.rform.remindname.focus();
+                    }
+                });
+
+                return false;
+
+            }
+
+            if (document.rform.remindphone.value.length == 0) {
+
+                alertify.alert('请输入手机号！', function (e) {
+                    if (e) {
+                        document.rform.remindphone.focus();
+                    }
+                });
+
+                return false;
+
+            }
+
+            mo = replaceAll(document.rform.remindphone.value, '-', '');
+            mo = replaceAll(mo, ' ', '');
+            mo = replaceAll(mo, '(', '');
+            mo = replaceAll(mo, ')', '');
+
+
+
+            if (checkMobileNumber(mo) == false) {
+
+                alertify.alert('您的手机号码格式不正确:', function (e) {
+                    if (e) {
+                        document.rform.remindphone.focus();
+                    }
+                });
+
+                return false;
+
+            } else {
+
+                //confirm mobile country code
+
+                if (String(mo.slice(0, 1)) != "+") {
+
+                    alertify.confirm("系统自动判别以下手机号位于 [China / 中国]<br>" + mo + "<br><br>如不是,请在手机号前加上 +国码, <br>例:中国(国码86)手机号:<br>13061711111<br>请填入:+8613061711111", function (e) {
+                        if (e) {
+                            document.rform.remindphone_data.value = getGlobalMobile(mo)
+                            document.rform.submit();
+                            // user clicked "ok"
+                        } else {
+                            // user clicked "cancel"
+                            document.rform.remindphone.focus();
+                            return false;
+                        }
+                    });
+
+
+                } else {
+                    document.rform.submit();
+                }
+
+            }
+            return false;
+
+        }
+
+
+
+    </script>
+
+
+
+    <script language='javascript'>
+
+
+
+        function addRow(parent_node, maxid) {
+
+
+
+            //取得屬於要應用新增列的區塊
+            var obj = document.getElementById(parent_node);
+            //取得目前有多少欄位
+            //var sIndex=obj.getElementsByTagName('div').length+1;
+            var sIndex = maxid;
+
+            //依照原表單格式,先建一個div
+            var div = document.createElement('div');
+            div.id = 's' + sIndex;
+
+            //再建立文字欄位,並指定相關屬性
+            var input = document.createElement('input');
+            input.type = 'radio';
+            input.name = 't' + parent_node.replace('q', '');
+
+
+            var txt = document.createElement('span');
+            txt.id = 'o' + maxid;
+            txt.innerHTML = ' 新增选项';
+
+
+
+            div.appendChild(input);
+            div.appendChild(txt);
+
+            obj.appendChild(div);
+
+
+
+            var obj2 = eval('document.iform.t' + parent_node.replace('q', ''));
+            if (typeof (obj2.length) == 'undefined') {
+
+                obj2.style.display = 'none';
+
+            } else {
+
+                for (var i = 0; i < obj2.length; i++) {
+
+                    obj2[i].style.display = '';
+                }
+            }
+
+        }
+
+        function delRow(q, t) {
+
+            d = document.getElementById(t);
+
+            d.parentNode.removeChild(d);
+
+
+
+            var obj2 = eval('document.iform.t' + q.replace('q', ''));
+            if (typeof (obj2.length) == 'undefined') {
+
+                obj2.style.display = 'none';
+
+            } else {
+
+                for (var i = 0; i < obj2.length; i++) {
+
+                    obj2[i].style.display = '';
+                }
+            }
+
+        }
+
+
+        function setQuestionTitle(qq, txt) {
+
+            document.getElementById('qq' + qq).innerHTML = txt;
+
+        }
+
+        function showCheckin(bcheckin) {
+
+
+
+            if (bcheckin == true) {
+                $("#qrcode_4F3D0B76D7DACECB409").css({ "display": "" });
+                document.iform.bcheckin.value = "1";
+            } else {
+                $("#qrcode_4F3D0B76D7DACECB409").css({ "display": "none" });
+                document.iform.bcheckin.value = "0";
+            }
+
+
+
+
+        }
+
+
+        function setOptionTitle(o, txt) {
+
+            var range_array, inputstr, qid;
+            var leftstr, rightstr, midstr, leftpos, rightpos;
+            var txtlength;
+            var option_title, option_title_left, option_title_right;
+
+            option_title = txt;
+            option_title_right = option_title;
+
+            leftstr = '';
+            rightstr = '';
+            midstr = '';
+
+            inputstr = '';
+
+            qid = document.getElementById('o' + o).parentNode.parentNode.id.replace('q', '');
+
+            if (option_title.split('{').length - 1 > 1) {
+                txtlength = 6;
+            } else {
+                txtlength = 16;
+            }
+
+            if (option_title.split('{').length - 1 > 0) {
+
+                for (var n = 0; n < option_title.split('{').length - 1; n++) {
+                    //if (leftpos >= 0 && rightpos > 0){
+
+                    //是,{1-10}人 {}
+
+                    option_title_left = option_title_right;
+                    leftstr = "";
+                    rightstr = "";
+                    midstr = "";
+                    leftpos = parseInt(option_title_left.indexOf('{'));
+                    rightpos = parseInt(option_title_left.indexOf('}'));
+
+                    leftstr = option_title_left.substring(0, leftpos);
+
+                    midstr = option_title_left.substring(leftpos + 1, rightpos);
+
+                    inputstr += leftstr;
+
+                    if (midstr == '') {
+
+                        inputstr += '&nbsp;<input type="text" id="n' + qid + '" name="n' + qid + '" value="" size="' + txtlength + '" onkeyup="setOptionValue( ' + qid + ', this.value, ' + option_title + ', ' + o + ') onblur="setOptionValue( ' + qid + ', this.value, ' + option_title + ', ' + o + ')">&nbsp;';
+
+
+
+                        //}else if ( midstr.indexOf('-') >= 0){
+                    } else {
+
+
+                        //inputstr = '';
+                        inputstr += '&nbsp;<select id="n' + qid + '" name="n' + qid + '" onchange="setOptionValue( ' + qid + ', this.value, ' + option_title + ', ' + o + ')">';
+                        inputstr += '<option value="">请选择</option>';
+                        option_array = midstr.split('|');
+                        //alert(option_array.length);
+                        cc = 1;
+                        for (i = 0; i < option_array.length; i++) {
+
+
+
+                            range_array = option_array[i].split('-');
+
+
+                            if (range_array.length == 2) {
+                                for (j = parseInt(range_array[0]) ; j <= parseInt(range_array[1]) ; j++) {
+                                    inputstr += '<option value="' + j + '">' + j + '</option>';
+                                    cc = cc + 1;
+                                }
+                            } else {
+                                inputstr += '<option value="' + option_array[i] + '">' + option_array[i] + '</option>';
+                            }
+
+                            cc = cc + 1;
+
+                        }
+                        inputstr += '</select>&nbsp;';
+
+
+
+
+                    }
+
+                    //alert(leftstr + inputstr + rightstr);
+                    // inputstr += leftstr;
+
+                    leftpos = parseInt(option_title_left.indexOf('{'));
+                    rightpos = parseInt(option_title_left.indexOf('}'));
+                    option_title_right = option_title_left.substring(rightpos + 1, txt.length);
+
+
+                }
+                inputstr += option_title_right;
+
+                document.getElementById('o' + o).innerHTML = inputstr;
+
+            } else {
+
+                document.getElementById('o' + o).innerHTML = ' ' + txt;
+            }
+
+
+
+        }
+
+        function updateSelect(parent_node, str) {
+
+
+
+            var s = document.getElementById(parent_node.replace('q', 't'));
+
+            var arr = new Array();
+            arr = parent.document.getElementById(parent_node).getElementsByTagName('input');
+
+
+            s.options.length = 0;
+
+            s.options[0] = new Option('请选择', 0);
+            for (var i = 0; i < arr.length; i++) {
+
+                if (arr[i].value.Trim().length != 0) {
+
+                    s.options[i + 1] = new Option(arr[i].value, arr[i].value);
+
+                    if (arr[i].value == str) s.options[i + 1].selected = true;
+
+                }
+            }
+
+        }
+
+        function showQuestion(parent_node, check) {
+
+
+
+            if (check) {
+
+                document.getElementById(parent_node.replace('q', 'ta')).style.display = 'block';
+
+
+            } else {
+
+                document.getElementById(parent_node.replace('q', 'ta')).style.display = 'none';
+
+            }
+
+            var n = 0;
+
+            //console.log($("#rsvptable tr[style*='display: block']"));
+
+
+
+            $("#rsvptable tr[style*='block']").each(function (n) {
+                n++;
+
+                $(this).find("span:eq(0)").html(n);
+            });
+
+        }
+
+
+        function setOptionValue(id, txt, order, optionid) {
+
+
+            var obj, obj2, obj3;
+            var val;
+
+            obj = eval('document.iform.q' + id);
+
+            //obj3 = eval('document.iform.n' + id + '_' + optionid);
+            obj3 = document.getElementsByName('n' + id + '_' + optionid);
+
+            //if (typeof(obj3.length) == 'undefined'){
+            if (obj3.length == 1) {
+                obj.value = txt;
+
+            } else {
+
+                val = '';
+
+                for (var i = 0; i < obj3.length; i++) {
+
+                    val += '^' + obj3[i].value + '^';
+
+                }
+
+                val = replaceAll(val, '^^', '|');
+                val = replaceAll(val, '^', '');
+
+                obj.value = val;
+
+            }
+
+
+            obj2 = eval('document.iform.t' + id);
+
+            if (typeof (obj2.length) == 'undefined') {
+
+                obj2.checked = true;
+
+            } else {
+
+                for (var i = 0; i < obj2.length; i++) {
+
+                    if (obj2[i].value == order) {
+
+                        obj2[i].checked = true;
+                    }
+                }
+            }
+        }
+
+
+        String.prototype.Trim = function () {
+
+            return this.replace(/(^\s*)|(\s*$)/g, "");
+
+        }
+
+
+
+
+        var bVideoPlaying = 0;
+
+
+
+        var bMute = 1;
+
+
+
+        //var audioPlayer; //initialize in $(window).load(function()
+
+
+        function setMusic(mp3Url) {
+
+            $("#jquery_jplayer_1").jPlayer("pause");
+
+            if (mp3Url.length > 0) {
+                $("#jquery_jplayer_1").jPlayer("setMedia", {
+                    mp3: mp3Url
+                }).jPlayer("play");
+                bMute = 0;
+            } else {
+                bMute = 1;
+            }
+        }
+
+
+
+    </script>
+
+    <style type="text/css">
+        body {
+            /*font-family:Georgia, "Times New Roman", Times, serif;*/
+            font-family: 粗钢笔2,微软雅黑,宋体,Microsoft JhengHei,Microsoft YaHei,arial;
+            margin-left: 4px;
+            margin-top: 4px;
+            margin-right: 4px;
+            font-size: 90%;
+        }
+
+
+
+        .ui-widget {
+            /*font-family:Georgia, "Times New Roman", Times, serif;*/
+            font-family: 粗钢笔2,微软雅黑,宋体,Microsoft JhengHei,Microsoft YaHei,arial;
+        }
+
+        .play_video_button {
+            border: solid 1px #CCC; /* 邊框樣式 */
+            -moz-box-shadow: 1px 1px 5px #999; /* Firefox */
+            -webkit-box-shadow: 1px 1px 5px #999; /* Safari 和 Chrome */
+            box-shadow: 1px 1px 5px #999; /* Opera 10.5 + */
+        }
+
+        /*
+        .header_style {
+            -webkit-box-shadow: rgba(0,0,0,.3) 1px 1px 2px;
+            margin-bottom: 8px;
+        }
+        */
+
+        /*no use now */
+        .title {
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            -webkit-box-shadow: rgba(0,0,0,.3) 1px 1px 2px;
+            border: 0px solid #E0E0E0;
+            background-color: #ff87c3; /* Changes the homepage menu background color */
+            text-align: center;
+            padding: 3px 0 3px 0;
+            margin-bottom: 5px;
+            font-size: 120%;
+            color: #999;
+            background: #ff87c3; /* Old browsers */
+            background: -moz-linear-gradient(top, #fcecfc 0%, #fba6e1 50%, #fd89d7 51%, #ff87c3 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcecfc), color-stop(50%,#fba6e1), color-stop(51%,#fd89d7), color-stop(100%,#ff87c3)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #fcecfc 0%,#fba6e1 50%,#fd89d7 51%,#ff87c3 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #fcecfc 0%,#fba6e1 50%,#fd89d7 51%,#ff87c3 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #fcecfc 0%,#fba6e1 50%,#fd89d7 51%,#ff87c3 100%); /* IE10+ */
+            background: linear-gradient(top, #fcecfc 0%,#fba6e1 50%,#fd89d7 51%,#ff87c3 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcecfc', endColorstr='#ff87c3',GradientType=0 ); /*IE6-9 */
+        }
+
+        /*jquery UI css overwrite*/
+        .ui-accordion-content, .detail {
+            /*
+            filter: alpha(opacity=10);
+            opacity:0.4;
+        */
+            /*	background-image:url(images/index_bg_02.jpg);
+            background-repeat: repeat;
+            background-position: center center;
+        */
+            font-family: "微軟正黑體", "微软雅黑", "宋体", "Microsoft JhengHei", "Microsoft YaHei", verdana, tahoma, arial, serif;
+        }
+
+
+        input {
+            height: 20px;
+            font-size: 14px;
+        }
+
+        textarea {
+            font-size: 14px;
+        }
+    </style>
+
+
+
+    <link class="customcss" href="/css/qingtie/mini/custom.css" tppabs="http://youvividassets.youvivid.net/css/mini/custom.css" rel="stylesheet" type="text/css" />
+    <link class="themecss" href="/css/qingtie/common2.css" tppabs="http://youvividassets.youvivid.net/css/common2.css" rel="stylesheet" type="text/css" />
+
+    <link class="fontcss" href="/css/qingtie/woff1.css" tppabs="http://42.121.32.43:443/Fonts/getcss?family=%E7%B2%97%E9%92%A2%E7%AC%942&font=%E7%B2%97%E9%92%A2%E7%AC%94&text=%E6%9C%AC%E6%9C%8D%E5%8A%A1%E7%94%B1YouVivid%2Ecom%E6%8F%90%E4%BE%9B%28%E5%85%8D%E8%B4%B9%E4%BD%93%E9%AA%8C%E7%89%88%E9%99%90%E5%88%B6%E6%9C%80%E5%A4%9A5%E4%B8%AA%E6%89%8B%E6%9C%BA%E6%89%93%E5%BC%80%29%E5%91%A8%E6%96%8C%E4%B8%8E%E5%BC%A0%E8%B5%AB%E5%A9%9A%E5%AE%B4%E9%82%80%E7%BA%A62015%E5%B9%B410%E6%9C%8802%E6%97%A5%E7%88%B1%E7%9A%84%E9%82%80%E7%BA%A6%E5%A9%9A%E7%BA%B1%E7%9B%B8%E5%86%8C%EF%BC%AD%EF%BC%B6%E8%A7%86%E9%A2%91%E5%A9%9A%E5%AE%B4%E5%9B%9E%E5%87%BD%E5%A9%9A%E5%AE%B4%E5%9C%B0%E5%9B%BE%E5%96%9C%E5%AE%B4%E6%8F%90%E9%86%92%E5%96%9C%E8%AE%AF%E5%88%86%E4%BA%AB%E7%94%B7+%E5%A5%B3+%E6%96%B9+%E5%AE%B4+%E5%AE%A2%E5%A4%87+%E7%94%A8+%E5%9C%B0+%E5%9B%BE%E5%A4%87+%E7%94%A8+%E7%9B%B8+%E5%86%8C%E7%88%B1+%E6%83%85+%E6%95%85+%E4%BA%8B%E5%85%B3+%E4%BA%8E+%E6%88%91+%E4%BB%AC" rel="stylesheet" type="text/css" />
+
+    <style>
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+
+    <script src="/scripts/qingtie/alertify.min.js" tppabs="http://cn.youvivid.net/js/alertify.min.js"></script>
+
+    <script type="text/javascript">
+        // custom OK and Cancel label
+        // default: OK, Cancel
+        alertify.set({
+            labels: {
+                ok: "确定",
+                cancel: "取消"
+            }
+        });
+
+        alertify.set({ buttonReverse: true });
+
+    </script>
+
+    <link rel="stylesheet" href="/css/qingtie/alertify.css" tppabs="http://cn.youvivid.net/css/alertify.css" />
+</head>
+<body>
+
+    <audio  autoplay="autoplay">
+
+
+        <source src="/other/musize.mp3" />
+
+        
+
+    </audio>
+
+
+
+
+
+
+    <style>
+        #Loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            margin: 0px 0 0 0px;
+            z-index: 1001;
+        }
+
+
+        /* #Loading2{position:absolute;top:0;left:0;width:100%;height:100%;background:#F00;margin:0px 0 0 0px; z-index:199}*/
+        #heart {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -50px 0 0 -30px;
+        }
+
+        #Waiting {
+            position: absolute;
+            width: 100px;
+            text-align: center;
+            left: 50%;
+            top: 13%;
+            margin: 10px 0 0 -45px;
+        }
+
+        #mainbox {
+            margin: -15px 0 0 0;
+        }
+
+        .hide-div {
+            /*display:none;*/
+            visibility: hidden;
+        }
+    </style>
+
+    <script language="javascript" type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#jquery_jplayer_1").jPlayer({
+                ready: function () {
+                    $(this).jPlayer("setMedia", {
+                        mp3: ""
+                    }).jPlayer("play");
+                    var click = document.ontouchstart === undefined ? 'click' : 'touchstart';
+                    var kickoff = function () {
+                        $("#jquery_jplayer_1").jPlayer("play");
+                        document.documentElement.removeEventListener(click, kickoff, true);
+                    };
+                    document.documentElement.addEventListener(click, kickoff, true);
+                },
+                swfPath: "/js",
+                loop: false
+            });
+
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('#Loading').on('touchstart', function (e) {
+                    stopLoading();
+                });
+            } else {
+                $('#Loading').on('click', function (e) {
+                    stopLoading();
+                });
+
+            }
+        });
+
+        function stopLoading() {
+
+            if ($.browser.msie && parseInt($.browser.version, 10) <= 9) {
+                $("#Loading").fadeOut();
+            } else {
+
+                $("#Loading").addClass('animated fadeOut');
+
+                $('#Loading').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                    $('#Loading').addClass('hide-div');
+                });
+            }
+
+            //audioPlayer = $("#xaudio")[0];
+
+
+
+
+        }
+
+
+        function winOnloadFunc() {
+            //alert("winOnloadFunc");
+            bWinOnLoadFired = 1;
+            stopLoading();
+            loadScript();
+        }
+
+
+        var bWinOnLoadFired = 0;
+
+        $(window).load(function () {
+
+            //alert("win load");
+
+            if (bWinOnLoadFired == 0) {
+                winOnloadFunc();
+            }
+
+        });
+
+        $(function () {
+            setTimeout(function () {
+                //alert("bWinOnLoadFired");
+                if (bWinOnLoadFired == 0) {
+                    winOnloadFunc();
+                }
+                // Do something after 18 seconds
+            }, 13000);
+        });
+
+
+    </script>
+
+
+    <div id="Loading">
+        <div id="heart">
+            <img src="/images/qingtie/funssage_loading2.gif" tppabs="http://cn.youvivid.net/images/qingtie/funssage_loading2.gif" />
+        </div>
+        <div id="Waiting">
+            <span style="text-align:center; color:#F00">
+
+            </span>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div id="MainBody">
+        <div id="coverpage"></div>
+        <div id="MainContent">
+
+            <div id="outter">
+                <div class="outter-main-tr"><div class="outter-main-tl"><div class="outter-main-tm"></div></div></div>
+                <div class="outter-main-mr">
+                    <div class="outter-main-ml">
+
+                        <div class="ui-widget-header ui-corner-all">
+                            <div id="inner">
+                                <div class="inner-main-tr">
+                                    <div class="inner-main-tl">
+                                        <div class="inner-main-tm">
+                                            <div id="main-title">
+                                                <div class="main-title-tr">
+                                                    <div class="main-title-tl">
+                                                        <div class="main-title-tm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="main-title-mr">
+                                                    <div class="main-title-ml">
+
+                                                        <div class="main-title-mm">
+                                                            <div id="maintitlehtml"><span style="text-decoration: none; font-style: normal; font-size: 20px; font-weight: normal; ">Bin❤He邀你分享 wedding Time</span></div>
+                                                            <div id="maintitle_decoration1"></div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="main-title-br">
+                                                    <div class="main-title-bl">
+                                                        <div class="main-title-bm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-main-mr">
+                                    <div id="img_decoration1"></div>
+                                    <div id="img_decoration2"></div>
+                                    <div id="img_decoration4"></div>
+                                    <div class="inner-main-ml">
+                                        <div id="frame1_1"><div id="frame1_2"><div id="frame1_3"></div></div></div>
+                                        <div id="frame2_1"><div id="frame2_2"><div id="frame2_3"></div></div></div>
+                                        <div id="frame3_1"><div id="frame3_2"><div id="frame3_3"></div></div></div>
+                                        <div class="inner-main-mm">
+                                            <!-- 大圖 -->
+                                            <img id="invite_webimg" src="/images/qingtie/2015/37/IMG_4212.JPG" tppabs="http://youvividcnupload1.oss.aliyuncs.com/images/2015/37/f15091255f3a75e5247a.JPG" width="100%" alt="Mobile Wedding Invitations">
+                                            <div id="img_videobutton_placeholder" style="position:relative;">
+                                                <div id="img_videobutton" style="display:none;"></div>
+                                            </div>
+
+
+                                            <script>
+
+                                                var startX, startY
+
+                                                // detect if touch event supported or not
+                                                if ('ontouchstart' in document.documentElement) {
+                                                    document.getElementById("invite_webimg").addEventListener("touchmove", handleMove, false);
+                                                    document.getElementById("invite_webimg").addEventListener("touchend", handleEnd, false);
+                                                    document.getElementById("invite_webimg").addEventListener("touchstart", handleStart, false);
+                                                }
+
+                                                function handleStart(event) {
+                                                    //event.preventDefault();
+                                                    var touch = event.touches[0];
+                                                    startX = parseInt(touch.pageX);
+                                                    startY = parseInt(touch.pageY);
+
+                                                    //alert(startX + ' ' + startY);
+                                                }
+
+                                                function handleEnd(event) {
+
+
+
+                                                }
+
+                                                function handleMove(event) {
+
+                                                    //event.preventDefault();
+                                                    var x, y;
+
+
+                                                    var touch = event.touches[0];
+                                                    x = parseInt(touch.pageX) - startX;
+                                                    y = parseInt(touch.pageY) - startY;
+
+                                                    if ($("#Gallery3380247 li").size() > 0) {
+
+                                                        if ((Math.abs(x) > Math.abs(y)) && (Math.abs(x) > 150)) {
+
+                                                            instance3380247.show(0);
+                                                        }
+                                                    }
+
+                                                }
+
+                                                // default mv parameter
+                                                var invite_mediatype = 0;
+                                                var invite_preview_objurl;
+                                                var invite_preview_usrdata;
+
+
+
+                                                /*
+                                                    $(document).ready(function() {
+                                                            //init
+                                                            if (invite_mediatype == 1) {
+                                                                $( "#img_videobutton").show();
+                                                                $( "#img_videobutton_placeholder").show();
+                                                            } else {
+                                                                $( "#img_videobutton").hide();
+                                                                $( "#img_videobutton_placeholder").hide();
+                                                            }
+
+                                                    });
+                                                */
+
+
+                                                $(function () {
+                                                    //if (invite_mediatype == 1) {
+                                                    //	$( "#img_decoration1,#img_decoration2,#img_decoration3").css('cursor', 'pointer');
+                                                    //} else {
+                                                    //	$( "#img_decoration1,#img_decoration2,#img_decoration3").css('cursor', 'default');
+                                                    //}
+
+
+
+
+
+                                                    $("#img_videobutton").click(function () {
+                                                        //alert("playVideo");
+                                                        if (invite_mediatype == 1) {
+
+                                                            window.location = 'http://youvivid-streaming.oss-cn-hangzhou.aliyuncs.com/IVT_template/wk-6GO-WUUS7A5kugNU8AQ.mp4';
+
+
+
+                                                        }
+
+
+                                                        return false;
+                                                    });
+
+
+                                                    if ($("#Gallery3380247 li").size() > 0) {
+
+                                                        $("#invite_webimg,#img_decoration1,#img_decoration2,#img_decoration3,#frame1_1,#frame1_2,#frame1_3,#frame2_1,#frame2_2,#frame2_3,#frame3_1,#frame3_2,#frame3_3").css('cursor', 'pointer');
+                                                    } else {
+                                                        $("#invite_webimg,#img_decoration1,#img_decoration2,#img_decoration3,#frame1_1,#frame1_2,#frame1_3,#frame2_1,#frame2_2,#frame2_3,#frame3_1,#frame3_2,#frame3_3").css('cursor', 'default');
+                                                    }
+
+                                                    $("#invite_webimg,#img_decoration1,#img_decoration2,#img_decoration3,#frame1_1,#frame1_2,#frame1_3,#frame2_1,#frame2_2,#frame2_3,#frame3_1,#frame3_2,#frame3_3").click(function () {
+
+
+                                                        if ($("#Gallery3380247 li").size() > 0) {
+
+                                                            //alert($("#Gallery a:first").html());
+                                                            //$("#Gallery a:first").click();
+                                                            instance3380247.show(0);
+                                                        }
+
+
+                                                        return false;
+                                                    });
+
+
+
+                                                });
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-main-br">
+                                    <div id="img_decoration3"></div>
+                                    <div class="inner-main-bl">
+                                        <div class="inner-main-bm">
+
+                                            <div id="sub-title">
+                                                <div class="sub-title-tr">
+                                                    <div class="sub-title-tl">
+                                                        <div class="sub-title-tm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="sub-title-mr">
+                                                    <div class="sub-title-ml">
+
+                                                        <div class="sub-title-mm">
+                                                            <div id="subtitlehtml"><span style="font-weight: normal; font-size: 18px; ">10月06日 国庆完与我相约</span></div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="sub-title-br">
+                                                    <div class="sub-title-bl">
+                                                        <div class="sub-title-bm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="outter-main-br"><div class="outter-main-bl"><div class="outter-main-bm"></div></div></div>
+            </div>
+
+            <!-- preload placeholder for custom.css assets-->
+            <div id="preload-01"></div>
+            <div id="preload-02"></div>
+            <div id="preload-03"></div>
+            <div id="preload-04"></div>
+            <div id="preload-05"></div>
+            <div id="preload-06"></div>
+            <div id="preload-07"></div>
+            <div id="preload-08"></div>
+            <div id="preload-09"></div>
+            <div id="preload-10"></div>
+            <div id="preload-11"></div>
+            <div id="preload-12"></div>
+            <div id="preload-13"></div>
+            <div id="preload-14"></div>
+            <div id="preload-15"></div>
+            <div id="preload-16"></div>
+            <div id="preload-17"></div>
+            <div id="preload-18"></div>
+            <div id="preload-19"></div>
+            <div id="preload-20"></div>
+
+
+            <div id="accordion">
+
+
+
+
+                <h3 style="display:" id="invite_detail_title3380246" class="ui-state-hover1">
+
+                    <div name="button1" id="button1" class="button">
+                        <div class="button-tr"><div class="button-tl"><div class="button-tm"></div></div></div>
+                        <div class="button-mr">
+                            <div class="button-ml">
+                                <div class="button-mm">
+                                    <a href="javaScript:void(0);"><img class="iconimage" alt="1.png" src="/css/qingtie/mini/images/icons/1.png" tppabs="http://youvividassets.youvivid.net/css/qingtie/mini/images/icons/1.png" border="0" align="absmiddle">&nbsp;<span id="invite_detail_name3380246" class="button-title">爱的邀约</span>&nbsp;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-br"><div class="button-bl"><div class="button-bm"></div></div></div>
+                    </div>
+                </h3>
+
+                <div class="accordion" id="invite_detail_content3380246">
+                    <div name="detail1" id="detail1" class="detail">
+                        <div class="detail-tr"><div class="detail-tl"><div class="detail-tm"></div></div></div>
+                        <div class="detail-mr">
+                            <div class="detail-ml">
+                                <div class="detail-mm">
+
+
+                                    <div class="invite_detail_editor" id="invite_detail_editor3380246">
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">那一年，我们偶然相遇</span></span></span></p>
+
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">没想到世界这么小</span></span></span></p>
+
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">两颗小小的心却从此被系在一起</span></span></span></p>
+
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">我们看到彼此的好</span></span></span></p>
+
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">也看到彼此对自己的重要</span></span></span></p>
+
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">在这个美丽的日子</span></span></span></p>
+
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">我们决定让幸福延续</span></span></span></p>
+
+                                        <p style="text-align: center"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">期望甜蜜的回忆里，有您的参与</span></span></span></p>
+
+                                        <p style="text-align: right">&nbsp;</p>
+
+                                        <p style="text-align: right"><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(51,51,51)">周斌与张赫敬邀</span></span></span></p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(255,0,102)">日期：2015年10月06日</span></span></span></p>
+
+                                        <p><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(255,0,102)">时间：11时30分</span></span></span></p>
+
+                                        <p><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(255,0,102)">席设：同聚德饭店5层518</span></span></span></p>
+
+                                        <p><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(255,0,102)">地址：河北省邢台市同聚德饭店</span></span></span></p>
+
+                                        <p><span style="font-family: 粗钢笔1,粗钢笔10,微软雅黑,宋体,microsoft jhenghei,microsoft yahei,arial"><span style="font-size: 18px"><span style="color: rgb(255,0,102)">电话：18600527610（新郎），15901561810（新娘）</span></span></span></p>
+
+                                    </div>
+                                    <script type="text/javascript">
+
+                                        //?建求XMLHttpRequest?象
+                                        function createRequest() {
+                                            try {
+                                                request = new XMLHttpRequest();
+                                            } catch (trymicrosoft) {
+                                                try {
+                                                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                                                } catch (othermicrosoft) {
+                                                    try {
+                                                        request = new ActiveXObject("Microsoft.XMLHTTP");
+                                                    } catch (failed) {
+                                                        request = false;
+                                                    }
+                                                }
+                                            }
+                                            if (!request)
+                                                alert("ERROR XMLHttpRequest!");
+                                        }
+
+
+
+                                        function reloadWebFont3380246() {
+                                            var webfontinfo_array = ['粗钢笔|粗钢笔1|/font/ccb07e20-a256-4037-b52a-6836a2a70f23iwoff'];
+                                            var htmltext = $("#invite_detail_editor3380246").html();
+                                            plaintext = htmltext.replace(/(<[^<|>]+?>|\r\n|\n|\r|^\s*|\s*$|\s+|&nbsp;)/gim, '');
+
+                                            plaintext_array_inorder = plaintext.split('').sort();
+
+                                            if (plaintext_array_inorder.length > 0) {
+                                                plaintext_min = plaintext_array_inorder[0];
+                                                prechr = plaintext_array_inorder[0];
+                                                for (i = 1; i < plaintext_array_inorder.length; i++) {
+                                                    if (plaintext_array_inorder[i] != prechr) {
+                                                        prechr = plaintext_array_inorder[i];
+                                                        plaintext_min = plaintext_min + plaintext_array_inorder[i];
+                                                    }
+                                                }
+                                            } else {
+                                                plaintext_min = "";
+                                            }
+
+
+                                            contentcss_list = "";
+                                            //alert(webfontinfo_array);
+
+                                            for (cc = 0; cc < webfontinfo_array.length ; cc++) {
+
+                                                tmp_webfontname = webfontinfo_array[cc].split('|')[0];
+                                                //	alert(tmp_webfontname);
+                                                tmp_webfont = webfontinfo_array[cc].split('|')[1];
+                                                tmp_webfonturl = webfontinfo_array[cc].split('|')[2];
+                                                tmp_webfonttype = webfontinfo_array[cc].split('|')[3];
+
+                                                if (htmltext.toUpperCase().indexOf(tmp_webfont.toUpperCase()) >= 0) {
+                                                    var_text = plaintext_min;
+                                                    if (tmp_webfonttype == 1) {
+                                                        $(document).find('head').append('<link class="fontcss_detail" id="' + tmp_webfont + '" rel="stylesheet" type="text/css" href="' + tmp_webfonturl + "&text=" + encodeURIComponent(var_text) + '">');
+                                                    } else if (tmp_webfonttype == 3) { //google webfont pure english,  no text parameter
+                                                        $(document).find('head').append('<link class="fontcss_detail" id="' + tmp_webfont + '" rel="stylesheet" type="text/css" href="' + tmp_webfonturl + '">');
+                                                    } else {
+                                                        post_url = tmp_webfonturl.split('?')[0];
+                                                        post_vars = tmp_webfonturl.split('?')[1] + "&text=" + encodeURIComponent(var_text);
+                                                        createRequest();
+                                                        //post_url = "http://cn.youvivid.com/test_test.asp";
+                                                        //alert(parseInt($.browser.version, 10));
+
+
+                                                        if ($.browser.msie && parseInt($.browser.version, 10) <= 9) {
+                                                            post_url = "mobile_invite_getcontentcssurl.asp.htm"/*tpa=http://cn.youvivid.net/mobile_invite_getcontentcssurl.asp*/;
+                                                        } else {
+                                                            post_url = "http://42.121.32.43:443/Fonts/csslink";
+                                                        }
+
+
+
+
+                                                        //alert(post_url);
+                                                        request.open("POST", post_url, false);
+
+                                                        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                                        //alert(post_url+"," + post_vars);
+                                                        request.send(post_vars);
+                                                        post_response = request.responseText; //?取服?器返回的JSON字串
+
+                                                        //	alert("post_response=" + post_response);
+                                                        // this is for testing
+                                                        //$(document).find('head').append('<link class="fontcss_detail" id="' + tmp_webfont + '" rel="stylesheet" type="text/css" href="'+ tmp_webfonturl + "&text=" + encodeURIComponent(var_text) +'">');
+                                                        $(document).find('head').append('<link class="fontcss_detail" id="' + tmp_webfont + '" rel="stylesheet" type="text/css" href="' + post_response + '">');
+
+                                                    }
+                                                } else {
+                                                    var_text = tmp_webfontname;
+                                                    if (tmp_webfonttype == 1) {
+                                                        $(document).find('head').append('<link class="fontcss_detail" id="' + tmp_webfont + '" rel="stylesheet" type="text/css" href="' + tmp_webfonturl + "&text=" + encodeURIComponent(var_text) + '">');
+
+
+
+                                                    } else {
+                                                        $(document).find('head').append('<link class="fontcss_detail" id="' + tmp_webfont + '" rel="stylesheet" type="text/css" href="">');
+
+                                                    }
+                                                }//if (  htmltext.toUpperCase().indexOf(tmp_webfont.toUpperCase()) >= 0 ) {
+                                            }
+                                        } //end	function reloadWebFont3380246(){
+
+
+
+                                        $(document).ready(function () {
+
+                                            reloadWebFont3380246();
+
+                                            bReloadWebFontOnce3380246 = 0;
+
+
+                                        });
+
+
+
+                                    </script>
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="detail-br"><div class="detail-bl"><div class="detail-bm"></div></div></div>
+                    </div>
+                </div>
+
+
+
+
+
+                <h3 style="display:" id="invite_detail_title3380247" class="ui-state-hover1">
+
+                    <div name="button7" id="button2" class="button">
+                        <div class="button-tr"><div class="button-tl"><div class="button-tm"></div></div></div>
+                        <div class="button-mr">
+                            <div class="button-ml">
+                                <div class="button-mm">
+                                    <a href="javaScript:void(0);"><img class="iconimage" alt="7.png" src="/css/qingtie/mini/images/icons/7.png" tppabs="http://youvividassets.youvivid.net/css/qingtie/mini/images/icons/7.png" border="0" align="absmiddle">&nbsp;<span id="invite_detail_name3380247" class="button-title">婚纱相册</span>&nbsp;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-br"><div class="button-bl"><div class="button-bm"></div></div></div>
+                    </div>
+                </h3>
+
+                <div class="accordion" id="invite_detail_content3380247">
+                    <div name="detail7" id="detail2" class="detail">
+                        <div class="detail-tr"><div class="detail-tl"><div class="detail-tm"></div></div></div>
+                        <div class="detail-mr">
+                            <div class="detail-ml">
+                                <div class="detail-mm">
+
+
+                                    <!--<div id="slideshow" style="width:300px; height:300px;"></div>-->
+
+
+                                    <span id="nopicture3380247"></span>
+
+
+
+
+                                    <ul id="Gallery3380247" class="gallery">
+
+
+                                        <!--<li><a href="uploads/image/f0904273C82W2683.jpg" rel="external"><img src="uploads/image/f0904273C82W2683.jpg" alt="" /></a></li>-->
+
+
+                                        <li><a href="/images/qingtie/2015/37/IMG_4371.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4371_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>
+                                        <li><a href="/images/qingtie/2015/37/IMG_4016.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4016_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>
+                                        <li><a href="/images/qingtie/2015/37/IMG_4333.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4333_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>
+                                        <li><a href="/images/qingtie/2015/37/IMG_4041.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4041_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>                                        
+                                        <li><a href="/images/qingtie/2015/37/IMG_4347.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4347_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>                                        
+                                        <li><a href="/images/qingtie/2015/37/IMG_4164.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4164_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>                                        
+                                        <li><a href="/images/qingtie/2015/37/IMG_4331.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4331_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>
+                                        <li><a href="/images/qingtie/2015/37/IMG_4070.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4070_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>
+                                        <li><a href="/images/qingtie/2015/37/IMG_4212.JPG" rel="external"><div class="thumb" style="height: 80px; background-image: url(/images/qingtie/2015/37/IMG_4212_2.JPG); "><img src="/images/qingtie/spacer.gif" width="100%"></div></a></li>
+                                                                                
+                                        
+                                    </ul>
+
+
+
+                                    <script type="text/javascript">
+
+                                        //var cw = $('.gallery li').width() * 0.666 ; // there is no li exist on initial
+                                        /*
+                                                $(document).ready(function() {
+
+                                                        var cw = $('.gallery').width() * 0.33333 ; // 0.222 = 0.3333*0.6666
+                                                        alert("ready: cw="+cw + ", gallery width=" + $('.gallery').width());
+                                                        $('.gallery li a .thumb').css({
+                                                            'height': cw + 'px'
+                                                        });
+                                                });
+
+                                                $(window).resize(function() {
+                                                    var cw = $('.gallery').width() * 0.33333 ; // 0.222 = 0.3333*0.6666
+                                                        alert("resize: cw="+cw + ", gallery width=" + $('.gallery').width());
+                                                    $('.gallery li a .thumb').css({
+                                                        'height': cw + 'px'
+                                                    });
+                                                });
+                                        */
+                                    </script>
+
+
+
+
+                                    <script type="text/javascript">
+
+                                        var instance3380247 = null;
+                                        var options = {
+                                            captionAndToolbarAutoHideDelay: 0, captionAndToolbarShowEmptyCaptions: false
+                                            //  ,preventHide: true
+                                        };
+
+                                        (function (window, $, PhotoSwipe) {
+
+
+
+                                            $(document).ready(function () {
+
+                                                if ($('#Gallery3380247 li').size() > 0) {
+
+                                                    //instance = window.Code.PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
+                                                    instance3380247 = $("#Gallery3380247 a").photoSwipe(options);
+
+                                                    instance3380247.addEventHandler(window.Code.PhotoSwipe.EventTypes.onShow, function (e) {
+
+                                                        setTimeout(function () {
+                                                            instance3380247.resetPosition(); //redraw photoswipe
+                                                        }, 120);
+
+                                                    });
+
+                                                    instance3380247.addEventHandler(window.Code.PhotoSwipe.EventTypes.onDisplayImage, function (e) {
+
+
+                                                        setTimeout(function () {
+                                                            $(window).scrollTop(0);
+                                                            instance3380247.resetPosition(); //redraw photoswipe
+                                                        }, 120);
+
+                                                    });
+
+                                                    instance3380247.addEventHandler(window.Code.PhotoSwipe.EventTypes.onBeforeShow, function (e) {
+
+                                                        $(window).scrollTop(0);
+                                                        //$("#MainContent").css("position","fixed");
+                                                        //$("body").css("position","fixed");
+
+                                                        //$("#PS").css("width", 200);
+                                                        //$("#PS").css("height", 200);
+                                                    });
+
+                                                    instance3380247.addEventHandler(window.Code.PhotoSwipe.EventTypes.onBeforeHide, function (e) {
+
+                                                        //$("#MainContent").css("position","static");
+                                                        //$("body").css("position","static");
+
+                                                        //$("#PS").css("width", 1);
+                                                        //$("#PS").css("height", 1);
+                                                    });
+
+
+                                                }
+
+
+                                            });
+
+
+
+
+
+                                        }(window, window.jQuery, window.Code.PhotoSwipe));
+
+
+
+
+                                        function addPhotoSwipe3380247(fileid, thumbnailurl, fileurl, photocount) {
+
+
+                                            var li = $('<li/>').append($('<a/>')
+                                              .attr('href', fileurl)
+                                              .append(
+                                                $('<img />').attr('id', fileid).attr('src', thumbnailurl).attr('alt', '')
+                                              )).appendTo('ul#Gallery3380247');
+
+
+                                            if ($("#Gallery3380247 li").size() == photocount) {
+
+
+                                                instance3380247 = $("#Gallery3380247 a").photoSwipe(options);
+
+
+                                            }
+                                        }
+
+                                    </script>
+
+
+
+                                    <div style="width:100%; height:3px"></div>
+
+                                    <div id="PS" style=" overflow: hidden; position: relative;"></div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="detail-br"><div class="detail-bl"><div class="detail-bm"></div></div></div>
+                    </div>
+                </div>
+
+
+
+
+
+                <h3 style="display:" id="invite_detail_title3380249" class="ui-state-hover1">
+
+                    <div name="button3" id="button3" class="button">
+                        <div class="button-tr"><div class="button-tl"><div class="button-tm"></div></div></div>
+                        <div class="button-mr">
+                            <div class="button-ml">
+                                <div class="button-mm">
+                                    <a href="javaScript:void(0);"><img class="iconimage" alt="3.png" src="/css/qingtie/mini/images/icons/3.png" tppabs="http://youvividassets.youvivid.net/css/qingtie/mini/images/icons/3.png" border="0" align="absmiddle">&nbsp;<span id="invite_detail_name3380249" class="button-title">婚宴回函</span>&nbsp;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-br"><div class="button-bl"><div class="button-bm"></div></div></div>
+                    </div>
+                </h3>
+
+                <div class="accordion" id="invite_detail_content3380249">
+                    <div name="detail3" id="detail3" class="detail">
+                        <div class="detail-tr"><div class="detail-tl"><div class="detail-tm"></div></div></div>
+                        <div class="detail-mr">
+                            <div class="detail-ml">
+                                <div class="detail-mm">
+
+
+
+                                    <script>
+                                        $(document).ready(function () {
+
+                                            //$("#iform").submit(function(e)
+                                            $("#rsvp_btn").on('click', function () {
+
+
+                                                var btn = '';
+
+                                                if (document.iform.sum.value == '0') {
+
+                                                    btn = ' 送 出 ';
+
+                                                } else {
+
+                                                    btn = ' 修 改 ';
+
+                                                }
+
+
+                                                alertify.confirm('您确定要' + btn + '？', function (e) {
+                                                    if (e) {
+
+                                                        //var postData = $(this).serialize();
+                                                        //var formURL = $(this).attr("action");
+                                                        var postData = $("#iform").serialize();
+                                                        var formURL = $("#iform").attr("action");
+
+                                                        $.ajax(
+                                                        {
+
+                                                            url: formURL,
+                                                            type: "POST",
+                                                            data: postData,
+                                                            success: function (data, textStatus, jqXHR) {
+                                                                //data: return data from server
+                                                                alertify.alert('回覆成功');
+                                                                //alert('回覆成功\n\n' + jqXHR.status + ' ' + jqXHR.responseText);
+
+                                                                if ($("form[name='iform'] input[name='bcheckin']").val() == "1") {
+
+                                                                    $("#qrcode_" + $("form[name='iform'] input[name='invite_usrcookies']").val()).css({ "display": "" });
+
+                                                                } else {
+                                                                    //document.getElementById('qrcode_'+document.iform.invite_usrcookies.value).style.display = '';
+                                                                    $("#qrcode_" + $("form[name='iform'] input[name='invite_usrcookies']").val()).css({ "display": "none" });
+                                                                }
+                                                                $("#rsvp_btn").val(" 修 改 ");
+
+                                                            },
+                                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                                //if fails
+
+                                                                alertify.alert('回覆失败\n\n' + jqXHR.status + ' ' + jqXHR.responseText);
+
+                                                            }
+                                                        });
+
+                                                        return false;
+                                                        //e.preventDefault(); //STOP default action
+
+                                                    } else {
+                                                        return false;
+                                                    }
+                                                });
+
+
+
+                                            });
+
+
+
+                                        });
+
+
+
+
+                                    </script>
+
+
+                                    <!--  RSVP START -->
+                                    <div id="rsvpdiv">
+
+
+                                        <!--onsubmit="javascript: return isIns();"-->
+                                        <form id="iform" name="iform" action="/qingtie/feedback" method="post" style="display:block;">
+
+                                            <input type="hidden" name="bcheckin" value="0">
+                                            <input type="hidden" name="invite_usrcookies" value="4F3D0B76D7DACECB409">
+
+                                            <input type="hidden" name="sum" value="0">
+                                            <input type="hidden" name="bsubmit" value="1">
+
+                                            <!-- <input type="hidden" name="sn" value="BDAP3"> -->
+
+                                            <input type="hidden" name="rsvp_invite_detail_id" value="L58LYT">
+
+                                            <div id="qaprompt">
+                                                <span>
+                                                    为了方便统整婚宴资料，请您花几分钟填写以下内容，并请及时回复，我们的婚宴会因您的协助更加美好。
+                                                </span>
+                                            </div>
+
+
+                                            <table id="rsvptable" width="100%" cellpadding="3" cellspacing="1" border="0" class="n4" style="line-height: 20px;">
+
+
+
+
+
+
+                                                <tr id="ta4136634" style=" margin-top:10px; display: block">
+                                                    <td width="100%" height="50" align="left">
+
+                                                        <input type="hidden" name="questionid" value="4136634">
+                                                        <input type="hidden" name="answertype" value="2">
+                                                        <input type="hidden" name="q4136634" value="">
+
+                                                        <span class="seq">1</span>.<span id="qq4136634">您的姓名</span>&nbsp;<br />
+
+                                                        <div style="margin-left:10px">
+
+                                                            <input type="text" name="qname" value="" size="20">
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr id="ta4136635" style=" margin-top:10px; display: block">
+                                                    <td width="100%" height="50" align="left">
+
+                                                        <input type="hidden" name="questionid" value="4136635">
+                                                        <input type="hidden" name="answertype" value="1">
+                                                        <input type="hidden" name="q4136635" value="">
+
+                                                        <span class="seq">2</span>.<span id="qq4136635">您会来参与我们的婚宴吗?</span>&nbsp;<br />
+
+                                                        <div style="margin-left:10px">
+
+
+                                                            <div id="q4136635">
+
+
+                                                                <div id="s11719867" style="valign: middle;">
+                                                                    <input type="radio" name="qjoin" value="1">
+
+                                                                    <span id="o11719867">
+                                                                        非常乐意，有
+                                                                        <select name="qnum" onchange="setOptionValue('4136635', this.value, '非常乐意，有{1-10}人参加', '11719867');">
+                                                                            <option value="">请选择</option>
+
+                                                                            <option value="1">1</option>
+
+                                                                            <option value="2">2</option>
+
+                                                                            <option value="3">3</option>
+
+                                                                            <option value="4">4</option>
+
+                                                                            <option value="5">5</option>
+
+                                                                            <option value="6">6</option>
+
+                                                                            <option value="7">7</option>
+
+                                                                            <option value="8">8</option>
+
+                                                                            <option value="9">9</option>
+
+                                                                            <option value="10">10</option>
+
+                                                                        </select>
+                                                                        人参加
+                                                                    </span>
+                                                                </div>
+
+                                                                <div id="s11719868" style="valign: middle;">
+                                                                    <input type="radio" name="qjoin" value="0" onclick="setOptionValue('4136635', '', '无法参加', '11719868');">
+
+                                                                    <span id="o11719868">
+                                                                        无法参加
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+
+
+                                                <tr id="ta4136640" style=" margin-top:10px; display: block">
+                                                    <td width="100%" height="50" align="left">
+
+                                                        <input type="hidden" name="questionid" value="4136640">
+                                                        <input type="hidden" name="answertype" value="2">
+                                                        <input type="hidden" name="q4136640" value="">
+
+                                                        <span class="seq">3</span>.<span id="qq4136640">请留下您的手机号码</span>&nbsp;<br />
+
+                                                        <div style="margin-left:10px">
+
+                                                            <input type="text" name="qphone" value="" size="20">
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+
+
+
+                                                <tr id="ta4136642" style=" margin-top:10px; display: block">
+                                                    <td width="100%" height="50" align="left">
+
+                                                        <input type="hidden" name="questionid" value="4136642">
+                                                        <input type="hidden" name="answertype" value="3">
+                                                        <input type="hidden" name="q4136642" value="">
+
+                                                        <span class="seq">4</span>.<span id="qq4136642">请留下您对我们的祝福，衷心感谢您</span>&nbsp;<br />
+
+                                                        <div style="margin-left:10px">
+
+                                                            <textarea name="qzhufu" cols="25" rows="5"></textarea>
+
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+
+
+
+                                                <tr>
+                                                    <td width="100%" height="25" align="center" valign="middle">
+                                                        <input type="hidden" name="bshowbless" value="">
+                                                        <!--<br><input type="checkbox" name="bshowbless" value="1" style="vertical-align:middle">&nbsp;私人回覆-->
+
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td width="100%" height="30" align="center" valign="middle">
+
+
+                                                        <!--<input type="submit" value=" 送 出 2">-->
+                                                        <!--onclick="isIns(); return false;"-->
+                                                        <input id="rsvp_btn" type="button" style="width:100px;" value=" 送 出 ">
+
+                                                        <br><br>
+                                                        <div id="qrcode_4F3D0B76D7DACECB409" style="display: none;">
+
+
+                                                        </div>
+
+
+
+                                                    </td>
+                                                </tr>
+
+
+                                            </table>
+                                            <br>
+                                        </form>
+
+                                        <style style="display: none;">
+                                            /* Gradient transparent - color - transparent */
+
+                                            hr.style-two {
+                                                clear: left;
+                                                border: 0;
+                                                height: 1px;
+                                                /***
+                                                background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+                                                background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+                                                background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+                                                background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+                                            ***/
+                                                border: 0;
+                                                height: 0;
+                                                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                                                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                                            }
+
+                                            span.two {
+                                                font-size: 8pt;
+                                            }
+
+                                            .bless_sortable {
+                                                width: 100%;
+                                                list-style-type: none;
+                                                margin: 0;
+                                                padding: 0;
+                                            }
+
+                                                .bless_sortable li {
+                                                    float: left;
+                                                }
+
+                                                    .bless_sortable li:first-child {
+                                                        text-align: left;
+                                                        width: 50%;
+                                                    }
+
+                                                    .bless_sortable li:last-child {
+                                                        text-align: right;
+                                                        width: 50%;
+                                                    }
+                                        </style>
+
+
+
+                                    </div>
+
+                                    <script>
+
+                                        // run the currently selected effect
+                                        function runEffect(page) {
+                                            // get effect type from
+                                            var selectedEffect = "blind";
+
+                                            // most effect types need no options passed by default
+                                            var options = {};
+
+
+                                            //options = { percent: 0 };
+
+                                            //options = { to: { width: 100%, height: auto } };
+
+
+                                            // run the effect
+                                            $("#page" + page).toggle(selectedEffect, options, 500);
+                                            $("#more" + (page - 1)).toggle("puff", options, 500);
+                                        };
+
+
+
+                                    </script>
+                                    <!--RSVP END-->
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="detail-br"><div class="detail-bl"><div class="detail-bm"></div></div></div>
+                    </div>
+                </div>
+
+
+
+
+
+                <h3 style="display:" id="invite_detail_title3380250" class="ui-state-hover1">
+
+                    <div name="button4" id="button4" class="button">
+                        <div class="button-tr"><div class="button-tl"><div class="button-tm"></div></div></div>
+                        <div class="button-mr">
+                            <div class="button-ml">
+                                <div class="button-mm">
+                                    <a href="javaScript:void(0);"><img class="iconimage" alt="4.png" src="/css/qingtie/mini/images/icons/4.png" tppabs="http://youvividassets.youvivid.net/css/qingtie/mini/images/icons/4.png" border="0" align="absmiddle">&nbsp;<span id="invite_detail_name3380250" class="button-title">婚宴地图</span>&nbsp;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-br"><div class="button-bl"><div class="button-bm"></div></div></div>
+                    </div>
+                </h3>
+
+                <div class="accordion" id="invite_detail_content3380250">
+                    <div name="detail4" id="detail4" class="detail">
+                        <div class="detail-tr"><div class="detail-tl"><div class="detail-tm"></div></div></div>
+                        <div class="detail-mr">
+                            <div class="detail-ml">
+                                <div class="detail-mm">
+
+
+                                    <input type="hidden" name="invite_detail_mapimgurl3380250" id="invite_detail_mapimgurl3380250" value="">
+
+                                    <img class="mapimg" id="invite_detail_mapimg3380250" style="width:100%; border:thin; border-style:solid; border-color:#999;" src="" width="100%" />
+
+                                    <div id="map_canvas3380250" style="border:thin; border-style:solid; border-color:#999; margin-bottom:5px; width:100%; height:300px;"></div>
+
+
+
+                                    <div id="map_direction3380250" style="width:100%" align="right">
+                                        <input id="map_direction_button3380250" name="map_direction_button3380250" onclick="baidu_map_direction3380250();" type="button" value=" 百度地图导航 " />
+                                        <script language="javascript">
+                                            function baidu_map_direction3380250() {
+                                                //var addr_buf ="周斌与张赫婚宴邀约";
+                                                //if (addr_buf.length == 0) {
+                                                addr_buf = "同聚德饭店";
+                                                //}
+
+                                                url_buf = "http://api.map.baidu.com/marker?location=" + map3380250_latmarker + "," + map3380250_lngmarker + "&zoom=" + map3380250_zoom + "&title=" + encodeURIComponent(addr_buf) + "&content=" + encodeURIComponent(addr_buf) + "&output=html&src=YouVivid|" + encodeURIComponent("Fun喜讯");
+                                                //alert(url_buf);
+                                                $("#jquery_jplayer_1").jPlayer("pause");
+
+                                                window.open(url_buf);
+                                            }
+                                        </script>
+
+
+                                    </div>
+
+
+                                    <div id="map_desc3380250">同聚德饭店<br>地址：河北省邢台市同聚德饭店5层518<br>电话：15901561810（新娘）</div>
+
+
+
+                                    <script language="javascript">
+                                        $(document).ready(function () {
+
+                                            //init
+                                            if ($("#invite_detail_mapimgurl3380250").val() == '') {
+                                                $("#invite_detail_mapimg3380250").hide();
+                                                $("#map_canvas3380250").show();
+                                                $("#map_direction3380250").show();
+                                            } else {
+                                                $("#invite_detail_mapimg3380250").show();
+                                                $("#map_canvas3380250").hide();
+                                                $("#map_direction3380250").hide();
+                                            }
+
+
+                                        });
+                                    </script>
+
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="detail-br"><div class="detail-bl"><div class="detail-bm"></div></div></div>
+                    </div>
+                </div>
+
+
+
+
+
+                <h3 style="display:" id="invite_detail_title3380251" class="ui-state-hover1">
+
+                    <div name="button6" id="button5" class="button">
+                        <div class="button-tr"><div class="button-tl"><div class="button-tm"></div></div></div>
+                        <div class="button-mr">
+                            <div class="button-ml">
+                                <div class="button-mm">
+                                    <a href="javaScript:void(0);"><img class="iconimage" alt="6.png" src="/css/qingtie/mini/images/icons/6.png" border="0" align="absmiddle">&nbsp;<span id="invite_detail_name3380251" class="button-title">喜宴提醒</span>&nbsp;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-br"><div class="button-bl"><div class="button-bm"></div></div></div>
+                    </div>
+                </h3>
+
+                <div class="accordion" id="invite_detail_content3380251">
+                    <div name="detail6" id="detail5" class="detail">
+                        <div class="detail-tr"><div class="detail-tl"><div class="detail-tm"></div></div></div>
+                        <div class="detail-mr">
+                            <div class="detail-ml">
+                                <div class="detail-mm">
+
+
+                                    <script>
+
+
+
+                                        //var countdownendtime = '2015/10/2 上午 08:00:00';
+                                        var countdown_yy = 2015;
+                                        var countdown_mm = 9;
+                                        var countdown_dd = 2;
+                                        var countdown_hh = 8;
+                                        var countdown_mn = 0;
+
+                                        CountDownTimer('countdown');
+
+                                        function CountDownTimer(id) {
+
+                                            var _second = 1000;
+                                            var _minute = _second * 60;
+                                            var _hour = _minute * 60;
+                                            var _day = _hour * 24;
+                                            var timer;
+
+                                            function showRemaining() {
+                                                var end = new Date(countdown_yy, countdown_mm, countdown_dd, countdown_hh, countdown_mn, 0);
+                                                var now = new Date();
+                                                var distance = end - now;
+                                                //alert (end + "\n" + now + "\n" + distance);
+                                                if (distance < 0) {
+
+                                                    clearInterval(timer);
+                                                    document.getElementById(id).innerHTML = '已经到期了!';
+
+                                                    return;
+                                                }
+                                                var days = Math.floor(distance / _day);
+                                                var hours = Math.floor((distance % _day) / _hour);
+                                                var minutes = Math.floor((distance % _hour) / _minute);
+                                                var seconds = Math.floor((distance % _minute) / _second);
+                                                document.getElementById(id).innerHTML = days + '天 ';
+                                                document.getElementById(id).innerHTML += hours + '时 ';
+                                                document.getElementById(id).innerHTML += minutes + '分 ';
+                                                document.getElementById(id).innerHTML += seconds + '秒';
+                                            }
+
+                                            timer = setInterval(showRemaining, 1000);
+                                        }
+
+                                    </script>
+
+                                    <div style="margin-top:0px; margin-bottom:25px">
+                                        <div id="countdowntitle" style="font-size:14px; margin-bottom:5px" align="center">
+                                            <span>距离开始时间还有</span>
+                                        </div>
+                                        <div style="width:100%" align="center">
+                                            <div style=" width:80%; height:20px; border-radius:4px; border:1px solid #777; background-color:#FFF; font-size:16px; color:#777;" id="countdown"></div>
+                                        </div>
+                                    </div>
+
+                                    <form name="rform" action="/qingtie/smsalert" method="post" onsubmit="javascript: return isIns2();" style="display:block;">
+
+                                        <input type="hidden" name="sn" value="BDAP3">
+                                        <input type="hidden" name="invite_id" value="358081">
+                                        <input type="hidden" name="invite_usrcookies" value="4F3D0B76D7DACECB409">
+                                        <input type="hidden" name="remindtime" value="'2015/9/29 14:0:0'">
+                                        <input type="hidden" name="remindphone_data" value="">
+
+                                        <table width="100%" cellpadding="3" cellspacing="3" border="0">
+                                            <tr><td width="100%" height="30"><div id="remindtitle"><span>亲爱的您容易健忘吗？输入您的姓名与手机号码， 婚宴前，我们会有贴心的手机短信提醒</span></div></td></tr>
+                                            <tr><td width="100%" height="30">姓　　名&nbsp;<input type="text" name="remindname" value="" size="16"></td></tr>
+                                            <tr><td width="100%" height="30">手机号码&nbsp;<input type="text" name="remindphone" value="" size="16"></td></tr>
+
+
+                                            <tr><td width="100%" height="30" align="center"><input type="submit" style="width:100px;" value=" 送 出 "></td></tr>
+
+
+
+                                        </table>
+
+                                    </form>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="detail-br"><div class="detail-bl"><div class="detail-bm"></div></div></div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!--<h3 style="display:" id="invite_detail_title3380252">
+
+                    <div name="button5" id="button6" class="button">
+                        <div class="button-tr"><div class="button-tl"><div class="button-tm"></div></div></div>
+                        <div class="button-mr">
+                            <div class="button-ml">
+                                <div class="button-mm">
+                                    <a href="javaScript:void(0);"><img class="iconimage" alt="5.png" src="/css/mini/images/icons/5.png" tppabs="http://youvividassets.youvivid.net/css/mini/images/icons/5.png" border="0" align="absmiddle">&nbsp;<span id="invite_detail_name3380252" class="button-title">喜讯分享</span>&nbsp;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-br"><div class="button-bl"><div class="button-bm"></div></div></div>
+                    </div>
+                </h3>-->
+
+                <div class="accordion" id="invite_detail_content3380252" style="display:none;" >
+                    <div name="detail5" id="detail6" class="detail">
+                        <div class="detail-tr"><div class="detail-tl"><div class="detail-tm"></div></div></div>
+                        <div class="detail-mr">
+                            <div class="detail-ml">
+                                <div class="detail-mm">
+
+
+                                    <!--
+
+                                    <div style="margin-top:5px; margin-bottom:15px">
+                                        <div style="font-size:14px; margin-bottom:5px">你可以将请帖转发到朋友手机:</div>
+                                        <div style="width:100%" align="center">
+                                            <textarea  name="invitesms" cols="20" rows="5" id="invitesms" style="border:1px solid #777; background-color:#FFC; font-size:20px; color:#777;" title="请按滑鼠右键选择复制" alt="请按滑鼠右键选择复制" >本请帖尚未发布</textarea>
+
+                                            <div style="font-size:12px; margin-top:5px">请复制以上文字后, 贴上手机短信,<br>微信, QQ传送给朋友</div>
+                                        </div>
+                                    </div>
+                        <script>
+                            $(function() {
+                                $('#invitesms').click(function(){
+                                        if($.browser.msie) this.createTextRange().select();
+                                        else {
+                                            this.selectionStart = 0;
+                                            this.selectionEnd = this.value.length;
+                                        }
+                                });
+                            })
+                        </script>
+                        -->
+                                    <!--<div style="font-size:14px; margin-bottom:15px; -webkit-user-select: none;">分享网址:</div>
+                        <div style="width:100%; margin-bottom:15px;" align="center">
+                            <div style="width:100%; padding-top:4px;padding-bottom:4px; border-radius:4px; border:1px solid #777; background-color:#FFF; font-size:14px; letter-spacing:-1px; color:#777;">
+                                本请帖尚未发布
+                            </div>
+                        </div>-->
+
+                                    <script>
+                                        $(function () {
+                                            $('#inviteurl').click(function () {
+                                                if ($.browser.msie) this.createTextRange().select();
+                                                else {
+                                                    this.selectionStart = 0;
+                                                    this.selectionEnd = this.value.length;
+                                                }
+                                            });
+                                        })
+                                    </script>
+
+
+
+
+                                    <style type="text/css">
+                                        #share_buttons {
+                                            margin: 0 auto;
+                                            width: 230px;
+                                        }
+                                    </style>
+
+                                    <!-- Baidu Button BEGIN -->
+
+
+                                    <script>
+                                        try {
+                                            var welcontent = '2015年10月06日 11时30分 同聚德饭店 周斌&张赫';
+                                            var weltitle = '周斌与张赫婚宴邀约';
+                                            window._bd_share_config = {
+                                                common: {
+                                                    bdText: '周斌与张赫婚宴邀约',
+                                                    bdDesc: weltitle,
+                                                    bdUrl: '',
+                                                    bdPic: '/images/qingtie/2015/37/IMG_4212.JPG',
+                                                    bdComment: welcontent,
+                                                    bdSign: 'off',
+                                                    bdMini: "2",
+                                                    bdMiniList: false,
+                                                    bdPopupOffsetLeft: 0,
+                                                    bdSize: "32",
+                                                    onBeforeClick: function (cmd, config) {
+                                                        if (cmd === 'tsina') {
+                                                            config.bdText = '\#' + weltitle + '\# ' + welcontent;
+                                                            config.bdPic = '/images/qingtie/2015/37/IMG_4212.JPG--http-/cn.youvivid.com/qrcode_gen.php-url=http---cn.youvivid.net-_vBDAP3&fn=BDAP3.png';
+                                                        } else if (cmd === 'tqq') {
+                                                            config.bdText = '\#' + weltitle + '\# ' + welcontent;
+                                                            config.bdPic = '/images/qingtie/2015/37/IMG_4212.JPG--http-/cn.youvivid.com/qrcode_gen.php-url=http---cn.youvivid.net-_vBDAP3&fn=BDAP3.png';
+                                                        } else if (cmd === 'qzone') {
+                                                            config.bdText = weltitle;
+                                                            config.bdPic = './images/qingtie/2015/37/IMG_4212.JPG';
+                                                        } else if (cmd === 'renren') {
+                                                            config.bdText = weltitle;
+                                                            config.bdDesc = welcontent;
+                                                        } else if (cmd === 'sqq') {
+                                                            config.bdText = weltitle;
+                                                            config.bdDesc = '\#' + weltitle + '\# ' + welcontent;
+                                                        } else {
+                                                            config.bdText = welcontent;
+                                                        }
+
+                                                        return config;
+
+
+                                                    }
+                                                }, share: {}
+                                            };
+
+
+                                            window._bd_share_main = null;
+
+                                            with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+
+                                        } catch (err) {
+
+                                        }
+
+                                    </script>
+
+
+
+                                    <!-- Baidu Button END -->
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="detail-br"><div class="detail-bl"><div class="detail-bm"></div></div></div>
+                    </div>
+                </div>
+
+
+
+
+
+                <h3 style="display:none" id="invite_detail_title3380255" class="ui-state-hover1">
+
+                    <div name="button7" id="button6" class="button">
+                        <div class="button-tr"><div class="button-tl"><div class="button-tm"></div></div></div>
+                        <div class="button-mr">
+                            <div class="button-ml">
+                                <div class="button-mm">
+                                    <a href="javaScript:void(0);"><img class="iconimage" alt="7.png" src="/css/qingtie/mini/images/icons/7.png" tppabs="http://youvividassets.youvivid.net/css/mini/images/icons/7.png" border="0" align="absmiddle">&nbsp;<span id="invite_detail_name3380255" class="button-title">备 用 相 册</span>&nbsp;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-br"><div class="button-bl"><div class="button-bm"></div></div></div>
+                    </div>
+                </h3>
+
+                <div class="accordion" id="invite_detail_content3380255" style="display:none;">
+                    <div name="detail7" id="detail6" class="detail">
+                        <div class="detail-tr"><div class="detail-tl"><div class="detail-tm"></div></div></div>
+                        <div class="detail-mr">
+                            <div class="detail-ml">
+                                <div class="detail-mm">
+
+
+                                    <!--<div id="slideshow" style="width:300px; height:300px;"></div>-->
+
+
+                                    <span id="nopicture3380255">没有图片</span>
+
+
+
+
+                                    <ul id="Gallery3380255" class="gallery">
+
+
+                                        <!--<li><a href="uploads/image/f0904273C82W2683.jpg" rel="external"><img src="uploads/image/f0904273C82W2683.jpg" alt="" /></a></li>-->
+
+
+
+                                    </ul>
+
+
+
+                                    <script type="text/javascript">
+
+                                        //var cw = $('.gallery li').width() * 0.666 ; // there is no li exist on initial
+                                        /*
+                                                $(document).ready(function() {
+
+                                                        var cw = $('.gallery').width() * 0.33333 ; // 0.222 = 0.3333*0.6666
+                                                        alert("ready: cw="+cw + ", gallery width=" + $('.gallery').width());
+                                                        $('.gallery li a .thumb').css({
+                                                            'height': cw + 'px'
+                                                        });
+                                                });
+
+                                                $(window).resize(function() {
+                                                    var cw = $('.gallery').width() * 0.33333 ; // 0.222 = 0.3333*0.6666
+                                                        alert("resize: cw="+cw + ", gallery width=" + $('.gallery').width());
+                                                    $('.gallery li a .thumb').css({
+                                                        'height': cw + 'px'
+                                                    });
+                                                });
+                                        */
+                                    </script>
+
+
+
+
+                                    <script type="text/javascript">
+
+                                        var instance3380255 = null;
+                                        var options = {
+                                            captionAndToolbarAutoHideDelay: 0, captionAndToolbarShowEmptyCaptions: false
+                                            //  ,preventHide: true
+                                        };
+
+                                        (function (window, $, PhotoSwipe) {
+
+
+
+                                            $(document).ready(function () {
+
+                                                if ($('#Gallery3380255 li').size() > 0) {
+
+                                                    //instance = window.Code.PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
+                                                    instance3380255 = $("#Gallery3380255 a").photoSwipe(options);
+
+                                                    instance3380255.addEventHandler(window.Code.PhotoSwipe.EventTypes.onShow, function (e) {
+
+                                                        setTimeout(function () {
+                                                            instance3380255.resetPosition(); //redraw photoswipe
+                                                        }, 120);
+
+                                                    });
+
+                                                    instance3380255.addEventHandler(window.Code.PhotoSwipe.EventTypes.onDisplayImage, function (e) {
+
+
+                                                        setTimeout(function () {
+                                                            $(window).scrollTop(0);
+                                                            instance3380255.resetPosition(); //redraw photoswipe
+                                                        }, 120);
+
+                                                    });
+
+                                                    instance3380255.addEventHandler(window.Code.PhotoSwipe.EventTypes.onBeforeShow, function (e) {
+
+                                                        $(window).scrollTop(0);
+                                                        //$("#MainContent").css("position","fixed");
+                                                        //$("body").css("position","fixed");
+
+                                                        //$("#PS").css("width", 200);
+                                                        //$("#PS").css("height", 200);
+                                                    });
+
+                                                    instance3380255.addEventHandler(window.Code.PhotoSwipe.EventTypes.onBeforeHide, function (e) {
+
+                                                        //$("#MainContent").css("position","static");
+                                                        //$("body").css("position","static");
+
+                                                        //$("#PS").css("width", 1);
+                                                        //$("#PS").css("height", 1);
+                                                    });
+
+
+                                                }
+
+
+                                            });
+
+
+
+
+
+                                        }(window, window.jQuery, window.Code.PhotoSwipe));
+
+
+
+
+                                        function addPhotoSwipe3380255(fileid, thumbnailurl, fileurl, photocount) {
+
+
+                                            var li = $('<li/>').append($('<a/>')
+                                              .attr('href', fileurl)
+                                              .append(
+                                                $('<img />').attr('id', fileid).attr('src', thumbnailurl).attr('alt', '')
+                                              )).appendTo('ul#Gallery3380255');
+
+
+                                            if ($("#Gallery3380255 li").size() == photocount) {
+
+
+                                                instance3380255 = $("#Gallery3380255 a").photoSwipe(options);
+
+
+                                            }
+                                        }
+
+                                    </script>
+
+
+
+                                    <div style="width:100%; height:3px"></div>
+
+                                    <div id="PS" style=" overflow: hidden; position: relative;"></div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="detail-br"><div class="detail-bl"><div class="detail-bm"></div></div></div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+            <!--<div id="PhotoSwipeTarget"></div>-->
+            <!--<div id="footer">
+                <div id="copyright">
+                    <div id="copyright-text">
+                        <div id="copyright-text-content">
+                            (免费体验版限制最多5个手机打开)
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!--<a id="autoMobileVideo" href="javascript:if(confirm('http://cn.youvivid.net/mobile_invite.asp?sn=BDAP3  \n\n���ļ��޷��� Teleport Ultra ����, ��Ϊ ����һ���Ѿ���վ���������ų���������ų���·����ַ��(��ϵͳ�� Teleport Ultra �����ǿ�ѡ��; �μ���Ŀ����, �������ǡ�)  \n\n�����ڷ������ϴ���?'))window.location='http://cn.youvivid.net/mobile_invite.asp?sn=BDAP3'" tppabs="http://cn.youvivid.net/mobile_invite_autovideo.asp?sn=BDAP3&autovideourl=&ts=1442067711"></a>-->
+
+        </div>
+    </div>
+
+    <div id="jquery_jplayer_1" style=" width:1px; height:1px"></div>
+
+</body>
+
+
+</html>
+

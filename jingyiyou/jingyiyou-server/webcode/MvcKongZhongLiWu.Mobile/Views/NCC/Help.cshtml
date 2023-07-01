@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "新彩Club-帮助";
+    Layout = "~/Views/Shared/_Layout-cnn.cshtml";
+}
+<style type="text/css">
+    #app, .help-bd {
+        background: #362b49;
+    }
+    .help-bd {
+        min-height: 6.05rem;
+        color: #fff;
+        font-size: .14rem;
+    }
+        .help-bd .item {
+            border-bottom: 1px solid #493455;
+        }
+        .help-bd .q {
+            padding: .08rem .15rem;
+            position: relative;
+            line-height: .3rem;
+            background: #1b0e30;
+        }
+            .help-bd .q:after {
+                content: "";
+                position: absolute;
+                right: .12rem;
+                top: 50%;
+                width: .08rem;
+                height: .08rem;
+                margin-top: -.05rem;
+                border-top: 2px solid #ccc;
+                border-right: 2px solid #ccc;
+                -webkit-transition: .3s ease-in;
+                transition: .3s ease-in;
+                -webkit-transform: rotate(135deg);
+                transform: rotate(135deg);
+            }
+        .help-bd .a {
+            display: none;
+            padding: .1rem .12rem;
+        }
+     .headers {
+        position: relative;
+        height: .5rem;
+        line-height: .5rem;
+        background: #362b49;
+    }
+
+        .headers .header-l {
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding-top: .1rem;
+        }
+
+            .headers .header-l .item {
+                float: left;
+                margin-left: .1rem;
+            }
+
+            .headers .header-l .goback {
+                width: .3rem;
+                height: .3rem;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAC0CAMAAAD/wb/1AAAAk1BMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ROyVeAAAAMHRSTlMA8JAI+PTly7kjF/zhpYMxD8/GnnBpUC0F6bCWiX5YVUIoJR8ZDNu/Ylw42Kp3ZUlhRnvyAAABj0lEQVRo3u3Z2XKCMBSA4QMqssjihrbuuK/N+z9dzRlz4zTSHBxg2vPf6cynJBlgIMBxVZd1l2Tr70RrRLSbjhCoaVYWfBEtdjW3a2UHBOtUYz1lhwT78QZ7K2AP5nZlvcEey7UjZecE23rYRbk2VjYl2CbdntT/Ek7+lDjPWGI/sLsFQtFDd4vpRhHdJunpW3RvXL62lYYiel+hdkl6UgP9SdL9GuhLIR2RdIi26wNV49lJ1XQL2ygDjuP+R8K4WmCO4/5OfBniOM4svgxxHMdx1SUMqhf24RclGmxdG7l27mgPuzN/TTP35Zh7Jz1tzJpCi2+4FxmuNXa5kxvRtgZDMpU/3Yy2P1A/xAOLQYcBvIu45xzguaElZ3QIoMWyU1vypw3+GL8MfXiFsWMHX6ZnoErsQAhxXgLkYZzVlhy6nQC2cOSn2RjyMbbpB3KIgzvwcGldDyAfq+K9NOcUl9ZZAJhggHQnOS5tAqYYxgNL2nYMYIgxfxLIpSVgbOUDEWOMGZvj2t2r+LmI4yrvG3jk9W2dFDstAAAAAElFTkSuQmCC) no-repeat;
+                background-size: .3rem .9rem;
+            }
+
+        .headers .tit {
+            font-size: .16rem;
+            line-height: .5rem;
+            color: #fff;
+            text-align: center;
+        }
+    .block, .show {
+        display: block;
+    }
+    .help-bd .show .a {
+        display: block;
+    }
+</style>
+<script type="text/javascript">
+    var app = new function () {
+        this.initPage = function () {
+            $('.help-list li').each(function () {
+                
+                $(this).click(function () {
+                   // alert($(this).hasClass('show'))
+                    if (!$(this).hasClass('show')) {
+                        $(this).addClass('show');
+                    } else {
+                        $(this).removeClass('show');
+                    }
+                    
+                });
+            })
+
+            $('.goback').click(function () {
+                window.history.back(-1);
+            })
+        }
+    }
+    $(function () {
+        app.initPage();
+    });
+</script>
+<div class="user-bg">
+    <div  class="headers">
+        <header >
+            <div  class="header">
+                <span  class="header-l">
+                    <span  class="item goback"></span>
+                </span>
+                <h2  class="tit">帮助中心</h2>
+                <span  class="header-r">
+                    <span  class="item email" style="display: none;"></span>
+                </span>
+            </div>
+        </header>
+    </div>
+    <div class="help-bd">
+        <ul class="help-list">
+            <li class="item">
+                <div class="q">如何保证视频里刮的票是我买的？</div>
+                <div class="a"><p>答：您在支付购买彩票后，店主会将刮奖过程全程直播且会拍照取证，保证全程真实有效。 </p></div>
+            </li>
+            <li class="item">
+                <div class="q">哪个实体店将为我直播开奖？</div>
+                <div class="a"><p>答：您若在实体店扫描二维码进行注册，则优先分配此实体店为您开奖，若此实体店不在线，则分配在线实体店为您开奖。 </p></div>
+            </li>
+            @*<li class="item"><div class="q">视频里把我的票刮错了，怎么办？</div><div class="a"><p>答：您在支付购买彩票后，会提前生成票号，票号是连续的且是全国唯一的，不可修改。您只需要核对自己的票号和票样图片是否一致即可。如果不一致，可咨询在线客服。 </p></div></li>*@
+            <li class="item"><div class="q">为什么视频直播与中奖提醒不同步？</div><div class="a"><p>答：视频直播要经过视频采集、网络传输、终端解码等步骤用户才能看到，所以受网络影响，视频直播偶尔会有几秒延迟。 </p></div></li>
+            @*<li class="item"><div class="q">我怎么买不了彩票？</div><div class="a"><p>答：您所在的归属地所在地区暂未开通，所以无法购彩。目前只开放湖北、辽宁、河北、青海、重庆、湖南、黑龙江、天津，我们会陆续开通全国购彩，还请您耐心等待。</p></div></li>
+            <li class="item"><div class="q">什么时候开通我所在的地区？</div><div class="a"><p>我们会陆续开通全国的，还请您耐心等待。</p></div></li>*@
+            @*<li class="item"><div class="q">实名认证提示身份证被绑定？</div><div class="a"><p>答：如果实名认证的时候，提示帐号已绑定，可能是因为您已经注册过即开吧了。您可以直接联系在线客服。</p></div></li>*@
+            <li class="item"><div class="q">提现什么时候到账？</div><div class="a"><p>您提现操作后，一般在5分钟内到账，特殊情况可能需要2个工作日内到账，请您耐心等待。</p></div></li>
+            <li class="item"><div class="q">为什么充值后必须要消费30%才可提现？</div><div class="a"><p>这种情况是为了最大程度限制洗钱等违法活动哦。</p></div></li>
+            <li class="item"><div class="q">我充值怎么没到账？</div><div class="a"><p>充值可能会有短暂的延时，可以尝试刷新页面解决。若超过5分钟未到账，则查看银行卡是否扣费。如果扣费了却未到账，请联系在线客服。</p></div></li>
+            <li class="item"><div class="q">为什么会提现失败？</div><div class="a"><p>请先保证您输入的银行卡号正确且持卡人的姓名与实名一致，信息必须准确无误才可以提现成功哦。如果信息正确但提现失败，请联系在线客服。</p></div></li>
+            @*<li class="item"><div class="q">如何使用微信或支付宝扫码验真伪？</div><div class="a"><p>先在购彩记录里查看票样的高清大图，然后使用微信或支付宝扫描左下角的二维码即可。购买彩票后7日内可联系客服索要纸质票，我们会在3个工作日内审核并邮寄，邮费到付。</p></div></li>*@
+        </ul>
+    </div>
+</div>

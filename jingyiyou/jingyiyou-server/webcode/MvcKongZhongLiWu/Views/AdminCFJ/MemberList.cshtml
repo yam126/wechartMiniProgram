@@ -1,0 +1,104 @@
+﻿@model PagedList<ncc2019.Members>
+@using Webdiyer.WebControls.Mvc
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = "用户管理";
+}
+<div class="block clearfix">
+    @Html.Partial("~/views/part/cfj/AdminLeft.cshtml", ncc2019.Common.Enum.AdminPageType.Member);
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+
+                    <h5><span>人员管理</span></h5>
+
+                    <div class="blank"></div>
+                    @using (Html.BeginForm("Index", "adminmember", FormMethod.Get))
+                    {
+                        <div class="searchdiv">
+                            <label>关注</label>
+                            @Html.DropDownList("guanzhu", EnumTool.ConvertList(typeof(ShiFouStatus), "-1", "全部", "-1"))
+                            <button type="submit">搜索</button>
+
+                        </div>
+                    }
+                    <div class="blank"></div>
+                    <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                        <tbody>
+                            <tr align="center">
+                                <td bgcolor="#ffffff">ID</td>
+                                <td bgcolor="#ffffff">头像</td>
+                                <td bgcolor="#ffffff">姓名</td>
+                                <td bgcolor="#ffffff">联系电话</td>
+                                <td bgcolor="#ffffff">登陆次数</td>
+                                <td bgcolor="#ffffff">注册日期</td>
+                                <td bgcolor="#ffffff">最后时间</td>
+                                <td bgcolor="#ffffff">账户</td>
+                                <td bgcolor="#ffffff">级别</td>
+                               
+                                <td bgcolor="#ffffff">操作</td>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.MemberID)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @if (item.HeadImgUrl != null)
+                                        { <img src="@item.HeadImgUrl" width="20px" height="20px;" />}
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.Phone)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.LoginCount)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.RegDate)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.LastDate)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.Balance)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @EnumTool.GetEnumName(typeof(UserLevel), item.UserLevel)
+                                    </td>                                   
+                                    <td bgcolor="#ffffff" style="text-align:center;">
+                                        @Html.ActionLink("编辑", "../adminmember/Edit", new { id = item.MemberID }) |
+                                        @Html.ActionLink("详细", "../adminmember/Details", new { id = item.MemberID }) |
+                                        @Html.ActionLink("删除", "Delete", new { id = item.MemberID }) 
+                                        @*<a href="/adminmember/sendmsg/@item.MemberID">发消息</a>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div id="pager" class="pagebar">
+                        <span style="margin-right: 10px;" class="f_l ">总计 <b>@ViewBag.totalCount</b>  个记录</span>
+
+                    </div>
+                    @Html.Pager(Model, new PagerOptions
+                                 {
+                                     PageIndexParameterName = "pageindex",
+                                     ShowPageIndexBox = true,
+                                     FirstPageText = "首页",
+                                     PrevPageText = "上一页",
+                                     NextPageText = "下一页",
+                                     LastPageText = "末页",
+                                     PageIndexBoxType = PageIndexBoxType.TextBox,
+                                     PageIndexBoxWrapperFormatString = "请输入页数{0}",
+                                     GoButtonText = "转到"
+                                 })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

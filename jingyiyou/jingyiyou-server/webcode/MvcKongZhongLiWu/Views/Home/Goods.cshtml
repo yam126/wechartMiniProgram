@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Goods";
+}
+<div class="blank5"></div>
+<div class="Area">
+    <div class="box">
+        <div class="box_1">
+            <h3>
+                <span>商品列表</span>
+
+                显示方式：
+                <a href="javascript:;" onclick="javascript:display_mode('list')"><img src="~/css/images/display_mode_list.gif" alt=""></a>
+                <a href="javascript:;" onclick="javascript:display_mode('grid')"><img src="~/css/images/display_mode_grid_act.gif" alt=""></a>
+                <a href="javascript:;" onclick="javascript:display_mode('text')"><img src="~/css/images/display_mode_text.gif" alt=""></a>&nbsp;&nbsp;
+
+                <a href="category.php@category=596&display=grid&brand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=goods_id&order=ASC#goods_list"><img src="~/css/images/goods_id_DESC.gif" alt="按上架时间排序"></a>
+                <a href="category.php@category=596&display=grid&brand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=shop_price&order=ASC#goods_list"><img src="~/css/images/shop_price_default.gif" alt="按价格排序"></a>
+                <a href="category.php@category=596&display=grid&brand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=last_update&order=DESC#goods_list"><img src="~/css/images/last_update_default.gif" alt="按更新时间排序"></a>
+
+
+            </h3>
+
+            <div class="clearfix goodsBox" style="border:none; padding:11px 0 10px 0px;">
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="blank5"></div>

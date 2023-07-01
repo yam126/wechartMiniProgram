@@ -1,0 +1,405 @@
+﻿@model ncc2019.Goods
+@using ncc2019.Common.HtmlExt
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = Model.Name;
+}
+@*<link href="~/css/user.css" rel="stylesheet" />*@
+@*<script src="~/Scripts/m/jquery.poshytip.js"></script>*@
+@*<link href="~/css/tip-yellow.css" rel="stylesheet" />*@
+<link href="~/css/sharewx.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+<style type="text/css">
+    .cshead {
+        height: 200px;
+    }
+
+        .cshead div {
+            float: left;
+        }
+
+    .tb-prop li {
+        float: left;
+        position: relative;
+        margin: 0 5px 10px 0;
+        vertical-align: middle;
+        line-height: 20px;
+        background: #FFF;
+    }
+
+    .tb-prop .tb-selected a, .tb-prop a:hover {
+        padding: 2px 5px;
+        color: #F40;
+        border: 2px solid #F40;
+        background: #FFF;
+    }
+
+    .tb-prop li a {
+        display: inline-block;
+        white-space: nowrap;
+        text-decoration: none;
+        padding: 3px 6px;
+        min-width: 10px;
+        _width: 10px;
+        text-align: center;
+        border: 1px solid #DCDCDC;
+        background: #FFF;
+        -moz-transition-property: border-color,background;
+        -o-transition-property: border-color,background;
+        -webkit-transition-property: border-color,background;
+        transition-property: border-color,background;
+        -moz-transition-duration: .2s;
+        -o-transition-duration: .2s;
+        -webkit-transition-duration: .2s;
+        transition-duration: .2s;
+    }
+
+    .tb-chicun {
+        display: inline-block;
+        width: 100%;
+    }
+
+        .tb-chicun dt, .tb-chicun li {
+            float: left;
+            margin-left: 10px;
+        }
+
+    .selectpanel {
+        position: fixed;
+        bottom: 0;
+        min-height: 6em;
+        max-width: 640px;
+        width: 100%;
+        background: #fff;
+        z-index: 20001;
+        display:none;
+    }
+
+    .mcover {
+        position: fixed;
+        top: 0;
+        max-width: 640px;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 20000;
+        display:none;
+    }
+    .btn-close {
+        position: absolute !important;
+        background-image: url(/images/close2.png);
+        /*width:1em;
+        height:1em;*/
+    }
+    /*.goods-info .tab-info img{
+
+    }*/
+    .hiddencss {
+        display: none !important;
+    }
+    .guanzhu{
+        position:relative;
+    }
+</style>
+<script type="text/javascript">
+    var fadetime = 300;
+    $(document).ready(function () {
+        @*$('.buy').click(function () {
+            $('#buyform').submit();
+        });*@
+        $('.guanzhu').show();
+        //$('.con .ect-bg').hide();
+        $('.btn-close').click(function () {
+            $('.selectpanel').slideUp(fadetime);
+            $('.mcover').fadeOut(fadetime);
+            $('.btnpanel').show();
+        });
+        $('.mcover').click(function () {
+            $('.btn-close').click();
+        });
+
+        $('.panel-content').height($(window).height());
+        $('.btn-close').click(function () {
+            $('.panel-info').addClass('hiddencss');
+        });
+        $('.help').click(function () {
+            $('.panel-info').removeClass('hiddencss');
+        });
+        //$('.btnpanel').poshytip('showDelayed', 100);
+        
+        //$('.btnpanel').poshytip({content:"222"});
+    });
+    function changePrice(type) {
+        if (type == 'n') {
+            $('.form-num').val(parseInt($('.form-num').val()) + 1);
+        } else {
+            if (parseInt($('.form-num').val()) <= 1) {
+                $('.form-num').val(1);
+            } else {
+                $('.form-num').val(parseInt($('.form-num').val()) - 1);
+            }
+        }
+    }
+    function fnshowsurepanel(isme) {
+        if (isme==0) {
+            $('.panl-notforme').show();
+            $('.panl-forme').hide();
+        } else {
+            $('.panl-forme').show();
+            $('.panl-notforme').hide();
+        }
+        $('.mcover').fadeIn(fadetime);
+        $('.selectpanel').slideDown(fadetime);
+        $('.btnpanel').hide();
+    }
+    function cl_forme(isme) {
+        var property = "";
+        //$('.tb-prop-true li').each(function () {
+        //    if ($(this).hasClass('tb-selected')) {
+        //        property += $(this).data('value') + ',';
+        //    }
+        //});
+        var result = true;
+        $('.tb-prop-true').each(function () {
+            var selval = "";
+            $(this).find('li').each(function () {
+                if ($(this).hasClass('tb-selected')) {                   
+                    selval = $(this).data('value');
+                }
+            });
+            if (selval=='') {
+                alert('请选择' + $(this).data('property')+"!");
+                result = false;
+                return false;
+            }
+            property += selval + ',';
+        });
+        if (result == false) { return };
+        $('#property').val(property);
+        $('#forme').val(isme);
+        $('#buyform').submit();
+    }
+    function cl_tag(ulid,pname) {
+       
+       
+        $('.ul_' + ulid + ' li').each(function () {
+            
+            if ($(this).data('value') == pname) {
+                $(this).addClass('tb-selected');
+            } else {
+                $(this).removeClass('tb-selected');
+            }
+        });
+    }
+
+</script>
+
+<div id="focus" class="focus goods-focus ect-padding-lr ect-margin-tb">
+
+
+    <div class="bd">
+        <div class="tempWrap">
+            <ul id="Gallery">
+                <li><a href="#"><img alt="@Model.Name" src="@Model.ImgUrl"></a></li>
+                @*<li>@Model.Name</li>*@
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="goods-info ect-padding-tb">
+    <section class="ect-margin-tb ect-margin-lr">
+            <h4 class="title pull-left">@Model.Name</h4>
+
+        </section>
+    <section class="ect-margin-tb ect-margin-lr " style="text-align:center;">
+        <p><span class="pull-left">礼物价格：<b class="ect-colory" id="ECS_GOODS_AMOUNT">￥@Model.Payment@Html.Raw("元")</b></span><span class="label ect-bg-colory">免运费 </span><span class="pull-right">送出：@Model.BuyCount 件</span></p>
+        <p></p>
+    </section>
+    @using (Html.BeginForm("DoBuy", "Buy", FormMethod.Get, new { id = "buyform" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <input name="goodid" type="hidden" value="@Model.GoodID" />
+        <input name="forme" id="forme" type="hidden" value="0" />
+        <input class="form-num" name="number" id="number" type="hidden" value="1" />
+        <input name="property" id="property" type="hidden" value="" />
+    }
+    @*<button class="btn btn-info ect-btn-info ect-colorf buy btnbottom" type="submit">果断出手</button>*@
+    @*<div class="ect-padding-lr ect-padding-tb goods-submit">
+            <div></div>
+        </div>*@
+    @if (ViewBag.plist.Count>0)
+    {
+        <section class="ect-padding-lr ect-padding-tb goods-option">
+            @foreach (ncc2019.GoodProperty p in ViewBag.plist)
+            {
+                <dl class="tb-chicun">
+                    <dt class="tb-property-type"> @p.Name:</dt>
+                    <dd>
+                        <ul data-property="@p.Name"  class="tb-prop-true tb-prop ul_@p.GoodPropertyID">
+                            @{
+                string[] list = p.Content.Split(new string[] { ",", "，" }, StringSplitOptions.RemoveEmptyEntries);
+                            }
+                            @foreach (var s in list)
+{
+    <li data-value="@s.ToString()" onclick="cl_tag('@p.GoodPropertyID','@s.ToString()')" class="li_@p.GoodPropertyID"><a><span>@s.ToString()</span></a></li>
+}
+
+                        </ul>
+                    </dd>
+                </dl>
+                <br />
+            }
+
+        </section>
+    }
+    @if (Model.GoodType!=(int)GoodType.贺卡)
+    {
+        <section class="ect-padding-lr ect-padding-tb goods-option">
+
+        <div class="goods-num" style="line-height:3em;">
+            <span class="pull-left">购买数量：</span>
+            <div class="input-group pull-left wrap">
+                <span class="input-group-addon sup" onclick="changePrice('p')">-</span>
+                <input type="text" class="form-contro form-num" name="number" id="goods_number" autocomplete="off" value="1" onfocus="back_goods_number()" onblur="changePrice('2')" />
+                <span class="input-group-addon plus" onclick="changePrice('n')">+</span>
+            </div>
+
+        </div>
+    </section>
+    }
+    
+    <section class="user-tab ect-border-bottom0">
+        <div id="is-nav-tabs" style="height:3.15em; display:none;"></div>
+
+        <ul class="nav nav-tabs text-center">
+            <li id="fororther" class="col-xs-4 active"><a href="#one" role="tab" data-toggle="tab">礼物详细</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane tab-info active" id="one">
+                @Html.Raw(Model.Desc)
+            </div>
+        </div>
+        <div class="bottomhoder"></div>
+    </section>
+
+
+</div>
+<footer class="logo"></footer>
+<div class="btnpanel">
+      @if (Model.GoodType==(int)ncc2019.Common.Enum.GoodType.贺卡)
+        {
+    <button type="button" class="btn btn-info ect-colorf button_only btn-red" onclick="fnshowsurepanel(0)">送朋友</button>
+        }
+        else
+        {
+         
+      <button type="button" class="btn btn-info ect-colorf btnshare" onclick="fnshowsurepanel(0)">送朋友</button>
+        <button class="btn btn-info ect-colorf btnshowroute" type="button" onclick="fnshowsurepanel(1)">送自己</button>
+     }
+      
+    </div>
+<div class="mcover" >
+</div>
+<div class="selectpanel" >
+    <div style="border-top: 1px solid black; border-top-color: rgba(204, 195, 195, 0.87);"></div>
+    <i class="btn-close"></i>
+    <section class="ect-padding-lr ect-padding-tb goods-option">
+        <div>
+            <img alt="@Model.Name" src="@Model.ImgUrl" style="width:50px;height:50px;" /><a style="margin-left:10px;">@Model.Name</a>
+        </div>
+    </section>
+    @if (ViewBag.plist.Count >0)
+    {
+        <section class="ect-padding-lr ect-padding-tb goods-option">
+            @foreach (ncc2019.GoodProperty p in ViewBag.plist)
+            {
+                <dl class="tb-chicun">
+                    <dt class="tb-property-type"> @p.Name:</dt>
+                    <dd>
+                        <ul data-property="@p.Name" class="tb-prop ul_@p.GoodPropertyID">
+                            @{
+                string[] list = p.Content.Split(new string[] { ",", "，" }, StringSplitOptions.RemoveEmptyEntries);
+                            }
+                            @foreach (var s in list)
+                            {
+                               <li data-value="@s.ToString()" onclick="cl_tag('@p.GoodPropertyID','@s.ToString()')" class="li_@p.GoodPropertyID"><a><span>@s.ToString()</span></a></li>
+                            }
+                        </ul>
+
+                    </dd>
+                </dl>
+                <br />
+            }
+
+        </section>
+    }
+    @if (Model.GoodType!=(int)GoodType.贺卡)
+    {
+    <section class="ect-padding-lr ect-padding-tb goods-option" >
+        <div class="goods-num">
+            <span class="pull-left">购买数量：</span>
+            <div class="input-group pull-left wrap">
+                <span class="input-group-addon sup" onclick="changePrice('p')">-</span>
+                <input type="text" class="form-contro form-num" name="number" id="goods_number" autocomplete="off" value="1" onfocus="back_goods_number()" onblur="changePrice('2')" />
+                <span class="input-group-addon plus" onclick="changePrice('n')">+</span>
+            </div>
+        </div>
+    </section>
+    }
+    
+    <section class="kz-panel ect-padding-lr ect-padding-tb goods-option panl-notforme" style="text-align:center;">
+        <a class="help" onclick=""><img src="/images/help.png"><strong>玩法介绍</strong></a>
+        <button type="button" class="btn btn-info ect-colorf button_only btn-red btn-weixinpay" onclick="cl_forme(0)">微信送朋友</button>
+        @*<button class="btn btn-info ect-colorf button_only btnbuy" type="button" onclick="cl_forme(1)">送自己</button>*@
+    </section>
+   
+    <section class="kz-panel ect-padding-lr ect-padding-tb goods-option panl-forme">
+        <button type="button" class="btn btn-info ect-colorf btnshare" onclick="window.location='/zhongchou/corder?goodid=@Model.GoodID'">众筹它</button>
+        <button class="btn btn-info ect-colorf btnshowroute" type="button" onclick="cl_forme(1)">自己购买</button>
+    </section>
+</div>
+<div class="panel-info hiddencss">
+    <div class="panel-content">
+        <i class="btn-close"></i>
+
+        <div class="panel-body">
+            <h4><strong> 什么是微信送礼？</strong></h4>
+        </div>
+        <div class="panel-body">
+            <article>
+                微信送礼是空中礼物的一个很酷、很好玩的送礼方式，只需要在空中礼物上通过【微信送礼】的方式购买礼品，并且微信发送给好友，对方领取并填写收货地址后就能收到礼物啦！
+            </article>
+        </div>
+        <div class="panel-body">
+            <h4><strong> 微信送礼有啥新鲜的？</strong></h4>
+        </div>
+        <div class="panel-body">
+            <article>
+                通过微信送礼的时候，你还能选择可以给收礼人制造些麻烦哦，可以给Ta提个问题，只有收礼者回答出了你的问题，才能顺利的拿到礼物哦。这样Ta能更加珍惜这个礼物哦。更多玩法等待你去发现哦！
+            </article>
+        </div>
+        <div class="panel-body">
+            <h4><strong> 微信送礼适合什么场景？</strong></h4>
+        </div>
+        <div class="panel-body">
+            <article>
+                1.在想要送礼的时候不知道对方的地址，又不太好刻意地去问，怎么办？使用微信送礼就可以把礼物发给他，心意和礼物都送到了。
+            </article>
+            <article>
+                2.好友生日当天，缺忘记给他准备礼物了。怎么办？选个礼物通过微信发给Ta，快递和配送就交给收礼人和空中礼物来处理吧！
+            </article>
+        </div>
+        <div class="panel-body">
+            <h4><strong> 礼品发给好友后，好友长时间没有接收怎么办？</strong></h4>
+        </div>
+        <div class="panel-body">
+            <article>
+                通过微信送出的礼物都有一个7天的领取期限，如果超过这个期限，礼物链接将失效，将无法领取礼品，购买礼物的款项将退回到购买者的账户里。
+            </article>
+        </div>
+    </div>
+</div>

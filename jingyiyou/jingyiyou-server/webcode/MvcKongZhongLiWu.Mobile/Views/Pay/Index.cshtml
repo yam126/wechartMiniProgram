@@ -1,0 +1,551 @@
+﻿laa@model ncc2019.Orders
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "订单确认";
+}
+@section scripts{
+    @*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
+    @*<script src="~/Scripts/m/bootstrap.min.js"></script>*@
+    
+    <script src="~/Scripts/jweixin-1.0.0.js"></script>
+}
+<script type="text/javascript">
+    wx.config({
+        debug: false, 
+        appId: '@ViewBag.js_json.appId', 
+        timestamp: '@ViewBag.js_json.timeStamp', 
+        nonceStr: '@ViewBag.js_json.nonceStr', 
+        signature: '@ViewBag.js_json.paySign',
+        jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    $(document).ready(function () {
+        jQuery.post("/pay/checkpay?orderid=@ViewBag.orderid", {}, function (res) {
+            if (res.state == 'error') {
+                window.location = res.url;
+            }
+        }, "json");
+
+        checkvioce();
+        
+        $('.panel-content').height($(window).height());
+        $('.btn-close').click(function(){
+            $('.panel-info').addClass('hiddencss');
+        });
+        $('.help').click(function(){
+            $('.panel-info').removeClass('hiddencss');
+        });
+    });
+
+    function onBridgeReady(data) {
+        WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', data,
+        function (res) {
+            //alert(res.err_msg);
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                window.location = "/send?orderid=@ViewBag.orderid";
+            }
+            else {
+                ispaying = false;
+                showAlertMessage("支付失败,请稍后再试！");
+                //window.location = "/Myorder/";
+            }
+            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+        }
+
+        );
+    }
+    var ispaying = false;
+    function dopayment() {
+        if (ispaying == true) {
+            return false;
+        }
+
+        if (!$('.novioce').html() || $('.novioce').html() == '暂无录音') {
+            if ($('.sayect').val() == "") {
+                alert("请为Ta留下您祝福！");
+                $('.sayect').focus();
+                return false;
+            }
+        }
+
+        if (!$('.lithepass').hasClass('hiddencss')) {
+            if ($('.thepasstip').val() == "") { alert("请输入问题！"); $('.thepasstip').focus(); return false; }
+            if ($('.thepass').val() == "") { alert("请输入答案！"); $('.thepass').focus(); return false; }
+        }
+        ispaying = true;
+        var wayofpay = $('input:radio[name=wayofpay]:checked').val();
+        var needpass = $('input:radio[name=needpass]:checked').val();
+        var qcode = $('input:radio[name=qcode]:checked').val();
+        jQuery.post("/pay/savedetail", {
+            orderid: '@ViewBag.orderid', sayect: $('.sayect').val(), wayofpay: wayofpay, openid: '@ViewBag.openid',
+            needpass: needpass, thepass: $('.thepass').val(), thepasstip: $('.thepasstip').val(),qcode:qcode
+        }, function (res) {
+            if (res.state == 'ok') {
+                if (wayofpay == "2") {
+                    onBridgeReady(res.data);
+                }
+                else if (res.needpay ==0.00) {
+                    window.location = res.url;
+                }
+                else if (wayofpay == '1') {
+                    $("#btnsubmit").click();
+                } else {
+                    ispaying = false;
+                    showAlertMessage(wayofpay + '_' + res.needpay);
+                }
+            } else {
+                ispaying = false;
+                showAlertMessage(res.message);
+            }
+
+
+        }, "json");
+        return false;
+    }
+
+    var localId_main = '';
+    var serverId_main = '@Model.WxVioceMediaID';
+    wx.ready(function () {
+        wx.onVoiceRecordEnd({
+            // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+            complete: function (res) {
+                alert("录音完毕！");
+                localId_main = res.localId;
+                fucrec();
+
+            }
+        });
+        wx.onVoicePlayEnd({
+            success: function (res) {
+                fucplay();
+                alert("播放完毕！");
+                //var localId = res.localId; // 返回音频的本地ID
+            }
+        });
+    });
+    function beginrec() {
+        wx.startRecord();
+    }
+    function stoprec() {
+        wx.stopRecord({
+            success: function (res) {
+                localId_main = res.localId;
+                //uploadrec();
+            }
+        });
+    }
+
+    function downrec() {
+        if ('@ViewBag.mediaid' != '') {
+            //将录音down到服务器
+            jQuery.post("/wxapi/UploadVioce", { mediaid: '@ViewBag.mediaid', orderid: '@ViewBag.orderid' }, function (rec) {
+                if (rec.state == 'ok') {
+                    wx.downloadVoice({
+                        serverId: rec.mediaid, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                        isShowProgressTips: 1, // 默认为1，显示进度提示
+                        success: function (res) {
+                            localId_main = res.localId; // 返回音频的本地ID
+                        }
+                    });
+                }
+
+            }, "json");
+        }
+
+
+    }
+    function uploadrec() {
+        wx.uploadVoice({
+            localId: localId_main, // 需要上传的音频的本地ID，由stopRecord接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+                serverId_main = res.serverId; // 返回音频的服务器端ID
+
+                //将录音down到服务器
+                $.ajax({
+                    async: false,
+                    url: '/wxapi/DownVioce',
+                    type: "post",
+                    dataType: 'json',
+                    data: { mediaid: serverId_main, orderid: '@ViewBag.orderid' },
+                    timeout: 5000,
+                    success: function (json) {//客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+                        $('.bgcover').hide();
+                        checkvioce();
+                    },
+                    error: function (xhr) {
+                        //jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了
+                        //请求出错处理
+                        alert("请求出错(请检查相关度网络状况.)");
+                    }
+                });
+
+            }
+        });
+    }
+    function playrec() {
+        //downrec();
+        wx.playVoice({
+            localId: localId_main // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function pauseplay() {
+        stopplay();
+        //wx.pauseVoice({
+        //    localId: localId_main // 需要暂停的音频的本地ID，由stopRecord接口获得
+        //});
+    }
+    function stopplay() {
+        wx.stopVoice({
+            localId: localId_main // 需要停止的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function show_rec_panel() {
+        $('.bgcover').show();
+        downrec();
+    }
+    function fucrec() {
+
+        if ($('.btn_rec').hasClass('btn_stop_rec')) {
+            //停止录音
+            stoprec();
+            $('.btn_rec').removeClass("btn_stop_rec");
+
+        } else {
+            if (serverId_main != '') {
+                if (!confirm("重新录制将会删除当前的录音，是否继续？")) {
+                    return;
+                }
+            }
+            if ($('.btn_play').hasClass('btn_pause')) {
+                fucplay();
+            }
+            //开始录音
+            beginrec();
+            $('.btn_rec').addClass("btn_stop_rec");
+        }
+    }
+    function fucplay() {
+        if ($('.btn_play').hasClass('btn_pause')) {
+            //停止播放
+            pauseplay();
+            $('.btn_play').removeClass("btn_pause");
+        } else {
+            //开始播放
+            if ($('.btn_rec').hasClass('btn_stop_rec')) {
+                alert("请先结束录制！");
+                return;
+            }
+            playrec();
+            $('.btn_play').addClass("btn_pause");
+        }
+    }
+    function btnOK() {
+        if ($('.btn_rec').hasClass('btn_stop_rec')) {
+            alert("请先结束录制！");
+            return;
+        }
+        if (localId_main != '') {
+            stoprec();
+            pauseplay();
+            $('.btn_play').removeClass("btn_pause");
+            uploadrec();
+        } else {
+            $('.bgcover').hide();
+        }
+        checkvioce();
+
+    }
+
+    function doneedpass() {
+        $('#collapseOpen').height("12em");
+        $('.lithepass').removeClass("hiddencss");
+    }
+    function unneedpass() {
+        $('#collapseOpen').height("6em");
+        $('.lithepass').addClass("hiddencss");
+    }
+    function checkvioce() {
+        if (serverId_main == '') {
+            $('.novioce').html("暂无录音");
+        } else {
+            $('.novioce').html("已有录音");
+            $('.needect').addClass('hiddencss');
+        }
+    }
+    function usequan(qprice, qcode) {
+        var yue = @ViewBag.yue;
+        var totalpay = @ViewBag.totalpay;
+        $('.quaninfo').html('(使用了' + qprice + '元优惠券)');
+        if (totalpay-qprice<=yue) {
+
+            $('#payment_1').attr('disabled',false);
+            $("input[name='wayofpay']").attr("checked",false);
+            $('#payment_1')[0].checked=true;
+            //$('#payment_1').parent().find('i').addClass('ect-radio-checked');
+          
+            
+            var needpay=qprice>totalpay?0:totalpay-qprice;
+            $('.totalpay').html('￥'+needpay+' 元');
+            $("input[name='wayofpay']").parent().find('c').html("");
+            //$("input[name='wayofpay']").parent().find('c').html("[您还需要支付 ￥"+needpay+"]");
+
+        } else {
+            $('#payment_1').attr('disabled',true);
+            @if (ViewBag.isweixin != true)
+            {
+               @Html.Raw("$('#payment_2')[0].checked=true;")
+            }
+            else
+            {
+                @Html.Raw("$('#payment_3')[0].checked=true;")
+            }
+            var needpay=qprice>totalpay?0:totalpay-qprice;
+            $('.totalpay').html('￥'+needpay+' 元');
+            $("input[name='wayofpay']").parent().find('c').html("[您还需要支付 ￥"+needpay+"]");
+        }
+    }
+</script>
+<style type="text/css">
+    .bgcover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        z-index: 20000;
+    }
+
+    .paly_bg {
+        position: fixed;
+        height: 12em;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        z-index: 30000;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        vertical-align: middle;
+        margin: auto;
+    }
+
+    .btn_play {
+        display: inline-block;
+        width: 4em;
+        height: 4em;
+        background: url('../../images/play.png') no-repeat center center;
+        background-size: 100% auto;
+        z-index: 100;
+        vertical-align: middle;
+    }
+
+    .btn_pause {
+        background: url('../../images/pause.png') no-repeat center center;
+        background-size: 100% auto;
+    }
+
+
+    .btn_rec {
+        display: inline-block;
+        width: 6em;
+        height: 6em;
+        background: url('../../images/player_rec.png') no-repeat center center;
+        background-size: 100% auto;
+        z-index: 100;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+
+    .btn_stop_rec {
+        background: url('../../images/stop_rec.png') no-repeat center center;
+        background-size: 100% auto;
+    }
+
+    .btn_play_span {
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
+
+    .btnok {
+        margin-left: 15px;
+    }
+
+    .lithepass {
+        display: block !important;
+    }
+
+    .hiddencss {
+        display: none !important;
+    }
+</style>
+<div id="paly_cover" class="bgcover" style="display:none;">
+
+
+    <div class="paly_bg">
+        <span class="btn_play_span"></span> <i onclick="fucplay()" class="btn_play"></i><i onclick="fucrec()" class="btn_rec"></i>
+        <input type="button" class="btnok btn btn-info" value="完成" onclick="btnOK()">
+    </div>
+</div>
+
+<div class="flow-checkout">
+    @using (Html.BeginForm("DoPay", "Pay", FormMethod.Post, new { id = "dopayform" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+     
+        @*<section class="ect-margin-tb ect-padding-lr checkout-select">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseName">
+                    <p><b>Ta的姓名</b><span class="label ect-bg-colory">必填</span></p>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div id="collapseName" class="panel-collapse " style="height: 58px;">
+                    <input name="toname" type="text" class="toname" placeholder="请输入接收礼物人的姓名">
+                </div>
+            </section>*@
+
+        <section class="ect-margin-tb ect-padding-lr checkout-select">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseEtc">
+                <p><b>祝福语</b><span class="label ect-bg-colory needect">必填</span></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            <div id="collapseEtc" class="panel-collapse " style="height: 3.3em;">
+                <input name="sayect" type="text" class="sayect" placeholder="请输入对Ta的祝福">
+            </div>
+        </section>
+        if (ViewBag.isweixin == true)
+        {
+            <section class="ect-margin-tb ect-padding-lr checkout-select">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" onclick="show_rec_panel()">
+                    <i class="glyphicon glyphicon-record" style="color: #FF6633"></i> <b>点击留下您的声音祝福</b> <span class="label ect-bg-colory novioce">暂无录音</span>
+                </a>
+            </section>
+        }
+
+        <section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOpen" class="collapsed">
+                <p><b>打开礼物的条件</b><span class="label ect-bg-colory">必填</span></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            <div id="collapseOpen" class="panel-collapse " style="height: 6em;">
+                <ul class="ect-radio">
+                    <li>
+                        <input name="needpass" type="radio" id="needpass_1" value="1" checked="checked" onclick="unneedpass()" style="vertical-align:middle">
+                        <label for="needpass_1">Ta可以直接打开<i></i></label>
+                    </li>
+
+                    <li>
+                        <input name="needpass" type="radio" id="needpass_2" value="2" onclick="doneedpass()" style="vertical-align:middle">
+                        <label for="needpass_2">Ta需要回答问题<i></i></label>
+                    </li>
+                    <li>
+                        <div class="lithepass hiddencss">
+                            <input name="thepasstip" type="text" class="thepasstip" placeholder="请输入问题(100字符以内)">
+                            <input name="thepass" type="text" class="thepass" placeholder="请输入答案(50字符以内)">
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        if (ViewBag.hasquan == true)
+        {
+            <section class="ect-margin-tb ect-padding-lr checkout-select" id="collapseQuan">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapsePay" class="collapsed">
+                    <p><b>优惠劵列表</b></p>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div id="collapseQuan" class="panel-collapse " style="padding-bottom:2em;">
+                    <ul class="ect-radio">
+                        @foreach (var item in (IEnumerable<ncc2019.Quan>)ViewBag.quan)
+                        {
+                            <li>
+                                <input name="qcode" type="radio" id="@DESEncrypt.Encrypt(item.QuanID)" onchange="usequan('@item.Price','@DESEncrypt.Encrypt(item.QuanID)')" value="@DESEncrypt.Encrypt(item.QuanID)" style="vertical-align:middle">
+                                <label for="@DESEncrypt.Encrypt(item.QuanID)">￥@item.Price 元 优惠券<i></i></label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </section>
+        }
+
+        <section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+            <p><b>商品列表</b></p>
+            <ul>
+                <li>
+                    <dl>
+                        <dt class="pull-left">
+                            @Model.Goods.Name
+                        </dt>
+                        <dd class="pull-left list-num">x @Model.BuyNum</dd>
+                        <dd class="pull-right">￥@Model.Payment 元</dd>
+                    </dl>
+                </li>
+            </ul>
+
+            <div class="ect-padding-tb text-right" id="ECS_ORDERTOTAL">
+                总价:
+                <b class="ect-colory totalpay">￥@Model.TotalPayment 元</b>
+                <b class="quaninfo"></b>
+            </div>
+        </section>
+        <section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapsePay" class="collapsed">
+                <p><b>支付方式</b><span class="label ect-bg-colory">必填</span></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            @if (ViewBag.yue < Model.Payment)
+            {
+                ViewBag.yuestr = "disabled='true'";
+                ViewBag.payment = "[您还需要支付 ￥" + (Model.Payment - SessionHelper.CurMemberInfo.Balance) + "]";
+                ViewBag.otherpaycheck = "checked='checked'";
+            }
+            else
+            {
+                ViewBag.yuecheck = "checked='checked'";
+            }
+            <div id="collapsePay" class="panel-collapse " >
+                <ul class="ect-radio">
+                    <li>
+                        <input name="wayofpay" type="radio" @ViewBag.yuestr id="payment_1" @ViewBag.yuecheck value="0" checked="checked" iscod="0" style="vertical-align:middle">
+                        <label for="payment_1">余额支付 [￥@Html.Raw(SessionHelper.CurMemberInfo.Balance)元]<i></i></label>
+                    </li>
+                    @if (ViewBag.isweixin == true)
+                    {
+                       <li>
+                            <input name="wayofpay" type="radio" id="payment_3" value="2" @ViewBag.otherpaycheck iscod="0" style="vertical-align:middle">
+                            <label for="payment_3">微信支付 <c>@ViewBag.payment</c><i></i></label>
+                            @*<p>若微信支付遇到问题，可以转到空中礼物Web版（http://www.kongzhongliwu.com）有更多支付方式。</p>*@
+                        </li>
+                    }                   
+                    <li>
+                        <input name="wayofpay" type="radio" id="payment_2" value="1" @ViewBag.otherpaycheck iscod="0" style="vertical-align:middle">
+                        <label for="payment_2">支付宝（手机版）<c>@ViewBag.payment</c><i></i></label>
+                    </li>
+
+                </ul>
+            </div>
+
+        </section>
+        <div class="bottomhoder"></div>
+
+ 
+
+
+
+        <input type="submit" name="submit" id="btnsubmit" style="display:none;" />
+        <input type="hidden" name="orderid" value="@ViewBag.orderid" />
+    }
+</div>
+<div class="btnpanel">
+    
+    <input type="button" name="submit" value="确认支付" onclick="return dopayment();" class="btn btn-info ect-colorf button_only btn-red" style="width:">
+</div>
+

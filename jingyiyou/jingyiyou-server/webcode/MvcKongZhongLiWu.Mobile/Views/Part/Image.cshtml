@@ -1,0 +1,12 @@
+﻿<script type="text/javascript">
+    //alert(2);
+    jsApiList.push('chooseImage');
+    function chooseImage() {
+        wx.chooseImage({
+            success: function (res) {
+                var localIds = res.localIds; // 
+                alert(localIds);
+            }
+        });
+    }
+</script>

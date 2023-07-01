@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "设备选择";
+}
+<script type="text/javascript">
+    $(function () {
+        hidhistory();
+        hidmune();
+    });
+</script>
+<style type="text/css">
+    .panel-collapse {
+        width: 100%;
+        text-align: center;
+    }
+
+        .panel-collapse img {
+            width: 30%;
+            padding: 10px;
+        }
+
+    .right-img {
+        margin-left:10%;
+    }
+
+    .imgouter {
+        width: 50%;
+        text-align: center;
+        display: inline;
+    }
+    .outdiv {
+        text-align: center;
+        margin-top:100px;
+        margin-bottom:100px;
+    } .outdiv a {
+        font-size: 20px;
+     
+    }
+</style>
+<div class="outdiv">
+    <a>请选择您要使用的设备！</a>
+</div>
+<div class="panel-collapse " style="padding-bottom:2em;">
+    <div class="imgouter"><a href="/cfjwx/OpenCFj?mcode=@ViewBag.mcode"><img src="~/images/cfj.png" /></a></div>
+    <div class="imgouter"><a href="/cfjwx/xyjsel?mcode=@ViewBag.mcode"><img class="right-img" src="~/images/xyj.png" /></a></div>
+
+
+
+</div>

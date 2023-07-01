@@ -1,0 +1,24 @@
+﻿@Html.Partial("~/views/part/jsconfig.cshtml")
+
+
+<script type="text/javascript">
+    var objShare = {
+        title: "",
+        desc:"",
+        link: "",
+        imgUrl: "",
+        type: "",
+        dataUrl:"",
+        success: null,
+        cancel: null
+    }
+    wx.ready(function () {
+        regShare();
+    });
+    function regShare() {
+        wx.onMenuShareTimeline(objShare);
+        wx.onMenuShareAppMessage(objShare);
+        wx.onMenuShareQQ(objShare);
+        wx.onMenuShareWeibo(objShare);
+    }
+</script>

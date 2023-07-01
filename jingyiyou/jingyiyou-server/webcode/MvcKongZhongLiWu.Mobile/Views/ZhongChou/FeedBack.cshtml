@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "留  言";
+}
+<style type="text/css">
+    .outdiv {
+        padding-left: 1em;
+        padding-right: 1em;
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    function btnsubmit() {
+        if ($('#content').val()!="") {
+            $.ajax({
+                url: "/zhongchou/dofeedback", type: "post", data: "content=" + $("#content").val(), success: function () {
+                    alert("谢谢您的反馈，提交成功！"); $('#content').val("");
+                }, error: function () { alert('发送失败，请稍候再试！'); }
+            });
+        } else {
+            alert("请填写需要提交的内容！");
+        }
+
+    }
+</script>
+
+<div class="outdiv">
+    <br /><br />
+    <h4>写下您想说的话！</h4>
+    <br /><br /><br />
+    <textarea name="content" id="content" style="height:18em;width:100%;"></textarea>
+
+
+
+</div>
+<div class="btnpanel">
+    <button type="submit" class="btn btn-info ect-colorf button_only" onclick="return btnsubmit()">提&nbsp;&nbsp;交</button>
+</div>

@@ -1,0 +1,1600 @@
+﻿@{
+    ViewBag.Title = "新彩Club-首页";
+    Layout = "/views/Shared/_Layout-cnn.cshtml";
+}
+<script src="~/Scripts/jquery.tmpl.js"></script>
+<link href="~/Scripts/player/video.css" rel="stylesheet" />
+<script src="~/Scripts/player/video.js"></script>
+<script src="~/Scripts/player/videojs-contrib-hls.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="/Scripts/player/flv.js"></script>
+<script type="text/javascript">
+
+
+    //var selLotteryID = 0;
+    //var selLotteryNum = 1;
+    //var selLotteryName = "";
+    //var selLotteryPayment = 0;
+    //var user = null;
+    //var orderID = 0;
+    var app = new function () {
+        this.data = {
+            myPlayer:null,
+            selLotteryID: 0,
+            selLotteryNum: 1,
+            selLotteryName: "",
+            selLotteryPayment: 0,
+            user: null,
+            orderID: 0,
+            totalTime: 0,
+            selRechargePayment: 100,
+            winwidth: 0,
+            winheight: 0,
+            isfullscreen: false,
+            selLotteryImgUrl: '',
+            refsellerid: '',
+            token: '',
+            videoshowurl: '',
+            playing: false,
+            sellerid: null,
+            sellername: '',
+            showbeginlist: [],
+            showprizelist: [],
+            videodate: null,
+            playtype:'flv'
+        }
+
+        this.setUser = function (userObj) {
+            //debugger;
+            app.data.user = userObj;
+            app.data.token = userObj.token;
+            var userStr = JSON.stringify(userObj);
+            $.cookie("user", userStr, { expires: 1 });
+            //修改操作面板上的金额
+            $('.money-total .num').html(userObj.balance);
+            $('.balance .num').html(userObj.balance);
+        }
+        //设置推荐店的ID
+        this.setRefSeller = function (sellerid) {
+            $.cookie("refsellerid", sellerid, { expires: 15 });
+        }
+        //获取推荐店的ID
+        this.getRefSeller = function () {
+            var sellerid = $.cookie().refsellerid;
+            if (sellerid == null) return "";
+            return sellerid;
+        }
+        this.removeUser = function () {
+            app.data.user = null;
+            app.data.token = '';
+            $.cookie("user", null);
+        }
+        this.getUser = function () {
+            //debugger;
+            var userStr = $.cookie().user;
+            if (userStr == null) return null;
+            var userObj = JSON.parse(userStr);
+            app.data.user = userObj;
+            if (userObj != null)
+            app.data.token = userObj.token;
+            return userObj;
+        }
+        this.bindEvents = function () {
+            //遮挡板
+            app.regMask();
+            //通用关闭按钮
+            $('.panel-topbox .close').click(function () {
+                $('.video-js').show();
+                $('.userimg').hide();
+                //$('.prizenotify').hide();
+                $('.panel-mask').hide();
+                $('.panel-topbox').hide();
+            });
+            //侧边栏关闭按钮
+            $('.panel-slide-menu .close').click(function () {
+                $('.video-js').show();
+                $('.userimg').hide();
+                //$('.prizenotify').hide();
+                $('.panel-mask').hide();
+                $('.panel-slide-menu').hide();
+            });
+            //侧边面板充值按钮点击
+            $('.panel-slide-menu .btn-recharge').click(function () {
+                app.showMask();
+                $('.panel-recharge').show();
+
+            })
+            //主页充值按钮点击
+            $('.top-header .btn-add').click(function () {
+                app.showMask();
+                $('.panel-recharge').show();
+
+            })
+            //主页调出侧边面板
+            $('.menu-list').click(function () {
+                app.showMask();
+                $('.panel-slide-menu').show();
+
+            });
+            //点击头像
+            $('.logined .avatar').click(function () {
+                app.showMask();
+                $('.panel-slide-menu').show();
+
+            });
+            //充值面板选项
+            $('.panel-recharge .recharge-num li').each(function () {
+                $(this).click(function () {
+                    $('.panel-recharge .recharge-num li').removeClass('current');
+                    $(this).addClass('current');
+                    app.data.selRechargePayment = $(this).data('val');
+                    com.consoleInfo(app.data.selRechargePayment)
+
+                })
+            })
+            //确认充值
+            $('.panel-recharge .btnok').click(function () {
+                com.consoleInfo('recharge button')
+                com.consoleInfo($('.panel-recharge .btnok').data('type'))
+                if ($('.panel-recharge .btnok').data('type') == '1') {
+
+                    if ($('.panel-recharge .wx').hasClass("checked")) {
+                        console.info('wxpay begin')
+                        //微信支付
+                        $.ajax({
+                            url: "/apis/GetWXPayUrlRecharge" ,
+                            data: { token:app.data.token,payment: app.data.selRechargePayment},
+                            success: function (res) {
+                                //alert(res.result)
+                                //alert(res.url)
+                                //console.info('wxpay state:' + res.result)
+                                if (res.result == "ok") {
+                                   // console.info('wxpay url:' + res.url)
+                                    app.gotoUrl(res.url);
+                                }
+                            }
+                        });
+                    }
+                    if ($('.sel-paytype .ali').hasClass("checked")) {
+                        //支付宝支付
+                    }
+                }
+            })
+
+            //查看刮奖
+            $('.panel-payok .btn-primary').click(function () {
+                $('.panel-payok').hide();
+            })
+
+            //查看明细
+            $('.panel-payok .btn-weak').click(function () {
+                window.location = '/ncc/hislottery';
+            })
+
+            //帮助
+            $('.panel-slide-menu .linkhelp').click(function () {
+                window.location = '/ncc/help';
+            })
+            //客服
+            $('.panel-slide-menu .linkkefu').click(function () {
+                window.location = '/ncc/kefu';
+            })
+            //实体店加入
+            $('.panel-slide-menu .linkadd').click(function () {
+                window.location = '/ncc/apply';
+            })
+
+
+            //点击退出登录按钮
+            $('.btn-quit').click(function () {
+                //alert(app.data.token);
+                //if (app.data.token == null || app.data.token == "") {
+                //    app.removeUser();
+                //    window.location.reload();
+                //    return;
+                //}
+                $.ajax({
+                    url: "/apis/Logout?token=" + app.data.token, success: function (res) {
+
+                        if (res.result == "ok") {
+
+                        } else {
+                            com.showAlertMessage(res.message);
+                        }
+                        //不管成功失败都要清理当地缓存
+                        app.removeUser();
+                        window.location="/ncc";
+                    }
+                });
+            })
+            //点击提现按钮
+            $('.panel-slide-menu .btn-weak').click(function () {
+                if (app.data.user.isauthen == 1) {
+                    window.location = '/ncc/withdraw';
+                } else {
+                    app.showMask();
+                    $('.panel-authen').show();
+                    $(".panel-authen .phone").val(app.data.user.phone)
+                }
+            })
+            //实名认证
+            $('.panel-authen .btnok').click(function () {                
+                
+                if ($('.panel-authen .truename').val() == '') {
+                    com.showAlertMessage('请填写真实姓名');
+                    return;
+                }
+                if ($('.panel-authen .idcard').val() == '') {
+                    com.showAlertMessage('请填写身份证号');
+                    return;
+                }
+
+                $.ajax({
+                    url: "/apis/DoAuthen",
+                    data: {
+                        token: app.data.token,
+                        truename: $('.panel-authen .truename').val(),
+                        idcard: $('.panel-authen .idcard').val()
+                    },
+                    success: function (res) {
+                        if (res.result == "ok") {
+                            app.data.user.isauthen = 1;
+                            app.data.user.realname = $('.panel-authen .truename').val();
+                            app.setUser(app.data.user);
+                            com.showAlertMessage("实名认证成功！");
+                            window.location = '/ncc/withdraw';//跳转到提现页面
+                        } else {
+                            com.showAlertMessage(res.message);
+                        }
+
+                    }
+                });
+
+
+            })
+
+            //验证码控制
+            $('.smscode').click(function () {
+                if (app.data.totalTime == 0) {
+                    if ($('.txtphone').val() == '') {
+                        com.showAlertMessage('请输入手机号码!');
+                        return;
+                    }
+                    else {
+                        if (!isPhoneNo($('.ipt-txt').val())) {
+                            com.showAlertMessage('手机号码格式不正确!');
+                            return;
+                        }
+                    }
+                    app.data.totalTime = 60;
+                    setInterval(verifyCodeTimer, 1000);
+                    $.ajax({
+                        url: "/apis/SendVerifCode?phone=" + $('.txtphone').val(), success: function (res) {
+                            if (res.result == "ok") {
+                                com.showAlertMessage('发送成功！');
+                            } else {
+                                com.showAlertMessage('发送失败！');
+                            }
+
+                        }
+                    });
+                }
+
+            });
+            //var totalTime = 0;
+            //验证码倒计时
+            function verifyCodeTimer() {
+                app.data.totalTime = app.data.totalTime - 1;
+                $('.smscode').html(app.data.totalTime);
+                if (app.data.totalTime <= 0) {
+                    clearInterval(verifyCodeTimer);
+                    app.data.totalTime = 0;
+                    $('.smscode').html("获取验证码");
+                }
+            }
+
+            //登陆控制
+            $('.unlogin').click(function () {
+                app.showMask();
+                $('.panel-login').show();
+            });
+            $('.panel-login .btnok').click(function () {
+                if ($('.txtphone').val() == '') {
+                    showAlertMessage('手机号不能为空!');
+                    return;
+                }
+                if ($('.txtverifycode').val() == '') {
+                    showAlertMessage('验证码不能为空!');
+                    return;
+                }
+                //$('.txtphone').val("18600527610");
+                app.data.refsellerid = app.getRefSeller();
+                $.ajax({
+                    url: "/apis/FastLogin?phone=" + $('.txtphone').val() + "&verifycode=" + $('.txtverifycode').val()
+                    + "&refsellerid=" + app.data.refsellerid,
+                    data: {'test':'test'},
+                    success: function (res) {
+                        if (res.result == "ok") {
+                            //登陆成功
+                            app.setUser(res.user);
+                            app.initLotteryList();
+                            $('.login').hide();
+                            $('.unlogin').hide();
+                            $('.logined').show();
+                            $('.menu-list').show();
+                            $('.avatar img').attr('src', app.data.user.headimgurl);
+                            $('.logined .num').html(app.data.user.balance);
+                            $('.panel-slide-menu .user-name').html(app.data.user.name);
+                            $('.panel-slide-menu .num').html(app.data.user.balance + "元");
+                            $('.panel-slide-menu .user-avatar img').attr('src', app.data.user.headimgurl);
+
+                            $('.panel-login').hide();
+                            $('.panel-mask').hide();
+                            $('.video-js').show();
+                        } else {
+                            com.showAlertMessage(res.message);
+                        }
+
+                    }
+                });
+            });
+
+            //选择张数
+            $('.panel-buy .buylist li').each(function () {
+                $(this).click(function () {
+                    app.data.selLotteryNum = $(this).find('span').data('num');
+
+                    $('.panel-buy .buylist li').removeClass('current');
+                    $(this).addClass('current');
+
+                    //showAlertMessage(selnum);
+                });
+            })
+            //点击购买彩票
+            $('.panel-buy .last').click(function () {
+                if (app.data.sellerid == null || app.data.sellerid == '') {
+                    com.showAlertMessage('暂时没有上线售彩店铺，请稍后再试！');
+                    return;
+                }
+
+                $(this).hide();
+                $('.panel-buy .buying').show();
+                console.info(app.data.sellerid)
+
+
+                //生成订单
+                $.ajax({
+                    url: "/apis/MakeOrder",
+                    data: {
+                        token: app.data.token,
+                        sellerid: app.data.sellerid,
+                        lotteryid: app.data.selLotteryID,
+                        lotterynum: app.data.selLotteryNum
+                    },
+                    success: function (res) {
+                        if (res.result == "ok") {
+                            //订单创建成功
+                            app.data.orderID = res.orderid;
+                            var balance = res.balance;
+                            app.data.user.Balance = balance;
+                            app.setUser(app.data.user);
+
+                            var totalpayment = app.data.selLotteryNum * app.data.selLotteryPayment;
+                            $('.panel-buy').hide();
+                            $('.panel-selpay').show();
+                            $('.panel-selpay .mtit').html(app.data.selLotteryName);
+                            $('.panel-selpay .djtxt').html(app.data.selLotteryNum + " 张," + app.data.selLotteryPayment + "元");
+                            $('.panel-selpay .needpay').html(totalpayment + "元");
+                            if (app.data.user.Balance > 0) {
+                                $('.li-yue').show();
+                                if (app.data.user.Balance < totalpayment) {
+                                    $('.panel-selpay .yue').html(balance + '元');
+                                    $('.panel-selpay .needpay').html(totalpayment - app.data.user.Balance + "元");
+                                } else if (app.data.user.Balance >= totalpayment) {
+                                    $('.panel-selpay .sel-paytype').hide();
+                                    $('.panel-selpay .btnok').html('确认购买');
+                                    $('.panel-selpay .btnok2').html('购买中');
+                                    $('.panel-selpay .btnok').data('type', '0');
+
+                                    $('.panel-selpay .yue').html(totalpayment + '元');
+                                    $('.panel-selpay .needpay').html("0元");
+                                }
+                            }
+                        } else {
+                            com.showAlertMessage(res.message);
+                        }
+                        $('.panel-buy .buying').hide();
+                        $('.panel-buy .last').show();
+                    }
+                });
+
+            });
+
+            //开始充值或支付
+            $('.panel-selpay .btnok').click(function () {
+                if ($('.panel-selpay .btnok').data('type') == '1') {
+
+                    if ($('.sel-paytype .wx').hasClass("checked")) {
+                        console.info('wxpay begin')
+                        //微信支付
+                        $.ajax({
+                            url: "/apis/GetWXPayUrl"  ,
+                            data: { token:app.data.token, orderid: app.data.orderID},
+                            success: function (res) {
+                                if (res.result == "ok") {
+                                    app.gotoUrl(res.url);
+                                }
+                            }
+                        });
+                    }
+                    //if ($('.sel-paytype .ali').hasClass("checked")) {
+                    //    //支付宝支付
+                    //}
+                } else if ($('.panel-selpay .btnok').data('type') == '0') {
+                   //账户直接支付
+                    $.ajax({
+                        url: "/apis/DirectBuy",
+                        data: { token: app.data.token, orderid: app.data.orderID },
+                        success: function (res) {
+                            if (res.result == "ok") {
+                                //debugger;
+                                var user = app.getUser();
+                                user.balance = res.balance;
+                                app.setUser(user);
+                                app.hideMask();
+                                //$('.panel-mask').click();
+                                app.showPayOK();
+
+
+                            } else {
+                                com.showAlertMessage(res.data.message);
+                            }
+                        }
+                    });
+                }
+
+            });
+
+            var token = app.data.user == null ? '' : app.data.user.token;
+            //获取在线商家数量
+            $.ajax({
+                url: "/apis/GetOnlineSellerCount?token=" + token, success: function (res) {
+                    if (res.result == "ok") {
+                        if (res.count != 0) {
+                            $('.seller').show();
+                            $('.seller').html('<font color="#FFE9AC">' + res.sellername + '</font>等' + res.count + "家彩票店在线开奖");
+                        } else {
+                            $('.seller').hide();
+                        }
+
+                    } else {
+                        $('.seller').hide();
+                    }
+                }
+            });
+
+            //app.bindEvent end
+        }
+        this.initLotteryList = function () {
+            $.ajax({
+                url: "/apis/GetCanSellLotteryList",
+                data: {
+                    token: app.data.token,
+                    pageIndex: 0,
+                    pageSize:20
+                },
+                type: 'GET',
+                success: function (res) {
+                    if (res.result == 'ok') {
+                        app.data.sellername = res.sellername;
+                        app.data.sellerid = res.sellerid;
+                        $('.lottery-list').html($("#lotterylist").tmpl(res.list));
+                        //$('.lottery-list li').each(function () {
+                        //    $(this).click(function () {
+                        //        app.onBuyLottery($(this));
+                        //    })
+                        //})
+                    } else {
+                        com.showAlertMessage(res.message);
+                    }
+                }
+            });
+        }
+        this.doLogin = function () {
+            app.showMask();
+            $('.panel-login').show();
+        }
+        this.onBuyLottery = function (obj) {
+            //点击购买按钮
+            if (app.data.user == null) {
+                app.doLogin();
+                return;
+            }
+            //$('.mod-func .btn-buy').click(function () {
+                app.showMask();
+                $('.panel-buy').show();
+                app.data.selLotteryID = $(obj).data("id");
+                app.data.selLotteryName = $(obj).data("name");
+                app.data.selLotteryPayment = $(obj).data("payment");
+                app.data.selLotteryImgUrl = $(obj).data("imgurl");
+                $('.lottery-img img').attr('src', app.data.selLotteryImgUrl);
+                console.info($(obj).data("id"))
+           // })
+        }
+        this.getCurSeller = function () {
+            $.ajax({
+                url: "http://push.ncc.renxingpao.com/apis/GetCurSeller",
+                data: {
+                    token: app.data.token
+                },
+                type: 'GET',
+                success: function (res) {
+                    if (res.result == 'ok') {
+                        app.data.sellerid = res.sellerid;
+                        app.data.sellername = res.sellername;
+                    } else {
+                        com.showAlertMessage(res.message);
+                    }
+                }
+            });
+        }
+        this.showPayOK = function () {
+           
+            app.showMask();
+            $('.panel-payok').show();
+            //$('.panel-payok .btn-primary').html('查看刮奖(5)');
+            var timer = 4;
+            setInterval(function () {
+                if (timer <= 0) {
+                    $('.panel-payok').hide();
+                    clearInterval(this);
+                    timer = 4;
+                    return;
+                }
+                $('.panel-payok .btn-primary').html('查看刮奖(' + timer + ')');
+                timer--;
+            }, 1000);
+        }
+        //注册遮罩层
+        this.regMask = function () {
+            $('.panel-mask').click(function () {
+                $('.panel-mask').hide();
+                $('.video-js').show();
+                $('.userimg').hide();
+                //$('.prizenotify').hide();
+                $('.panel-topbox').hide();
+                $('.panel-buy').hide();
+                $('.panel-slide-menu').hide();
+                //alert(1);
+            })
+        }
+        this.hideMask = function () {
+            $('.panel-mask').hide();
+            $('.video-js').show();
+            $('.userimg').hide();
+            //$('.prizenotify').hide();
+            $('.panel-topbox').hide();
+            $('.panel-buy').hide();
+            $('.panel-slide-menu').hide();
+        }
+        //注册跑马灯
+        this.regPMD = function () {
+            var count = 0;
+            function run() {
+                $('.scroll-news .news-list').css({ 'transform': "translateY(" + (-0.26 * count) + "rem)", 'transition': 'all 1s' });
+                count++;
+                if (count > $('.scroll-news .news-list li').length) count = 0;
+                return this;
+            }
+            run();
+            setInterval(run, 2000);
+
+        }
+        this.showMask = function () {
+            $('.video-js').hide();
+            $('.panel-topbox').hide();
+            $('.panel-buy').hide();
+            $('.panel-slide-menu').hide();
+            $('.panel-mask').show();
+        }
+        this.checkLogind = function () {
+            //debugger;
+            var user = app.getUser();
+            if (user != null && user.token != null) {
+                app.data.token = user.token;
+                $('.unlogin').hide();
+                $('.logined').show();
+                $('.menu-list').show();
+                $('.avatar img').attr('src', user.headimgurl);
+                $('.logined .num').html(user.balance);
+                $('.panel-slide-menu .user-name').html(user.name);
+                $('.panel-slide-menu .num').html(user.balance + "元");
+                $('.panel-slide-menu .user-avatar img').attr('src', user.headimgurl);
+            } 
+        }
+        this.gotoUrl = function (url) {
+            $('.wx-payment').attr('href', url);
+            $('.wx-payment')[0].click();
+        }
+
+        this.getUserList = function () {
+            function run() {
+                $.ajax({
+                    url: "/apis/GetLotteryUserList",
+                    data: {
+                        token: app.data.token,
+                        sellerid: app.data.sellerid
+                    },
+                    success: function (res) {
+                        if (res.result == "ok") {
+                            var user = app.getUser();
+                            if (user != null) {
+                                if (res.token == '') {
+                                    app.removeUser();
+                                    window.location = '/ncc/';
+                                } else {
+                                    user.balance = res.balance;
+                                    app.setUser(user);
+                                }                                
+                            }
+                            //如果分配了彩店
+                            if (res.sellerid != '') {
+                                app.data.sellerid = res.sellerid;
+                                app.data.sellername = res.sellername;
+                                app.initLotteryList();
+                            }
+                            if (res.prizeenddate != '') {
+                                console.info("push:" + res.prizeenddate)
+                                
+                                console.info("push:" + res.prizestatus)
+                                //$('.video-js').hide();
+                                //$('.prizenotify').show();
+                                //$('.prizenotify').html(res.prizestatus);
+                                app.data.showprizelist.push({ date: new Date(parseInt(res.prizeenddate)), info: res.prizestatus });
+                                //$('.broadcast .seller').html("push end:" + app.data.showprizelist[0].info);
+                                
+                            }
+                            if (res.prizebegindate != '') {
+                                console.info("push:" + res.prizebegindate)
+                                console.info("push:" + new Date(parseInt(res.prizebegindate)))
+                                console.info("push:彩店正在为您开奖")
+                                //app.data.myPlayer.pause();
+                                //$('.video-js').hide();
+                                //$('#my-player').hide();
+                                //$('.prizenotify').show();
+                                //$('.prizenotify').html("helo");
+                                //$('.broadcast .seller').html("push:彩店正在为您开奖");
+                                app.data.showbeginlist.push({ date: new Date(parseInt(res.prizebegindate)), info: "彩店正在为您开奖" });
+                               
+                            }
+                            //debugger;
+                            if (res.list.length > 0) {
+                                $('.total-count .num').html(res.totalcount +'人<br>排队中');
+                                $('.total-count').show();
+                                $('.player-ft .total-only').hide();
+                                $('.queue-list').html($("#queuelist").tmpl(res.list))
+                            } else {
+                                $('.total-count').hide();
+                                $('.player-ft .total-only').show();
+                            }
+                            if (res.totalcount > 8) {
+                                $('.total .total-count').show();
+                            } else {
+                                $('.total .total-count').hide();
+                            }
+                            if (res.list.length > 0) {
+                                $('.player-ft .buy').hide();
+                                $('.player-ft .work').show();
+                                //$('.player-ft font').html(res.list[0].name);
+                            } else {
+                                $('.queue-list').html('');
+                                $('.player-ft .buy').show();
+                                $('.player-ft .work').hide();
+                            }
+
+                            $('.player-ft .num1').html(res.totalcount);
+                            if (res.mysellername!='')
+                                $('.player-area .player-tab .inner marquee').html(res.mysellername + "-正在为您开奖");
+                            else
+                                $('.player-area .player-tab .inner marquee').html("本站均为实体彩票店开奖！");
+                            if (res.sellername != '')
+                                $('.player-area .player-tab .inner marquee').html(res.sellername + "-正在为您开奖");
+
+                            //播放视频
+                            if (res.videoshowurl != '') {                                
+                                // console.log('playing：' + app.data.playing );
+                                //只有上一个视频播完才进行下一个视频播放
+                                if (res.videoshowurl != app.data.videoshowurl) {
+                                    $('.wenzi').html('正在为您获取直播视频，请等待！');
+                                    $('.broadcast .seller').html('正在为您获取直播视频，请等待！');
+                                    //console.info("播放视频1:" + res.videoshowurl)
+                                    //console.info("播放视频2:" + app.data.videoshowurl)
+                                    //$('#liveVideo .userimg').hide();
+                                    //$('.video-js').show();
+                                    //$('.video-js').show();
+                                    //$('.wenzi').html(res.videoshowurl)
+                                    app.data.videoshowurl = res.videoshowurl;
+                                    app.play(res.videoshowurl);
+                                   
+                                   // $('.vjs-big-play-button').click();
+                                }
+
+                            }
+                            else {
+                                $('.wenzi').html('');
+                                $('.broadcast .seller').html('');
+                                //播放公共视频
+                                //app.data.myPlayer.stop();
+                              
+                            }
+                            //var prizestatus = res.prizestatus;
+                            //if (prizestatus != '') {
+                            //    //alert(prizestatus)
+                                
+                            //    $('.prizenotify').show();
+                            //    $('.prizenotify').html(prizestatus);
+                            //    setInterval(function () {
+                            //        $('.wenzi').show();
+                            //        //$('.userimg').show();
+                                    
+                            //        $('.prizenotify').hide();
+                            //    }, 3000);
+                                
+                            //} 
+                        } else {
+                            console.info("error:" + res.message);
+                        }
+
+                    }
+                });
+            }
+            run();
+            setInterval(run, 5000);
+        }
+        this.setPlayType = function () {
+            if (flvjs.isSupported()) {
+                app.data.playtype ="flv" ;
+            } else {
+                app.data.playtype = "m3u8";
+            }
+           
+        }
+
+        this.initPage = function () {
+            app.checkLogind();
+            //app.getCurSeller();
+            app.initLotteryList();
+            app.bindEvents();
+            app.regPMD();
+            app.setPlayType();
+            app.initPlayer();
+
+            $('#app .m_bg').height($(document).height());
+            $('.panel-topbox').hide();
+            $('.panel-buy').hide();
+            $('.panel-slide-menu').hide();
+            $('.video-js').show();
+            //$('.panel-prize').show();
+            //$('.prizenotify').show();
+            //$('.prizenotify').html('helo')
+            //            $('.menu-list').hide();
+
+            $('.icon-my').parent().click(function () {
+                window.location = "/ncc/hislottery";
+            });
+
+            $('.player-area .player').width($(window).width());
+            $('.player-area .player').height($(window).width() / 1.777);
+            $('.player-area #my-player').width($(window).width());
+            $('.player-area #my-player').height($(window).width() / 1.777);
+            $('.player-area .userimg').width($(window).width());
+            $('.player-area .userimg').height($(window).width() / 1.777);
+            $('.player-area .prizenotify').width($(window).width());
+            $('.player-area .prizenotify').height($(window).width() / 1.777);
+            $('.player-area .prizenotify').css('line-height',$(window).width() / 1.777+'px');
+            //当info为payok时候自动显示支付成功提示
+            if ('@ViewBag.info' == 'payok') {
+                $('.panel-payok').show();
+                //$('.panel-payok .btn-primary').html('查看刮奖(5)');
+                var timer = 4;
+                setInterval(function () {
+                    if (timer <= 0) {
+                        $('.panel-payok').hide();
+                        clearInterval(this);
+                    }
+                    $('.panel-payok .btn-primary').html('查看刮奖(' + timer + ')');
+                    timer--;
+                },1000);
+            }
+
+            if ('@ViewBag.info' == 'reg' || '@ViewBag.info' == 'login') {
+                app.data.refsellerid = '@ViewBag.sellerid';
+                app.setRefSeller('@ViewBag.sellerid');
+                app.showMask();
+                $('.panel-login').show();
+            }
+
+            app.getUserList();
+
+        }
+        this.initH5Player=function(){
+            var myPlayer = videojs('my-player', {
+                bigPlayButton: true,
+                textTrackDisplay: false,
+                posterImage: true,
+                errorDisplay: false,
+                controlBar: true,
+                autoplay: true,
+                techOrder: ["flash", "html5", "other supported tech"]
+            }, function () {
+                myPlayer.requestFullscreen = function () {
+
+                    app.data.isfullscreen = !app.data.isfullscreen;
+
+                    if (app.data.isfullscreen == true) {
+                        $('#my-player').addClass('video-js2');
+                        $('#my-player').css('top', (app.data.winheight - app.data.winwidth) / 2);
+                        $('#my-player').css('left', -(app.data.winheight - app.data.winwidth) / 2);
+                        $('#my-player').width(app.data.winheight);
+                        $('#my-player').height(app.data.winwidth);
+
+
+                    } else {
+                        $('#my-player').removeClass('video-js2');
+                        $('#my-player').css('top', 0);
+                        $('#my-player').css('left', 0);
+                        $('#my-player').width(app.data.winwidth);
+                        $('#my-player').height(app.data.winwidth / 1.777);
+                    }
+                }
+                this.on('seeked', function () {
+                    app.data.playing = true;
+                    //已经拿到视频流,可以播放
+                    console.log('seeked')
+                    //$('.wenzi').html('已经获取到视频流！');
+                    //$('.broadcast .seller').html('已经获取到视频流！');
+                    //$('#liveVideo .userimg').hide();
+                    // $('#liveVideo #my-player_html5_api').show();
+                })
+                this.on('ended', function () {
+                    //app.data.playing = false;
+                    console.log('ended')
+                })
+                this.on('seeking', function () {
+                    //app.data.playing = false;
+                    //正在去拿视频流的路上
+                    console.log('seeking')
+                })
+                this.on('waiting', function () {
+                    //app.data.playing = false;
+                    console.log('waiting')
+                })
+                this.on('pause', function () {
+                    // $('.wenzi').html('暂停播放！');
+                    app.data.playing = false;
+                    console.log('pause')
+                })
+                this.on('play', function () {
+                    // $('.wenzi').html('正在播放！');
+                    //app.data.playing = true;
+                    console.log('play')
+
+                })
+
+            });
+
+
+            app.data.myPlayer = myPlayer;
+
+            
+            var isVideoBreak;
+            function startVideo() {
+                //if (app.data.playing == true) {
+                //    $('#liveVideo .userimg').hide();
+                //    $('#liveVideo video').show();
+                //} else {
+                //    $('#liveVideo .userimg').show();
+                //    $('#liveVideo video').hide();
+                //}
+                myPlayer.load();
+                console.info("get play()");
+                myPlayer.play();
+                //$('.vjs-big-play-button').click();
+
+                //判断开始播放视频，移除高斯模糊等待层
+                var isVideoPlaying = setInterval(function () {
+                    var currentTime = myPlayer.currentTime();
+                    if (currentTime > 0) {
+                        $('.vjs-poster').remove();
+                        clearInterval(isVideoPlaying);
+                    }
+                }, 200)
+
+                //判断视频是否卡住，卡主3s重新load视频
+                var lastTime = -1,
+                    tryTimes = 0;
+
+                clearInterval(isVideoBreak);
+                isVideoBreak = setInterval(function () {
+                    var currentTime = myPlayer.currentTime();
+                    //var audio = document.getElementById("my-player");
+                    //console.log('currentTime：' + currentTime + 'lastTime：' + lastTime);
+                    //console.log('playing：' + app.data.playing);
+                    //app.data.myPlayer.play();
+                    //if (app.data.videoshowurl == '') {
+                    //    return;
+                    //}
+                    //if (app.data.playing == false) {
+                    //    console.log('try to play：' + app.data.playing);
+                    //    app.data.myPlayer.src({
+                    //        src: app.data.videoshowurl,
+                    //        type: 'application/x-mpegURL',
+                    //        withCredentials: false
+                    //    });
+                    //    app.data.myPlayer.play();
+                    //}
+                    if (currentTime == lastTime) {
+                        //此时视频已卡主3s
+                        //设置当前播放时间为超时时间，此时videojs会在play()后把currentTime设置为0
+                        myPlayer.currentTime(currentTime + 10000);
+                        console.info("get play()");
+                        myPlayer.load();
+                        myPlayer.play();
+
+                        //尝试5次播放后，如仍未播放成功提示刷新
+                        if (++tryTimes > 5) {
+                            //alert('您的网速有点慢，刷新下试试');
+                            //window.location = '/ncc/';
+                            tryTimes = 0;
+                        }
+                    } else {
+                        lastTime = currentTime;
+                        tryTimes = 0;
+                    }
+                }, 3000)
+
+            }
+            startVideo();
+
+            document.addEventListener('WeixinJSBridgeReady', function () {
+                app.data.myPlayer.load();
+                app.data.myPlayer.play();
+            }, false);
+        }
+        this.initFLVPlayer = function () {
+           //var mediaSourceURL = document.getElementById('mediaSourceURL');
+            var i;
+            var mediaDataSource = {
+                type: 'flv'
+            };
+            //var checkBoxFields = ['isLive', 'withCredentials', 'hasAudio', 'hasVideo'];
+            mediaDataSource['isLive'] = true;
+            mediaDataSource['withCredentials'] = false;
+            mediaDataSource['hasAudio'] = true;
+            mediaDataSource['hasVideo'] = true;
+            mediaDataSource['url'] = app.data.videoshowurl;
+            if (app.data.videoshowurl != '') {
+                console.log('MediaDataSource', mediaDataSource);
+                app.flv_load_mds(mediaDataSource);  
+            }
+                     
+        }
+        this.flv_load_mds = function (mediaDataSource) {
+            var element = document.getElementsByTagName('video')[0];
+            if (typeof player !== "undefined") {
+                if (player != null) {
+                    player.unload();
+                    player.detachMediaElement();
+                    player.destroy();
+                    player = null;
+                }
+            }
+            
+            player = flvjs.createPlayer(mediaDataSource, {
+                enableWorker: false,
+                enableStashBuffer: false,
+                stashInitialSize: 128,
+                lazyLoadMaxDuration: 3 * 60,
+                seekType: 'range',
+            });
+            app.data.myPlayer = player;
+            player.attachMediaElement(element);
+            player.load();
+            player.play();
+        }
+        this.initPlayer = function () {
+            
+            if (app.data.playtype == 'flv') {
+                app.initFLVPlayer();
+            } else {
+                app.initH5Player();
+            }
+        }
+        this.play = function (url) {
+            if (app.data.playtype=='flv') {
+                app.data.videoshowurl = url;
+                app.initFLVPlayer();
+                //app.data.myPlayer.play();
+            } else {
+                app.data.myPlayer.src({
+                    src: url,
+                    type: 'application/x-mpegURL',
+                    withCredentials: false
+                });
+                //app.data.myPlayer.src(
+                //    res.videoshowurl                                        
+                //);
+                app.data.myPlayer.load();
+                console.info("get play()");
+                app.data.myPlayer.play();
+            }
+            
+        }
+    }
+
+    $(function () {
+        //关闭上窗口
+
+        app.data.winwidth = $(window).width();
+        app.data.winheight = $(window).height();
+
+        app.initPage();
+
+
+        //$('html').attr('font-size', ($(window).width() / 3.75) + "px");
+        //alert($(window).width())
+        //alert($(window).width() / 3.75)
+        //$('.panel-authen').show();
+
+
+
+
+        ////获取Good列表
+        //(function GetLotteryList() {
+        //    $.ajax({
+        //        url: "/apis/GetLotteryList", success: function (res) {
+        //            if (res.result == "ok") {
+
+        //            }
+
+        //        }
+        //    });
+        //})();
+        setInterval(function () {
+            return;
+            console.info(new Date().format('yyyyMMddHHmmss'))
+            $.ajax({
+                url: app.data.videoshowurl + "?getinfo",
+                dataType: 'application/x-mpegURL',
+                type: 'GET',
+                success: function (res) {
+                },
+                complete: function (res) {
+                   // console.info(res.responseText);
+                    var str = res.responseText;//"aaabbbcccdddeeefff";
+                   var  matchlist = str.match(/\/(\S*)_\S*.ts/);//1529988722404
+                   //console.info(str);
+                  
+                   if (matchlist!=null&&matchlist.length > 0) {
+                       var matchstr = matchlist[1];
+                       //console.info("videotime:" + timestampToTime(matchstr));
+                       //$('.broadcast .seller').html("videotime:" + timestampToTime(matchstr));
+                       app.data.videodate = new Date(parseInt(matchstr) * 1000);
+                   }
+                   
+                   // $('.wenzi').html(timestampToTime(str));
+                }
+            });
+        }, 5000);
+        setInterval(function () {
+            try {
+                //开奖通知
+                //$('.broadcast .seller').html("trance:"+app.data.showbeginlist.length);
+                for (var i = 0; i < app.data.showbeginlist.length; i++) {
+                    //$('.broadcast .seller').html("trance-for:" + app.data.showbeginlist[i].date);
+                    if (app.data.showbeginlist[i].date < app.data.videodate) {
+                        //$('.wenzi').html(app.data.showbeginlist[i].info);
+                        //$('.broadcast .seller').html(app.data.showbeginlist[i].info);
+                        //$('.prizenotify').html("");
+                        $('.panel-notify').show();
+                        $('.panel-notify .detailtext').html(app.data.showbeginlist[i].info);
+                        $('.broadcast .seller').html(app.data.showbeginlist[i].info);
+                        //setTimeout(function () {
+                        //    $('.panel-notify').hide();
+                        //    $('.panel-notify .detailtext').html('');
+                        //    //$('.broadcast .seller').html('');
+                        //}, 2000)
+                        app.data.showbeginlist.pop();
+                    }
+                }
+                //$('.wenzi').html("ddd");
+                //$('.prizenotify').html("ddd");
+                //中奖结果
+                for (var i = 0; i < app.data.showprizelist.length; i++) {
+                    //$('.broadcast .seller').html("prize date:" + app.data.showprizelist[i].date.format("yyyy-MM-dd HH:mm:ss"));
+                    if (app.data.showprizelist[i].date < new Date(app.data.videodate.getTime() + 5000)) {
+
+                        var info = app.data.showprizelist[i].info;
+                        $('.panel-prize').show();
+                        $('.panel-prize .detailtext').html(info);
+                        $('.broadcast .seller').html(info);
+                        setTimeout(function () {
+                            $('.panel-prize').hide();
+                            $('.panel-prize .detailtext').html('');
+                            $('.broadcast .seller').html('');
+                            $('.panel-notify').hide();
+                            $('.panel-notify .detailtext').html('');
+                        }, 2000)
+                        //alert(app.data.showprizelist[i].info);
+                        app.data.showprizelist.pop();
+                        console.info(info)
+                    }
+                }
+            } catch (e) {
+                console.info(e);
+                $('.broadcast .seller').html(e);
+            }
+           
+        }, 2000);
+
+        //function timeFormat(nS) {
+        //    return new Date(parseInt(("/Date(" + nS + ")/").substr(6, 13))).toLocaleDateString();
+        //};
+        function timestampToTime(timestamp) {
+
+            var date = new Date(parseInt(timestamp)*1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            var D = date.getDate() + ' ';
+            var h = date.getHours() + ':';
+            var m = date.getMinutes() + ':';
+            var s = date.getSeconds();
+            return Y + M + D + h + m + s;
+
+        }
+
+
+       
+
+       
+        
+        
+    })
+    // 对Date的扩展，将 Date 转化为指定格式的String   
+    // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，   
+    // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)   
+    // 例子：   
+    // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423   
+    // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18   
+    Date.prototype.format = function (fmt) { //author: meizz   
+        var o = {
+            "M+": this.getMonth() + 1,                 //月份   
+            "d+": this.getDate(),                    //日   
+            "H+": this.getHours(),                   //小时   
+            "m+": this.getMinutes(),                 //分   
+            "s+": this.getSeconds(),                 //秒   
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度   
+            "S": this.getMilliseconds()             //毫秒   
+        };
+        if (/(y+)/.test(fmt))
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt))
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }  
+
+</script>
+<style type="text/css">
+    .video-js2 {
+        transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        position: fixed !important;
+        z-index: 999999 !important;
+    }
+    .prizenotify {
+        position: absolute;
+        top: 0px;
+        text-align: center;
+        font-size: 2em;
+        color: red;
+        font-weight: 600;
+        z-index: 9999999;
+        background-color: black;
+        display: none;
+    }
+    .wenzi {
+        z-index: 9999999;
+    }
+    .video-js .vjs-big-play-button {
+        font-size: 2.5em;
+        line-height: 2.3em;
+        height: 2.5em;
+        width: 2.5em;
+        -webkit-border-radius: 2.5em;
+        -moz-border-radius: 2.5em;
+        border-radius: 2.5em;
+        background-color: #73859f;
+        background-color: rgba(115,133,159,.5);
+        border-width: 0.15em;
+        top: 50%;
+        left: 50%;
+        margin: -35px 0 0 -35px;
+        /*margin-top: -1.25em;
+        margin-left: -1.75em;*/
+    }
+    /* 中间的播放箭头 */
+    .vjs-big-play-button .vjs-icon-placeholder {
+        font-size: 1.63em;
+    }
+    /* 加载圆圈 */
+    .vjs-loading-spinner {
+        font-size: 2.5em;
+        width: 2em;
+        height: 2em;
+        border-radius: 1em;
+        /*margin-top: -1em;
+        margin-left: -1.5em;*/
+    }
+    .video-js.vjs-playing .vjs-tech {
+        pointer-events: auto;
+    }
+    .vjs-paused .vjs-big-play-button,
+    .vjs-paused.vjs-has-started .vjs-big-play-button {
+        display: block;
+    }
+    .fontred{
+        color:orangered;
+        font-weight:700;
+        font-size:1.5em;
+    }
+    .panel-notify {
+        padding: 0 0.05rem 0.05rem !important;
+    }
+    .panel-prize {
+        padding: 0 0.05rem 0.05rem !important;
+    }
+    .panel-top-hd {
+        padding: .1rem 0 .1rem !important;
+    }
+    .trade-fdback {
+        padding: 0.05rem !important;
+    }
+</style>
+<script id="queuelist" type="text/x-jquery-tmpl">
+    <li class="item"> <img src="${headurl}" alt="${name}"></li>
+</script>
+
+<script id="lotterylist" type="text/x-jquery-tmpl">
+
+    <li>
+        <div class="inner">
+            <div class="sample-hd">
+                <div class="sample-hd-right">
+                    <p class="sample-name">${lotteryname}</p>
+                    <p class="bonus">${intro}</p>
+                </div>
+                <span class="price">
+                    <span class="num">${lotterypayment}</span>元
+                </span>
+            </div>
+            <div class="btn-cont"><a href="javascript:;" onclick="app.onBuyLottery(this)" data-id="${lotteryid}" data-name="${lotteryname}" data-payment="${lotterypayment}" data-imgurl="${imgurl}" class="btn btn-buy">购买</a></div>
+        </div>
+    </li>
+</script>
+
+<div class="m-bg">
+
+
+    <div class="panel-topbox panel-login">
+        <div class="panel-top-hd">
+            <h2 class="tit">手机号登录</h2>
+            <span class="close"></span>
+        </div>
+        <div class="panel-top-bd">
+            <ul class="basic-fm-sty2">
+                <li class="item">
+                    <span class="tit">手机号</span>
+                    <div class="fm-txt">
+                        <input type="tel" placeholder="请输入您的手机号码" class="ipt-txt txtphone">
+                    </div>
+                </li><!---->
+                <li class="item"><span class="tit">短信验证码</span><div class="fm-txt"><input type="tel" placeholder="请输入4位短信验证码" class="ipt-txt txtverifycode"></div><span class="smscode">获取验证码</span></li>
+            </ul>
+            <div class="btn-flex">
+                <a href="javascript:;" class="btn btn-primary btnok">登录</a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="top-header">
+            <div class="login-area logined" style="display:none;">
+                <a href="javascript:;" class="avatar">
+                    <img src="" alt="">
+                </a>
+                <span class="money-total">
+                    <span class="btn-add"></span>
+                    <span class="num">0</span>
+                </span>
+            </div>
+            <div class="login-area unlogin">
+                <a href="javascript:;" class="login">登录</a>
+            </div>
+            <span class="menu-list" style="display:none;"></span>
+            @*<h1  class="logo"><a  href="javascript:;"></a>
+                <span  class="rights">权益保障</span></h1>*@
+        </div><!---->
+    </div>
+    <div class="player-area">
+        <div class="scroll-news">
+            <i class="icon-cup"></i>
+            <div class="news-area">
+                <ul class="news-list">
+                    <li>
+                        <span class="name">莆田市**</span> 中奖 <span class="num">9000元</span>
+                    </li>
+                    <li><span class="name">金**</span> 中奖 <span class="num">9000元</span></li>
+                    <li><span class="name">大利2**</span> 中奖 <span class="num">9000元</span></li>
+                    <li><span class="name">回头望**</span> 中奖 <span class="num">1000元</span></li>
+                    <li><span class="name">安静的**</span> 中奖 <span class="num">1000元</span></li>
+                    <li><span class="name">龙先生**</span> 中奖 <span class="num">450元</span></li>
+                    <li><span class="name">张**</span> 中奖 <span class="num">450元</span></li>
+                    <li><span class="name">江全**</span> 中奖 <span class="num">450元</span></li>
+                    <li><span class="name">九梦轻**</span> 中奖 <span class="num">450元</span></li>
+                    <li><span class="name">饭湉**</span> 中奖 <span class="num">450元</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="player-bd">
+            <ul class="player-tab">
+                <li class="current">
+                    <span class="inner"><marquee>@*大厅1*@</marquee><span class="live-status status-fire"></span></span>
+                </li>
+                @*<li  class="">
+                        <span  class="inner">大厅2<span  class="live-status status-free"></span></span>
+                    </li>*@
+            </ul>
+            <div class="player">
+                <div id="liveVideo">
+                   
+                    <container style="z-index: 1; width: 100%; height: 100%; position: relative; display: block;">
+                        @*<img class="userimg" src="~/images/ncc/user.jpg" />*@
+                        <video id="my-player"
+                               name="videoElement"
+                               class="video-js centeredVideo"
+                               data-setup='{"techOrder": ["flash","html5"]}'
+                               controls
+                               playsinline
+                               autoplay
+                               webkit-playsinline
+                               preload="auto"
+                               poster="~/images/ncc/user.jpg"                               
+                               @*poster="http://vjs.zencdn.net/v/oceans.png"*@
+                               x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" 
+                               @*style="z-index: 1;"*@>
+                            @*<param name="wmode" value="opaque" />*@
+                            @*<source src='/apis/GetVideoInfo' type="application/x-mpegURL" />*@
+
+                        </video>
+                        @*<div class="wenzi"></div>*@
+                        <div class="prizenotify"></div>
+                    </container>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="player-bd ">
+            <div class="player-ft">
+                <p class="broadcast"><i class="icon-broadcast"></i><span class="buy" style="display: none;">请在下方"购彩专区"购彩</span><span class="work"><span class="seller"></span>@*正在为<font color="#FFE9AC"></font>等<span class="num1"></span>位用户开奖！*@</span></p>
+
+                <div class="queue-cont clear">
+                    <ul class="queue-list">
+                        @*<li  class="item"><img  src="https://thirdwx.youcai8888.com/mmopen/vi_32/K6v7bVicvYolNap2GUXGKYqLsTnEvZE5u9y69lJPXudQR0Lvenuk5PSiawWKYcPbgI4eymB3VbeBPmTFBsD31y8A/132" alt="刘爱雪"></li>*@
+                    </ul>
+                    <span class="total total-only" style="display: none;">本站所售彩票都为实体店代刮，全国票号唯一。</span>
+                    <span class="total total-count" style="display:none;"><span class="num">10人<br>排队中</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="module mod-func">
+        <div class="sample-hall">
+            <ul class="sample-list lottery-list"></ul>
+        </div>
+    </div>
+    <div class="panel-topbox panel-buy">
+        <span class="close"></span>
+        <div class="panel-mod">
+            <h3 class="tit">请选择购票张数</h3>
+            <span class="lottery-img">
+                <img src="" alt="">
+            </span>
+            <ul class="buylist">
+                <li class="item current"><span class="inner" data-num="1">1张</span></li>
+                <li class="item"><span data-num="3" class="inner">3张</span></li>
+                <li class="item"><span data-num="5" class="inner">5张</span></li>
+                <li class="item"><span data-num="10" class="inner">10张</span></li>
+                <li class="item"><span data-num="20" class="inner">20张</span></li>
+                <li class="item"><span data-num="30" class="inner">30张</span></li>
+                <li class="item"><span data-num="50" class="inner">50张</span></li>
+                <li class="item"><span data-num="100" class="inner">100张</span></li>
+            </ul>
+        </div><div class="btn-flex"><a href="javascript:;" class="btn btn-primary last">购买</a><a href="javascript:;" class="btn btn-primary buying" style="display: none;">购买中</a></div>
+    </div>
+    <div class="panel-topbox panel-selpay" style="z-index: 101;">
+        <span class="close"></span>
+        <div class="panel-mod">
+            <h3 class="tit mtit">@*大吉大利*@</h3><div class="order-detail">
+                <ul class="txtlist">
+                    <li class="item"><span class="tit">订单金额</span><span class="txt djtxt">1张，30元</span></li>
+                    <li class="item li-yue" style="display: none;"><span class="tit">余额抵扣</span><span class="txt yue">0元</span></li>
+                    <li class="item">
+                        <span class="tit">您需支付</span><span class="txt"><span class="red needpay">30元</span></span>
+                    </li>
+                </ul>
+            </div>
+        </div><!---->
+        <div class="panel-mod sel-paytype">
+            <h3 class="tit">请选择支付方式</h3><ul class="payway-list">
+                <li>
+                    <span class="radio wx checked"></span><i class="icon-pay icon-wx"></i><!----><!----> 微信支付
+                </li>
+                @*<li>
+                        <span class="radio ali"></span><!----><i class="icon-pay icon-zfb"></i><!----> 支付宝支付
+                    </li>*@
+
+            </ul>
+        </div>
+        <div class="btn-flex"><a href="javascript:;" data-type="1" class="btn btn-primary btnok">确认充值</a><a href="javascript:;" class="btn btn-primary btnok2" style="display: none;">充值中</a></div><p class="recharge-tips">为防止洗钱，充值金额的30%必须用于购彩，否则提现受限</p>
+    </div>
+
+    <div class="panel-topbox panel-payok" style="display: none;">
+        <div class="panel-top-hd">
+            <h2 class="tit">交易成功</h2>
+            <span class="close"></span>
+        </div>
+        <div class="panel-top-bd">
+            <div class="trade-fdback">
+                <p class="fdback-txt">请您在首页等待您的刮奖视频</p>
+                @*<p class="send-email"><i class="icon-email"></i> 将订单发送至邮箱</p>*@
+            </div>
+            <div class="btn-flex">
+                <a href="javascript:;" class="btn btn-primary">查看刮奖(5)</a>
+                <a href="javascript:;" class="btn btn-weak">查看明细</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-topbox panel-prize" style="display: none;z-index:100;">
+        <div class="panel-top-hd">
+            <h2 class="tit">开奖结果</h2>
+            @*<span class="close"></span>*@
+        </div>
+        <div class="panel-top-bd">
+            <div class="trade-fdback">
+                <p class="fdback-txt fontred detailtext">开奖结果</p>
+                @*<p class="send-email"><i class="icon-email"></i> 将订单发送至邮箱</p>*@
+            </div>
+            @*<div class="btn-flex">
+                <a href="javascript:;" class="btn btn-primary">查看刮奖(5)</a>
+                <a href="javascript:;" class="btn btn-weak">查看明细</a>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="panel-topbox panel-notify" style="display: none;z-index:10;">
+        <div class="panel-top-hd">
+            <h2 class="tit">系统通知</h2>
+            <span class="close"></span>
+        </div>
+        <div class="panel-top-bd">
+            <div class="trade-fdback">
+                <p class="fdback-txt fontred detailtext"></p>
+                @*<p class="send-email"><i class="icon-email"></i> 将订单发送至邮箱</p>*@
+            </div>
+            @*<div class="btn-flex">
+                    <a href="javascript:;" class="btn btn-primary">查看刮奖(5)</a>
+                    <a href="javascript:;" class="btn btn-weak">查看明细</a>
+                </div>*@
+        </div>
+    </div>
+
+    <div class="panel-topbox panel-recharge" style="z-index: 101;">
+        <span class="close"></span><!---->
+        <div class="panel-mod">
+            <h3 class="tit">充值购彩 方便快捷</h3>
+            <ul class="recharge-num">
+                <li data-val="10" class="item"><span class="inner">10元</span></li>
+                <li data-val="100" class="item current"><span class="inner">100元</span></li>
+                <li data-val="300" class="item"><span class="inner">300元</span></li>
+                <li data-val="500" class="item"><span class="inner">500元</span></li>
+                <li data-val="1000" class="item"><span class="inner">1000元</span></li>
+                <li data-val="3000" class="item"><span class="inner">3000元</span></li>
+            </ul>
+        </div><div class="panel-mod">
+            <h3 class="tit">请选择支付方式</h3><ul class="payway-list">
+                <li>
+                    <span class="radio wx checked"></span><i class="icon-pay icon-wx"></i><!----><!----> 微信支付
+                </li>
+                @*<li >
+                        <span  class="radio"></span><!----><i  class="icon-pay icon-zfb"></i><!----> 支付宝支付
+                    </li>*@
+
+            </ul>
+        </div>
+        <div class="btn-flex">
+            <a href="javascript:;" data-type="1" class="btn btn-primary btnok">确认充值</a>
+            <a href="javascript:;" class="btn btn-primary btnok2" style="display: none;">充值中</a>
+        </div><p class="recharge-tips">为防止洗钱，充值金额的30%必须用于购彩，否则提现受限</p>
+    </div>
+
+    <div class="panel-topbox panel-authen">
+        <div class="panel-top-hd">
+            <h2 class="tit">实名认证</h2>
+            <p class="subtit">未满18周岁禁止购彩哦，请您先实名</p><span class="close"></span>
+        </div>
+        <div class="panel-top-bd">
+            <ul class="basic-fm-sty2">
+                <li class="item">
+                    <span class="tit">真实姓名</span>
+                    <div class="fm-txt">
+                        <input type="text" placeholder="请填写真实姓名" class="ipt-txt truename">
+                    </div>
+                </li>
+                <li class="item">
+                    <span class="tit">身份证号</span>
+                    <div class="fm-txt">
+                        <input type="text" placeholder="请填写18位二代身份证号" class="ipt-txt idcard">
+                    </div>
+                </li>
+                <li class="item">
+                    <span class="tit">手机号</span><div class="fm-txt">
+                        <input type="tel" placeholder="请输入手机号码" disabled="disabled" class="ipt-txt phone">
+                    </div>
+                </li>
+            </ul>
+            <div class="btn-flex">
+                <a href="javascript:;" class="btn btn-primary btnok">提交实名</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-slide-menu">
+        <span class="close"></span>
+        <div class="logined">
+            <div class="user-details">
+                <span class="user-avatar">
+                    <img src="" alt="">
+                </span><h3 class="user-name"></h3><p class="balance">账户余额：<span class="num">0元</span></p>
+                <div class="btn-flex btn-options">
+                    <a href="javascript:;" class="btn btn-weak">提现</a>
+                    <a href="javascript:;" class="btn btn-primary btn-recharge">充值</a>
+                </div>
+            </div><ul class="user-menu">
+                <li><i class="icon-user icon-my"></i> 购彩记录</li>
+                @*<li><i class="icon-user icon-order"></i> 订单记录</li>*@
+                @*<li><i class="icon-user icon-detail"></i> 账户明细</li>*@
+                @*<li><i class="icon-user icon-withdraw"></i> 提现记录</li>*@
+            </ul>
+            <ul class="user-menu">
+                <li class="linkhelp"><i class="icon-user icon-help"></i> 帮助中心</li>
+                <li class="linkkefu"><i class="icon-user icon-kefu"></i> 在线客服</li>
+                <li class="linkadd"><i class="icon-user icon-add"></i> 实体店加入</li>
+            </ul>
+            <div class="btn-flex btn-quit"><a href="javascript:;" class="btn btn-weak-red">退出账号</a></div>
+        </div>
+    </div>
+
+    <div class="panel-mask" style="display:none;"></div>
+
+</div>
+<footer  class="footer">
+    <p  class="copyright">新彩Club，&nbsp;&nbsp;京ICP备14061467号</p>
+    <p >不要沉迷彩票，健康购彩！</p>
+</footer>
+
+<a class="wx-payment" href="" style="display:none;"></a>

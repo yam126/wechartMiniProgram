@@ -1,0 +1,8 @@
+<!--pages/waitingorder/waitingorder.wxml-->
+<view style="background-color: #999;position: relative;" class="page">
+ <view class="tips">
+  等待用户加入
+ </view>
+ <view class="floatingWindow">
+ </view>
+</view>

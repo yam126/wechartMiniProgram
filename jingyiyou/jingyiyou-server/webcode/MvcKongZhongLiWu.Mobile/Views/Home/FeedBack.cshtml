@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "意见或建议";
+}
+@using (Html.BeginForm("SaveFeedBack", "Home", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="panel panel-default">
+        <div class="panel-body">
+            请留下您宝贵的意见或建议。有了您的支持我们做的会更好。
+        </div>
+        <div class="panel-collapse">
+            <textarea name="content" placeholder="请输入您的建议！" style="width:100%;height:15em"></textarea>
+        </div>
+        @*<div class="panel-collapse">
+            <button type="submit" class="btn btn-info ect-btn-info btnbottom">提   交</button>
+        </div>*@
+    </div>
+    <div class="btnpanel">        
+        <button type="submit" class="btn btn-info ect-colorf button_only">提   交</button>
+</div>
+}

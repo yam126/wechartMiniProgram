@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "用户登陆";
+}
+
+
+@using (Html.BeginForm("DoLogin", "Login"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @*<a href=weixin://qr/hUzA2IbEcNsPrcK79xmX target=_blank>点击关注微信</a>*@
+    <div class="flow-consignee ect-bg-colorf">
+        <section>
+            <ul>
+                <li>
+                    <div class="input-text"><b>用户名：</b><span><input placeholder="用户名/手机/电子邮件" id="uid" name="loginname" value="" type="text" class="inputBg" datatype="*"></span></div>
+                </li>
+                <li>
+                    <div class="input-text"><b>密码：</b><span><input placeholder="密码" id="pwd" name="password" type="password" value="" class="inputBg" datatype="*6-16"></span></div>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
+        <input type="checkbox" value="1" name="remember" id="remember" class="l-checkbox">
+        <label for="remember">记住本次登录。<i></i></label>
+    </p>
+    <input type="hidden" name="back_act" value="">
+    <div class="btnpanel">
+        <button type="submit" class="btn btn-info ect-colorf button_only">立即登录</button>
+    </div>
+}
+<p class="ect-padding-lr ect-margin-tb text-right ect-margin-bottom0" style="clear:both">@*<a href="index.php@m=default&amp;c=user&amp;a=get_password_email.htm">忘记密码</a>*@  <a href="/login/reg?type=@ViewBag.type">免费注册</a></p>
+@*<div class="ect-padding-lr ect-margin-tb user-hezuo">
+    使用合作账号登录  	<p>
+        <a href="index.php@m=default&amp;c=user&amp;a=third_login&amp;type=qq.htm"><img src="themes/default/images/qq.png"></a>
+        <a href="index.php@m=default&amp;c=user&amp;a=third_login&amp;type=sina.htm"><img src="themes/default/images/weibo.png"></a>
+    </p>
+</div>*@
+
+<script type="text/javascript">
+    function userLogin() {
+        if ($('#uid').val() == "") {
+            alert("用户名不能为空！");
+            return false;
+        }
+        if ($('#pwd').val() == "") {
+            alert("密码不能为空！");
+            return false;
+        }
+        return true;
+    }
+</script>
+

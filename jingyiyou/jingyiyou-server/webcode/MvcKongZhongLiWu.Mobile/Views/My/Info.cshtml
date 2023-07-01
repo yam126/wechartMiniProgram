@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "个人信息";
+}
+<style type="text/css">
+    .boxCenterList td {
+        margin-top: 10px;
+        line-height: 30px;
+    }
+
+    .boxCenterList input {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        /*margin-right:10px;*/
+    }
+
+    .inputBg {
+        width: 90%;
+        margin-right: 10px;
+    }
+</style>
+<div class="block clearfix">
+
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                @using (Html.BeginForm("DoChangeInfo", "My", FormMethod.Post, new { id = "changeinfo" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+                        <div class="blank"></div>
+                        <table border="0" align="left" cellpadding="3" cellspacing="5" width="100%">
+                            @if(ViewBag.isweixin==false){
+                            <tr>
+                                <td align="right" width="100px">登陆账户：</td>
+                                <td>
+                                    <span>@Model.LoginName</span>
+                                </td>
+                            </tr>
+                            }else{
+                            <tr>
+                                <td align="right" width="100px"></td>
+                                <td style="height:50px;">
+                                    <a href="/my/GetWeiXinInfo/" style="text-decoration:underline;color:blue;"><h5>点击自动获取基本信息</h5></a>
+                                </td>
+                            </tr>
+                            }
+                            <tr>
+                                <td align="right">真实姓名：</td>
+                                <td>
+                                    <input name="name" type="text" id="name" size="20" class="inputBg" value="@Model.Name" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">昵称：</td>
+                                <td>
+                                    <input name="nicename" type="text" id="nicename" size="20" class="inputBg" value="@Model.NiceName" />
+                                </td>
+                            </tr>
+                            @*<tr>
+                                    <td align="right">Email：</td>
+                                    <td>
+                                        <input name="email" type="text" id="email" size="20" class="inputBg" value="@Model.Email" />
+
+                                    </td>
+                                </tr>*@
+                            <tr>
+                                <td align="right">手机：</td>
+                                <td>
+                                    <input name="phone" type="tel" id="phone" size="20" class="inputBg" value="@Model.Phone" />
+                                </td>
+                            </tr>
+                            @*<tr>
+                                    <td align="right">出生日期：</td>
+                                    <td>
+                                        <input name="brith" type="text" id="brith" size="20" class="inputBg" />
+
+                                    </td>
+                                </tr>*@
+                            <tr>
+                                <td align="right">性别：</td>
+                                <td>
+                                    @*<input name="sex" type="text" id="sex" size="20" class="inputBg" />*@
+                                    &nbsp;&nbsp;<input id="Radio1" name="sex" type="radio" value="1" /><label for="Radio1">&nbsp;男&nbsp;</label>&nbsp;&nbsp;
+                                    <input id="Radio2" name="sex" type="radio" value="0" /><label for="Radio2">&nbsp;女&nbsp;</label>
+                                </td>
+                            </tr>
+                            @*<tr>
+                                <td align="left"></td>
+                                <td align="left">
+                                    <a href="javascript:guanzhu()" style="color: blue; text-decoration:underline;">关联我的微信，获得更多精彩服务</a>
+                                    <div id="gzweixin" style="display:none;">
+                                        <p>关注公众号后即可和微信关联</p>
+                                        <strong> 关注方法：</strong>将手指放到以下二维码上2秒钟，然后选择识别图中的二维码即可关注。
+                                        <br /><br />
+                                        <img width="200px" height="200px" src="@ViewBag.imgurl" />
+                                    </div>
+                                </td>
+
+                            </tr>*@
+                            <tr style="height:30px;">
+
+                                <td colspan="2"></td>
+                            </tr>
+                           
+                        </table>
+                    </div>
+                            <div class="btnpanel">
+                                <button type="submit" class="btn btn-info ect-colorf button_only" onclick="return checkpass()">保存</button>
+                            </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function guanzhu() {
+        $('#gzweixin').show();
+       
+    }
+    $(function () {
+        @if (Model.Sex == 1)
+        { @Html.Raw("$('#Radio1').attr('checked','1')"); }
+        else
+        { @Html.Raw("$('#Radio2').attr('checked','1')"); }
+    });
+</script>

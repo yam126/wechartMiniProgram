@@ -1,0 +1,213 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "订单确认";
+}
+@section scripts{
+    @*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
+    @*<script src="~/Scripts/m/bootstrap.min.js"></script>*@
+    @*<script src="~/Scripts/jquery.validate.js"></script>*@
+    <script src="~/Scripts/jweixin-1.0.0.js"></script>
+}
+<script type="text/javascript">
+  
+
+    $(document).ready(function () {
+        jQuery.post("/pay/checkpay?orderid=@ViewBag.orderid", {}, function (res) {
+            if (res.state == 'error') {
+                window.location = res.url;
+            }
+        }, "json");
+
+     
+    });
+
+    function onBridgeReady(data) {
+        WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', data,
+        function (res) {
+            //alert(res.err_msg);
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                window.location = "/gift/ok?orderid=@ViewBag.orderid";
+            }
+            else {
+                ispaying = false;
+                showAlertMessage("支付失败,请稍后再试！");
+                //window.location = "/Myorder/";
+            }
+            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+        }
+
+        );
+    }
+    var ispaying = false;
+    function dopayment() {
+        if (ispaying == true) {
+            return false;
+        }
+             
+      
+        ispaying = true;
+        var wayofpay = $('input:radio[name=wayofpay]:checked').val();  
+        var qcode = $('input:radio[name=qcode]:checked').val();  
+        jQuery.post("/pay/savedetail", {
+            orderid: '@ViewBag.orderid', wayofpay: wayofpay, openid: '@ViewBag.openid',qcode:qcode
+        }, function (res) {
+            if (res.state == 'ok') {
+
+                if (wayofpay == "2") {
+                    onBridgeReady(res.data);
+                }
+                else if (wayofpay == "0" && res.needpay < 0.01) {
+                    window.location = res.url;
+                }
+                else if (wayofpay == '1') {
+                    $("#btnsubmit").click();
+                } else {
+                    ispaying = false;
+                    showAlertMessage(wayofpay + '_' + res.needpay);
+                }
+            } else {
+                ispaying = false;
+                showAlertMessage(res.message);
+            }
+
+
+        }, "json");
+        return false;
+    }
+
+    function usequan(qprice, qcode) {
+        var yue = @ViewBag.yue;
+        var totalpay = @ViewBag.totalpay;
+        $('.quaninfo').html('(使用了' + qprice + '元优惠券)');
+        if (totalpay-qprice<=yue) {
+
+            $('#payment_1').attr('disabled',false);
+            $("input[name='wayofpay']").attr("checked",false);
+            $('#payment_1')[0].checked=true;
+            $('#payment_1').parent().find('i').addClass('ect-radio-checked');
+          
+            
+            var needpay=qprice>totalpay?0:totalpay-qprice;
+            $('.totalpay').html('￥'+needpay+' 元');
+            $("input[name='wayofpay']").parent().find('c').html("");
+            //$("input[name='wayofpay']").parent().find('c').html("[您还需要支付 ￥"+needpay+"]");
+
+        } else {
+            $('#payment_1').attr('disabled',true);
+            @if (ViewBag.isweixin != true)
+            {
+               @Html.Raw("$('#payment_2')[0].checked=true;")
+            }
+            else
+            {
+                @Html.Raw("$('#payment_3')[0].checked=true;")
+            }
+            var needpay=qprice>totalpay?0:totalpay-qprice;
+            $('.totalpay').html('￥'+needpay+' 元');
+            $("input[name='wayofpay']").parent().find('c').html("[您还需要支付 ￥"+needpay+"]");
+        }
+    }
+   
+</script>
+
+
+<div class="flow-checkout">
+    @using (Html.BeginForm("DoPay", "Pay", FormMethod.Post, new { id = "dopayform" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+       
+      if (ViewBag.hasquan == true)
+        {
+            <section class="ect-margin-tb ect-padding-lr checkout-select" id="collapseQuan">
+                <a data-toggle="collapse" data-parent="#collapseQuan" href="#collapseQuanBody">
+                    <p><b>优惠劵列表</b></p>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <div id="collapseQuanBody" class="panel-collapse " style="padding-bottom:2em;">
+                    <ul class="ect-radio">
+                        @foreach (var item in (IEnumerable<ncc2019.Quan>)ViewBag.quan)
+                        {
+                            <li>
+                                <input name="qcode" type="radio" id="@DESEncrypt.Encrypt(item.QuanID)" onchange="usequan('@item.Price','@DESEncrypt.Encrypt(item.QuanID)')" value="@DESEncrypt.Encrypt(item.QuanID)" style="vertical-align:middle">
+                                <label for="@DESEncrypt.Encrypt(item.QuanID)">￥@item.Price 元 优惠券<i></i></label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </section>
+        }        
+        <section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+            <p><b>商品列表</b></p>
+            <ul>
+                <li>
+                    <dl>
+                        <dt class="pull-left">
+                            @Model.Goods.Name
+                        </dt>
+                        <dd class="pull-left list-num">x @Model.BuyNum</dd>
+                        <dd class="pull-right">￥@Model.Payment 元</dd>
+                    </dl>
+                </li>
+            </ul>
+
+            <div class="ect-padding-tb text-right" id="ECS_ORDERTOTAL">
+                总价:
+                <b class="ect-colory totalpay">￥@Model.TotalPayment 元</b>
+                <b class="quaninfo"></b>
+            </div>
+        </section>
+
+        <section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion">
+
+
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapsePay" >
+                <p><b>支付方式</b><span class="label ect-bg-colory">必填</span></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            @if (SessionHelper.CurMemberInfo.Balance < Model.TotalPayment)
+            {
+                ViewBag.yuestr = "disabled='true'";
+                ViewBag.payment = "[您还需要支付 ￥" + (Model.TotalPayment - SessionHelper.CurMemberInfo.Balance) + "]";
+                ViewBag.otherpaycheck = "checked='checked'";
+            }
+            else
+            {
+                ViewBag.yuecheck = "checked='checked'";
+            }
+            <div id="collapsePay" class="panel-collapse " style="padding-bottom:2em;">
+                <ul class="ect-radio">
+                    <li>
+                        <input name="wayofpay" type="radio" @ViewBag.yuestr id="payment_1" @ViewBag.yuecheck value="0" checked="checked" iscod="0" style="vertical-align:middle">
+                        <label for="payment_1">余额支付 [￥@Html.Raw(SessionHelper.CurMemberInfo.Balance)元]<i></i></label>
+                    </li>
+                    @if (ViewBag.isweixin == true)
+                    {
+                        <li>
+                            <input name="wayofpay" type="radio" id="payment_3" value="2" @ViewBag.otherpaycheck iscod="0" style="vertical-align:middle">
+                            <label for="payment_3">微信支付 <c>@ViewBag.payment</c><i></i></label>
+                        </li>
+                    }
+                    
+                    <li>
+                        <input name="wayofpay" type="radio" id="payment_2" value="1" @ViewBag.otherpaycheck iscod="0" style="vertical-align:middle">
+                        <label for="payment_2">支付宝（手机版）<c>@ViewBag.payment</c><i></i></label>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+        <div class="bottomhoder"></div>
+
+
+
+        <input type="submit" name="submit" id="btnsubmit" style="display:none;" />
+        <input type="hidden" name="orderid" value="@ViewBag.orderid" />
+    }
+</div>
+<div class="btnpanel">
+    <input type="button" name="submit" value="确认支付" onclick="return dopayment();" class="btn btn-info ect-colorf button_only btn-red">
+</div>

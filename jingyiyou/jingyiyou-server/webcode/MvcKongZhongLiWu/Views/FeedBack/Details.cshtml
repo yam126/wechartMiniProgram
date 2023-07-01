@@ -1,0 +1,36 @@
+﻿@model ncc2019.FeedBack
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>FeedBack</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TheContent)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TheContent)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AddDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OperID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OperID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.FeedBackID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

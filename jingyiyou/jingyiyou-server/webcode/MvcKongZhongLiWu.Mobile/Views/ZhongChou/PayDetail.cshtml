@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "自定义资助金额";
+}
+<style type="text/css">
+    .payments li{
+        float:left;
+        width:3em;
+        border-color:#fff;
+    }
+</style>
+<script type="text/javascript">
+    var maxpay=@ViewBag.totalpayment;
+    function changePrice(type) {
+        if (type == 'n') {
+            if(maxpay>$('.form-num').val()){
+                $('.form-num').val(parseFloat($('.form-num').val()) + 1);
+            }else{
+                $('.form-num').val(maxpay);
+                alert('Ta最多还需要众筹'+maxpay+"元");
+            }
+        } else {
+            if (parseFloat($('.form-num').val()) <= 1) {
+                $('.form-num').val(1);
+            } else {
+                $('.form-num').val(parseFloat($('.form-num').val()) - 1);
+            }
+        }
+    }
+    function btn_ok() {
+        if(maxpay<parseFloat($('.form-num').val())){
+            $('.form-num').val(maxpay);
+            alert('Ta最多还需要众筹'+maxpay+"元");
+            return false;
+        }
+        if (parseFloat($('.form-num').val())<=0) {
+            $('.form-num').val(1);
+            alert("支持金额必须大于0！");
+            return;
+        }
+        $('#formok').submit();
+    }
+</script>
+@using (Html.BeginForm("PayDetail", "zhongchou", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<section class="ect-padding-lr ect-padding-tb goods-option">
+    <br />
+    @*<div class="payments">
+        <ul>
+            <li>10元</li>
+            <li>20元</li>
+            <li>50元</li>
+            <li>100元</li>
+            <li></li>
+            <li>自定义</li>
+
+        </ul>
+        <span class="label label-info">10元</span>
+        <span class="label label-info">20元</span>
+    </div>
+    <div style="clear:both"></div>*@
+    <div class="goods-num" style="text-align:center;vertical-align:middle;">
+        <span class="pull-left">自定义资助金额（元）：</span>
+        <div class="input-group pull-left wrap">
+            <span class="input-group-addon sup" onclick="changePrice('p')">-</span>
+            <input type="number" class="form-contro form-num" name="pay" id="good_pay" autocomplete="off" value="1" />
+            <span class="input-group-addon plus" onclick="changePrice('n')">+</span>
+        </div>
+    </div>
+    
+</section>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        跟Ta说点啥！
+    </div>    
+    <div class="panel-collapse">
+        <textarea name="content" id="content" placeholder="跟Ta说点啥！" style="width:100%;height:10em"></textarea>
+    </div>
+    <input type="hidden" value="@ViewBag.orderid" name="orderid" id="orderid" />
+    
+</div>
+    
+}
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btn_ok()">开始资助</button>
+
+</div>

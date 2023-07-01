@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "开锁成功";
+}
+<style type="text/css">
+    .outdiv {
+        padding-left: 1em;
+        padding-right: 1em;
+        text-align: center;
+    }
+    red{
+        color:orangered;
+    }
+</style>
+
+
+@if (ViewBag.membertype == "kd")
+{
+    <div class="outdiv">
+        <br /><br />
+        <h4>开锁成功,放入物品后，<strong><red>请关好箱门</red></strong> 。</h4>
+        <br /><br /><br />
+    </div>
+}
+else
+{
+    <div class="outdiv">
+        <br /><br />
+        <h4>开锁成功，<strong><red>请关好箱门</red></strong> 。</h4>
+        <br /><br /><br />
+    </div>
+}
+

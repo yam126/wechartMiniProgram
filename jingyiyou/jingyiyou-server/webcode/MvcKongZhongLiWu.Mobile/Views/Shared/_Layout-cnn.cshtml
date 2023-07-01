@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="官方、实体店、顶呱刮、顶呱呱、刮刮卡、刮刮乐、彩票、体彩、即开、即买、即兑、福彩、直播、开奖、公益、中奖、大奖、刮奖、兑奖、冰雪极限、滚雪球、开门大吉、旺旺、7、十周年庆、财运旺、豪门盛宴、财运到、金猴献宝、赤壁、夺宝、招财进宝、中国红、天降财神、至尊宝、宝石之王、黄金世界、发发发、十二生肖、十倍幸运、世界杯、国足、中国、巴西、德国、意大利、阿根廷、法国、网易、斗鱼、500万">
+    <meta name="description" content="新彩俱乐部全是实体店进行在线直播开奖过程。购买成功后请查看视频直播刮奖，中奖奖金会直接存入账户中。禁止向未满18周岁的青少年销售彩票。">
+    <meta name="author" content="">
+    <meta name="baidu-site-verification" content="r71tCEiRIC" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="copyright" content="Copyright">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta http-equiv="cleartype" content="on">
+    <script src="~/Scripts/m/jquery.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/Scripts/m/jquery.json.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <link href="~/css/ncc-main.css" rel="stylesheet" />
+    <script src="~/Scripts/input-check.js"></script>
+
+    <script src="~/Scripts/jquery.prompt.min.js"></script>
+    <link href="~/Scripts/jquery.prompt.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Com.js"></script>
+
+  
+
+    @RenderSection("scripts", required: false)
+    <script>
+        ! function (e, t) {
+            "function" == typeof define && define.amd ? define([], function () {
+                return e.Flexible = t()
+            }) : "object" == typeof exports ? module.exports = t() : e.Flexible = t()
+        }(this, function () {
+            function e() {
+                var e = a.getBoundingClientRect().width;
+                // e / m > 540 && (e = 540 * m);
+                var t = e / 3.75;
+                a.style.fontSize = t + "px", d.rem = i.rem = t
+            }
+            var t, i = this,
+                r = {},
+                n = i.document,
+                a = n.documentElement,
+                o = n.querySelector('meta[name="viewport"]'),
+                l = n.querySelector('meta[name="flexible"]'),
+                m = 0,
+                s = 0,
+                d = r.flexible || (r.flexible = {});
+            if (o) {
+                var p = o.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+                p && (s = parseFloat(p[1]), m = parseInt(1 / s))
+            } else if (l) {
+                var c = l.getAttribute("content");
+                if (c) {
+                    var u = c.match(/initial\-dpr=([\d\.]+)/),
+                        f = c.match(/maximum\-dpr=([\d\.]+)/);
+                    u && (m = parseFloat(u[1]), s = parseFloat((1 / m).toFixed(2))), f && (m = parseFloat(f[1]), s = parseFloat((1 / m).toFixed(2)))
+                }
+            }
+            if (!m && !s) {
+                var h = (i.navigator.appVersion.match(/android/gi), i.navigator.appVersion.match(/iphone/gi)),
+                    v = i.devicePixelRatio;
+                m = h ? v >= 3 && (!m || m >= 3) ? 3 : v >= 2 && (!m || m >= 2) ? 2 : 1 : 1, s = 1 / m
+            }
+            if (a.setAttribute("data-dpr", m), !o)
+                if (o = n.createElement("meta"), o.setAttribute("name", "viewport"), o.setAttribute("content", "initial-scale=" + s + ", maximum-scale=" + s + ", minimum-scale=" + s + ", user-scalable=no"), a.firstElementChild) a.firstElementChild.appendChild(o);
+                else {
+                    var x = n.createElement("div");
+                    x.appendChild(o), n.write(x.innerHTML)
+                }
+            return i.addEventListener("resize", function () {
+                clearTimeout(t), t = setTimeout(e, 300)
+            }, !1), i.addEventListener("pageshow", function (i) {
+                i.persisted && (clearTimeout(t), t = setTimeout(e, 300))
+            }, !1), "complete" === n.readyState ? n.body.style.fontSize = 12 * m + "px" : n.addEventListener("DOMContentLoaded", function (e) {
+                n.body.style.fontSize = 12 * m + "px"
+            }, !1), e(), d.dpr = i.dpr = m, d.refreshRem = e, d.rem2px = function (e) {
+                var t = parseFloat(e) * this.rem;
+                return "string" == typeof e && e.match(/rem$/) && (t += "px"), t
+            }, d.px2rem = function (e) {
+                var t = parseFloat(e) / this.rem;
+                return "string" == typeof e && e.match(/px$/) && (t += "rem"), t
+            }, d
+        });
+
+    </script>
+    <script type="text/javascript">
+     
+       
+    </script>
+</head>
+<body>
+    <div id="app">
+        <div class="toasted-container top-center topmsg" style="display:none;">
+            <div class="message">
+            </div>
+        </div>
+        @RenderBody()
+
+    </div>
+    <img src="@ViewBag.cnzz" width="0" height="0" />
+</body>
+</html>

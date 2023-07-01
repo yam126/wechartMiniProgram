@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "用户登陆";
+}
+@*<link href="themes/ecmoban_vjia/style.css" rel="stylesheet" type="text/css" />*@
+@*<script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>*@
+<div>
+    @using (Html.BeginForm("DoLogin", "Admincfj", FormMethod.Post, new { id = "loginform" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+
+
+        <div class="usBox clearfix">
+            <div class="usBox_1">
+                <div class="login_tab">
+                    <ul>
+                        <li class="active"><a href="~/Login">用户登录</a></li>
+                        
+                    </ul>
+                </div>
+
+                <table width="100%" border="0" align="left" cellpadding="3" cellspacing="5">
+                    <tr>
+                        <td width="25%" align="right">用户名</td>
+                        <td width="65%"><input name="loginname" id="uid" type="text" size="25" class="inputBg" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right">密码</td>
+                        <td>
+                            <input name="password" type="password" id="pwd" size="15" class="inputBg" />
+                        </td>
+                    </tr>
+                    @*<tr style="display:none;">
+                            <td align="right">验证码</td>
+                            <td>
+                                <input type="text" size="8" name="captcha" class="inputBg" />
+                                <img src="captcha.php@is_login=1&1500837794" alt="captcha" style="vertical-align: middle;cursor: pointer;" onclick="this.src='captcha.php@is_login=1&'+Math.random()" />
+                            </td>
+                        </tr>*@
+                    <tr>
+                        <td> </td>
+                        <td><input type="checkbox" value="1" name="remember" id="remember" /><label for="remember">请保存我这次的登录信息。</label></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td align="left">
+                            <input type="submit" name="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录" class="myButton" style="cursor:pointer;" onclick="return userLogin()" />
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="/login/getpassword" class="f6">找回密码</a>
+                        </td>
+                    </tr>
+                    <tr><td bgcolor="#ffffff" colspan="2" align="center"> </td></tr>
+                </table>
+
+                <div class="blank"></div>
+            </div>
+
+        </div>
+
+    }
+</div>
+<script type="text/javascript">
+    function userLogin() {
+        if ($('#uid').val() == "") {
+            alert("用户名不能为空！");
+            return false;
+        }
+        if ($('#pwd').val() == "") {
+            alert("密码不能为空！");
+            return false;
+        }
+        $('#loginform').submit();
+        return true;
+    }
+</script>

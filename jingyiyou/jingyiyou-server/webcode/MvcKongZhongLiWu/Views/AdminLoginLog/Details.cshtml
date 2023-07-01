@@ -1,0 +1,43 @@
+﻿@model ncc2019.LoginLog
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>LoginLog</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LoginTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LoginTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IP)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IP)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Agent)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Agent)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SystemInfo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SystemInfo)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.LoginLogID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

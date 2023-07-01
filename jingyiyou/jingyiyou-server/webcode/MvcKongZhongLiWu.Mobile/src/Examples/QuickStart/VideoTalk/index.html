@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-lang="VideoTalk">Video Talk</title>
+  <link rel="icon" href="../../../../favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <link rel="stylesheet" href="./index.css">
+  <script src="../../../assets/js/express_sdk/ZegoExpressWebRTC.js"></script>
+</head>
+
+<body class="fix-sidebar card-no-border">
+  <div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+  </div>
+
+  <div class="container main-wrapper">
+    <!-- <div class="row"> -->
+
+    <div class="page-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-lg-6 preview-wrapper">
+            <div class="row" id="videoList">
+              <div class="preview-pushlishInfo col-lg-12 col-6 m-b-15">
+                <div class="preview-content">
+                  <div class="preview-action">
+                    <div class="preview-video-action">
+                      <div class="m-t-10 m-b-5">
+                        Local Stream
+                      </div>
+                    </div>
+                  </div>
+                  <video controls id="publishVideo" autoplay muted playsinline></video>
+                  <div id="localVideo"></div>
+                </div>
+              </div>
+              <div class="preview-playInfo col-lg-12 col-6">
+                <div class="preview-content">
+                  <div class="preview-action">
+                    <div class="preview-video-action">
+                      <div class="m-t-10 m-b-5">
+                        UserID: <span class="m-l-10" id="PlayUserID"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <video controls id="playVideo" autoplay playsinline></video>
+                  <div id="remoteVideo"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 action-wrapper">
+            <div class="action-step">
+              <div class="action-title">
+                <span class="action-info">Login Room</span>
+              </div>
+              <div class="action-content">
+
+                <div class="action-roomId m-b-15">
+                  RoomID <input type="text" id="RoomID" class="w-50" />
+                  <div class="desc" data-lang="RoomIDDesc"></div>
+                </div>
+                <div class="action-userName m-b-15">
+                  UserID <input type="text" id="UserID" class="w-50" />
+                  <div class="desc" data-lang="UserIDDesc"></div>
+                </div>
+                <div class="action-token m-b-15">
+                  Token <input type="text" id="Token" class="w-50" />
+                  <div class="desc"> <span data-lang="TokenDesc"></span><a href="https://console.zego.im"
+                      data-lang="ApplyToken" target="_blank"></a></div>
+                </div>
+                <div class="action-input m-b-15">
+                  Publish StreamID <input type="text" id="PublishID" class="w-50" />
+                  <div class="desc" data-lang="StreamIDDesc"></div>
+                </div>
+                <!-- <button id="LoginRoom" type="button" class="btn-info btn cuBtn">Login Room</button> -->
+                <button id="LoginRoom" class="play-pause-button" title="loginRoom()">
+                  <div class="success-svg m-r-5" id="loginSuccessSvg" style="display: none;">
+                    <svg class="ft-green-tick" xmlns="http://www.w3.org/2000/svg" height="15" width="15"
+                      viewBox="0 0 48 48" aria-hidden="true">
+                      <circle class="circle" fill="#5bb543" cx="24" cy="24" r="22" />
+                      <path class="tick" fill="none" stroke="#FFF" stroke-width="6" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-miterlimit="10" d="M14 27l5.917 4.917L34 17" />
+                    </svg>
+                  </div>
+                  Login Room
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="goToDoc">
+        <li>
+          <span data-lang="HelpDocsVideoCodec"> Web 端视频编码默认使用 VP8。如果需要体验和其他端互通或者转推 CDN 功能，请在调试与配置页面修改为 H.264。</span>
+          &nbsp;
+          <a href="../../DebugAndConfig/LogAndVersionAndDebug/index.html" data-lang="HelpSettingsPage" target="_blank">
+            点击修改 </a>
+        </li>
+        <li>
+          <span data-lang="MoreDocs">更多文档，请跳转至即构 </span> &nbsp;
+          <a href="https://doc-zh.zego.im/article/11905" data-lang="HelpDocs" target="_blank"> 帮助文档 </a>
+        </li>
+      </ul>
+    </div>
+    <!-- </div> -->
+  </div>
+
+  <script src="../../../assets/js/left-menu.js"></script>
+  <script src="../../../assets/js/jquery.min.js"></script>
+  <script src="../../../assets/js/jquery.i18n.properties.min.js"></script>
+  <script src="../../../assets/js/metisMenu.min.js"></script>
+  <script src="../../../assets/js/jquery.slimscroll.min.js"></script>
+  <script src="../../../assets/js/bootstrap.min.js"></script>
+  <script src="../../../assets/js/vconsole.min.js"></script>
+  <script src="../../../assets/js/custom.js"></script>
+  <script src="../../../KeyCenter.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

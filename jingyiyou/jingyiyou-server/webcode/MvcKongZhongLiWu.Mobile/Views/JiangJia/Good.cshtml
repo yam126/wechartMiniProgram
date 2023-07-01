@@ -1,0 +1,576 @@
+﻿@model ncc2019.Goods
+@using ncc2019.Common.HtmlExt
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = Model.Name;
+}
+@*<link href="~/css/user.css" rel="stylesheet" />*@
+
+<link href="~/css/sharewx.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+<link href="~/css/index.css" rel="stylesheet" />
+
+<style type="text/css">
+    .cshead {
+        height: 200px;
+    }
+
+        .cshead div {
+            float: left;
+        }
+
+    .tb-prop li {
+        float: left;
+        position: relative;
+        margin: 0 5px 10px 0;
+        vertical-align: middle;
+        line-height: 20px;
+        background: #FFF;
+    }
+
+    .tb-prop .tb-selected a, .tb-prop a:hover {
+        padding: 2px 5px;
+        color: #F40;
+        border: 2px solid #F40;
+        background: #FFF;
+    }
+
+    .tb-prop li a {
+        display: inline-block;
+        white-space: nowrap;
+        text-decoration: none;
+        padding: 3px 6px;
+        min-width: 10px;
+        _width: 10px;
+        text-align: center;
+        border: 1px solid #DCDCDC;
+        background: #FFF;
+        -moz-transition-property: border-color,background;
+        -o-transition-property: border-color,background;
+        -webkit-transition-property: border-color,background;
+        transition-property: border-color,background;
+        -moz-transition-duration: .2s;
+        -o-transition-duration: .2s;
+        -webkit-transition-duration: .2s;
+        transition-duration: .2s;
+    }
+
+    .tb-chicun {
+        display: inline-block;
+        width: 100%;
+    }
+
+        .tb-chicun dt, .tb-chicun li {
+            float: left;
+            margin-left: 10px;
+        }
+
+    .selectpanel {
+        position: fixed;
+        bottom: 0;
+        min-height: 6em;
+        max-width: 640px;
+        width: 100%;
+        background: #fff;
+        z-index: 20001;
+        display: none;
+    }
+
+    .mcover {
+        position: fixed;
+        top: 0;
+        max-width: 640px;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 20000;
+        display: none;
+    }
+
+    .btn-close {
+        position: absolute !important;
+        background-image: url(/images/close2.png);
+        margin-top: .5em;
+        margin-right: .5em;
+        /*width:1em;
+        height:1em;*/
+    }
+    /*.goods-info .tab-info img{
+
+    }*/
+    .info {
+        margin-top: .5em;
+        padding: .5em;
+        background-color: #ffffff;
+        border: 1px #e3e3e3 solid;
+    }
+
+        .info img {
+            width: 3em;
+            height: 3em;
+            border-radius: 50%;
+        }
+
+        .info span {
+            margin-left: 1em;
+        }
+
+    .hiddencss {
+        display: none !important;
+    }
+
+    .guanzhu {
+        position: relative;
+    }
+
+    .list li {
+        width: 50%;
+        float: left;
+        margin-bottom: 20px;
+    }
+
+        .bl img, .list li img {
+            width: 15px;
+            margin: auto;
+            margin-right: 5px;
+        }
+       .user{
+           font-size:16px;
+           width:40%;
+       }
+    .t_mid{
+        width:60%;
+    }
+    .f18 {
+        font-size: 16px;
+    }
+    .hqtili {
+        width: 100%;
+        height: 20em;
+        position: fixed;
+        left: 0;
+        top: 21%;
+        z-index: 4000;
+        padding: 1em;
+        max-width:640px;
+        
+        /*margin-right: 10px;*/
+    }
+        .hqtili .kj {
+            border-radius: 10px;
+            border: 1px #e3e3e3 solid;
+            background-color: #ffffff;
+        }
+        .hqtili .dizhi {
+            margin-bottom:1em;
+            vertical-align: middle;
+            text-align: center;
+        }
+</style>
+
+@Html.Partial("~/views/part/share.cshtml")
+<script type="text/javascript">
+    // var jsApiList = new Array();
+    jsApiList = jsApiList.concat(['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']);
+    var fadetime = 300;
+    $(document).ready(function () {
+        @*$('.buy').click(function () {
+            $('#buyform').submit();
+        });*@
+        $('.guanzhu').show();
+        //$('.con .ect-bg').hide();
+
+        $('.panel-content').height($(window).height());
+        $('.img_close').click(function () {
+            $('.panel-info').addClass('hiddencss');
+            $('.tc').addClass('hiddencss');
+        });
+        $('.help').click(function () {
+            $('.panel-info').removeClass('hiddencss');
+        });
+
+        objShare = {
+            title: "大家一起来砍价，砍到0元免费拿走！",
+            desc: "@Model.Intro",
+            link: "@Html.Raw(ViewBag.link)",
+            imgUrl: "@ViewBag.imgurl",
+            type: "",
+            dataUrl: "",
+            success: null,
+            cancel: null
+        };
+        $('.num_inner').css("width",$('.num_inner').data("width")+"%");
+        $('.num_inner').html(""+$('.num_inner').data("width")+"%");
+        hidbanner();
+        getdetail();
+        setInterval(getdetail,5000);
+        $('.tip').hide();
+        setTimeout(function(){$('.tip').show();},2000);
+        setTimeout(function(){$('.tip').hide();},5000);
+        timer();
+    });
+    function getdetail(){
+        $.post("/jiangjia/GetDetail?goodid=@Model.GoodID",{},function(res){
+            if (res.result=='ok') {
+                //mytili=res.data.tili;
+                $('.curfee').html("￥"+res.data.goodfee+"元");
+                $('.joinnum span').html("参与人数："+ res.data.curjoinnum+"人");
+                $('.goodnum').html("剩余数量："+res.data.curgnum+"件");
+                //alert(res.data.curgnum);
+                if (res.data.curgnum<=0) {
+                    //将处理样式为不可以购买或者参与状态
+                    $('#goodnum').html("还剩：0 件");
+                    $('.button_only').addClass('hiddencss');
+                    $('.hdover').removeClass('hiddencss');
+                }
+            }
+        },"json");
+    }
+
+    function changePrice(type) {
+        if (type == 'n') {
+            $('.form-num').val(parseInt($('.form-num').val()) + 1);
+        } else {
+            if (parseInt($('.form-num').val()) <= 1) {
+                $('.form-num').val(1);
+            } else {
+                $('.form-num').val(parseInt($('.form-num').val()) - 1);
+            }
+        }
+    }
+    function fnshowsurepanel(isme) {
+        if (isme==0) {
+            $('.panl-notforme').show();
+            $('.panl-forme').hide();
+        } else {
+            $('.panl-forme').show();
+            $('.panl-notforme').hide();
+        }
+        $('.mcover').fadeIn(fadetime);
+        $('.selectpanel').slideDown(fadetime);
+        $('.btnpanel').hide();
+    }
+    function cl_forme(isme) {
+        var property = "";
+        //$('.tb-prop-true li').each(function () {
+        //    if ($(this).hasClass('tb-selected')) {
+        //        property += $(this).data('value') + ',';
+        //    }
+        //});
+        var result = true;
+        $('.tb-prop-true').each(function () {
+            var selval = "";
+            $(this).find('li').each(function () {
+                if ($(this).hasClass('tb-selected')) {
+                    selval = $(this).data('value');
+                }
+            });
+            if (selval=='') {
+                alert('请选择' + $(this).data('property')+"!");
+                result = false;
+                return false;
+            }
+            property += selval + ',';
+        });
+        if (result == false) { return };
+        $('#property').val(property);
+        $('#forme').val(isme);
+        $('#buyform').submit();
+    }
+    function cl_tag(ulid,pname) {
+        $('.ul_' + ulid + ' li').each(function () {
+
+            if ($(this).data('value') == pname) {
+                $(this).addClass('tb-selected');
+            } else {
+                $(this).removeClass('tb-selected');
+            }
+        });
+    }
+    var mytili=@ViewBag.tilinum;
+    var needtili=@Model.NeedTiLiNum;
+    var totalnum=@Model.TotalNum;
+    function dojoin() {
+        gotoLogin();
+        $('.tc_p1 span').html('您的体力好像还不够哦！');
+        if (mytili>=needtili) {
+            window.location="/jiangjia/join?goodid=@Model.GoodID";
+        }else{
+            //alert('您的体力还未达到参与的要求！');
+            $('.tc').removeClass("hiddencss");
+        }
+    }
+    function jiatili(){
+        $('.tc_p1 span').html('增加体力！');
+        $('.tc').removeClass("hiddencss");
+    }
+    var nowts;
+    function timer() {
+        nowts = @(ViewBag.lasttime); //计算剩余的毫秒数
+        //alert(nowts);
+        showTime(nowts);
+        setInterval("nowTimeOver()", 1000);
+    }
+    function nowTimeOver() {
+        nowts = nowts - 1000;
+        showTime(nowts);
+    }
+    function showTime(ts) {
+        //document.getElementById("timer").innerHTML = checkTime(parseInt(ts / 1000 / 60 / 60 / 24, 10)) + "天" + checkTime(parseInt(ts / 1000 / 60 / 60 % 24, 10)) + "时" + checkTime(parseInt(ts / 1000 / 60 % 60, 10)) + "分" + checkTime(parseInt(ts / 1000 % 60, 10)) + "秒";
+
+        $('.H').html(checkTime(parseInt(ts / 1000 / 60 / 60 , 10)));
+        $('.M').html(checkTime(parseInt(ts / 1000 / 60 % 60, 10)));
+        $('.S').html(checkTime(parseInt(ts / 1000 % 60, 10)));
+    }
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+    var isweixin=@ViewBag.isweixin ;
+    function supportme(){
+        objShare = {
+            title: "我想参与0元购活动，体力不支快来帮我！",
+            desc: "@Model.Intro",
+            link: "@Html.Raw(ViewBag.link)",
+            imgUrl: "@ViewBag.imgurl",
+            type: "",
+            dataUrl: "",
+            success: null,
+            cancel: null
+        };
+        if (isweixin) {
+            regShare(objShare);
+            document.getElementById('mcover').style.display='block';
+            
+        }else {
+            $('.link').val(objShare.link);
+            selectText("link");
+            $('.hqtili').removeClass('hiddencss');
+        }
+        
+        
+        
+    }
+    var isgotologin=@ViewBag.gotologin ;
+    function gotoLogin(){
+        if (isgotologin) {
+            window.location='/login?type=jj';
+        }
+    }
+    function selectText(element) {
+        var doc = document,
+            text = doc.getElementById(element),
+            range,
+            selection;
+
+        if (doc.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+        } else if (window.getSelection) {
+            selection = window.getSelection();        
+            range = document.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            /*if(selection.setBaseAndExtent){
+                selection.setBaseAndExtent(text, 0, text, 1);
+            }*/
+        }else{
+            alert("none");
+        }
+    }
+</script>
+@*<script type="text/javascript">
+    bShareOpt = {
+        uuid: "",
+        url: objShare.link, //商品的永久链接
+        summary: objShare.desc, //商品描述
+        pic: objShare.imgUrl, //商品图片链接
+        vUid: '@ViewBag.mermberid', //用户id，为了让您能够知道您网站的注册用户分享、喜欢了哪些商品
+        product: objShare.title, //商品名称
+        price: "@Model.Payment.Value.ToString("0")", //商品价格
+        brand: "", //商品品牌
+        tag: "自动降价", //商品标签
+        category: "自动降价", //商品分类
+        template: "1"
+    };
+</script
+<a class="bsLikeDiv" href="http://static.bshare.cn"></a>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareLike.js"></script><div class="bshare-custom icon" style="float:left;"><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到搜狐微博" class="bshare-sohuminiblog"></a></div>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/button.js#style=-1&amp;ssc=false&amp;mdiv=-1&amp;type=15"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC1.js"></script>*@
+
+<div class="hqtili hiddencss">
+    <div class="kj">
+        <div class="dizhi">
+            <br />
+            <input type="text" style="width:100%" class="link" id="link" />
+            <p>请复制文本框里面的链接发送到QQ或微信朋友圈</p>
+            <br />
+            <button type="button" class="btn btn-info ect-colorf" onclick="$('.hqtili').addClass('hiddencss')">关闭</button>
+            <br />
+        </div>
+    </div>
+</div>
+<img src="/images/tips.png" style="display:none;" />
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display:none;">
+    <img src="/images/guide.png" />
+</div>
+<div class="tc hiddencss">
+    <p class="tc_p1"><span>您的体力好像还不够哦！</span><img class="img_click img_close" src="/images/del.png"></p>
+    <p class="tc_p2">请通过以下渠道获取更多的体力。</p>
+    <ul class="tc_ul clear">
+        <li>
+            <a href="#" onclick="supportme();">
+                <div><img src="/images/icn3.png"></div>
+                <span>求助好友</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="alert('每天登录空中礼物都将获得1点体力！')">
+                <div><img src="/images/icn2.png"></div>
+                <span>每日签到</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="window.location='/jiangjia/tilinum?goodid=@ViewBag.goodid'">
+                <div><img src="/images/icn1.png"></div>
+                <span>立即购买</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!--New-->
+<div class="container">
+    @if (SessionHelper.CurMemberInfo!=null)
+    {
+         <div class="top clear">
+        <div class="user fl" onclick="window.location='/my/'"><img src="@SessionHelper.CurMemberInfo.HeadImgUrl" /><span class="f18">@(SessionHelper.CurMemberInfo.Name)</span></div>
+        <div class="fl t_mid">
+            <span class="f18 fl">我的体力值</span>
+            <div class="add fl" onclick="jiatili()">
+                <img class="img1" src="/images/lw.png" />
+                <span>@SessionHelper.CurMemberInfo.TiLiNum</span>
+                <a href="#" class="a3"><img src="/images/jia.png" /></a>
+            </div>
+        </div>
+        @*<div class="fr"><a href="#"><img src="/images/sl.png" /></a></div>*@
+    </div>
+    }
+   
+    <div class="content content1">
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img alt="@Model.Name" src="@Model.ImgUrl"></div>
+
+                @*<div class="swiper-slide"><img src="images/img4.jpg"></div>
+                    <div class="swiper-slide"><img src="images/img4.jpg"></div>*@
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="menu1 box_s">
+            <div class="clear p">
+                <p class="p6">￥<span class="red bold curfee">@Model.Payment.Value.ToString("0")</span><span class="dz hg">￥@((Model.Payment2).Value.ToString("0"))</span></p>
+                <p class="time">
+                    距离结束  <span class="H">00</span>  :  <span class="M">00</span>  :  <span class="S">00</span>
+                </p>
+            </div>
+            <div class="bl clear p">
+                <img src="/images/icon1.png" />
+                <span class="goodnum">剩余数量：@(Model.TotalNum - Model.BuyCount)件</span>
+                <span class="num  fr"><span class="num_inner" data-width='@(((Model.TotalNum - Model.BuyCount)*100/Model.TotalNum).Value.ToString("0"))'></span></span>
+            </div>
+            <ul class="list clear">
+                <li><img src="/images/ic2.png">降价幅度：@Model.DownPayment.Value.ToString("0.0") 元</li>
+                <li><img src="/images/ic4.png">需要体力：@Model.NeedTiLiNum 点</li>
+                <li class="joinnum"><img src="/images/ic5.png"><span>参与人数：@Model.JoinPeopleNum 人</span></li>
+                <li>
+                    <img src="/images/ic6.png">产品运费：@if (Model.ExpressFee == 0)
+                { @(new HtmlString("免运费")) }
+                else
+                { @(new HtmlString(Model.ExpressFee.Value.ToString("0") + "元")) }
+                </li>
+            </ul>
+            @if (ViewBag.plist.Count > 0)
+            {
+                <section class="ect-padding-lr ect-padding-tb goods-option">
+                    @foreach (ncc2019.GoodProperty p in ViewBag.plist)
+                    {
+                        <dl class="tb-chicun">
+                            <dt class="tb-property-type"> @p.Name:</dt>
+                            <dd>
+                                <ul data-property="@p.Name" class="tb-prop-true tb-prop ul_@p.GoodPropertyID">
+                                    @{
+                        string[] list = p.Content.Split(new string[] { ",", "，" }, StringSplitOptions.RemoveEmptyEntries);
+                                    }
+                                    @foreach (var s in list)
+                                    {
+                                        <li data-value="@s.ToString()" onclick="cl_tag('@p.GoodPropertyID','@s.ToString()')" class="li_@p.GoodPropertyID"><a><span>@s.ToString()</span></a></li>
+                                    }
+
+                                </ul>
+                            </dd>
+                        </dl>
+                        <br />
+                    }
+
+                </section>
+            }
+        </div>
+        <div class="p box_s ts">
+            <p class=" p_all">每有一个人参与，价格会降低<font color="red">@(Model.DownPayment.Value.ToString("0.0"))元</font>。您可以在任何价格的时候出手购买，看准时机果断出手吧！</p>
+            <span>小提示</span>
+        </div>
+        <div class="box_s">
+            @*<h2 class="h2 p">小编说：</h2>
+                <p class="p_all p"></p>*@
+            <h2 class="h2 p">商品详情：</h2>
+            @Html.Raw(Model.Desc)
+        </div>
+        @using (Html.BeginForm("buy", "jiangjia", FormMethod.Get, new { id = "buyform" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <input name="goodid" type="hidden" value="@Model.GoodID" />
+            <input name="property" id="property" type="hidden" value="" />
+        }
+
+        <div class="tip sorry clear"><p>参加活动后，价格砍掉<font color="red">@(Model.DownPayment.Value.ToString("0.0"))元</font>！@*<a>查看详情>></a>*@</p></div>
+    </div>
+    <div class="btnpanel">
+
+        @if (ViewBag.isselling == true)
+        {
+            if (ViewBag.issellout)
+            {
+            <button type="button" class="btn btn-info ect-colorf button_only hdover">抱歉，宝贝已经被抢光啦！</button>
+            }
+            else
+            {
+                if (ViewBag.isjoin == true)
+                {
+                    <button type="button" class="btn btn-info ect-colorf button_only btn-red qiang" onclick="cl_forme(1)">立即抢购</button>
+                
+                }
+                else
+                {
+                <button type="button" class="btn btn-info ect-colorf button_only btn-red join" onclick="dojoin();">我要参加</button>
+                }
+            }
+            
+        }
+        else
+        {
+            <button type="button" class="btn btn-info ect-colorf button_only hdover">抱歉，本期活动已结束！</button>
+        }
+
+    </div>
+</div>

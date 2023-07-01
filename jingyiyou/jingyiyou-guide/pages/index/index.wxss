@@ -1,0 +1,155 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+  border: 0px solid red;
+}
+
+.userinfo .userName {
+    min-width: 153rpx;
+    width: auto;
+    height: 55rpx;
+    line-height: 55rpx;
+    font-size: 33rpx;
+    text-align: center;
+    border: 0px solid red;
+}
+
+.userinfo-avatar {
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.guide-statistics {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 99%;
+    margin-left: 0.1%;
+    height: 235rpx;
+    border: 0px solid red;
+    margin-top: 15rpx;
+}
+
+.guide-statistics .statistics-item {
+    width: 35%;
+    height: 97%;
+    margin-left:0.5%;
+    margin-top: 0.5%;
+    display: flex;
+    flex-direction: column;
+    border: 0px solid red;
+}
+
+.guide-statistics .statistics-item .statistics-number{
+    width: 98%;
+    height: 50%;
+    line-height: 310%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    font-size: 35rpx;
+    color:black;
+    margin-left: 0.5%;
+    border: 0px solid red;
+}
+
+.guide-statistics .statistics-item .statistics-label{
+    width: 98%;
+    height: 50%;
+    line-height: 310%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    font-size: 35rpx;
+    color:#999;
+    margin-left: 0.5%;
+    border: 0px solid red;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.status-change {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 99%;
+    margin-left: 0.1%;
+    height: 93rpx;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    margin-top: 15rpx;
+}
+
+.status-change .label {
+    width: 65%;
+    height: 93rpx;
+    line-height: 93rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 20rpx;
+    color: black;
+    border:0px solid red;
+}
+
+.status-change .status-arrow {
+    width: 35%;
+    height: 93rpx;
+    line-height: 93rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 70rpx;
+    color: #999;
+    border:0px solid red;    
+}
+
+.status-change .status-arrow text {
+    color: black;
+}
+
+.my-order {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 99%;
+    margin-left: 0.1%;
+    height: 93rpx;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    margin-top: 15rpx;
+}
+
+.my-order .label {
+    width: 65%;
+    height: 93rpx;
+    line-height: 93rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 20rpx;
+    color: black;
+    border:0px solid red;
+}
+
+.my-order .my-order-arrow {
+    width: 35%;
+    height: 93rpx;
+    line-height: 93rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 164rpx;
+    color: #999;
+    border:0px solid red;    
+}
+
+.my-order .my-order-arrow text {
+    color: black;
+}

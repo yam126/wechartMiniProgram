@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "返回微信";
+}
+<script type="text/javascript">
+    $(function () {
+        openweixin();
+    });
+    function openweixin() {
+        parent.location = "http://weixin.qq.com/r/hUzA2IbEcNsPrcK79xmX";
+    }
+</script>
+<div class="panel panel-default" >
+    <div class="panel-body">
+        <div style=" text-align:center;">
+            @(ViewBag.intro)请返回微信继续操作！
+            <br /><br />
+
+            <button class="btn-info ect-btn-info" onclick="openweixin()">返回微信</button>
+</div>
+        <br /><br />
+
+    </div>
+
+</div>

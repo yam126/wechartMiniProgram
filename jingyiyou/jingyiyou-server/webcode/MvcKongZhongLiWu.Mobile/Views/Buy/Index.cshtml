@@ -1,0 +1,175 @@
+﻿@model ncc2019.Goods
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "订单确认";
+}
+@section scripts{
+    @*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
+    <script src="~/Scripts/m/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("form").validate({
+            rules: {
+                num: {
+                    required: true,
+                    min: 1,
+                    max: 10,
+                    digits: true
+                }
+            },
+            messages: {
+                num: {
+                    required: "请输入购买数量",
+                    min: "购买数量不能小于1",
+                    max: "购买数量不能大于10",
+                    digits: "请输入正确的数量"
+                }
+            },
+            errorPlacement: function (error, element) {
+                error.appendTo("error");
+
+            }
+        });
+        //$('#pay').click(function () {
+        //    if ($('#pay').hasClass('collapsed')) {
+        //        $('#pay').removeClass('collapsed').addClass('uncollapsed');
+        //        $('#collapseTwo').height(300);
+        //    } else {
+        //        $('#pay').removeClass('uncollapsed').addClass('collapsed');
+        //        $('#collapseTwo').height(0);
+        //    }
+        //});
+
+    });
+    function onBridgeReady(data) {
+        alert(data.appId);
+        WeixinJSBridge.invoke(
+        'getBrandWCPayRequest', data,
+    function (res) {
+        alert(res.err_msg);
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+            window.location = "/send?orderid=@ViewBag.orderid";
+        }
+        // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+    }
+        );
+
+    }
+    function makeOrder(){
+
+        jQuery.post("/buy/dobuy", { toname: $('.toname').val(), sayect: $('.sayect').val(),num:@ViewBag.num,wayofpay:2,goodid:@Model.GoodID}, function (res) {
+            if (res.state=="OK") {
+                onBridgeReady(res);
+            }
+            else{
+                showAlertMessage("创建订单时出错！");
+            }
+            
+        }, "json");
+    }
+
+</script>
+
+
+<div class="flow-checkout">
+    @using (Html.BeginForm("DoBuy", "Buy"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <section class="ect-margin-tb ect-padding-lr checkout-select">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                <p><b>Ta的姓名</b><span class="label ect-bg-colory">必填</span></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            <div id="collapseFive" class="panel-collapse " style="height: 58px;">
+                <input name="toname" type="text" class="toname" placeholder="请输入接收礼物人的姓名">
+            </div>
+        </section>
+
+        <section class="ect-margin-tb ect-padding-lr checkout-select">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                <p><b>祝福语</b></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            <div id="collapseFive" class="panel-collapse " style="height: 58px;">
+                <input name="sayect" type="text" class="sayect" placeholder="请输入对Ta的祝福">
+            </div>
+        </section>
+
+        <section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+            <p><b>商品列表</b></p>
+            <ul>
+                <li>
+                    <dl>
+                        <dt class="pull-left">
+                            @Model.Name
+                        </dt>
+                        <dd class="pull-left list-num">x @ViewBag.num</dd>
+                        <dd class="pull-right">￥@Model.Payment 元</dd>
+                    </dl>
+                </li>
+            </ul>
+
+            <div class="ect-padding-tb text-right" id="ECS_ORDERTOTAL">
+                商品总价:
+                <b class="ect-colory">￥@ViewBag.totalPay 元</b>
+
+            </div>
+        </section>
+
+        <section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion">
+
+
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
+                <p><b>支付方式</b><span class="label ect-bg-colory">必填</span></p>
+                <i class="fa fa-angle-down"></i>
+            </a>
+            @if (SessionHelper.CurMemberInfo.Balance < Model.Payment)
+            {
+                ViewBag.yuestr = "disabled='true'";
+                ViewBag.payment = "[您还需要支付 ￥" + (Model.Payment - SessionHelper.CurMemberInfo.Balance) + "]";
+                ViewBag.otherpaycheck = "checked='checked'";
+            }
+            else
+            {
+                ViewBag.yuecheck = "checked='checked'";
+            }
+            <div id="collapseTwo" class="panel-collapse " style="height: 100px;">
+                <ul class="ect-radio">
+                    <li>
+                        <input name="wayofpay" type="radio" @ViewBag.yuestr id="payment_1" @ViewBag.yuecheck value="0" checked="checked" onclick="selectPayment(this)" style="vertical-align:middle">
+                        <label for="payment_1">余额支付 [￥@Html.Raw(SessionHelper.CurMemberInfo.Balance)元]<i></i></label>
+                    </li>
+                    @if (ViewBag.IsWeiXin != true)
+                    {
+                        <li>
+                            <input name="wayofpay" type="radio" id="payment_2" value="1" @ViewBag.otherpaycheck onclick="selectPayment(this)" style="vertical-align:middle">
+                            <label for="payment_2">支付宝（手机版）@ViewBag.payment<i></i></label>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <input name="wayofpay" type="radio" id="payment_3" value="2" @ViewBag.otherpaycheck onclick="onBridgeReady()" style="vertical-align:middle">
+                            <label for="payment_3">微信支付 @ViewBag.payment<i></i></label>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+        </section>
+
+
+
+        <div class="ect-padding-lr ect-padding-tb ect-margin-tb">
+            <input type="button" name="submit" value="订单提交" onclick="makeOrder()" class="btn btn-info ect-btn-info ect-colorf ect-bg">
+            <input type="hidden" name="num" value="@ViewBag.num">
+        </div>
+        <input type="hidden" name="goodid" value="@Model.GoodID" />
+        <input type="hidden" name="orderid" value="@ViewBag.orderid" />
+    }
+</div>

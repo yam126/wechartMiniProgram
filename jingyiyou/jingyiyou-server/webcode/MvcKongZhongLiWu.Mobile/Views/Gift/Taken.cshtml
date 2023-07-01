@@ -1,0 +1,34 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "接收信息";
+}
+<script type="text/javascript" src="~/Scripts/weixin.js"></script>
+<style type="text/css">
+    .panel-body h5, .panel-body h5 p{
+        float:left;
+    }
+</style>
+<div class="Area">
+    <div class="box">
+
+        <div class="panel-body">
+            <a><h5>姓名：</h5> <p>@Model.ToName</p></a>
+        </div>
+        <div class="panel-body">            
+            <a><h5>电话：</h5> <p>@Model.ToPhone</p></a>
+        </div>
+        <div class="panel-body">         
+            <a><h5>地址：</h5> <p>@Model.ToAddress</p></a>
+        </div>
+        @*<div class="panel-body">
+            @Model.Memo
+        </div>*@
+        @*<a href="/myorder/routeinfo?orderid=@ViewBag.orderid"> <input class="btn btn-info ect-btn-info ect-colorf btnbottom" name="gen_code" type="button" value="查看物流信息"></a>*@
+        <input type="hidden" name="orderid" value="@ViewBag.orderid" />
+
+    </div>
+</div>
+<div class="btnpanel">
+    <input class="btn btn-info ect-colorf button_only" onclick="window.location = '/myorder/routeinfo?orderid=@ViewBag.orderid'" name="gen_code" type="button" value="查看物流信息">
+</div>

@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "邮寄快递";
+}
+<style type="text/css">
+    .linetext{
+        width:100% !important;
+        margin-top:1em;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('.ect-margin-tb').height($(window).height());
+    });
+    function gotosend() {
+        window.location = "/main/senddetail";
+    }
+</script>
+<div class="flow-checkout">
+
+    <section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+
+        <p><b>寄件步骤</b></p>
+
+        <ul>
+            <li>
+                <dl>
+                    <dt class="pull-left linetext">
+                        1.微信填单
+                    </dt>
+                    <dt class="pull-left linetext">
+                        2.将物品带到智裹裹
+                    </dt>
+                    <dt class="pull-left linetext">
+                        3.支付邮寄费用
+                    </dt>
+                    <dt class="pull-left linetext">
+                        4.放入智裹裹关好门
+                    </dt>
+                </dl>
+            </li>
+        </ul>
+    </section>
+    </div>
+    <div class="btnpanel">
+        <input type="button" name="submit" value="去寄件" onclick="gotosend();" class="btn btn-info ect-colorf button_only btn-red">
+    </div>

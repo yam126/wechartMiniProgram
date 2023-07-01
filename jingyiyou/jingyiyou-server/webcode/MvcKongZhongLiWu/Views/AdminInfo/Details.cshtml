@@ -1,0 +1,20 @@
+﻿@model ncc2019.Info
+
+@{
+    ViewBag.Title = "预览";
+}
+
+<h2>预览</h2>
+
+<div class="display-label">
+    @Html.Raw(Model.Title)
+</div>
+<div class="display-field">
+    @Html.Raw(Model.TheContent)
+</div>
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InfoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,18 @@
+﻿
+    <script src="~/Scripts/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        var jsApiList = new Array();//一定要给jsApiList赋值，不然会出错
+
+        $(function () {
+           // alert(jsApiList.length);
+            wx.config({
+                debug: false,
+                appId: '@ViewBag.js_json.appId',
+                timestamp: '@ViewBag.js_json.timeStamp',
+                nonceStr: '@ViewBag.js_json.nonceStr',
+                signature: '@ViewBag.js_json.paySign',
+                jsApiList: jsApiList
+            });
+        });
+
+    </script>

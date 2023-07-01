@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "GetGoodInfo";
+}
+<script type="text/javascript">
+    function checkok() {
+        if ($('.url').val() == '') {
+            alert("地址不能为空！");
+            return false;
+        }
+        return true;
+    }
+</script>
+<div class="Area">
+    @{Html.EnableClientValidation(false);}
+    @using (Html.BeginForm())
+{
+    <input id="Radio1" type="radio" name="gettype" value="ali" checked="checked" /><label for="Radio1">阿里巴巴</label>
+        <input id="Radio2" type="radio" name="gettype" value="tmall" /><label for="Radio2">天猫</label>
+            <a> 地址：</a><input value="" class="url" name="url" style="width:500px;" />
+        <input type="submit" class="myButton" value="获取" onclick="return checkok()" />
+    if (ViewBag.goodid != null)
+        {
+            <br />
+            <a href="/Admin/ProductEdit/@ViewBag.goodid"  target="_blank">点击编辑礼物</a>
+        }
+
+    }
+</div>

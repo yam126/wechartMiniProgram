@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "请输入个人信息";
+}
+
+<script type="text/javascript">
+    $(function () {
+        hidhistory();
+        hidmune();
+    });
+    function gotopay() {
+        var name = $('#name').val();
+        var phone = $('#phone').val();
+        if (name == "") {
+            alert("请输入您的姓名！");
+            return false;
+        }
+        if (name == "") {
+            alert("请输入您的手机号！");
+            return false;
+        }
+        
+        $('#formok').submit();
+
+
+    }
+</script>
+<style type="text/css">
+    .memo {
+        margin-top:10px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+    .tel {
+        width: 100%;
+        margin-bottom: 0.7em;
+        border: none !important;
+        border-bottom: 1px solid #ddd !important;
+        padding: 0 0.2em;
+        height: 2em;
+        font-size: 1.2em;
+        color: #999;
+    }
+</style>
+
+<h4 class="memo">以下信息请务必真实填写，我们的话费、赠品等事宜将以此信息为准。</h4>
+@using (Html.BeginForm("getinfo", "cfjwx", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <section class="ect-margin-tb ect-padding-lr checkout-select">
+        <a  href="#">
+            <p><b>姓名</b><span class="label ect-bg-colory needect">必填</span></p>
+           
+        </a>
+        <div id="collapseEtc" class="panel-collapse ">
+            <input name="name" type="text" id="name" value="@ViewBag.name" placeholder="请输入您的姓名">
+        </div>
+    </section>
+    <section class="ect-margin-tb ect-padding-lr checkout-select">
+        <a >
+            <p><b>手机号</b><span class="label ect-bg-colory needect">必填</span></p>
+            
+        </a>
+        <div id="collapseEtc" class="panel-collapse ">
+            <input name="phone" class="tel" type="tel" id="phone" value="@ViewBag.phone" placeholder="请输入您的手机号">
+        </div>
+    </section>
+    <input type="hidden" name="orderid" value="@ViewBag.orderid" />
+}
+
+<div class="btnpanel">
+    <input type="button" name="submit" value="下 一 步" onclick="return gotopay();" class="btn btn-info ect-colorf button_only ">
+</div>

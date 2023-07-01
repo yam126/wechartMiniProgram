@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "优惠券兑换";
+}
+<script type="text/javascript">
+    function docheck() {
+        if ($("#quancode").val().trim() == "") {
+            alert("兑换编码不能为空！");
+            return false;
+        }
+       
+        $('#formok').submit();
+        return true;
+    }
+</script>
+<div class="panel">
+    @using (Html.BeginForm("index", "quan", FormMethod.Post, new { id = "formok" }))
+    { 
+    <div class="panel-body" style="vertical-align:middle;line-height:1.5em;margin-top:3em; ">
+        <h5 style="display:inline-block;">兑换编码：</h5> <input type="text" style="display:inline-block;" value="@ViewBag.quancode" name="quancode" id="quancode" />
+    </div>
+      if (ViewBag.istaken == true) { 
+        <div class="panel-body">
+            <p><strong> 此优惠券已经被抢光啦，去别人那里看看吧！</strong></p> 
+            @*<p><strong> 您分享后的资讯页面顶端会产生新的优惠码！</strong></p>*@
+        </div>
+      }
+    
+    }
+</div>
+<div class="btnpanel">
+    <input class="btn btn-info ect-colorf button_only" name="gen_code" onclick="return docheck()" type="button" value="领   取" />
+</div>

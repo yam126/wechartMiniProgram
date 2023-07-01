@@ -1,0 +1,268 @@
+﻿@model IEnumerable<ncc2019.Goods>
+@using ncc2019.Common.Tool
+@using ncc2019.Common.Enum
+<script src="~/Scripts/template.js"></script>
+
+<style type="text/css">
+    #J_ItemList {
+        position: relative;
+        margin-bottom:.6em;
+    }
+
+    .outdiv {
+        text-align: center;
+        width: 100%;
+    }
+
+    .list li {
+        background: #fff;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        margin: .5em 0 0 1.5%;
+        width: 48%;
+        float: left;
+        border: 1px #e3e3e3 solid;
+    }
+
+        .list li img {
+            width: 100%;
+            -webkit-border-radius: 10px 10px 0 0;
+            border-radius: 10px 10px 0 0;
+            height: auto;
+            
+        }
+
+    .list p {
+        padding: 5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .img-tag {
+        background: rgba(91,171,230,1);
+        color: #fff;
+        position: relative;
+        top: 30px;
+        left: 10px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        z-index: 999999;
+    }
+    
+    .gray {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray;
+    }
+    
+</style>
+<div class="con">
+    <div style="height:3.5em;"></div>
+    <header>
+        <nav class="ect-nav ect-bg icon-write">
+            <ul class="ect-diaplay-box text-center">
+                <li class="ect-box-flex"><a href="/zhongchou/"><i class="ect-icon-zhongchou2"></i>众筹礼物</a></li>
+                <li class="ect-box-flex"><a href="/home/category"><i class="ect-icon ect-icon-cate"></i>分类</a></li>
+                <li class="ect-box-flex"><a href="javascript:openSearch();"><i class="ect-icon ect-icon-search"></i>搜索</a></li>
+
+                <li class="ect-box-flex"><a href="/my"><i class="ect-icon ect-icon-user"></i>用户中心</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="ect-wrapper text-center">
+
+        <div>
+            <a class="ect-colory" href="javascript:ordergift('');">默认</a>
+            <a class="seal" href="javascript:ordergift('seal');">销量 <i class="glyphicon glyphicon-arrow-up"></i></a>
+
+            <a class="price" href="javascript:ordergift('price');">价格<i class="glyphicon glyphicon-arrow-up"></i></a>
+        </div>
+    </div>
+@if (ViewBag.showjjdes == true)
+{
+    <div class="panel panel-default" style="margin-bottom:0px;margin-top:.5em;margin-left:.5em;margin-right:.5em;">
+        <div class="panel-body">
+            空中礼物每天会推出一款降价产品，赶快来参加吧，参加的人越多价格越便宜哦！
+        </div>
+    </div>
+}
+    
+    <!--礼物列表-->
+    <div class="outdiv">
+        <ul id="J_ItemList" class="list" data-t="@ViewBag.t">
+            <a style="text-align: center; display: block;" class="get_more" href="javascript:;"></a>
+        </ul>
+    </div>
+
+    <script>
+        var t = '@ViewBag.t';
+        function clear_filter() {
+            $(".touchweb-com_listType .range").text("全部");
+            $(".touchweb-com_listType input").each(function () {
+                if ($(this).attr('class') != 'cat') {
+                    $(this).val("");
+                }
+            });
+        }
+        function showdetail(url) {
+         
+            localStorage.setItem('mainsearch' + t, $('.list').html());
+            localStorage.setItem('scrollTop' + t, $(window).scrollTop());
+            $('#J_ItemList').save_data();
+            window.location = url;
+        }
+        $(function () {
+           
+            //$('.con .ect-bg').hide();
+            @if (SessionHelper.CurMemberInfo!=null&&SessionHelper.CurMemberInfo.UserLevel == (int)UserLevel.管理员)
+           {
+               @Html.Raw("$('.btnhome').show();");
+           }
+            
+            if ($('#J_ItemList li').length == 0) {
+                //getgoods();
+                var html_old = localStorage.getItem('mainsearch' + t);
+               // alert(html_old);
+                if (html_old) {
+                    
+                    //debugger;
+                    $(html_old).each(function () {
+                        if ($(this)[0].localName!="a") {
+                            $('.list').append($(this));
+                        }                        
+                    });
+                    @if (UserAgentHelper.IsIhpnoe()==true) {
+                       @Html.Raw(" $(document).scrollTop(localStorage.getItem('scrollTop'+t));");
+                    }
+                    
+                    //anscpagerlast = $('.list li').length;
+                    //$('.list').find('.get_more').bind('click', function () {
+                    //    //debugger;
+                    //    $('#J_ItemList').more({ 'address': '/search/AGoods', 'spinner_code': '<div style="text-align:center; margin:10px;"><img src="/images/loader.gif" /></div>' });
+                    //});
+                    
+                    $(window).scroll(function () {
+                        //alert('loading2');
+                        if ($(window).scrollTop() > ($(document).height() - $(window).height() - 200)
+                            && $(window).scrollTop() <= ($(document).height() - $(window).height())) {
+                            //alert('loading2');
+                            if ($(window).scrollTop() - loadscroll > 200) {
+                                loadscroll = $(window).scrollTop();
+                                //alert('loading');
+                                $('.get_more').click();
+                            }
+
+                        }
+                    });
+                    debugger;
+                    //$('.list').html(html_old);
+                    //alert(html_old)
+                    $('#J_ItemList').reload_data();
+                }
+                else {
+                    
+                    getgoods();
+                }
+                
+                
+            }
+        });
+        function getgoods() {
+           
+            var url = "../../search/AGoods";
+            var sort = '';
+            var order = '';
+            if (oseal != '') {
+                sort = 'seal';
+                order = oseal;
+            }
+            if (oprice != '') {
+                sort = 'price';
+                order = oprice;
+            }
+            url += "?sort=" + sort + "&order=" + order + "&key=@ViewBag.key";
+            get_asynclist(url, '/images/loader.gif');
+            //alert($('#J_ItemList li').length);
+        }
+        var oseal = '';
+        var oprice = '';
+        function ordergift(type) {
+            loadscroll = 0;
+            localStorage.removeItem('mainsearch');
+            $('#J_ItemList').remove_data();
+            if (type == '') {
+                oseal = '';
+                oprice = '';
+                
+            }
+            if (type == 'seal') {
+                if (oseal == 'up') {
+                    oseal = 'down';
+                    $(".seal i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                } else {
+                    oseal = 'up';
+                    $(".seal i").removeClass("glyphicon-arrow-up").addClass("glyphicon-arrow-down");
+                }
+                $(".price i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                $(".seal").css("color", "#e87e04");
+                $(".price").css("color", "#555");
+                oprice = '';
+            }
+            if (type == 'price') {
+                if (oprice == 'up') {
+                    oprice = 'down';
+                    $(".price i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                } else {
+                    oprice = 'up';
+                    $(".price i").removeClass("glyphicon-arrow-up").addClass("glyphicon-arrow-down");
+                }
+                $(".seal i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                $(".price").css("color", "#e87e04");
+                $(".seal").css("color", "#555");
+                oseal = '';
+            }
+            getgoods();
+        }
+    </script>
+
+    <script id="temp" type="text/html">
+
+        @*<li id="single_{{GoodID}}" class="single_item" onclick="javascript: window.location = '/Home/Details?id={{GoodID}}'">
+                <a href="../Home/Details?id={{GoodID}}"><img alt="{{Name}}" src="{{ImgUrl}}"></a>
+                <dl>
+                    <dt>
+                        <h4 class="title"><a href="../Home/Details?id={{GoodID}}">{{Name}}</a></h4>
+                    </dt>
+                    <dd class="dd-price">
+                        <span class="pull-left"><strong>价格：<b class="ect-colory">￥{{Payment}}元</b></strong> </span> <span class="ect-pro-price">
+
+
+                        </span>
+                    </dd>
+                    <dd class="dd-num"><span class="pull-right">销量{{BuyCount}}件</span> </dd>
+                </dl>
+            </li>*@
+        {{if isover}}
+        <li id="single_{{GoodID}}" class="single_item gray" onclick="javascript: showdetail('@ViewBag.link')">
+            {{else}}
+        <li id="single_{{GoodID}}" class="single_item" onclick="javascript: showdetail('@ViewBag.link')">
+            {{/if}}
+
+            <div>
+                @*<span class="img-tag">免运费</span>*@
+                <img src="{{ImgUrl}}">
+            </div>
+            <p style="font-size:1.1em;"><strong>{{Name}}</strong></p>
+            {{if isover}}
+            <p><span class="pull-left">结束价格：<b class="ect-colory" id="ECS_GOODS_AMOUNT">￥{{Payment}}元</b></span></p>
+            {{else}}
+            <p><span class="pull-left">@ViewBag.goodtag：<b class="ect-colory" id="ECS_GOODS_AMOUNT">￥{{Payment}}元</b></span>@*<span class="label ect-bg-colory">免运费 </span><span class="pull-right">送出：{{BuyCount}} 件</span>*@</p>
+            {{/if}}
+            <div style="height:0.5em"></div>
+        </li>
+    </script>
+</div>

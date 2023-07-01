@@ -1,0 +1,116 @@
+﻿@model IEnumerable<ncc2019.Orders>
+@using ncc2019
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+    @{
+        ViewBag.Title = "众筹墙";
+    }
+    <style type="text/css">
+        #J_ItemList font {
+            color: #016db7;
+        }
+
+        #J_ItemList {
+            color: #666;
+        }
+
+        .user-order {
+            border-radius: 6px;
+            border: 1px #e3e3e3 solid;
+            border-bottom: 1px #e3e3e3 solid !important;
+        }
+
+        .bottomzhouchou {
+            color: #999;
+            font-size: 12px;
+            /*background: #f5f5f5;*/
+            padding: 10px 15px;
+            /*border-top: 1px solid #ddd;*/
+        }
+        .ribbon.labels {
+            border-color: rgba(0,0,0,.15);
+            border-radius: 0 4px 4px 0;
+            padding: 7px 8px 7px 0;
+            position: relative;
+            left:-20px;
+            color: #fff !important;
+            font-size: 12px;
+            font-weight: 700;
+            float: left;
+            text-indent: 10px;
+            
+        }
+        .ect-pro-list ul li{
+            overflow:inherit;
+        } 
+        .successful {
+            display: inline-block;
+            width: 100%;
+            clear: both;
+        }
+         .successful .labels {
+            background-color: #ee251d !important;
+            border-color: #ee251d !important;
+        }
+        .ribbon.labels:after {
+            border-bottom: 1em solid transparent;
+            border-left: 0 solid transparent;
+            border-right-color: inherit;
+            border-style: solid;
+            border-top: 0 solid transparent;
+            border-width: 0 8px 8px 0;
+            content: "";
+            height: 0;
+            left: 0;
+            position: absolute;
+            top: 100%;
+            width: 0;
+        }
+        .funding {
+            display: inline-block;
+            width: 100%;
+            clear: both;
+        }
+            .funding .labels {
+                border-color: #4da3bd !important;
+                background-color: #5bc0de !important;
+            }
+
+        
+    </style>
+    <div class="focus goods-focus ect-padding-lr ect-margin-tb">
+        @foreach (var order in Model)
+        {
+
+            <div class="ect-pro-list user-order">
+                <ul id="J_ItemList">
+                    <li class="single_item" id="more_element_1" onclick="javascript: window.location = '/zhongchou/MemberList?orderid=@DESEncrypt.Encrypt(order.OrderID)'">
+                        @if (order.OrderStatus==(int)OrderStatus.众筹成功)
+                        {
+                            <div class="successful"> <span class="ribbon labels">众筹成功</span></div>
+                        }
+                        else if (order.OrderStatus == (int)OrderStatus.众筹中)
+                        {
+                            <div class="funding"> <span class="ribbon labels">众筹中</span></div>
+                        }
+                                             
+                        <img src="@order.Members.HeadImgUrl" class="pull-left" style="width: 3em; height: 3em; border-radius: 50%;">
+                        <dl style="margin-right: 20px; margin-left:5em;">
+                            <dt>                                
+                                <h4 class="title"><font class="fontcol">@order.Members.Name</font> 众筹礼物【@order.Goods.Name】</h4>
+                            </dt>
+                            <dd style="height:3em">@order.SayEtc</dd>
+                        </dl>
+                    </li>
+                    @{
+                        decimal totalpayment = ncc2019.Common.BLL.ZhongChouPayBLL.GetTotalPaymentByOrderID(new ncc2019Entities(), order.OrderID);
+                        int count = ncc2019.Common.BLL.ZhongChouPayBLL.GetPayCount(new ncc2019Entities(), order.OrderID);
+                    }
+                    <li class="bottomzhouchou">
+                        <span>礼物价值&nbsp;<font>@order.TotalPayment</font>&nbsp;&nbsp;&nbsp;已筹&nbsp;<font>@totalpayment.ToString("0")</font>元&nbsp;&nbsp;&nbsp;支持&nbsp;<font>@count</font>次</span>
+                    </li>
+                </ul>
+            </div>
+            <div style="margin-top:0.7em;"></div>
+        }
+    </div>

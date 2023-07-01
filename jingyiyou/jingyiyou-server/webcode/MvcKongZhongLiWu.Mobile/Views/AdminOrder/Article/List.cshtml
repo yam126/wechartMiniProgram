@@ -1,0 +1,18 @@
+﻿@model MvcKongZhongLiWu.Info
+@{
+    ViewBag.Title = "空中礼物-新酷咨询";
+}
+<script type="text/javascript">
+    $(function () {
+        $('.ect-bg').hide();
+    });
+</script>
+<div class="goods-info ect-padding-tb">
+    <section class="user-tab ect-border-bottom0">
+        <div class="tab-content">
+            <div class="tab-pane tab-info active" id="one">
+                @Html.Raw(Model.TheContent)
+            </div>
+        </div>
+        </section>
+</div>

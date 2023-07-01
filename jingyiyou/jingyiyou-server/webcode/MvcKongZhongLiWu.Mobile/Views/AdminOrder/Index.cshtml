@@ -1,0 +1,137 @@
+﻿@model IEnumerable<DBModel.Orders>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Good.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPayment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TranceStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Memo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SayEtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToPhone)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Good.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPayment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TranceStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Memo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SayEtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPhone)
+            </td>
+            <td>
+                @Html.ActionLink("Open", "../gift/" + @item.ShortUrl,null,new{ target="_blank"}) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,26 @@
+﻿@model ncc2019.Orders
+
+@{
+    ViewBag.Title = "预览";
+}
+<div class="blank"></div>
+<div class="block clearfix">
+    <div class="Area">
+        <div class="box">
+            <div class="box_1">
+                <table width="100%">
+                    <tr style="text-align:center;">
+                        <td align="center"><a href="../gift/@Model.ShortUrl"><img src="@Model.Goods.ImgUrl" width="200px" height="200px" /></a></td>
+                    </tr>
+                    <tr><td align="center">@Html.Raw(Model.SayEtc)</td></tr>
+                    <tr>
+                        <td align="center">请点击一下链接打开礼物  http://localhost:26564/gift/@Model.ShortUrl</td>
+                    </tr>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

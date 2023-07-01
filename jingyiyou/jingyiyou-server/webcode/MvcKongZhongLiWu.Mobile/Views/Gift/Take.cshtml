@@ -1,0 +1,89 @@
+﻿@model ncc2019.Orders
+@{
+    ViewBag.Title = "接收礼物";
+}
+<style type="text/css">
+    .userCenterBox td {
+        margin-top: 10px;
+        line-height: 30px;
+    }
+
+    .userCenterBox input {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        /*margin-right:10px;*/
+    }
+
+    .inputBg {
+        width: 90%;
+        margin-right: 10px;
+    }
+</style>
+<script type="text/javascript">
+    function docheck() {
+        if ($("#recname").val().trim() == "") {
+            alert("收货人姓名不能为空！");
+            return false;
+        }
+        if ($("#recphone").val().trim() == "") {
+            alert("收货人电话不能为空！");
+            return false;
+        }
+        if ($("#recaddress").val().trim() == "") {
+            alert("收货地址不能为空！");
+            return false;
+        }
+        $('#formok').submit();
+        return true;
+    }
+</script>
+<div class="Area">
+    <div class="box">
+        <div class="box_1">
+            <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+
+                @using (Html.BeginForm("DoCreate", "Gift", FormMethod.Get, new { id = "formok" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                        <tbody>                          
+
+                            <tr>
+                                <td bgcolor="#ffffff" align="right">收货人姓名：</td>
+                                <td bgcolor="#ffffff">
+                                    <input id="recname" name="recname" type="text" value="@Model.ToName" class="inputBg" />
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td bgcolor="#ffffff" align="right">收货人电话：</td>
+                                <td bgcolor="#ffffff">
+                                    <input id="recphone" name="recphone" type="tel" value="@Model.ToPhone" class="inputBg" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#ffffff" align="right">收货地址：</td>
+                                <td bgcolor="#ffffff">
+                                    <input id="recaddress" name="recaddress" type="text" value="@Model.ToAddress" class="inputBg" />
+
+                                </td>
+                            </tr>                        
+                            
+
+                        </tbody>
+                    </table>
+                    
+                    <input type="hidden" name="orderid" value="@ncc2019.Common.Tool.DESEncrypt.Encrypt(Model.OrderID.ToString())" />
+               
+                }
+            </div>
+            </div>
+        </div>
+</div>
+<div class="btnpanel">
+    <input class="btn btn-info ect-colorf button_only" name="gen_code" onclick="return docheck()" type="button" value="确   定" />
+    </div>

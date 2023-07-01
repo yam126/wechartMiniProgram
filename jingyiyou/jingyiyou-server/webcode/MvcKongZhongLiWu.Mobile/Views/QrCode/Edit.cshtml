@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "会说话的书签";
+}
+<style type="text/css">
+    .checkout-select > a {
+        line-height: 1.4;
+        height: 100%;
+    }
+
+    .body-button {
+        text-align: center;
+    }
+    .panel-body{
+        padding:7px;
+    }
+    .guanzhu{
+        position:inherit;
+    }
+</style>
+<script type="text/javascript">
+    @*wx.config({
+        debug: true,
+        appId: '@ViewBag.js_json.appId',
+        timestamp: '@ViewBag.js_json.timeStamp',
+        nonceStr: '@ViewBag.js_json.nonceStr',
+        signature: '@ViewBag.js_json.paySign',
+        jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice', 'chooseImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });*@
+    function chooseImage() {
+        wx.chooseImage({
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                alert(localIds);
+            }
+        });
+    }
+    $(function () {
+        showguanzhu();
+        hidhistory();
+        hidmune();
+    });
+    function btn_ok() {
+        if ($('#content').val()=='') {
+            alert('请输入留言内容！');
+            return;
+        }
+        //
+        $('#formok').submit();
+
+    }
+    function show_rec_panel_main() {
+        @if (ViewBag.isiphone==false)
+	    {
+		    @Html.Raw(" $('#audiofile').click();");
+            // @Html.Raw("show_rec_panel();");
+	    }
+        else
+        {
+            @Html.Raw("show_rec_panel();");
+	    }
+        
+    }
+</script>
+
+@Html.Partial("~/views/part/vioce.cshtml")
+@using (Html.BeginForm("edit", "qrcode", FormMethod.Post, new { id = "formok", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="panel panel-body">
+        <div class="" style="padding-left:7px;">
+            <h4>请写下您的留言内容！</h4>
+        </div>
+        <div class="panel-body">
+            <textarea name="content" id="content" placeholder="留言内容！"  style="width:100%;height:10em">@ViewBag.content</textarea>
+        </div>
+    </div>
+
+    if (ViewBag.isweixin == true)
+    {
+        <div class="panel panel-body">
+            <section class="ect-margin-tb ect-padding-lr checkout-select">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" onclick="show_rec_panel_main()">
+                    <i class="glyphicon glyphicon-record" style="color: #FF6633"></i> <b>点击留下您的声音祝福</b> <span class="label ect-bg-colory novioce">暂无录音</span>
+                </a>
+            </section>
+        </div>
+    <input id="audiofile" runat="server" name="audiofiles" type="file"  capture="microphone"  style="width:100%;display:none;" />
+    @*<div id="Preview"></div>  
+<ul id="Errors"></ul>*@  
+        @*<div class="panel panel-body">
+            <div class="body-button">
+                <button type="button" class="btn btn-info ect-colorf button_only">添加图片</button>
+            </div>
+
+            </div>*@
+    }
+    @*<img src="wxLocalResource://45821435446940" width="20px" height="20px" />*@
+
+
+
+    <input type="hidden" value="@ViewBag.orderid" name="orderid" id="orderid" />
+    
+}
+@*<div style="margin-top:3em;"></div>*@
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btn_ok()">保存并预览</button>
+
+</div>
+
+@*<script>
+    function fileSelect(e) {
+        e = e || window.event;
+
+        var files = e.target.files;  //FileList Objects
+        var ireg = /image\/.*/i,
+            p = document.getElementById('Preview');
+
+        var ul = document.getElementById('Errors');
+        for (var i = 0, f; f = files[i]; i++) {
+            if (!f.type.match(ireg)) {
+                //设置错误信息
+                var li = document.createElement('li');
+                li.innerHTML = '<li>' + f.name + '不是图片文件.</li>';
+
+                ul.appendChild(li);
+
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = (function (file) {
+                return function (e) {
+                    var span = document.createElement('span');
+                    var img = new Image;
+                    img.alt = file.name;
+                    img.onload = function () {
+                        console.log(img.height); // image is loaded; sizes are available
+                    };
+
+                    img.src = this.result;
+                    span.innerHTML = '<img class="thumb" src="' + this.result + '" alt="' + file.name + '" />';
+
+                    p.insertBefore(span, null);
+                };
+            })(f);
+            //读取文件内容
+            reader.readAsDataURL(f);
+        }
+    }
+
+    if (window.File && window.FileList && window.FileReader && window.Blob) {
+        document.getElementById('Files').addEventListener('change', fileSelect, false);
+    } else {
+        document.write('您的浏览器不支持File Api');
+    }
+</script>*@  

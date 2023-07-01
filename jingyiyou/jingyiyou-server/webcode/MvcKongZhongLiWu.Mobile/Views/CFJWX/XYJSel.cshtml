@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ncc2019.CFJMemberType>
+@{
+    ViewBag.Title = "套餐选择";
+}
+<script type="text/javascript">
+    $(function () {
+        hidhistory();
+        hidmune();
+    });
+    function gotopay() {
+        var paytype = $('input:radio[name=xytype]:checked').val();
+        if (paytype == "" || !paytype) {
+            alert("请选择一个套餐！");
+        }
+        else {
+            $('#formok').submit();
+        }
+
+    }
+</script>
+<style type="text/css">
+    .ect-radio li {
+        margin-top: 1em;
+        margin-left: 10px;
+    }
+
+    .lihead {
+        margin-left: 10px;
+    }
+</style>
+@*<br />
+    <h3 class="lihead">套餐选择</h3>*@
+<br />
+@using (Html.BeginForm("openxyj", "cfjwx", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div id="collapsePay" class="panel-collapse " style="padding-bottom:2em;">
+        <ul class="ect-radio">
+
+            <li>
+                <input name="xytype" type="radio" id="type_1" value="30" iscod="0" style="vertical-align:middle">
+                <label style="font-size:1.2em;" for="type_1">标准洗衣   <font color="red">30</font>分钟<i></i></label>
+                @*<label for="type_1" style="padding-left:2em;padding-right:2em;">@item.Memo</label>*@
+            </li>
+            <li>
+                <input name="xytype" type="radio" id="type_2" value="40" iscod="0" style="vertical-align:middle">
+                <label style="font-size:1.2em;" for="type_2">大件洗衣   <font color="red">40</font>分钟<i></i></label>
+                @*<label for="type_1" style="padding-left:2em;padding-right:2em;">@item.Memo</label>*@
+            </li>
+            <li>
+                <input name="xytype" type="radio" id="type_3" value="20" iscod="0" style="vertical-align:middle">
+                <label style="font-size:1.2em;" for="type_3">快速洗衣   <font color="red">20</font>分钟<i></i></label>
+                @*<label for="type_1" style="padding-left:2em;padding-right:2em;">@item.Memo</label>*@
+            </li>
+
+        </ul>
+    </div>
+
+    <input type="hidden" name="mcode" value="@ViewBag.mcode"></input>
+}
+
+<div class="btnpanel">
+    <input type="button" name="submit" value="确 定" onclick="return gotopay();" class="btn btn-info ect-colorf button_only ">
+</div>

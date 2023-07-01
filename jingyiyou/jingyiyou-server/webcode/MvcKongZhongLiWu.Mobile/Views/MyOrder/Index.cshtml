@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ncc2019.Orders>
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+
+<link href="~/css/user.css" rel="stylesheet" />
+
+<div class="ect-pro-list user-order" style="border-bottom:none;">
+    <ul id="J_ItemList">
+        @if (Model.Count() == 0)
+        {
+            <div class="panel-body" style="text-align:center;">@ViewBag.show</div>
+        }
+        @foreach (var item in Model)
+        {
+            if (item.PayStatus == (int)PayStatus.未支付)
+            {
+                if (item.IsForMe == (int)ShiFouStatus.是)
+                {
+                    ViewBag.url = "/address?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());                   
+                }
+                else
+                {
+                    ViewBag.url = "/pay?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+                }
+
+            }
+            else
+            {
+                if (ViewBag.type == "send")
+                {
+                    if (item.IsForMe == (int)ShiFouStatus.是)
+                    {
+                        ViewBag.url = "/myorder/routeinfo?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+                    }
+                    else
+                    {
+                        if (item.GivenStatus == (int)GivenStatus.未送出)
+                        {
+                            ViewBag.url = "/send?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+                        }
+                        else
+                        {
+                            if (item.Goods.GoodType == (int)GoodType.贺卡)
+                            {
+                                ViewBag.url = "/cards?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+                            }
+                            else
+                            {
+                                ViewBag.url = "/send/ok?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+                            }
+                            
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    ViewBag.url = "/gift/" + item.ShortUrl;
+
+                }
+
+            }
+            if (ViewBag.type == "send")
+            {
+                <li class="single_item" id="more_element_1" onclick="javascript: window.location = '@ViewBag.url'">
+                    <img src="@item.Goods.ImgUrl" class="pull-left">
+                    <dl>
+                        <dt>
+                            <h4 class="title">订单号：@item.OrderID</h4>
+                        </dt>
+                        <dd>订单状态：@EnumTool.GetEnumName(typeof(PayStatus), item.PayStatus)</dd>
+                        <dd>订单总金额：<span class="ect-color">￥@Html.Raw(item.TotalPayment)元</span></dd>
+                        <dd>下单时间：@item.AddDate</dd>
+                    </dl>
+                    <i class="pull-right fa fa-angle-right"></i>
+                </li>
+            }
+            else
+            {
+                <li class="single_item" id="more_element_1" onclick="javascript: window.location = '@ViewBag.url'">
+                    <img src="@item.Goods.ImgUrl" class="pull-left">
+                    <dl style="margin-right:20px">
+                        <dt>
+                            <h4 class="title">@item.Goods.Name</h4>
+                        </dt>
+                        <dd>@item.Goods.Intro</dd>
+
+                    </dl>
+                    <i class="pull-right fa fa-angle-right"></i>
+                </li>
+            }
+        }
+        @*<div class="more_loader_spinner" style="display: none;"><div style="text-align:center; margin:10px;"><img src="/source/mobile/themes/default/images/loader.gif"></div></div>*@
+    </ul>
+</div>

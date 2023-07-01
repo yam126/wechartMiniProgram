@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ncc2019.Info>
+@using Webdiyer.WebControls.Mvc
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="block clearfix">
+
+    @Html.Partial("~/views/part/AdminLeft.cshtml", ncc2019.Common.Enum.AdminPageType.InfoList);
+    <style type="text/css">
+        .kz_list td {
+            background-color: white;
+        }
+    </style>
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+
+                    <h5><span>信息列表</span></h5>
+                    <a href="/admininfo/create">
+                        <div class="blank"></div>
+                        <input class="bnt_blue_1" name="gen_code" value="添加" type="button">
+                    </a>
+                    <div class="blank"></div>
+                    <table class="kz_list" border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                        <tbody>
+                            <tr align="center">
+                                <td>ID</td>
+                                <td>标题</td>
+                                <td>是否展示导航</td>
+                                <td>操作人</td>
+                                <td>操作时间</td>
+                                <td>更新时间</td>
+                                <td>操作</td>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InfoID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td>
+                                        @EnumTool.GetEnumName(typeof(ShiFouStatus), item.IsShowInBanner ?? 0)
+                                    </td>
+                                    <td>
+                                        @ncc2019.Common.Model.MemberInfo.GetMemberName(item.OpeUserID.Value)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AddDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpeDate)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("编辑", "Edit", new { id = item.InfoID }) |
+                                        @Html.ActionLink("详细", "Details", new { id = item.InfoID }) |
+                                        @Html.ActionLink("删除", "Delete", new { id = item.InfoID })
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,235 @@
+﻿@model ncc2019.Goods
+@{
+    ViewBag.Title = "赶快支持我1个体力吧";
+}
+@using ncc2019
+@using ncc2019.Common.Tool
+
+
+<link href="~/css/sharewx.css" rel="stylesheet" />
+<link href="~/css/user.css" rel="stylesheet" />
+<link href="~/css/index.css" rel="stylesheet" />
+@*<link href="~/css/style.css" rel="stylesheet" />*@
+<style type="text/css">
+    .hiddencss {
+        display: none !important;
+    }
+
+    .guanzhu {
+        position: relative;
+    }
+
+    .user {
+        font-size: 16px;
+        width: 40%;
+    }
+
+    .t_mid {
+        width: 60%;
+    }
+
+    .f18 {
+        font-size: 16px;
+    }
+</style>
+@Html.Partial("~/views/part/share.cshtml")
+<script type="text/javascript">
+    jsApiList = jsApiList.concat(['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']);
+    var tilinum=@ViewBag.tilinum;
+    $(function () {
+        //$('.guanzhu').show();
+        $('.ect-bg').hide();
+        $('.img_close').click(function () {
+            $('.tc').addClass('hiddencss');
+        });
+        objShare = {
+            title: "我想参与0元购活动，体力不支快来帮我！",
+            desc: "@Model.Intro",
+            link: "@Html.Raw(ViewBag.link)",
+            imgUrl: "@ViewBag.imgurl",
+            type: "",
+            dataUrl: "",
+            success: null,
+            cancel: null
+        };
+        regShare();
+    });
+    var isgotologin=@ViewBag.gotologin ;
+    function support() {
+        gotoLogin();
+        if (tilinum>0) {
+            $('#buyform').submit();
+        }
+        else {
+
+            //alert($('.focus').height());
+            $('.hqtili').removeClass("hiddencss");
+        }
+
+    }
+    function supportmore(){
+
+        objShare = {
+            title: "好友正在参与0元购活动，快来支持Ta吧！",
+            desc: "@Model.Intro",
+            link: "@Html.Raw(ViewBag.linkmore)",
+            imgUrl: "@ViewBag.imgurl",
+            type: "",
+            dataUrl: "",
+            success: null,
+            cancel: null
+        };
+
+        regShare();
+
+        document.getElementById('mcover').style.display='block';
+
+    }
+    function supportme(){
+
+        objShare = {
+            title: "我想参与0元购活动，体力不支快来帮我！",
+            desc: "@Model.Intro",
+            link: "@Html.Raw(ViewBag.link)",
+            imgUrl: "@ViewBag.imgurl",
+            type: "",
+            dataUrl: "",
+            success: null,
+            cancel: null
+        };
+        regShare(objShare);
+        document.getElementById('mcover').style.display='block';
+    }
+    function gotoLogin(){
+        if (isgotologin) {
+            window.location='/login?type=jj';
+        }
+    }
+    function jiatili(){
+        $('.tc_p1 span').html('增加体力！');
+        $('.tc').removeClass("hiddencss");
+    }
+    function hidtip(){
+        $('.tip').hide();
+    }
+</script>
+<div class="tc hiddencss">
+    <p class="tc_p1"><span>您的体力好像还不够哦！</span><img class="img_click img_close" src="/images/del.png"></p>
+    <p class="tc_p2">请通过以下渠道获取更多的体力。</p>
+    <ul class="tc_ul clear">
+        <li>
+            <a href="#" onclick="supportme()">
+                <div><img src="/images/icn3.png"></div>
+                <span>求助好友</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="alert('每天登录空中礼物都将获得1点体力！')">
+                <div><img src="/images/icn2.png"></div>
+                <span>每日签到</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" onclick="window.location='/jiangjia/tilinum?goodid=@ViewBag.goodid'">
+                <div><img src="/images/icn1.png"></div>
+                <span>立即购买</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display:none;">
+    <img src="/images/guide.png" />
+</div>
+<!--New-->
+<div class="container content2">
+    @if (SessionHelper.CurMemberInfo != null)
+    {
+        <div class="top clear">
+            <div class="user fl" onclick="window.location='/my/'"><img src="@SessionHelper.CurMemberInfo.HeadImgUrl" /><span class="f18">@SessionHelper.CurMemberInfo.Name</span></div>
+            <div class="fl t_mid">
+                <span class="f18 fl">我的体力值</span>
+                <div class="add fl " onclick="jiatili()">
+                    <img class="img1" src="/images/lw.png" />
+                    <span>@SessionHelper.CurMemberInfo.TiLiNum</span>
+                    <a href="#" class="a_click"><img src="/images/jia.png" /></a>
+                </div>
+            </div>
+            @*<div class="fr"><a href=""><img src="/images/sl.png" /></a></div>*@
+        </div>
+    }
+    <div class="content content2">
+        <div class="bg1"><img src="/images/bg1.jpg"></div>
+        <div class="bg2 clear">
+            <div class="more1 clear">
+                <p class="p red p5">@Model.Name</p>
+                <div class="p list1_mid clear none">
+                    <img class="fl" src="@Model.ImgUrl" />
+                    <div class="fr">
+                        <p class="fr_p">@Model.Intro</p>
+                        <p class="p6">￥<span class="red bold">@Model.Payment.Value.ToString("0.0")</span></p>
+                    </div>
+                </div>
+                <ul class="ul clear">
+                    <li>
+                        <img src="/images/ic1.png">
+                        <span>原价：<span class="hg">@Model.Payment2.Value.ToString("0")</span></span>
+                    </li>
+                    <li>
+                        <img src="/images/ic2.png">
+                        <span>降幅：￥@Model.DownPayment.Value.ToString("0.0")</span>
+                    </li>
+                    <li>
+                        <img src="/images/ic3.png">
+                        <span>参与：@(Model.JoinPeopleNum)人</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bt hiddencss">
+                <img src="/images/tree.png">
+                @if (ViewBag.cansupport == null || ViewBag.cansupport == true)
+                {
+                    <a href="#" class="a1 fl" onclick="support();">支持Ta</a>
+
+                }
+                else
+                {
+                    <a href="#" class="a1 fl" onclick="supportmore();">找人帮Ta</a>
+                    
+                }
+
+                <a href="#" class="a2 fr" onclick="window.location = '/jiangjia/good?id=@Model.GoodID'">我要砍价</a>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.tilinum > 0)
+{
+    <div class="tip sorry clear"><p>您有<font color="red">@(ViewBag.tilinum)点体力</font>哦，赶快支持Ta吧！<a onclick="hidtip()">[知道了]</a></p></div>
+}
+<div class="btnpanel">
+    @if (ViewBag.cansupport == null || ViewBag.cansupport == true)
+    {
+        <button type="button" class="btn btn-info ect-colorf" onclick="support();">支持Ta</button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-info ect-colorf" onclick="supportmore();">找人帮Ta</button>
+    }
+
+    <button type="button" class="btn btn-info ect-colorf btn-red join" style="margin-left:1.5em;" onclick="window.location = '/jiangjia/good?id=@Model.GoodID'">我要砍价</button>
+</div>
+
+
+
+@using (Html.BeginForm("Support", "jiangjia", FormMethod.Post, new { id = "buyform" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input name="mid" type="hidden" value="@ViewBag.mid" />
+    <input name="goodid" type="hidden" value="@ViewBag.goodid" />
+
+}
+
+
+

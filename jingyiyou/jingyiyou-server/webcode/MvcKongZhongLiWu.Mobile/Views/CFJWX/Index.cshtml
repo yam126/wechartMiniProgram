@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ncc2019.CFJMemberType>
+@{
+    ViewBag.Title = "套餐选择";
+}
+<script type="text/javascript">
+    $(function () {
+        hidhistory();
+        hidmune();
+    });
+    function gotopay() {
+        var paytype = $('input:radio[name=paytype]:checked').val();
+        if (paytype == "" || !paytype) {
+            alert("请选择一个套餐！");
+        }
+        else {
+            $('#formok').submit();
+        }
+      
+    }
+</script>
+<style type="text/css">
+    .ect-radio li{
+        margin-top:1em;
+        margin-left:10px;
+    }
+    .lihead {
+        margin-left: 10px;
+    }
+</style>
+@*<br />
+<h3 class="lihead">套餐选择</h3>*@
+<br />
+@using (Html.BeginForm("index", "cfjwx", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+<div id="collapsePay" class="panel-collapse " style="padding-bottom:2em;">
+    <ul class="ect-radio">
+        @foreach (var item in Model)
+        {
+        <li>
+            <input name="paytype" type="radio" id="type_@item.CFJMemberTypeID" value="@item.CFJMemberTypeID"  iscod="0" style="vertical-align:middle">
+            <label style="font-size:1.2em;" for="type_@item.CFJMemberTypeID">@item.Name  [价格：<font color="red">@item.Payment</font>元]<i></i></label>
+            <label for="type_@item.CFJMemberTypeID" style="padding-left:2em;padding-right:2em;">@item.Memo</label>
+        </li>     
+        }
+            
+    </ul>
+</div>
+
+    
+}
+
+<div class="btnpanel">
+    <input type="button" name="submit" value="下 一 步" onclick="return gotopay();" class="btn btn-info ect-colorf button_only ">
+</div>

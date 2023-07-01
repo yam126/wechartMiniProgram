@@ -1,0 +1,66 @@
+﻿@model ncc2019.GoodSort
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="Area">
+
+    <fieldset>
+        <legend>GoodSort</legend>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.ParentID)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ParentID)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.AddDate)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.AddDate)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Enabled)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Enabled)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.GoodSortOrder)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.GoodSortOrder)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.ShowInIndex)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ShowInIndex)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.ShowName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ShowName)
+        </div>
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.GoodSortID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

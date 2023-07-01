@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "赠送礼物";
+}
+<div class="blank"></div>
+<div class="block table">
+
+    <div class="flowBox">
+        <h6><span>送礼方式</span></h6>
+        <div class="sendtype" style="display:block;">
+            @*<div class="notice_item mess">
+                    <div class="notice_name">
+                        <i class="notice_mess2"></i>
+                        <div class="notice_text">短信通知<br><font>通过短信通知收礼人</font></div>
+
+                    </div>
+                    <div class="tell_input" style="border: 1px solid rgb(213, 206, 195);">
+                        <input type="text" id="toPhone" name="toPhone" value="收礼人手机号码" style="color: rgb(153, 153, 153);">
+                    </div>
+                    <div class="to_tips">提示：此信息只做通知用，为消除收礼人疑虑，建议您亲自联系TA。</div>
+                </div>*@
+<div class="notice_item wechat chose_border">
+    <div class="notice_name">
+        <i class="notice_chat"></i>
+        <div class="notice_text">微信通知<br><font>用微信将礼物发给收礼人</font></div>
+
+    </div>
+    <div class="erweima">
+        <i class="kzlw_er"></i>
+    </div>
+    <div class="to_tips">提示：请扫描以上二维码，系统会将礼物信息发送到您的微信，您只需将此信息分享给收礼人即可。</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.sendtype .notice_item').each(function () {
+            $(this).click(function () {
+                //$('.sendtype .notice_item').removeClass("chose_border");
+                //$(this).addClass("chose_border");
+                //if ($(this).find('i').hasClass("notice_chat2")) {
+                //    $('.wechat i').removeClass("notice_chat2").addClass("notice_chat");
+                //    $('.mess i').removeClass("notice_mess").addClass("notice_mess2");
+                //}
+                //else {
+                //    $('.wechat i').removeClass("notice_chat").addClass("notice_chat2");
+                //    $('.mess i').removeClass("notice_mess2").addClass("notice_mess");
+                //}
+
+            });
+        });
+    });
+</script>
+
+<style type="text/css">
+    .notice_item {
+        height: 230px;
+        width: 238px;
+        float: left;
+        margin-top: 10px;
+        border: #f6f3ee solid 2px;
+        padding: 40px;
+        background: #f6f3ee;
+        cursor:pointer;
+    }
+
+    .chose_border {
+        border: #71b1f9 solid 2px;
+        background: #FFF;
+    }
+
+    .notice_name {
+        height: 68px;
+    }
+
+    .erweima {
+        height: 90px;
+        width: 228px;
+        padding: 5px;
+        margin-left:50px;
+    }
+
+        .erweima i {
+            float: left;
+            height: 100px;
+            width: 100px;
+        }
+
+    .notice_mess {
+        background: url(../images/message.png) no-repeat;
+        background-size: 68px 68px;
+     background-size: cover;
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/message.png',  sizingMethod='scale');
+    }
+    .notice_mess2 {
+        background: url(../images/message2.jpg) no-repeat;
+        background-size: 68px 68px;
+     background-size: cover;
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/message2.png',  sizingMethod='scale');
+    }
+
+    .notice_chat {
+        background: url(../images/wechat.png) no-repeat;
+        background-size: 68px 68px;
+        background-size: cover;
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/wechat.png',  sizingMethod='scale');
+    }
+    .notice_chat2 {
+        background: url(../images/wechat2.png) no-repeat;
+        background-size: 68px 68px;
+     background-size: cover;
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/wechat2.png',  sizingMethod='scale');
+    }
+
+    .kzlw_er {
+        background: url(@Html.Raw(ViewBag.WeiXinQrCode)) no-repeat;
+        background-size: 100px 100px;
+        background-size: cover;
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='@Html.Raw(ViewBag.WeiXinQrCode)',  sizingMethod='scale');
+    }
+
+    .notice_name i {
+        float: left;
+        height: 68px;
+        width: 68px;
+    }
+
+    .notice_text {
+        float: left;
+        width: 160px;
+        height: 58px;
+        padding: 10px 0 0 10px;
+        font-size: 20px;
+        color: #666;
+        line-height: 24px;
+    }
+
+        .notice_text font {
+            font-size: 14px;
+        }
+
+    .tell_input {
+        height: 26px;
+        width: 228px;
+        padding: 5px;
+        border: #d5cec3 solid 1px;
+        margin-top: 35px;
+        background-color: #FFF;
+    }
+
+    .to_tips {
+        height: 36px;
+        line-height: 18px;
+        padding-top: 10px;
+        color: #999;
+        font-size: 12px;
+    }
+
+    .tell_input input {
+        width: 228px;
+        border: 0px;
+        height: 26px;
+        line-height: 26px;
+        color: #999;
+    }
+
+    input, img, select {
+        vertical-align: middle;
+    }
+
+    button, input, select, textarea {
+        font-family: inherit;
+        font-size: 100%;
+        margin: 0;
+    }
+
+        input, input[type="password" i], input[type="search" i] {
+            -webkit-appearance: textfield;
+            padding: 1px;
+            background-color: white;
+            border: 2px inset;
+            border-image-source: initial;
+            border-image-slice: initial;
+            border-image-width: initial;
+            border-image-outset: initial;
+            border-image-repeat: initial;
+            -webkit-rtl-ordering: logical;
+            -webkit-user-select: text;
+            cursor: auto;
+        }
+
+    input, textarea, keygen, select, button {
+        margin: 0em;
+        font: -webkit-small-control;
+        color: initial;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+    }
+</style>

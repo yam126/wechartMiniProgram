@@ -1,0 +1,16 @@
+﻿#main{margin:0 auto;overflow:hidden;width:320px;height:504px;background:url(../../images/bg.jpg);background-size:cover;position: relative;}
+#layer1{position:absolute;z-index:1;width:303px; height:224px;left:8px;top:30px;background:url(../../images/1.png);background-size:cover;opacity:0;}
+#layer2{position:absolute;z-index:1;width:319px; height:232px;right:1px;top:30px;background:url(../../images/2.png);background-size:cover;opacity:0;}
+#layer3{position:absolute;z-index:3;width:272px; height:141px;left:24px;top:40px;background:url(../../images/3.png);background-size:cover;opacity:1;}
+#layer4{position:absolute;z-index:1;width:87px; height:164px;right:0px;top:0px;background:url(../../images/4.png);background-size:cover;opacity:1;}
+#layer5{position:absolute;z-index:1;width:120px; height:122px;left:10px;top:130px;background:url(../../images/5.png);background-size:cover;opacity:0;}
+
+#con{position:absolute;margin-bottom: 6px;border-radius: 5px;padding:10px;
+top: 262px;
+width: 300px;
+overflow:hidden;
+font-size: 16px;
+line-height: 18px;
+font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
+color:#a10655;z-index:1000;opacity:0;}
+#con h2{text-align:right;font-size: 18px;}

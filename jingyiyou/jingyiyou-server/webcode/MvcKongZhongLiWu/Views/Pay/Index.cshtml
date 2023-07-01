@@ -1,0 +1,315 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "订单支付";
+}
+<script src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.post("/pay/checkpay?orderid=@ViewBag.orderid", {}, function (res) {
+            if (res.state == 'error') {
+                window.location = res.url;
+            }
+        }, "json");
+
+    });
+    function rbhiddenpass() {
+
+        $('.pthepass').addClass('hiddencss');
+    }
+    function rbshowpass() {
+        $('.pthepass').removeClass("hiddencss");
+    }
+    function usequan(qprice, qcode) {
+        var yue = @ViewBag.yue;
+        var totalpay = @ViewBag.totalpay;
+        $('.quaninfo').html('(使用了' + qprice + '元优惠券)');
+        if (totalpay-qprice<=yue) {
+
+            $('#yue').attr('disabled',false);
+            $("input[name='wayofpay']").attr("checked",false);
+            $('#yue')[0].checked=true;
+            
+
+
+            var needpay=qprice>totalpay?0:totalpay-qprice;
+            $('.totalpay').html('￥'+needpay+' 元');
+            $("input[name='wayofpay']").parent().find('c').html("");
+            //$("input[name='wayofpay']").parent().find('c').html("[您还需要支付 ￥"+needpay+"]");
+
+        } else {
+            $('#yue').attr('disabled',true);
+            $('#zhifubao')[0].checked=true;
+            var needpay=qprice>totalpay?0:totalpay-qprice;
+            $('.totalpay').html('￥'+needpay+' 元');
+            $("input[name='wayofpay']").parent().find('c').html("[您还需要支付 ￥"+needpay+"]");
+        }
+    }
+</script>
+<style type="text/css">
+    .pthepass input {
+        margin-left: 10px;
+    }
+
+    .thepass p, .thepass div {
+        float: left;
+    }
+
+    .thepass div {
+        margin-left: 20px;
+    }
+
+    .thepass p, .way p {
+        display: inline;
+    }
+
+    .rbcheck p label, .rbcheck p input[type=radio] {
+        cursor: pointer;
+    }
+
+    .hiddencss {
+        display: none !important;
+    }
+
+    .nav {
+        margin-bottom: 10px;
+    }
+
+        .nav > li {
+            position: relative;
+            display: block;
+        }
+
+    .nav-pills > li {
+        float: left;
+    }
+
+        .nav-pills > li + li {
+            margin-left: 2px;
+        }
+
+    a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .nav-pills > li > a {
+        border-radius: 4px;
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: #fff;
+        background-color: #337ab7;
+        /*background-color: #5bc0de;*/
+    }
+   
+</style>
+<div style="height:10px;"></div>
+@using (Html.BeginForm("DoPay", "Pay", FormMethod.Post, new { id = "fpay" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="block table">
+        <div class="flowBox">
+            @*<ul class="nav nav-pills" role="tablist">
+                    <li class="active" role="presentation"><a href="#">送给Ta</a></li>
+                    <li role="presentation"><a href="#">送给自己</a></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div style="height:10px;"></div>*@
+            <h6><span>收礼人信息</span></h6>
+            <table border="0" cellspacing="1" cellpadding="5" width="99%" bgcolor="#dddddd" align="center">
+                @{
+    if (string.IsNullOrEmpty(Model.FromName))
+    {
+        ViewBag.fromname = SessionHelper.CurMemberInfo.Name;
+    }
+    else
+    {
+        ViewBag.fromname = Model.FromName;
+    }
+                }
+                <tbody>
+                    <tr>
+                        @*<td bgcolor="#ffffff">接收礼物人姓名：</td>
+                            <td bgcolor="#ffffff">
+                                <input class="inputBg" id="toname" name="toname" type="text" value="">
+                                (必填)
+                            </td>*@
+                        <td bgcolor="#ffffff">显示给对方的昵称：</td>
+                        <td bgcolor="#ffffff" colspan="3"><input class="inputBg" id="fromname" name="fromname" type="text" value="@ViewBag.fromname">(必填)</td>
+                    </tr>
+
+
+                    <tr>
+                        <td bgcolor="#ffffff">打开礼物的条件：</td>
+                        <td bgcolor="#ffffff" colspan="3">
+                            <div class="thepass rbcheck">
+                                <p><input onchange="rbhiddenpass()" type="radio" name="needpass" id="check1" value="1" checked="checked" /><label for="check1">Ta可以直接打开</label></p>
+                                <p><input onchange="rbshowpass()" type="radio" name="needpass" value="2" id="check2" /><label for="check2">Ta需要回答问题</label></p>
+
+                                <div class="pthepass hiddencss">
+                                    <a>问题</a><input class="inputBg" id="thepasstip" name="thepasstip" style="width:400px;" type="text" value="">(必填) 请填写100字符以内<br /><br />
+                                    <a>答案</a><input class="inputBg" id="thepass" name="thepass" style="width:400px;" type="text" value="">(必填) 请填写50字符以内
+
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td bgcolor="#ffffff">祝福Ta就说点啥：</td>
+                        <td bgcolor="#ffffff" colspan="3">
+                            <textarea id="sayect" name="sayect" class="inputBg" style="width:700px;height:70px;">@Model.SayEtc</textarea>
+                        </td>
+
+                    </tr>
+                    @*<tr>
+                            <td bgcolor="#ffffff">备注:</td>
+                            <td bgcolor="#ffffff" colspan="3">
+                                <textarea id="memo" name="memo" class="inputBg" style="width:700px;height:150px;"></textarea>
+
+                            </td>
+
+                        </tr>*@
+                    @*<tr >
+                            <td bgcolor="#ffffff" colspan="4" align="center">
+                                <input class="bnt_blue_2" name="Submit" value="确 定" type="submit" />
+                            </td>
+                        </tr>*@
+                </tbody>
+            </table>
+            <input type="hidden" value="@ViewBag.orderid" name="orderid" />
+        </div>
+        @if (ViewBag.hasquan == true)
+        {
+        <div class="flowBox">
+            <h6><span>订单信息</span></h6>
+            <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                <tbody>
+                    <tr align="left">
+                        <td bgcolor="#ffffff" width="200px" style="vertical-align:middle;">
+                            @foreach (var item in (IEnumerable<ncc2019.Quan>)ViewBag.quan)
+                            {
+                                <input name="qcode" type="radio" id="@DESEncrypt.Encrypt(item.QuanID)" onchange="usequan('@item.Price','@DESEncrypt.Encrypt(item.QuanID)')" value="@DESEncrypt.Encrypt(item.QuanID)" style="vertical-align:middle">
+                                <label for="@DESEncrypt.Encrypt(item.QuanID)">￥@item.Price 元 优惠券<i></i></label>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        }
+        <div class="flowBox">
+
+            <h6><span>订单信息</span></h6>
+
+            <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                <tbody>
+                    <tr align="center">
+                        <td bgcolor="#ffffff" width="200px">@Model.Goods.Name</td>
+                        <td bgcolor="#ffffff" width="150px"><img width="150px" height="150px" src="@Model.Goods.ImgUrl" /></td>
+                        <td bgcolor="#ffffff">x @Model.BuyNum</td>
+                        <td bgcolor="#ffffff">
+                            @*@if (ViewBag.quan != null)
+                                {
+                                    <p>使用优惠券减去 @ViewBag.quan 元</p>
+                                }*@
+                            @*快递费：@ncc2019.Common.BLL.SettingBLL.GetDeliverFee() 元<br />*@
+                            总价：<a class="totalpay">￥@Html.Raw(Model.TotalPayment + ncc2019.Common.BLL.SettingBLL.GetDeliverFee()) 元</a><canvas class="quaninfo"></canvas>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            @if (ViewBag.yue < (Model.TotalPayment + ncc2019.Common.BLL.SettingBLL.GetDeliverFee()))
+            {
+                ViewBag.yuestr = "disabled='true'";
+                ViewBag.alipaySel = "checked='true'";
+                ViewBag.payment = "[您还需要支付 ￥" + (Model.TotalPayment - ViewBag.yue) + "]";
+
+            }
+            else
+            {
+                ViewBag.yuestrSel = "checked='true'";
+            }
+
+            <div style="margin:auto;width:900px;align-items:center;">
+                <div class="detial">
+
+                </div>
+                <div class="way rbcheck" style="text-align:center;margin:0 auto;width:500px;">
+
+                    <p><input id="yue" name="wayofpay" @ViewBag.yuestr @ViewBag.yuestrSel type="radio" value="0" /><label for="yue">余额支付 [￥@Html.Raw(ViewBag.yue)元]</label></p>
+                    <p><input id="zhifubao" name="wayofpay" type="radio" value="1" @ViewBag.alipaySel /><label for="zhifubao">支付宝 <c>@ViewBag.payment</c></label></p>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="pay" style="text-align:center;float:none;">
+                    <br />
+                    @*<input id="txtNum" name="num" type="text" value="@ViewBag.num" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />@Model.Payment <error style="color:red"></error>
+                        <input id="Button1" type="submit" value="确定" />*@
+                    @*<a id="pay" href="javascript:;" onclick="return dopay()" target="_blank"></a>*@
+                    <input id="Button1" class="myButton" type="submit" value="购   买" onclick="return docheck()" />
+                </div>
+                <input type="hidden" name="num" value="@ViewBag.num" />
+                <input type="hidden" name="goodid" value="@Model.GoodID" />
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+}
+<div style="height:50px;"></div>
+<script type="text/javascript">
+
+    function dopay() {
+        if ($('input[name="wayofpay"]:checked').val() == "0") {
+            $('#pay').attr('target', '_self');
+            $('#pay').attr('href', '/buy/dopay?num=@ViewBag.num&goodid=@Model.GoodID&wayofpay=' + $('input[name="wayofpay"]:checked').val());
+        } else {
+            $('#pay').attr('href', '/buy/dopay?num=@ViewBag.num&goodid=@Model.GoodID&wayofpay=' + $('input[name="wayofpay"]:checked').val());
+        }
+
+
+        return true;
+    }
+    function docheck() {
+        if ($('#fromname').val() == "") {
+            showAlertMessage('请留下您对Ta的昵称！');
+            return false;
+        }
+
+        if (!$('.pthepass').hasClass('hiddencss')) {
+            if ($('#thepass').val() == "") {
+                showAlertMessage('请填写密码！');
+                return false;
+            } else if ($('#thepass').val().length < 6 || $('#thepass').val().length > 20) {
+                showAlertMessage('请填写6-20位字母或数字组成的密码！');
+                return false;
+            }
+        }
+        if ($('#sayect').val() == "") {
+            showAlertMessage('请留下对Ta的祝福！');
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+
+
+
+
+

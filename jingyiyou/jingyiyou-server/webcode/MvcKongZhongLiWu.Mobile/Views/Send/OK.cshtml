@@ -1,0 +1,231 @@
+﻿@model ncc2019.Orders
+
+@{
+    ViewBag.Title = "赠送礼物";
+}
+<script src="~/Scripts/jweixin-1.0.0.js"></script>
+<link href="~/css/user.css" rel="stylesheet" />
+<script type="text/javascript">
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '@ViewBag.js_json.appId', // 必填，公众号的唯一标识
+        timestamp: '@ViewBag.js_json.timeStamp', // 必填，生成签名的时间戳
+        nonceStr: '@ViewBag.js_json.nonceStr', // 必填，生成签名的随机串
+        signature: '@ViewBag.js_json.paySign',// 必填，签名，见附录1
+        jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    var localId_main = '';
+    var serverId_main = '@Model.WxVioceMediaID';
+    wx.onVoiceRecordEnd({
+        // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+        complete: function (res) {
+            alert("录音完毕！");
+            localId_main = res.localId;
+            fucrec();
+
+        }
+    });
+    wx.onVoicePlayEnd({
+        success: function (res) {
+            fucplay();
+            alert("播放完毕！");
+            //var localId = res.localId; // 返回音频的本地ID
+        }
+    });
+    function beginrec() {
+        wx.startRecord();
+    }
+
+
+    function downrec() {
+
+        //将录音down到服务器
+        jQuery.post("/wxapi/UploadVioce", { mediaid: '@Model.WxVioceMediaID', orderid: '@ViewBag.orderid' }, function (rec) {
+            if (rec.state == 'ok') {
+                wx.downloadVoice({
+                    serverId: rec.mediaid, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        localId_main = res.localId; // 返回音频的本地ID
+                        $('.btn_play').addClass("btn_pause");
+                        playrec();
+
+                    }
+                });
+            }
+
+        }, "json");
+    }
+
+    function playrec() {
+        //downrec();
+        wx.playVoice({
+            localId: localId_main // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function pauseplay() {
+        wx.pauseVoice({
+            localId: localId_main // 需要暂停的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function stopplay() {
+        wx.stopVoice({
+            localId: localId_main // 需要停止的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function show_rec_panel() {
+        $('.bgcover').show();
+        downrec();
+    }
+
+    function fucplay() {
+        if ($('.btn_play').hasClass('btn_pause')) {
+            //停止播放
+            pauseplay();
+            $('.btn_play').removeClass("btn_pause");
+        } else {
+            //开始播放
+            if ($('.btn_rec').hasClass('btn_stop_rec')) {
+                alert("请先结束录制！");
+                return;
+            }
+            playrec();
+            $('.btn_play').addClass("btn_pause");
+        }
+    }
+    function btnOK() {
+
+
+        stopplay();
+        $('.btn_play').removeClass("btn_pause");
+
+        $('.bgcover').hide();
+
+    }
+
+    function sayback() {
+        $('#formok').submit();
+    }
+
+</script>
+<div id="paly_cover" class="bgcover" style="display:none;">
+    <div class="paly_bg">
+        <span class="btn_play_span"></span> <i onclick="fucplay()" class="btn_play"></i>
+        <input type="button" class="btnok btn btn-info" value="完成" onclick="btnOK()">
+    </div>
+</div>
+<link href="~/css/user.css" rel="stylesheet" />
+<div id="focus" class="focus goods-focus ect-padding-lr ect-margin-tb">
+    <h4 style="margin-bottom:5px;">礼物驾到！来自 @Model.FromName 的礼物。</h4>
+
+    <div class="ect-pro-list user-order" style="border-bottom:none;">
+        <ul id="J_ItemList">
+            <li class="single_item" id="more_element_1" onclick="javascript: window.location = '/gift/detail?id=@Model.GoodID'">
+                <img src="@Model.Goods.ImgUrl" class="pull-left">
+                <dl style="margin-right:20px">
+                    <dt>
+                        <h4 class="title">@Model.Goods.Name</h4>
+                    </dt>
+                    <dd>@Model.Goods.Intro</dd>
+                </dl>
+                <i class="pull-right fa fa-angle-right"></i>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div class="jp-container">
+    <div class="jp-container">
+        <div class="talk_recordbox">
+            <div class="user"><img src="@ViewBag.fromuserimgurl" width="40px" height="40px" />@Model.FromName</div>
+            <div class="talk_recordtextbg">&nbsp;</div>
+            <div class="talk_recordtext">
+                @*<i></i>*@
+                <a>@Model.SayEtc</a>
+                @if (Model.WxVioceMediaID != null && ViewBag.isweixin != false)
+                {
+                    <div style="height:1em;"></div>
+                    <div style="vertical-align:middle;line-height:20px;">
+                        <a onclick="show_rec_panel()" style="float:left;">Ta还准备了一段语音哦<img src="../../images/ta_say.png" width="19px" height="19px" /></a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.opengift != null)
+    {
+        <div class="clear"></div>
+    <div class="jp-container jp-commoncontainer" style="margin-top:20px;">
+        <div class="talk_recordboxme">
+            @*<div class="user"><img src="@ViewBag.touserimgurl" width="40px" height="40px" />@ViewBag.toname</div>*@
+            @*<div class="talk_recordtextbg">&nbsp;</div>*@
+            <div class="talk_recordtext talk_commontext">
+                @*<i></i>*@
+                <p>@ViewBag.toname </p>在 <a style="font-size:0.7em;">@ViewBag.opengift</a> <a>打开了礼物</a>
+            </div>
+        </div>
+    </div>
+    }
+    @if (!string.IsNullOrEmpty(Model.SayEtcBack))
+    {
+        <div class="clear"></div>
+        <div class="jp-container" >
+            <div class="talk_recordboxme">
+                <div class="user"><img src="@ViewBag.touserimgurl" width="40px" height="40px" />@ViewBag.toname</div>
+                <div class="talk_recordtextbg">&nbsp;</div>
+                <div class="talk_recordtext">
+                    <a>@Model.SayEtcBack</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.writeaddress != null)
+    { 
+    <div class="clear"></div>
+    <div class="jp-container jp-commoncontainer" style="margin-top:10px;">
+        <div class="talk_recordboxme">
+            @*<div class="user"><img src="@ViewBag.touserimgurl" width="40px" height="40px" />@ViewBag.toname</div>*@
+            @*<div class="talk_recordtextbg">&nbsp;</div>*@
+            <div class="talk_recordtext talk_commontext">
+                @*<i></i>*@
+                @*<a>@ViewBag.toname 在 @ViewBag.writeaddress 填写了接收信息</a>*@
+                <p>@ViewBag.toname </p>在 <a style="font-size:0.7em;">@ViewBag.writeaddress</a> <a>填写了接收信息</a>
+            </div>
+        </div>
+    </div>
+    }
+    @if (ViewBag.sendgift != null)
+    {
+    <div class="clear"></div>
+    <div class="jp-container jp-commoncontainer">
+        <div class="talk_recordboxme">
+            @*<div class="user"><img src="@ViewBag.touserimgurl" width="40px" height="40px" />@ViewBag.toname</div>*@
+            @*<div class="talk_recordtextbg">&nbsp;</div>*@
+            <div class="talk_recordtext talk_commontext">
+                @*<i></i>*@
+                <p>空中礼物 </p>在 <a style="font-size:0.7em;">@ViewBag.sendgift</a> <a>进行了礼物配送</a>
+            </div>
+        </div>
+    </div>
+    }
+
+  
+</div>
+
+<div class="bottomhoder" ></div>
+<div class="bottomhoder"></div>
+@*<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf btnshare">晒礼物</button>
+    <button class="btn btn-info ect-colorf btnshowroute" type="button" onclick="window.location='/myorder/routeinfo?orderid=@ViewBag.orderid'">查物流</button>
+</div>*@
+@*@if (string.IsNullOrEmpty(Model.ToAddress)) {
+    <button type="button" class="btn btn-info ect-btn-info ect-colorf btnbottom" onclick="window.location='/gift/take?orderid=@ViewBag.orderid'">点击收取礼物</button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-info ect-btn-info ect-colorf btnbottom" onclick="window.location='/gift/take?orderid=@ViewBag.orderid'">查看配送详细</button>
+    }*@
+
+
+

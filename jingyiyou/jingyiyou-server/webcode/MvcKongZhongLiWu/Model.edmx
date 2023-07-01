@@ -1,0 +1,517 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KongZhongLiWuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="RecName" Type="varchar" MaxLength="50" />
+          <Property Name="Memo" Type="varchar" MaxLength="300" />
+          <Property Name="AddDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="GoodID" />
+          </Key>
+          <Property Name="GoodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="TotalNum" Type="int" />
+          <Property Name="BuyCount" Type="int" />
+          <Property Name="ImgUrl" Type="varchar" MaxLength="300" />
+          <Property Name="Intro" Type="varchar" MaxLength="500" />
+          <Property Name="Tags" Type="varchar" MaxLength="500" />
+          <Property Name="Desc" Type="ntext" />
+        </EntityType>
+        <EntityType Name="GoodSort">
+          <Key>
+            <PropertyRef Name="GoodSortID" />
+          </Key>
+          <Property Name="GoodSortID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ParentID" Type="int" />
+        </EntityType>
+        <EntityType Name="GoodSortMapping">
+          <Key>
+            <PropertyRef Name="GoodSortMapping" />
+          </Key>
+          <Property Name="GoodSortMapping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodID" Type="int" />
+          <Property Name="GoodSortID" Type="int" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="LoginLogID" />
+          </Key>
+          <Property Name="LoginLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime" />
+          <Property Name="IP" Type="varchar" MaxLength="100" />
+          <Property Name="Agent" Type="varchar" MaxLength="1000" />
+          <Property Name="SystemInfo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="LoginName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="LoginCount" Type="int" />
+          <Property Name="RegDate" Type="datetime" />
+          <Property Name="LastDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Balance" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="NiceName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="GoodID" Type="int" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="BuyNum" Type="int" />
+          <Property Name="Payment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="RecName" Type="varchar" MaxLength="50" />
+          <Property Name="RecAddress" Type="varchar" MaxLength="300" />
+          <Property Name="RecPhone" Type="varchar" MaxLength="50" />
+          <Property Name="RecDate" Type="datetime" />
+          <Property Name="PayStatus" Type="int" />
+          <Property Name="TranceStatus" Type="int" />
+          <Property Name="OrderStatus" Type="int" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="20" />
+          <Property Name="SayEtc" Type="varchar" MaxLength="1000" />
+          <Property Name="ToName" Type="varchar" MaxLength="50" />
+          <Property Name="ToPhone" Type="varchar" MaxLength="50" />
+          <Property Name="ThePass" Type="varchar" MaxLength="100" />
+          <Property Name="DeliveryNo" Type="varchar" MaxLength="50" />
+          <Property Name="DeliveryCompany" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="TagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="AddDate" Type="datetime" />
+          <Property Name="Memo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_GOODSORT_REFERENCE_GOODS">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="GoodSortMapping" Type="Self.GoodSortMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="GoodID" />
+            </Principal>
+            <Dependent Role="GoodSortMapping">
+              <PropertyRef Name="GoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GOODSORT_REFERENCE_GOODSORT">
+          <End Role="GoodSort" Type="Self.GoodSort" Multiplicity="0..1" />
+          <End Role="GoodSortMapping" Type="Self.GoodSortMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodSort">
+              <PropertyRef Name="GoodSortID" />
+            </Principal>
+            <Dependent Role="GoodSortMapping">
+              <PropertyRef Name="GoodSortID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ORDERS_REFERENCE_GOODS">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="GoodID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="GoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ORDERS_REFERENCE_MEMBERS">
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KongZhongLiWuModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodSort" EntityType="Self.GoodSort" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodSortMapping" EntityType="Self.GoodSortMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginLog" EntityType="Self.LoginLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GOODSORT_REFERENCE_GOODS" Association="Self.FK_GOODSORT_REFERENCE_GOODS">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="GoodSortMapping" EntitySet="GoodSortMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GOODSORT_REFERENCE_GOODSORT" Association="Self.FK_GOODSORT_REFERENCE_GOODSORT">
+            <End Role="GoodSort" EntitySet="GoodSort" />
+            <End Role="GoodSortMapping" EntitySet="GoodSortMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORDERS_REFERENCE_GOODS" Association="Self.FK_ORDERS_REFERENCE_GOODS">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORDERS_REFERENCE_MEMBERS" Association="Self.FK_ORDERS_REFERENCE_MEMBERS">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KongZhongLiWuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RecName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="GoodSort">
+          <Key>
+            <PropertyRef Name="GoodSortID" />
+          </Key>
+          <Property Name="GoodSortID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <NavigationProperty Name="GoodSortMappings" Relationship="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODSORT" FromRole="GoodSort" ToRole="GoodSortMapping" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="LoginLogID" />
+          </Key>
+          <Property Name="LoginLogID" Type="Int32" Nullable="false" />
+          <Property Name="LoginTime" Type="DateTime" Precision="3" />
+          <Property Name="IP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Agent" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SystemInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LoginCount" Type="Int32" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="LastDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_ORDERS_REFERENCE_MEMBERS" FromRole="Members" ToRole="Orders" />
+          <Property Name="Balance" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="MemberID" Type="Int32" />
+          <Property Name="GoodID" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="BuyNum" Type="Int32" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="RecName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RecAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RecPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RecDate" Type="DateTime" Precision="3" />
+          <Property Name="PayStatus" Type="Int32" />
+          <Property Name="TranceStatus" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ShortUrl" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_ORDERS_REFERENCE_MEMBERS" FromRole="Orders" ToRole="Members" />
+          <NavigationProperty Name="Good" Relationship="KongZhongLiWuModel.FK_Orders_Goods" FromRole="Order" ToRole="Good" />
+          <Property Name="SayEtc" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ToName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ThePass" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="TagID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddDate" Type="DateTime" Precision="3" />
+          <Property Name="Memo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_ORDERS_REFERENCE_MEMBERS">
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KongZhongLiWuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="GoodSorts" EntityType="Self.GoodSort" />
+          <EntitySet Name="LoginLogs" EntityType="Self.LoginLog" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <AssociationSet Name="FK_ORDERS_REFERENCE_MEMBERS" Association="Self.FK_ORDERS_REFERENCE_MEMBERS">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Goods" EntityType="KongZhongLiWuModel.Good" />
+          <AssociationSet Name="FK_Orders_Goods" Association="KongZhongLiWuModel.FK_Orders_Goods">
+            <End Role="Good" EntitySet="Goods" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="GoodSortMappings" EntityType="KongZhongLiWuModel.GoodSortMapping" />
+          <AssociationSet Name="FK_GOODSORT_REFERENCE_GOODS" Association="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODS">
+            <End Role="Good" EntitySet="Goods" />
+            <End Role="GoodSortMapping" EntitySet="GoodSortMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GOODSORT_REFERENCE_GOODSORT" Association="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODSORT">
+            <End Role="GoodSort" EntitySet="GoodSorts" />
+            <End Role="GoodSortMapping" EntitySet="GoodSortMappings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Good">
+          <Key>
+            <PropertyRef Name="GoodID" />
+          </Key>
+          <Property Name="GoodID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Payment" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TotalNum" Type="Int32" />
+          <Property Name="BuyCount" Type="Int32" />
+          <Property Name="ImgUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Intro" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="KongZhongLiWuModel.FK_Orders_Goods" FromRole="Good" ToRole="Order" />
+          <NavigationProperty Name="GoodSortMappings" Relationship="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODS" FromRole="Good" ToRole="GoodSortMapping" />
+        </EntityType>
+        <Association Name="FK_Orders_Goods">
+          <End Type="KongZhongLiWuModel.Good" Role="Good" Multiplicity="0..1" />
+          <End Type="KongZhongLiWuModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Good">
+              <PropertyRef Name="GoodID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="GoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GoodSortMapping">
+          <Key>
+            <PropertyRef Name="GoodSortMapping1" />
+          </Key>
+          <Property Name="GoodSortMapping1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodID" Type="Int32" />
+          <Property Name="GoodSortID" Type="Int32" />
+          <NavigationProperty Name="Good" Relationship="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODS" FromRole="GoodSortMapping" ToRole="Good" />
+          <NavigationProperty Name="GoodSort" Relationship="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODSORT" FromRole="GoodSortMapping" ToRole="GoodSort" />
+        </EntityType>
+        <Association Name="FK_GOODSORT_REFERENCE_GOODS">
+          <End Type="KongZhongLiWuModel.Good" Role="Good" Multiplicity="0..1" />
+          <End Type="KongZhongLiWuModel.GoodSortMapping" Role="GoodSortMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Good">
+              <PropertyRef Name="GoodID" />
+            </Principal>
+            <Dependent Role="GoodSortMapping">
+              <PropertyRef Name="GoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GOODSORT_REFERENCE_GOODSORT">
+          <End Type="KongZhongLiWuModel.GoodSort" Role="GoodSort" Multiplicity="0..1" />
+          <End Type="KongZhongLiWuModel.GoodSortMapping" Role="GoodSortMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodSort">
+              <PropertyRef Name="GoodSortID" />
+            </Principal>
+            <Dependent Role="GoodSortMapping">
+              <PropertyRef Name="GoodSortID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KongZhongLiWuModelStoreContainer" CdmEntityContainer="KongZhongLiWuEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Address1" ColumnName="Address" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="RecName" ColumnName="RecName" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodSorts">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.GoodSort">
+              <MappingFragment StoreEntitySet="GoodSort">
+                <ScalarProperty Name="GoodSortID" ColumnName="GoodSortID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginLogs">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.LoginLog">
+              <MappingFragment StoreEntitySet="LoginLog">
+                <ScalarProperty Name="LoginLogID" ColumnName="LoginLogID" />
+                <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="Agent" ColumnName="Agent" />
+                <ScalarProperty Name="SystemInfo" ColumnName="SystemInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Member">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="NiceName" ColumnName="NiceName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginCount" ColumnName="LoginCount" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="DeliveryCompany" ColumnName="DeliveryCompany" />
+                <ScalarProperty Name="DeliveryNo" ColumnName="DeliveryNo" />
+                <ScalarProperty Name="ThePass" ColumnName="ThePass" />
+                <ScalarProperty Name="ToPhone" ColumnName="ToPhone" />
+                <ScalarProperty Name="ToName" ColumnName="ToName" />
+                <ScalarProperty Name="SayEtc" ColumnName="SayEtc" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="BuyNum" ColumnName="BuyNum" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="RecName" ColumnName="RecName" />
+                <ScalarProperty Name="RecAddress" ColumnName="RecAddress" />
+                <ScalarProperty Name="RecPhone" ColumnName="RecPhone" />
+                <ScalarProperty Name="RecDate" ColumnName="RecDate" />
+                <ScalarProperty Name="PayStatus" ColumnName="PayStatus" />
+                <ScalarProperty Name="TranceStatus" ColumnName="TranceStatus" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.Good">
+              <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+                <ScalarProperty Name="TotalNum" ColumnName="TotalNum" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodSortMappings">
+            <EntityTypeMapping TypeName="KongZhongLiWuModel.GoodSortMapping">
+              <MappingFragment StoreEntitySet="GoodSortMapping">
+                <ScalarProperty Name="GoodSortID" ColumnName="GoodSortID" />
+                <ScalarProperty Name="GoodID" ColumnName="GoodID" />
+                <ScalarProperty Name="GoodSortMapping1" ColumnName="GoodSortMapping" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

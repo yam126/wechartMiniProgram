@@ -1,0 +1,387 @@
+﻿@model ncc2019.Orders
+@using ncc2019
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "礼物";
+}
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script src="~/Scripts/jweixin-1.0.0.js"></script>
+<link href="~/css/user.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/sharewx.css" />
+<style type="text/css">
+    .guanzhu {
+        position: inherit;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('.guanzhu').show();
+        $('.ect-bg').hide();
+        var sayback = $.cookie('sayback');
+        if (sayback != null) {
+            $('#sayback').val(sayback);
+        }
+    });
+
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '@ViewBag.js_json.appId', // 必填，公众号的唯一标识
+        timestamp: '@ViewBag.js_json.timeStamp', // 必填，生成签名的时间戳
+        nonceStr: '@ViewBag.js_json.nonceStr', // 必填，生成签名的随机串
+        signature: '@ViewBag.js_json.paySign',// 必填，签名，见附录1
+        jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice', 'onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    var localId_main = '';
+    var serverId_main = '@Model.WxVioceMediaID';
+
+
+
+    wx.ready(function () {
+
+        wx.onVoiceRecordEnd({
+            // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+            complete: function (res) {
+                alert("录音完毕！");
+                localId_main = res.localId;
+                fucrec();
+            }
+        });
+        wx.onVoicePlayEnd({
+            success: function (res) {
+                fucplay();
+                alert("播放完毕！");
+                //var localId = res.localId; // 返回音频的本地ID
+            }
+        });
+        var title = '@ViewBag.myname 收到了礼物 ' + '@Model.Goods.Name' + '';
+        var link = '@ViewBag.linkurl';
+        var imgUrl = '@ViewBag.goodimgurl';
+        var desc = '@Model.Goods.Intro';
+
+        wx.onMenuShareTimeline({
+            title: '大家快来围观 ' + title, // 分享标题
+            link: link, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+                // window.location = successurl;
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareAppMessage({
+            title: '快来看 ' + title, // 分享标题
+            desc: desc, // 分享描述
+            link: link, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+                // window.location = successurl;
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareQQ({
+            title: '快来看 ' + title, // 分享标题
+            desc: desc, // 分享描述
+            link: link, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+                //window.location = successurl;
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        wx.onMenuShareWeibo({
+            title: '快来看 ' + title, // 分享标题
+            desc: desc, // 分享描述
+            link: link, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+                //window.location = successurl;
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+    function beginrec() {
+        wx.startRecord();
+    }
+
+
+    function downrec() {
+
+        //将录音down到服务器
+        jQuery.post("/wxapi/UploadVioce", { mediaid: '@Model.WxVioceMediaID', orderid: '@ViewBag.orderid' }, function (rec) {
+            if (rec.state == 'ok') {
+                wx.downloadVoice({
+                    serverId: rec.mediaid, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        localId_main = res.localId; // 返回音频的本地ID
+                        //$('.btn_play').addClass("btn_pause");
+                        //playrec();
+
+                    }
+                });
+            }
+
+        }, "json");
+    }
+
+    function playrec() {
+        //downrec();
+        wx.playVoice({
+            localId: localId_main // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function pauseplay() {
+        wx.pauseVoice({
+            localId: localId_main // 需要暂停的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function stopplay() {
+        wx.stopVoice({
+            localId: localId_main // 需要停止的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    function show_rec_panel() {
+        $('.bgcover').show();
+        downrec();
+    }
+
+    function fucplay() {
+        if ($('.btn_play').hasClass('btn_pause')) {
+            //停止播放
+            pauseplay();
+            $('.btn_play').removeClass("btn_pause");
+        } else {
+            //开始播放
+            if ($('.btn_rec').hasClass('btn_stop_rec')) {
+                alert("请先结束录制！");
+                return;
+            }
+            playrec();
+            $('.btn_play').addClass("btn_pause");
+        }
+    }
+    function btnOK() {
+        stopplay();
+        $('.btn_play').removeClass("btn_pause");
+
+        $('.bgcover').hide();
+
+    }
+    function sharegift() {
+        //document.getElementById('mcover').style.display = 'block';
+        $('#mcover').show();
+    }
+    function saytoback() {
+
+        if ($('#sayback').val() == "") {
+            showAlertMessage("您还没有填写要回复的内容！");
+            return false;
+        }
+        var cookietime = new Date();
+        cookietime.setTime(cookietime.getTime() + 1000 * 3 * 60 * 60 * 60 * 24); //coockie保存半年
+        $.cookie('sayback', new Date().getTime() / 1000, { expires: cookietime, domain: 'kongzhongliwu.com', path: '/' });
+        @if (SessionHelper.CurMemberInfo != null)
+        {
+            Html.Raw(" if ('" + SessionHelper.CurMemberInfo + "'=='') { window.location='/my/GetWeiXinInfo/'}");
+        }
+        $.cookie('sayback', null, { expires: -1, domain: 'kongzhongliwu.com', path: '/' });
+
+
+        $('#formok').submit();
+
+    }
+
+</script>
+
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display:none;">
+    <img src="/images/guide.png" />
+</div>
+<div id="paly_cover" class="bgcover" style="display:none;">
+    <div class="paly_bg">
+        <span class="btn_play_span"></span> <i onclick="fucplay()" class="btn_play"></i>
+        <input type="button" class="btnok btn btn-info" value="完成" onclick="btnOK()">
+    </div>
+</div>
+@{
+    if (Model.Goods.GoodType == (int)ncc2019.Common.Enum.GoodType.贺卡)
+    {
+        ViewBag.gifttype = "电子贺卡";
+    }
+    else
+    {
+        ViewBag.gifttype = "实体礼物";
+    }
+    if (Model.GoodID < 10)
+    {
+        ViewBag.gifttype = "多选一礼物包";
+    }
+}
+<div id="focus" class="focus goods-focus ect-padding-lr ect-margin-tb">
+    <h5 style="margin-bottom:5px;">@Html.Raw("您的好友")@Model.FromName@Html.Raw("送您的" + ViewBag.gifttype + "，由<strong>空中礼物</strong>配送，赶快领取吧！")</h5>
+    <div class="ect-pro-list user-order" style="border-bottom:none;">
+
+        @if (Model.GoodID < 10)
+        {<ul id="J_ItemList">
+            <li class="single_item" id="more_element_1" >
+                <img src="@Model.Goods.ImgUrl" class="pull-left">
+                <dl style="margin-right:20px">
+                    <dt>
+                        <h4 class="title">@Model.Goods.Name</h4>
+                    </dt>
+                    <dd>@Model.Goods.Intro</dd>
+                </dl>
+                @*<i class="pull-right fa fa-angle-right"></i>*@
+            </li>
+        </ul>
+        }
+        else
+        {<ul id="J_ItemList">
+            <li class="single_item" id="more_element_1" onclick="javascript: window.location = '/gift/detail?id=@Model.GoodID'">
+                <img src="@Model.Goods.ImgUrl" class="pull-left">
+                <dl style="margin-right:20px">
+                    <dt>
+                        <h4 class="title">@Model.Goods.Name</h4>
+                    </dt>
+                    <dd>@Model.Goods.Intro</dd>
+                </dl>
+                <i class="pull-right fa fa-angle-right"></i>
+            </li>
+        </ul>
+        }
+
+
+
+    </div>
+
+</div>
+<section></section>
+<div class="jp-container">
+    @foreach (var comment in (List<Comments>)ViewBag.comments)
+    {
+        if (comment.MemberID != ViewBag.frommemerid)
+        {
+            <div class="clear"></div>
+            <div class="talk_recordboxme tag">
+                <div class="user"><img src="@comment.HeadImgUrl" width="40px" height="40px" /><span>@comment.Name</span></div>
+                <div class="talk_recordtextbg">&nbsp;</div>
+                <div class="talk_recordtext">
+                    @*<i></i>*@
+                    <a>@comment.Content</a>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <div class="clear"></div>
+            <div class="talk_recordbox tag">
+                <div class="user"><img src="@comment.HeadImgUrl" width="40px" height="40px" /><span>@comment.Name</span></div>
+                <div class="talk_recordtextbg">&nbsp;</div>
+                <div class="talk_recordtext">
+                    @*<i></i>*@
+                    <a>@comment.Content</a>
+                </div>
+            </div>
+        }
+
+    }
+    <div class="clear"></div>
+    <div class="talk_recordbox tag">
+        <div class="user"><img src="@ViewBag.fromuserimgurl" width="40px" height="40px" /><span>@Model.FromName</span></div>
+        <div class="talk_recordtextbg">&nbsp;</div>
+        <div class="talk_recordtext">
+            @*<i></i>*@
+            <a>@Model.SayEtc</a>
+            @if (Model.WxVioceMediaID != null && ViewBag.isweixin != false)
+            {
+                <div style="height:1em;"></div>
+                <div style="vertical-align:middle;line-height:20px;">
+                    <a onclick="show_rec_panel()" style="float:left;">Ta还准备了一段语音哦<img src="../../images/ta_say.png" width="19px" height="19px" /></a>
+                </div>
+            }
+        </div>
+    </div>
+    @if (SessionHelper.CurMemberInfo != null)
+    {
+        <div class="clear"></div>
+
+        using (Html.BeginForm("index", "gift", FormMethod.Post, new { id = "formok" }))
+        {
+            <div class="input-group">
+                <input type="text" id="sayback" name="sayback" class="form-control" placeholder="给Ta捎段话，答谢Ta的礼物吧！" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2" onclick="saytoback();">回复</span>
+            </div>
+            <input type="hidden" name="shorturl" value="@ViewBag.shorturl" />
+            <input type="hidden" name="token" value="@ViewBag.token" />
+        }
+        <div class="bottomhoder"></div>
+    }
+
+</div>
+
+
+<div class="bottomhoder"></div>
+<div class="bottomhoder"></div>
+<div class="bottomhoder"></div>
+
+@if (string.IsNullOrEmpty(Model.ToWeChatOpenid) && Model.ToMemberID == null)
+{
+    <div class="btnpanel">
+        <button type="button" class="btn btn-info ect-colorf button_only" onclick="window.location='/gift/take?shorturl=@ViewBag.shorturl'">点击收取礼物</button>
+    </div>
+}
+else
+{
+    if (SessionHelper.CurMemberInfo != null && (Model.ToMemberID == SessionHelper.CurMemberInfo.MemnerID
+        || Model.ToWeChatOpenid == SessionHelper.CurMemberInfo.WeChatOpenid))
+    {
+        if (Model.ToAddress != null)
+        {
+            <div class="btnpanel">
+                <button type="button" class="btn btn-info ect-colorf btnshare" onclick="sharegift()">晒礼物</button>
+                <button class="btn btn-info ect-colorf btnshowroute" type="button" onclick="window.location='/myorder/routeinfo?orderid=@ViewBag.orderid'">查物流</button>
+            </div>
+        }
+        else
+        {
+            <div class="btnpanel">
+                <button type="button" class="btn btn-info ect-colorf button_only" onclick="window.location='/gift/take?shorturl=@ViewBag.shorturl'">点击收取礼物</button>
+            </div>
+        }
+
+    }
+    else if (SessionHelper.CurMemberInfo == null)
+    {
+        <div class="btnpanel">
+            <!--匿名收取-->
+            <button type="button" class="btn btn-info ect-colorf button_only" onclick="window.location='/gift/take?shorturl=@ViewBag.shorturl'">点击收取礼物</button>
+        </div>
+    }
+    else
+    {
+        <div class="btnpanel">
+            <button type="button" class="btn btn-info ect-colorf button_only">礼物已经被领取</button>
+        </div>
+    }
+    @*<button type="button" class="btn btn-info ect-btn-info ect-colorf btnbottom" onclick="window.location='/gift/take?orderid=@ViewBag.orderid'">查看配送详细</button>*@
+}
+
+
+

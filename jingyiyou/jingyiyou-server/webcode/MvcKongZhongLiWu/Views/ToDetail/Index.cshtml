@@ -1,0 +1,111 @@
+﻿@model ncc2019.Orders
+
+@{
+    ViewBag.Title = "详情";
+}
+<script src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        jQuery.validator.addMethod("phone", function (value, element) {
+            var length = value.length;
+            return this.optional(element) || length == 11 && /^1[358]\d{9}$/.test(value);
+        }, "请填写正确的手机号码");
+        $("#detail").validate({
+            rules: {
+                toname: {
+                    required: true,
+                    maxlength: 30
+                }, phone: {
+                    phone: []
+                }, thepass: {
+                    required: true,
+                    maxlength: 20,
+                    minlength: 6
+                }
+            },
+            messages: {
+                toname: {
+                    required: "请输入礼物收取人的姓名",
+                    maxlength: "姓名的长度不能大于30个字符"
+
+                }
+                , thepass: {
+                    required: "请输入打开礼物所需的密码",
+                    maxlength: "请输入最多20个字符",
+                    minlength: "请输入最少6个字符"
+                }
+            }
+        });
+
+    });
+</script>
+<div class="blank"></div>
+@using (Html.BeginForm("Create", "ToDetail", FormMethod.Post, new { id = "detail" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="block table">
+
+        <div class="flowBox">
+            <h6><span>收礼人信息</span></h6>
+            <table border="0" cellspacing="1" cellpadding="5" width="99%" bgcolor="#dddddd" align="center">
+
+                <tbody>
+                    <tr>
+                        <td bgcolor="#ffffff">接收礼物人姓名:</td>
+                        <td bgcolor="#ffffff">
+                            <input class="inputBg" id="toname" name="toname" type="text" value="">
+                            (必填)
+                        </td>
+                        <td bgcolor="#ffffff">接收礼物人手机:</td>
+                        <td bgcolor="#ffffff"><input class="inputBg" id="phone" name="phone" type="text" value="">(必填)</td>
+                    </tr>
+
+
+                    <tr>
+                        <td bgcolor="#ffffff">打开礼物所需密码:</td>
+                        <td bgcolor="#ffffff" colspan="3">
+                            <input class="inputBg" id="thepass" name="thepass" type="text" value="">
+                            (必填) 请填写6-20位字母或数字组成的密码
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td bgcolor="#ffffff">祝福他/她就说点啥:</td>
+                        <td bgcolor="#ffffff" colspan="3">
+                            <textarea id="sayect" name="sayect" class="inputBg" style="width:700px;height:200px;"></textarea>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff">备注:</td>
+                        <td bgcolor="#ffffff" colspan="3">
+                            <textarea id="memo" name="memo" class="inputBg" style="width:700px;height:150px;"></textarea>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" colspan="4" align="center">
+                            @*<input class="bnt_blue_2" value="预 览" type="button" onclick="window.open('~/PreView?orderid=@ViewBag.OrderID')" />*@
+                            <input class="bnt_blue_2" name="Submit" value="确 定" type="submit" />
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="hidden" value="@ViewBag.OrderID" name="orderid" />
+        </div>
+        
+
+
+
+    </div>
+
+
+}

@@ -1,0 +1,60 @@
+﻿@model ncc2019.Orders
+@{
+    ViewBag.Title = "我也来一个";
+}
+<script type="text/javascript">
+    $(function () {
+        $('.guanzhu').show();
+    });
+</script>
+<style type="text/css">
+    .guanzhu {
+        position:inherit;
+    }
+    .giftfrom{
+        /*height:50px;*/
+        background:#fff;
+        vertical-align:middle;
+        line-height:40px;
+    }
+        .giftfrom a {
+            float: right;
+            display: inline-block;
+            margin-right:10px;
+        }
+        .giftfrom span {
+            margin-left:20px;
+        }
+    .panel {
+        margin-bottom: 5px;
+    }
+</style>
+@if (ViewBag.showgood == true) { 
+<link href="~/css/user.css" rel="stylesheet" />
+<div class="ect-pro-list user-order" style="border-bottom:none;">
+    <ul id="J_ItemList">
+        <li class="single_item" id="more_element_1" onclick="javascript: window.location = '/home/details?id=@Model.GoodID'">
+            <img src="@Model.Goods.ImgUrl" class="pull-left">
+            <dl style="margin-right:20px">
+                <dt>
+                    <h4 class="title">@Model.Goods.Name</h4>
+                </dt>
+                <dd>@Model.Goods.Intro</dd>
+            </dl>
+            <i class="pull-right fa fa-angle-right"></i>
+        </li>
+    </ul>
+</div>
+    <div class="panel  panel-default" >
+    <div class="panel-body giftfrom"><span>实体礼物由 <strong>@Model.FromName</strong> 赠送</span><a><img src="@ViewBag.fromimgurl" height="40px" width="40px" /></a></div>
+    </div>
+}
+
+    <div class="panel panel-default" style="height:20em">
+        <div class="panel-body" style="margin:auto;text-align:center;padding-top:20px;">
+            <div style="height:3em;"></div>
+            <h4>您的好友已经收获了实体礼物，</h4><br /><h5>空中礼物正在火速配送中！</h5>
+            <br />
+            <a href="/" class="btn btn-info  ect-colorf">我也去选一款</a>
+        </div>
+    </div>

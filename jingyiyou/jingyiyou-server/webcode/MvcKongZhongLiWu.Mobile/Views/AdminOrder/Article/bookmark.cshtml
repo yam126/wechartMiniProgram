@@ -1,0 +1,132 @@
+﻿@model MvcKongZhongLiWu.Info
+           @{
+               ViewBag.title = "会说话的书签";
+           }
+<script type="text/javascript">
+    $(function () {
+        $('.ect-bg').hide();
+        showguanzhu();
+    });
+    function btn_ok() {
+        window.location = '/qrcode/scantest?type=bookmark';
+    }
+</script>
+<style type="text/css">
+    .guanzhu {
+        position: inherit;
+    }
+
+    .hidcss {
+        display: none;
+    }
+
+    .goods-info .tab-info * {
+        width: auto;
+    }
+
+    .topmenu {
+        width: 49% !important;
+    }
+
+    .nav-pills li {
+        text-align: center;
+        background-color: rgba(245,245,245,1);
+    }
+</style>
+@*<a href="/quan/takenok"><img src="/images/quan10.jpg" style="width:100%;margin-top:0px;" /></a>*@
+<div class="goods-info ect-padding-tb">
+
+    <section class="">
+        @*<div class="tab-content quan">
+            <div>*@
+
+        @*<div><h4>恭喜您获得一个优惠码： <strong>@ViewBag.quancode </strong></h4>*@
+        @*<p>请在公众号菜单里面的<strong> 我的地盘 -> 兑换优惠券 </strong>功能里面兑换优惠券</p> </div>*@
+        <div class="tab-pane tab-info active" id="one">
+            
+            <script>
+                $(function () {
+                    $('.nav li').click(function () {
+
+                        $('.nav li').each(function () {
+                            $(this).removeClass('active');
+                        });
+                        $(this).addClass('active');
+
+                        $('.forfriend').addClass('hidcss');
+                        $('.forme').addClass('hidcss');
+                        var targetObj = $('.' + $(this).data('role'));
+                        targetObj.removeClass('hidcss');
+
+                    });
+                });
+
+            </script>
+            <ul class="nav nav-pills">
+                <li role="presentation" data-role="forfriend" class="active topmenu"><a href="#">送朋友</a></li>
+                <li role="presentation" data-role="forme" class="topmenu"><a href="#">送自己</a></li>
+
+            </ul>
+            <br />
+            <div class="forfriend">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">第一步</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p> 将正面留言码遮挡标签去掉。</p>
+                        <font color="red">操作过程中若有损坏，可找书店管理员进行更换！</font>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">第二步</h3>
+                    </div>
+                    <div class="panel-body">
+                        用微信扫描留言码即可录入自己的声音或文字，为好友送去祝福。
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">第三步</h3>
+                    </div>
+                    <div class="panel-body">
+                        将书与书签一同送给朋友，朋友收到后用微信扫描留言码即可听见您的声音祝福。
+                    </div>
+                </div>
+            </div>
+            <div class="forme hidcss">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">第一步</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p> 将正面留言码遮挡标签去掉。</p>
+                        <font color="red">操作过程中若有损坏，可找书店管理员进行更换！</font>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">第二步</h3>
+                    </div>
+                    <div class="panel-body">
+                        用微信扫描留言码即可录入声音或文字，记录自己此时此刻的心情。
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">第三步</h3>
+                    </div>
+                    <div class="panel-body">
+                        将书与书签一起珍藏。（将声音与文字也一起珍藏）
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btn_ok()">点击试用</button>
+
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="55565d1b735149b6b7f465276af4a598" Name="Diagram1">
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Address" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GoodSort" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.LoginLog" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Member" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Order" Width="1.5" PointX="3" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Tag" Width="1.5" PointX="5.875" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="KongZhongLiWuModel.FK_ORDERS_REFERENCE_MEMBERS" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.Good" Width="1.5" PointX="5.375" PointY="6.75" />
+        <AssociationConnector Association="KongZhongLiWuModel.FK_Orders_Goods" />
+        <EntityTypeShape EntityType="KongZhongLiWuModel.GoodSortMapping" Width="1.5" PointX="7.625" PointY="6.75" />
+        <AssociationConnector Association="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODS" />
+        <AssociationConnector Association="KongZhongLiWuModel.FK_GOODSORT_REFERENCE_GOODSORT" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

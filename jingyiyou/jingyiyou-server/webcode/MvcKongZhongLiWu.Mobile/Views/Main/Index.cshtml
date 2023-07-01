@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "打开箱门";
+}
+<script type="text/javascript">
+    function refulsh() {
+        this.location.reload();
+    }
+</script>
+<style type="text/css">
+    body {
+    /*
+            margin:0;   网页内容距离浏览器上、下、左、右边框的距离均为0
+            margin:0 5px;   网页内容距离浏览器上、下边框距离为0，左、右边框距离为5px
+            margin:0 10px 5px;  网页内容距离浏览器上边框距离为0，下边框距离为5px，左、右边框距离为10px
+            margin:0 1px 2px 3px;   网页内容距离浏览器上、右、下、左距离分别为0、1px、2px、3px
+            */
+    /*padding: 0;*/ /*设置方法和margin一样*/
+    font-family: 微软雅黑;
+    font-size: 18px; /*设置整个页面字体（小9px 中12px 大14px）*/
+    color: #000000; /*设置网页字体颜色*/
+    /*background-color: #e5e5e5;*/ /*设置网页背景*/
+    /*overflow: hidden;*/ /*去掉页面滚动条*/
+    text-align: center;
+    /*margin: 0 auto;*/
+}
+
+    .Text_Explain_Key_Point {
+    color: #000000;
+    font-size: 20px;
+    line-height: 150%;
+}
+    .Div_Explain {
+    padding-top: 40px;
+    padding-left: 10px;
+    text-align: left;
+    float: left;
+}
+    .Div_Main_Title_Image {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+</style>
+
+    <div class="Div_Main_Title_Image">
+        <a href="javascript:refulsh();"><img src="../images/zgg/zgg.jpg" alt="0" class="Image_Main_Title_Image" /></a>
+    </div>
+    <div class="Clear"></div>
+    <div><br><span id="lab_Info"></span></div>
+    <div class="Clear"></div>
+    <div class="Clear"></div>
+    <div class="Div_Explain">
+        <span class="Text_Explain_Key_Point">点击"图标"，可刷新页面重新连接蓝牙<a href="/main/zggopen?type=neber">。</a></span><br />
+        <span class="Text_Explain_Key_Point">点击"名称"，可进行开箱门操作。</span><br />
+        <span class="Text_Explain_Key_Point">点击"更多"，可进入详细设置<a href="/main/locboxlist">。</a></span>
+    </div>
+

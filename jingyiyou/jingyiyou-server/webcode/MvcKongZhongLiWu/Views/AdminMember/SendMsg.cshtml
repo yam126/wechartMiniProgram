@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "SendMsg";
+}
+
+<div class="Area">
+    @using (Html.BeginForm()) { 
+    <input type="text" style="width:500px;" name="msg"/><input type="submit" class="myButton"  value="提交"/>
+        <input type="hidden" name="mid" value="@ViewBag.mid" />
+    }
+</div>

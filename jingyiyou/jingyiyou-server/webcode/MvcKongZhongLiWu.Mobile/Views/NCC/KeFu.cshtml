@@ -1,0 +1,376 @@
+﻿@{
+    ViewBag.Title = "客服";
+    Layout = "~/Views/Shared/_Layout-cnn.cshtml";
+}
+<style type="text/css">
+    #app {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #2c3e50;
+    }
+
+    #app, .fullscreen {
+        width: 100%;
+        min-height: 100%;
+        margin: 0 auto;
+    }
+
+    #app {
+        background: #1b0e30;
+    }
+
+    #app, .help-bd {
+        background: #362b49;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .headers {
+        position: relative;
+        height: .5rem;
+        line-height: .5rem;
+        background: #362b49;
+    }
+
+        .headers .header-l {
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding-top: .1rem;
+        }
+
+            .headers .header-l .item {
+                float: left;
+                margin-left: .1rem;
+            }
+
+            .headers .header-l .goback {
+                width: .3rem;
+                height: .3rem;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAC0CAMAAAD/wb/1AAAAk1BMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ROyVeAAAAMHRSTlMA8JAI+PTly7kjF/zhpYMxD8/GnnBpUC0F6bCWiX5YVUIoJR8ZDNu/Ylw42Kp3ZUlhRnvyAAABj0lEQVRo3u3Z2XKCMBSA4QMqssjihrbuuK/N+z9dzRlz4zTSHBxg2vPf6cynJBlgIMBxVZd1l2Tr70RrRLSbjhCoaVYWfBEtdjW3a2UHBOtUYz1lhwT78QZ7K2AP5nZlvcEey7UjZecE23rYRbk2VjYl2CbdntT/Ek7+lDjPWGI/sLsFQtFDd4vpRhHdJunpW3RvXL62lYYiel+hdkl6UgP9SdL9GuhLIR2RdIi26wNV49lJ1XQL2ygDjuP+R8K4WmCO4/5OfBniOM4svgxxHMdx1SUMqhf24RclGmxdG7l27mgPuzN/TTP35Zh7Jz1tzJpCi2+4FxmuNXa5kxvRtgZDMpU/3Yy2P1A/xAOLQYcBvIu45xzguaElZ3QIoMWyU1vypw3+GL8MfXiFsWMHX6ZnoErsQAhxXgLkYZzVlhy6nQC2cOSn2RjyMbbpB3KIgzvwcGldDyAfq+K9NOcUl9ZZAJhggHQnOS5tAqYYxgNL2nYMYIgxfxLIpSVgbOUDEWOMGZvj2t2r+LmI4yrvG3jk9W2dFDstAAAAAElFTkSuQmCC) no-repeat;
+                background-size: .3rem .9rem;
+            }
+
+        .headers .tit {
+            font-size: .16rem;
+            line-height: .5rem;
+            color: #fff;
+            text-align: center;
+        }
+
+    .widthdraw-bd {
+        min-height: 6.05rem;
+    }
+
+    .user-bd {
+        position: relative;
+        margin-top: .1rem;
+        border-left: 1px solid #5a4950;
+        background: #362b49;
+    }
+
+    .sample-widthdraw {
+        min-height: 1.8rem;
+        padding: 0 .1rem;
+    }
+
+    .fm-base .item {
+        padding: .05rem 0;
+        border-bottom: 1px solid #493455;
+        text-align: left;
+    }
+
+        .fm-base .item .tit {
+            float: left;
+            width: .66rem;
+            color: #fff;
+            font-size: .14rem;
+            text-align: right;
+            line-height: .3rem;
+        }
+
+        .fm-base .item .txt {
+            overflow: hidden;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 0 .08rem;
+            font-size: .14rem;
+        }
+
+            .fm-base .item .txt .inner {
+                position: relative;
+                display: block;
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                -moz-box-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+            }
+
+            .fm-base .item .txt .only-txt {
+                display: block;
+                line-height: .3rem;
+                color: #fff;
+            }
+
+        .fm-base .item:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .fm-base .item .txt .ipt-txt {
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            height: .3rem;
+            font-size: .14rem;
+            color: #fff;
+        }
+
+    input, textarea {
+        outline: none;
+    }
+
+    .fm-base .item .txt .getsmscode {
+        line-height: .3rem;
+        color: #fff;
+        font-size: .14rem;
+    }
+
+    .fm-base .item .txt .ipt-txt:disabled {
+        color: #7b6888;
+    }
+
+    .btn-flex {
+        padding: .15rem .15rem 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .btn-primary {
+        height: .4rem;
+        line-height: .4rem;
+        color: #fff;
+        font-size: .15rem;
+        border-radius: .05rem;
+        background: #e02447;
+    }
+
+    .btn-flex .btn {
+        display: block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -moz-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: 0;
+        text-align: center;
+        margin-right: 15px;
+    }
+
+        .btn-flex .btn:last-child, .btn-flex .last {
+            margin-right: 0;
+        }
+
+    .doc-infor {
+        padding: .2rem .15rem 0;
+    }
+
+        .doc-infor p {
+            padding-bottom: .05rem;
+            line-height: .2rem;
+            color: #999;
+            font-size: 0.14rem;
+        }
+
+    em, i {
+        font-style: normal;
+    }
+
+    .doc-infor p .icon-dot {
+        float: left;
+        width: .04rem;
+        height: .04rem;
+        background: #999;
+        margin-right: .08rem;
+        border-radius: .04rem;
+        margin-top: .08rem;
+    }
+
+    .doc-infor p .txt {
+        display: block;
+        overflow: hidden;
+    }
+
+    .lnk {
+        color: #2f8fff;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .fm-base .item .tit {
+        float: left;
+        width: .66rem;
+        color: #fff;
+        font-size: .14rem;
+        text-align: right;
+        line-height: .3rem;
+    }
+
+    .fm-base .item .txt {
+        overflow: hidden;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 0 .08rem;
+        font-size: .14rem;
+    }
+
+        .fm-base .item .txt .select-area {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -moz-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            line-height: .3rem;
+        }
+
+            .fm-base .item .txt .select-area .select {
+                background: none;
+                color: #fff;
+                display: block;
+                height: .3rem;
+            }
+
+                .fm-base .item .txt .select-area .select option {
+                    color: #666;
+                }
+
+    option {
+        font-weight: normal;
+        display: block;
+        white-space: pre;
+        min-height: 1.2em;
+        padding: 0px 2px 1px;
+    }
+
+    .fm-base .item .txt .select-area .select {
+        background: none;
+        color: #fff;
+        display: block;
+        height: .3rem;
+    }
+
+    .fm-base .item {
+        padding: .05rem 0;
+        border-bottom: 1px solid #493455;
+        text-align: left;
+    }
+</style>
+<script type="text/javascript">
+    var app = new function () {
+        this.initPage = function () {
+            com.initPage();
+            $('.goback').click(function () {
+                window.history.back(-1);
+            })
+            $('.btnok').click(function () {
+                var name = $('.name').val();
+                var phone = $('.phone').val();
+                var desc = $('.desc').val();
+                if (name == '') {
+                    com.showAlertMessage("联系人不能为空！");
+                    return;
+                }
+                if (phone == '') {
+                    com.showAlertMessage("联系电话不能为空！");
+                    return;
+                }
+                if (desc == '') {
+                    com.showAlertMessage("问题描述不能为空！");
+                    return;
+                }
+                var user = com.data.user;
+                $.ajax({
+                    url: '/apis/sendkefumessage',
+                    data: {
+                        token: com.data.token,
+                        name: name,
+                        phone: phone,
+                        desc: desc
+                    },
+                    success: function (res) {
+                        if (res.result == 'ok') {
+                            com.showAlertMessage("提交成功！");
+                            window.history.back(-1);
+                        } else {
+                            com.showAlertMessage("提交失败！");
+                        }
+                    }
+                })
+            });
+        }
+    }
+    $(function () {
+        app.initPage();
+    })
+</script>
+<div class="user-bg">
+    <div class="headers">
+        <header>
+            <div class="header">
+                <span class="header-l">
+                    <span class="item goback"></span>
+                </span><h2 class="tit">问题&反馈</h2>
+                <span class="header-r">
+                   
+                </span>
+            </div>
+        </header>
+    </div>
+    <div class="user-bd widthdraw-bd">
+        <div class="sample-widthdraw">
+            <div class="new-widthdraw">
+                <ul class="fm-base">
+                    <li class="item">
+                        <span class="tit">联系人</span>
+                        <div class="txt">
+                            <span class="inner"><input type="text" placeholder="例如: 张先生" class="ipt-txt name"></span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <span class="tit">联系电话</span>
+                        <div class="txt">
+                            <span class="inner"><input type="text" placeholder="请填写手机号" class="ipt-txt phone"></span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <span class="tit">问题描述</span>
+                        <div class="txt">
+                            <span class="inner">
+                                <textarea  class="ipt-txt desc" style="height:150px;padding-top:.07rem;" placeholder="请详细描述问题内容"></textarea>                             
+                            </span>
+                        </div>
+                    </li>
+                   
+                    
+                </ul><div class="btn-flex"><button class="btn btn-primary btnok">确认提交</button></div>
+            </div>
+        </div>
+    </div>
+</div>

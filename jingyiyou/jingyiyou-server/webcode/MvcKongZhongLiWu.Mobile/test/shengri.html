@@ -1,0 +1,210 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>祝您生日快乐</title>
+    <meta name="Robots" contect="all" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link href="/test/images/heka.png" rel="apple-touch-icon-precomposed" />
+    <script type="text/javascript" src="/test/js/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="/test/css/common.css" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <style>
+        #qrcode {
+            position: fixed;
+            z-index: 101;
+            right: 10px;
+            bottom: 10px;
+            display: none;
+            height: 220px;
+            width: 220px;
+            padding: 10px;
+            background: #fff;
+        }
+
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+            z-index: 9999;
+        }
+
+            #loading .pic {
+                margin: 0 auto;
+                width: 220px;
+                height: 220px;
+                margin-top: 100px;
+            }
+
+                #loading .pic img {
+                    width: 220px;
+                    height: 220px;
+                }
+    </style>
+</head>
+<body style="background-color: black;">
+    <div id="loading">
+        <div class="logo"></div>
+        <div class="pic"><img src="/test/images/loading3.gif?t=1"></div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="/test/css/animate.css">
+    <link rel="stylesheet" href="/test/css/main.css" /><div id="main">
+        <div id="layer1" class="animation" data-animation="fadeIn 1.0s ease 3.3s 1 forwards"></div>
+        <div id="layer2" class="animation" data-animation="flash 3.0s ease 3.3s infinite forwards"></div>
+        <div id="layer3" class="animation" data-animation="flip 1.0s ease 1.3s 1 forwards"></div>
+        <div id="layer4" class="animation" data-animation="swingTop 4.0s ease 0.3s infinite forwards"></div>
+        <div id="layer5" class="animation" data-animation="fadeInDown 1.5s ease 2.6s 1 forwards"></div>
+
+        <div id="con" class="animation" data-animation="fadeIn 1.5s ease 5.0s 1 forwards">
+            <p>愿风带给你，我轻轻柔柔的思念；愿云带给你，心中甜甜蜜蜜的祝福。Hppy Birthday to you !又是一个思念的季节，忍不住对你说：认识你真好！想表达的心情说也说不完，只希望你活得快乐，永远记得我！ </p>
+            <h2>爱你的枫</h2>
+        </div><div id="checked">
+            <span class="btn_audio">
+                <img src="/test/images/btn01_audio.png" alt="声音" width=50 style="display: inline;">
+                <img src="/test/images/btn02_audio.png" width=50 alt="声音" style="display: none;">
+            </span><audio id="car_audio" loop="loop" src="/test/shengri.mp3" autoplay preload="preload"></audio>
+        </div>
+        <!--<div id="nav">
+            <div id="nav1"></div>
+            <div id="nav2"></div>
+            <div id="nav3"></div>
+            <div id="nav0" class="expand"></div>
+        </div>-->
+    </div>
+    <script>
+
+        $(window).load(function () {
+            $("#loading").fadeOut();
+            $("#main .animation").each(function () {
+                var dataanimation = $(this).attr("data-animation");
+                $(this).css({ 'animation': dataanimation, '-moz-animation': dataanimation, '-webkit-animation': dataanimation, '-o-animation': dataanimation });
+            });
+        });
+        //  $("#nav0").click(function () { if ($("#nav0").attr("class") == "expand") { $("#nav1").animate({ left: "65px", bottom: "5px" }, 1000); $("#nav2").animate({ left: "50px", bottom: "50px" }, 1000); $("#nav3").animate({ left: "5px", bottom: "65px" }, 1000); $("#nav0").removeClass("expand").addClass("close"); } else { $("#nav1").animate({ left: "5px", bottom: "5px" }, 1000); $("#nav2").animate({ left: "5px", bottom: "5px" }, 1000); $("#nav3").animate({ left: "5px", bottom: "5px" }, 1000); $("#nav0").removeClass("close").addClass("expand"); } }); $("#nav1").click(function () { window.location = "/"; }); $("#nav2").click(function () { window.location = "shengri"; }); $("#nav3").click(function () { $("#nav1").animate({ left: "5px", bottom: "5px" }, 1000); $("#nav2").animate({ left: "5px", bottom: "5px" }, 1000); $("#nav3").animate({ left: "5px", bottom: "5px" }, 1000); $("#nav0").removeClass("close").addClass("expand"); var contmp = doccon + '查看贺卡点击此链接' + docurl; showPopWin({ content: '<div class="share"><div class="share_body"><div class="share_box"><div class="share_img"><span class="share_span"><img src="' + docimg + '"></span></div><textarea id="share_content" class="share_textarea" preview="80">' + contmp + '</textarea><div class="clear"></div></div></div><div class="shares"><div id="share_btn"></div></div></div>', title: '分享到' }); share_config = { 'title': document.title, 'url': docurl, 'img': docimg, 'con': doccon, 'obj': '#share_btn', 'ids': [["tsina"], ["tqq"], ["qzone"], ["txpengyou"], ["renren"], , ["douban"]] }; show_share(share_config); });
+    </script>
+    <!--<div id="qrcode"></div>-->
+    <!--<script type="text/javascript" src="/test/js/jquery.qrcode.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
+    <script>
+        var docurl = document.URL;
+        var doctitle = document.title;
+        var docimg = "/test/images/heka.png";
+        var docthumb = "/test/images/heka.png";
+        var doccon = "";//"愿风带给你，我轻轻柔柔的思念；愿云带给你，心中甜甜蜜蜜的祝福。Hppy Birthday to you !又是一个思念的季节，忍不住对你说：认识你真好！想表达的心情说也说不完，只希望你活得快乐，永远记得我！ " + document.title;
+        //$.ajax({
+        //    type: "get",
+        //    async: false,
+        //    url: "http://www.weheka.cn/share/weixin?url=" + escape(window.location.href),
+        //    dataType: "jsonp",
+        //    jsonp: "callbackparam",//服务端用于接收callback调用的function名的参数
+        //    jsonpCallback: "success_jsonpCallback",//callback的function名称
+        //    success: function (config) {
+        //        wx.config({ debug: false, appId: config.appId, timestamp: config.timestamp, nonceStr: config.nonceStr, signature: config.signature, jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'] });
+        //    },
+        //    error: function () {
+        //    }
+        //});
+    </script>
+    <!--<script src="http://www.weheka.cn/js/card.js?20150301"></script>-->
+
+</body>
+</html>
+<script type="text/javascript">
+    var mainResize = function () {
+        var ht = $(window).height();
+        var mw = $("#main").width();
+        var mh = $("#main").height();
+        var sc = ht / mh;
+        var mt = (mh * sc - mh) / 2;
+        var ml = (mw * sc - mw) / 2;
+        $("#main").css({ "margin-top": mt, "-moz-transform": "scale(" + sc + ")", "-o-transform": "scale(" + sc + ")", "-webkit-transform": "scale(" + sc + ")" });
+        if ($(window).width() < 640 && mw == 640) {
+            $("#main").css({ "margin-left": ml });
+        }
+        if ($(window).width() > 800) {
+            $("#qrcode").qrcode({
+                render: "canvas",
+                width: 200,
+                height: 200,
+                text: window.location.href
+            });
+            $("#qrcode").fadeIn();
+        } else { $("#qrcode").fadeOut(); }
+    };
+    $(window).resize(function () {
+        mainResize();
+    });
+    $(document).ready(function () {
+        mainResize();
+        $("#loading").click(function () { $("#loading").fadeOut(); audio_switch(); });
+    });
+    $(window).load(function () {
+        audio_switch();
+    });
+    $('#bgmusic').change(function () {
+        if ($(this).attr('checked') == "checked" || $(this).attr('checked') == "true") {
+            $('audio').get(0).play();
+        }
+        else {
+            $('audio').get(0).pause();
+        }
+    });
+    /*
+	** 声音功能的控制
+	*/
+    var audio_switch_btn = false,			//声音开关控制值
+        audio_btn = true,		//声音播放完毕
+        audio_loop = false,		//声音循环
+        audioTime = null,         //声音播放延时
+        audioTimeT = null,			//记录上次播放时间
+        audio_interval = null,			//声音循环控制器
+        audio_start = null,			//声音加载完毕
+        audio_stop = null,			//声音是否在停止
+        mousedown = null			//PC鼠标控制鼠标按下获取值
+    $(function () {
+        //获取声音元件
+        var btn_au = $(".btn_audio");
+
+        //绑定点击事件
+        btn_au.on('click', audio_switch);
+        if (audio_switch_btn) {
+            $("#car_audio")[0].play();
+            btn_au.find("img").eq(1).css("display", "none");
+            btn_au.find("img").eq(0).css("display", "inline");
+        }
+        else {
+            $("#car_audio")[0].pause();
+            btn_au.find("img").eq(0).css("display", "none");
+            btn_au.find("img").eq(1).css("display", "inline");
+        }
+    })
+    function audio_switch() {
+        if ($("#car_audio") == undefined) {
+            return;
+        }
+        if (audio_switch_btn) {
+            //关闭声音
+
+            $("#car_audio")[0].pause();
+            audio_switch_btn = false;
+            $("#car_audio")[0].currentTime = 0;
+            $(".btn_audio").find("img").eq(0).css("display", "none");
+            $(".btn_audio").find("img").eq(1).css("display", "inline");
+        }
+            //开启声音
+        else {
+
+            audio_switch_btn = true;
+            $("#car_audio")[0].play();
+            $(".btn_audio").find("img").eq(1).css("display", "none");
+            $(".btn_audio").find("img").eq(0).css("display", "inline");
+        }
+    }
+</script>

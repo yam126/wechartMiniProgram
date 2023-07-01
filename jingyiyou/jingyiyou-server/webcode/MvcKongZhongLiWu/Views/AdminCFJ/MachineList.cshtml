@@ -1,0 +1,77 @@
+﻿@model PagedList<ncc2019.CFJMachine>
+@using Webdiyer.WebControls.Mvc
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = "机器管理";
+}
+<div class="block clearfix">
+    @Html.Partial("~/views/part/cfj/AdminLeft.cshtml", ncc2019.Common.Enum.AdminPageType.MachineList);
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+
+                    <h5><span>机器管理</span></h5>
+
+
+                    <div class="blank"></div>
+                    <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                        <tbody>
+                            <tr align="center">
+                                <td bgcolor="#ffffff">ID</td>
+                                <td bgcolor="#ffffff">二维码编码</td>
+                                <td bgcolor="#ffffff">机器编码</td>
+                                <td bgcolor="#ffffff">添加时间</td>                                
+                                <td bgcolor="#ffffff">最后运行时间</td>
+                                
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+
+                                
+
+                                <tr>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.CFJMachineID)
+                                    </td>
+
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.MachineCode)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.GroupCode)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.AddDate)
+                                    </td>
+                                   
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.LastDate)
+                                    </td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div id="pager" class="pagebar">
+                        <span style="margin-right: 10px;" class="f_l ">总计 <b>@ViewBag.totalCount</b>  个记录</span>
+
+                    </div>
+                    @Html.Pager(Model, new PagerOptions
+               {
+                   PageIndexParameterName = "pageindex",
+                   ShowPageIndexBox = true,
+                   FirstPageText = "首页",
+                   PrevPageText = "上一页",
+                   NextPageText = "下一页",
+                   LastPageText = "末页",
+                   PageIndexBoxType = PageIndexBoxType.TextBox,
+                   PageIndexBoxWrapperFormatString = "请输入页数{0}",
+                   GoButtonText = "转到"
+               })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

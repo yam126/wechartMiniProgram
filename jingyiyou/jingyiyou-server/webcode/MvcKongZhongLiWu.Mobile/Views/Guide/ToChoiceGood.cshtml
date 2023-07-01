@@ -1,0 +1,177 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = "请从以下礼物中任选一款";
+}
+
+<script src="~/Scripts/template.js"></script>
+<style type="text/css">
+    #J_ItemList {
+        position: relative;
+    }
+
+
+    .list li {
+        background: #fff;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+        margin: 10px;
+    }
+
+        .list li img {
+            max-width: 100%;
+            -webkit-border-radius: 20px;
+            border-radius: 20px 20px 0px 0px;
+            height: 240px;
+        }
+
+    .list p {
+        padding: 5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .img-tag {
+        background: rgba(91,171,230,1);
+        color: #fff;
+        position: relative;
+        top: 30px;
+        left: 10px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        z-index: 999999;
+    }
+</style>
+<div class="con">
+    @*<div style="height:2.9em;"></div>*@
+    @*<header>
+        <nav class="ect-nav ect-bg icon-write">
+            <ul class="ect-diaplay-box text-center">
+                <li class="ect-box-flex"><a href="/"><i class="ect-icon ect-icon-home"></i>首页</a></li>
+                <li class="ect-box-flex"><a href="/guide/goodsort?orderid=@ViewBag.orderid"><i class="ect-icon ect-icon-cate"></i>分类</a></li>
+                <li class="ect-box-flex"><a href="javascript:openSearch();"><i class="ect-icon ect-icon-search"></i>搜索</a></li>
+
+                <li class="ect-box-flex"><a href="/my"><i class="ect-icon ect-icon-user"></i>用户中心</a></li>
+            </ul>
+        </nav>
+    </header>*@
+    @*<div class="ect-wrapper text-center">
+
+        <div>
+            <a class="ect-colory" href="javascript:ordergift('');">默认</a>
+            <a class="seal" href="javascript:ordergift('seal');">销量 <i class="glyphicon glyphicon-arrow-up"></i></a>
+
+            <a class="price" href="javascript:ordergift('price');">价格<i class="glyphicon glyphicon-arrow-up"></i></a>
+        </div>
+    </div>*@
+    <!--礼物列表-->
+    <div >
+        <ul id="J_ItemList" class="list">
+            <a style="text-align: center; display: block;" class="get_more" href="javascript:;"></a>
+        </ul>
+    </div>
+
+    <script>
+        function clear_filter() {
+            $(".touchweb-com_listType .range").text("全部");
+            $(".touchweb-com_listType input").each(function () {
+                if ($(this).attr('class') != 'cat') {
+                    $(this).val("");
+                }
+            });
+        }
+        $(function () {
+            $('.con .ect-bg').hide();
+            getgoods();
+        });
+        function getgoods() {
+            var url = "/guide/AGoods";
+            var sort = '';
+            var order = '';
+            if (oseal != '') {
+                sort = 'seal';
+                order = oseal;
+            }
+            if (oprice != '') {
+                sort = 'price';
+                order = oprice;
+            }
+            url += "?sort=" + sort + "&order=" + order + "&key=@ViewBag.key&orderid=@ViewBag.orderid";
+            get_asynclist(url, '/images/loader.gif');
+        }
+        var oseal = '';
+        var oprice = '';
+        function ordergift(type) {
+            if (type == '') {
+                oseal = '';
+                oprice = '';
+            }
+            if (type == 'seal') {
+                if (oseal == 'up') {
+                    oseal = 'down';
+                    $(".seal i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                } else {
+                    oseal = 'up';
+                    $(".seal i").removeClass("glyphicon-arrow-up").addClass("glyphicon-arrow-down");
+                }
+                $(".price i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                $(".seal").css("color", "#e87e04");
+                $(".price").css("color", "#555");
+                oprice = '';
+            }
+            if (type == 'price') {
+                if (oprice == 'up') {
+                    oprice = 'down';
+                    $(".price i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                } else {
+                    oprice = 'up';
+                    $(".price i").removeClass("glyphicon-arrow-up").addClass("glyphicon-arrow-down");
+                }
+                $(".seal i").removeClass("glyphicon-arrow-down").addClass("glyphicon-arrow-up");
+                $(".price").css("color", "#e87e04");
+                $(".seal").css("color", "#555");
+                oseal = '';
+            }
+            getgoods();
+        }
+    </script>
+
+    <script id="temp" type="text/html">
+
+
+        @if (Model.ToShowPrice == (int)ShiFouStatus.是)
+        {
+            <li id="single_{{GoodID}}" class="single_item" onclick="javascript: window.location = '/guide/good?id={{GoodID}}&orderid=@ViewBag.orderid'">
+                <div>
+                    @*<span class="img-tag">免运费</span>*@
+                    <img src="{{ImgUrl}}" width="100%">
+
+
+                </div>
+                <p style="font-size:1.1em;"><strong>{{Name}}</strong></p>
+
+                <p>
+
+                    <span class="pull-left">礼物价格：<b class="ect-colory" id="ECS_GOODS_AMOUNT">￥{{Payment}}元</b></span>
+                    @*<span class="label ect-bg-colory">免运费 </span>*@<span class="pull-right">送出：{{BuyCount}} 件</span>
+                </p>
+                <div style="height:0.5em"></div>
+            </li>
+        }
+        else
+        {
+             <li id="single_{{GoodID}}" class="single_item" onclick="javascript: window.location = '/guide/good?id={{GoodID}}&orderid=@ViewBag.orderid'">
+                <div>
+                    @*<span class="img-tag">免运费</span>*@
+                    <img src="{{ImgUrl}}" width="100%">
+                </div>
+                <p style="font-size:1.1em;"><strong>{{Name}}</strong></p>
+               
+                <div style="height:0.5em"></div>
+            </li>
+        }
+
+
+    </script>
+</div>

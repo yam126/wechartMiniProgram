@@ -1,0 +1,72 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "礼物";
+}
+<div class="blank5"></div>
+<div class="Area">
+    <div class="box">
+
+       
+            <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                <tbody>
+                    <tr>
+                        <td bgcolor="#ffffff" align="right">商品图片：</td>
+                        <td bgcolor="#ffffff">
+                            <img src="@Model.Goods.ImgUrl" alt="@Model.Goods.Name" width="200px" height="200px" />
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td bgcolor="#ffffff" colspan="2">
+                            @Html.Raw(Model.SayEtc)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="right">收货人姓名：</td>
+                        <td bgcolor="#ffffff">@Model.RecName</td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" align="right">收货人电话：</td>
+                        <td bgcolor="#ffffff">
+                            @Model.RecPhone
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" align="right">收货地址：</td>
+                        <td bgcolor="#ffffff">
+                            @Model.RecAddress
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" align="right">快递公司：</td>
+                        <td bgcolor="#ffffff">
+                            @Model.DeliveryCompany
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" align="right">快递单号：</td>
+                        <td bgcolor="#ffffff">
+                            @Model.DeliveryNo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" align="right">备注：</td>
+                        <td bgcolor="#ffffff">
+                            @Model.Memo
+                        </td>
+                    </tr>
+
+                    @if (SessionHelper.IsLogin()) { 
+                    <tr>
+                        <td bgcolor="#ffffff" colspan="2" align="center">
+                            <a href="~/myorder"><input class="bnt_blue_1" name="gen_code" value="返回我的订单" type="button"></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" name="orderid" value="@DESEncrypt.Encrypt(Model.OrderID.ToString())" />
+        
+    </div>
+</div>

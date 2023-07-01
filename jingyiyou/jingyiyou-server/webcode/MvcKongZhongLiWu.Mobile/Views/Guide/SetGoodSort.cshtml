@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "设置分类";
+}
+<style type="text/css">
+    .selected {
+        background: rgba(93,173,226,1);
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('.con .ect-bg').hide();
+    });
+    function setgoodsort(sortname, obj) {
+        $('.sortlist li').removeClass('selected');
+        $(obj).addClass('selected');
+        $('#sortname').val(sortname);
+    }
+    function btnok() {
+
+        $('#formok').submit();
+    }
+</script>
+
+<div class="con">
+    @*<header class="ect-header ect-margin-tb ect-margin-lr text-center">
+            <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a>
+            <span>分类选择</span>
+            <a href="javascript:openSearch();" class="pull-right ect-icon ect-icon1 ect-icon-search1"></a>
+        </header>*@
+    <div class="panel panel-default ect-category-all ect-border-radius0 sortlist">
+        <ul>
+            @foreach (var item in Model)
+            {
+
+                <li class="" onclick="setgoodsort('@item.Name',this)">
+                    <div class="media panel-body">
+                        <div class="pull-left ect-category-right">
+                            <h3>@item.Name</h3>
+
+                            <h5></h5>
+                        </div>
+                        @*<i class="fa fa-angle-right ect-transition05"></i>*@
+
+                    </div>
+
+                </li>
+
+            }
+        </ul>
+    </div>
+</div>
+@using (Html.BeginForm("setgoodsort", "guide", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" value="" name="sortname" id="sortname" />
+    <input type="hidden" value="@ViewBag.orderid" name="orderid" id="orderid" />
+}
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btnok()">确   定</button>
+</div>

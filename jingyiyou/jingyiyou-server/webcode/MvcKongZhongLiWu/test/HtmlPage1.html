@@ -1,0 +1,147 @@
+﻿
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jquery Xslider 插件图片特效演示图片淡隐淡现、图片上下滚动、图片左右滚动、选项卡</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        a, img {
+            border: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #demopage {
+            width: 960px;
+            margin: 0 auto;
+        }
+
+            #demopage h2 {
+                margin: 40px 0 20px 0;
+                font-size: 16px;
+                text-align: center;
+                font-family: "微软雅黑","黑体";
+                color: #ff6600;
+            }
+        /* slider */
+        .slider {
+            margin: 5px auto;
+            width: 620px;
+            height: 340px;
+            border: 1px solid #ccc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conbox {
+            position: absolute; /*必要元素*/
+        }
+
+        .switcher {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            float: right;
+            z-index: 99;
+        }
+
+            .switcher a {
+                background: #fff;
+                border: 1px solid #D00000;
+                cursor: pointer;
+                float: left;
+                font-family: arial;
+                height: 18px;
+                line-height: 18px;
+                width: 18px;
+                margin: 4px;
+                text-align: center;
+                color: #D00000;
+            }
+
+                .switcher a.cur, .switcher a:hover {
+                    background: #FF0000;
+                    border: 1px solid #D00000;
+                    height: 24px;
+                    line-height: 24px;
+                    width: 24px;
+                    margin: 0 2px;
+                    color: #fff;
+                    font-weight: 800;
+                }
+        /* slider1 水平 */
+        #slider1 .conbox {
+            width: 9999em;
+        }
+
+            #slider1 .conbox div {
+                width: 620px;
+                height: 340px;
+                overflow: hidden;
+                float: left;
+            }
+       
+    </style>
+    <script type="text/javascript" src="http://www.jsfoot.com/skin/js/jquery.js"></script>
+    
+    <script src="../Scripts/jquery.Xslider.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // 焦点图片水平滚动
+            $("#slider1").Xslider({
+                // 默认配置
+                affect: 'scrollx', //效果  有scrollx|scrolly|fade|none
+                speed: 800, //动画速度
+                space: 6000, //时间间隔
+                auto: true, //自动滚动
+                trigger: 'mouseover', //触发事件 注意用mouseover代替hover
+                conbox: '.conbox', //内容容器id或class
+                ctag: 'div', //内容标签 默认为<a>
+                switcher: '.switcher', //切换触发器id或class
+                stag: 'a', //切换器标签 默认为a
+                current: 'cur', //当前切换器样式名称
+                rand: false //是否随机指定默认幻灯图片
+            });
+
+      
+
+
+        });
+    </script>
+</head>
+<body>
+    <div id="demopage">
+
+
+        <h2>焦点图片水平滚动</h2>
+        <div id="slider1" class="slider">
+            <div class="conbox">
+                <div><a href="http://www.jsfoot.com/jquery/items/2011-02-21/38.html" title="jquery 3D图片滚动一个漂亮的手机软件网站图片展示"><img width="620" height="340" alt="jquery 3D图片滚动一个漂亮的手机软件网站图片展示" src="http://www.jsfoot.com/d/file/jquery/items/2011-02-21/c9cfb68c13cbe925d3c9a03912f3b1de.jpg"></a></div>
+                <div><a href="http://www.jsfoot.com/jquery/items/2011-02-21/40.html" title="jquery 分类搜索框防谷歌网站搜索页面"><img width="620" height="340" alt="jquery 分类搜索框防谷歌网站搜索页面" src="http://www.jsfoot.com/d/file/jquery/items/2011-02-21/310772035582a551c3afd8f6cc071409.jpg"></a></div>
+                <div><a href="http://www.jsfoot.com/jquery/items/2011-02-22/46.html" title="jquery 文本框提示顶部弹跳框使用jQuery和CSS3的插件"><img width="620" height="340" alt="jquery 文本框提示顶部弹跳框使用jQuery和CSS3的插件" src="http://www.jsfoot.com/d/file/jquery/items/2011-02-22/f4fe9dd611bd459c0244159163109bc4.jpg"></a></div>
+                <div><a href="http://www.jsfoot.com/jquery/items/2011-08-13/120.html" title="jquery 图片特效用CSS3和HTML5制作仿动画头条报纸缩小到放大翻转图片展示"><img width="620" height="340" alt="jquery 图片特效用CSS3和HTML5制作仿动画头条报纸缩小到放大翻转图片展示" src="http://www.jsfoot.com/d/file/jquery/items/2011-08-13/323ce4b13f72648e096bd1a86cba762a.jpg"></a></div>
+                <div><a href="http://www.jsfoot.com/jquery/items/2011-08-17/129.html" title="jquery评论星星打分特效、鼠标滑过星星显示评论信息"><img width="620" height="340" alt="jquery评论星星打分特效、鼠标滑过星星显示评论信息" src="http://www.jsfoot.com/d/file/jquery/items/2011-08-17/9fae30738c94fb8e47dd2ba3e6003290.jpg"></a></div>
+            </div>
+
+            <div class="switcher">
+                <a href="#" class="cur">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+            </div>
+        </div><!--slider end-->
+
+
+    </div>
+</body>
+</html>

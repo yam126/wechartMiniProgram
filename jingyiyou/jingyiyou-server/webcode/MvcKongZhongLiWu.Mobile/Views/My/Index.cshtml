@@ -1,0 +1,209 @@
+﻿@model ncc2019.Members
+@{
+
+    ViewBag.Title = "个人信息";
+}
+
+<link href="~/css/iconfont.css" rel="stylesheet" />
+<style type="text/css">
+    .boxCenterList td {
+        margin-top: 10px;
+        line-height: 30px;
+    }
+
+    .boxCenterList input {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        /*margin-right:10px;*/
+    }
+
+    .inputBg {
+        width: 90%;
+        margin-right: 10px;
+    }
+
+    h3 {
+        display: block;
+        font-size: 1.2em;
+        -webkit-margin-before: 0.7em;
+        -webkit-margin-after: .7em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+    }
+
+    input {
+        -webkit-appearance: textfield;
+        background-color: white;
+        -webkit-margin-before: 0.7em;
+        -webkit-margin-after: 0.7em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+    }
+
+        input[type="text" i] {
+            padding: 1px 0px;
+        }
+
+    .profile-left-name {
+        width: 12rem;
+    }
+
+    .t-goods1 input {
+        font-size: 1.5rem;
+        color: #666;
+        width: 100%;
+        border: none;
+        border: 0;
+        background: none;
+        text-align: right;
+    }
+
+    .t-goods1 {
+        font-size: 1.5rem;
+    }
+
+    .box-flex {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -ms-box-flex: 1;
+        box-flex: 1;
+        display: block;
+        width: 100%;
+    }
+
+    .dis-box {
+        display: -webkit-box;
+        width: 100%;
+    }
+
+    .flow-consignee ul li {
+        padding: 1.3rem 0rem;
+        overflow: hidden;
+        height: auto;
+        clear: both;
+        position: relative;
+        border-bottom: 1px solid #f6f6f9;
+        text-align: -webkit-match-parent;
+        font-weight: normal;
+    }
+
+    ul {
+        display: block;
+        list-style-type: disc;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        list-style: none;
+        font-weight: normal;
+    }
+
+    .ect-bg-colorf {
+        background: #fff;
+    }
+
+    .flow-consignee {
+        margin-top: 0.6em;
+        border-top: none;
+    }
+
+    .s-user-top {
+        padding: 0 1.3rem;
+        position: relative;
+    }
+
+    jiantou:before {
+        font-size: 1.5rem;
+        color: #888;
+    }
+
+    span.t-jiantou {
+        position: relative;
+        font-size: 1.5rem;
+        width: 100%;
+        margin-right: 2em;
+        color: #555;
+    }
+
+    .iconfont:before {
+        padding-right: 0px !important;
+    }
+
+    .myclick h3 {
+        width: 90%;
+    }
+
+    .myclick span {
+        margin-top: 1em;
+        float: left;
+    }
+</style>
+<div class="block clearfix">
+
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                <section class="flow-consignee ect-bg-colorf s-user-top onclik-admin">
+                    <ul>
+                        <li class="dis-box s-xian-box s-user-top-1">
+                            <h3 class="profile-left-name text-all-span my-u-title-size">昵称：</h3>
+                            <div class="box-flex t-goods1  onelist-hidden"> <input name="name" type="text" readonly="readonly" value="@Model.Name"></div>
+                        </li>                        
+                        <li class="dis-box s-xian-box s-user-top-1">
+                            <h3 class="profile-left-name text-all-span my-u-title-size">手机：</h3>
+                            <div class="box-flex t-goods1 onelist-hidden ">
+                                <input name="cardno" type="text" value="@Model.Phone">
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+                @if (true)
+                {
+
+                }
+                <section class="flow-consignee ect-bg-colorf s-user-top onclik-admin myclick">
+
+                    <ul>
+                        <li class="dis-box s-xian-box s-user-top-1">
+                            <h3 class="profile-left-name text-all-span my-u-title-size">修改手机</h3>
+                            <span class="t-jiantou"><i class="iconfont icon-gengduo"></i></span>
+                        </li>
+                        <li class="dis-box s-xian-box s-user-top-1" onclick="window.location='/myinfo/myaccount'">
+                            <h3 class="profile-left-name text-all-span my-u-title-size">锁住箱子</h3>
+                            <span class="t-jiantou"><i class="iconfont icon-gengduo"></i></span>
+                        </li>
+                        
+                        <li class="dis-box s-xian-box s-user-top-1" onclick="window.location = '/myinfo/orderlist'">
+                            <h3 class="profile-left-name text-all-span my-u-title-size">设置密码</h3>
+                            <span class="t-jiantou"><i class="iconfont icon-gengduo"></i></span>
+                        </li>
+
+                        <li class="dis-box s-xian-box s-user-top-1" onclick="window.location = '/myinfo/orderlist'">
+                            <h3 class="profile-left-name text-all-span my-u-title-size">强行解锁</h3>
+                            <span class="t-jiantou"><i class="iconfont icon-gengduo"></i></span>
+                        </li>
+
+                        <li class="dis-box s-xian-box s-user-top-1" onclick="window.location = '/myinfo/orderlist'">
+                            <h3 class="profile-left-name text-all-span my-u-title-size">当前状态</h3>
+                            <span class="t-jiantou"><i class="iconfont icon-gengduo"></i></span>
+                        </li>
+                    </ul>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function guanzhu() {
+        $('#gzweixin').show();
+
+    }
+    $(function () {
+        @if (Model.Sex == 1)
+        { @Html.Raw("$('#Radio1').attr('checked','1')"); }
+        else
+        { @Html.Raw("$('#Radio2').attr('checked','1')"); }
+    });
+</script>

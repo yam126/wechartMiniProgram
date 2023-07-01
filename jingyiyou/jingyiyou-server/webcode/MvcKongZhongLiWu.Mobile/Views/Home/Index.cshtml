@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "空中礼物";
+}
+
+
+<script src="~/Scripts/template.js"></script>
+@*<script src="~/Scripts/m/wookmark.js" type="text/javascript"></script>
+    <script src="~/Scripts/m/masonry.pkgd.min.js"></script>*@
+<style type="text/css">
+    #J_ItemList {
+        position: relative;
+    }
+
+
+    .list li {
+        background: #fff;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+        margin: 10px;
+        
+    }
+
+    .list li img {
+        max-width: 100%;
+        -webkit-border-radius: 20px;
+        border-radius: 20px 20px 0px 0px;
+        height: 240px;
+    }
+
+    .list p {
+        padding: 5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .img-tag {
+        background: rgba(91,171,230,1);
+        color: #fff;
+        position: relative;
+        top: 30px;
+        left: 10px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        z-index: 999999;
+    }
+   
+</style>
+
+@*<header class="ect-header ect-margin-tb ect-margin-lr">
+        <a href="/home/category" class="pull-left ect-icon ect-icon1 ect-icon-cate1"></a>
+        <div class="ect-header-div">
+            <button class="btn btn-default ect-text-left ect-btn-search" onclick="javascript:openSearch();"><i class="fa fa-search"></i>&nbsp;请输入搜索关键词！</button>
+        </div>
+    </header>*@
+
+@*<div id="focus" class="focus ect-margin-tb">
+        <div class="hd">
+            <ul></ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li>
+                    <a href='default.htm'
+                       target='_blank'>
+                        <img src='~/images/ectouch_ad2.jpg' width='360' height='168'
+                             border='0' />
+                    </a>
+                </li>
+                <li>
+                    <a href='default.htm'
+                       target='_blank'>
+                        <img src='~/images/ectouch_ad1.jpg' width='360' height='168'
+                             border='0' />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>*@
+<div style="border-bottom-color: currentColor; border-bottom-width: medium; border-bottom-style: none;margin-bottom:3em !important;" class="ect-pro-list2">
+    <ul id="J_ItemList" class="list">
+        <a style="text-align: center; display: block;" class="get_more" href="javascript:;"></a>
+    </ul>
+
+
+</div>
+<footer>
+    <nav class="ect-nav">
+        <ul class="ect-diaplay-box text-center">
+            <li class="ect-box-flex"><a href="/"><i class="ect-icon ect-icon-home"></i>首页</a></li>
+            <li class="ect-box-flex"><a href="/home/category"><i class="ect-icon ect-icon-cate"></i>分类</a></li>
+            <li class="ect-box-flex"><a href="javascript:openSearch();"><i class="ect-icon ect-icon-search"></i>搜索</a></li>
+            <li class="ect-box-flex"><a href="/myorder?type=send"><i class="ect-icon-sendgift"></i>送的礼物</a></li>
+            <li class="ect-box-flex"><a href="/myorder?type=get"><i class="ect-icon-getgift"></i>收的礼物</a></li>
+            <li class="ect-box-flex"><a href="/my/"><i class="ect-icon ect-icon-user"></i>个人中心</a></li>
+        </ul>
+    </nav>
+</footer>
+@*<div style="padding-bottom:4.2em;"></div>*@
+
+
+@*<script language="javascript">
+        /*banner滚动图片*/
+        //TouchSlide({
+        //    slideCell: "#focus",
+        //    titCell: ".hd ul", // 开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        //    mainCell: ".bd ul",
+        //    effect: "left",
+        //    autoPlay: true, // 自动播放
+        //    autoPage: true, // 自动分页
+        //    delayTime: 200, // 毫秒；切换效果持续时间（执行一次效果用多少毫秒）
+        //    interTime: 2500, // 毫秒；自动运行间隔（隔多少毫秒后执行下一个效果）
+        //    switchLoad: "_src" // 切换加载，真实图片路径为"_src"
+        //});
+
+    </script>*@
+
+<script type="text/javascript">
+    $(function () {
+        $('.con .ect-bg').hide();
+        get_asynclist("../../search/AGoods", '/images/loader.gif');
+        //$('.list').trigger('refreshWookmark');
+        //var $container = $('#J_ItemList');
+
+        //$container.imagesLoaded( function(){
+
+        //    $container.masonry({
+        //            itemSelector : '.box',
+        //    gutterWidth : 20,
+        //    isAnimated: true,
+        //});
+        //});
+
+    });
+
+</script>
+<script id="temp" type="text/html">
+
+    @*<li id="single_{{GoodID}}" class="single_item" onclick="javascript: window.location = '/Home/Details?id={{GoodID}}'">
+            <a href="../Home/Details?id={{GoodID}}">
+                <img alt="{{Name}}" src="{{ImgUrl}}">
+            </a>
+
+            <dl>
+                <dt>
+                    <h4 class="title">{{Name}}</h4>
+                </dt>
+                <dd class="dd-price">
+                    <span class="pull-left"><strong>价格：<b class="ect-colory">￥{{Payment}}元</b></strong> </span>
+
+                </dd>
+
+                <dd class="dd-num"><span class="pull-right">送出{{BuyCount}}件</span> </dd>
+            </dl>
+        </li>*@
+    <li id="single_{{GoodID}}" class="single_item" onclick="javascript: window.location = '/Home/Details?id={{GoodID}}'">
+        <div>
+            @*<span class="img-tag">免运费</span>*@
+            <img src="{{ImgUrl}}" width="100%">
+
+
+        </div>
+        <p style="font-size:1.1em;"><strong>{{Name}}</strong></p>
+        <p><span class="pull-left">礼物价格：<b class="ect-colory" id="ECS_GOODS_AMOUNT">￥{{Payment}}元</b></span>@*<span class="label ect-bg-colory">免运费 </span>*@<span class="pull-right">送出：{{BuyCount}} 件</span></p>
+        <div style="height:0.5em"></div>
+    </li>
+</script>

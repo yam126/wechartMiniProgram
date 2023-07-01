@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "新用户注册";
+}
+<script type="text/javascript">
+    function is_registered(loginname) {
+        var url = "../../login/Isreg";
+        if (loginname.trim()=='') {
+            $('#username_notice').html("用户名不能为空！").attr("style", "color:#FF0000");
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { loginname: loginname },
+            success: function (data) {
+                if (data.message=='OK') {
+                    $('#username_notice').html("可以使用！").attr("style", "color:green");
+                }
+                else {
+                    $('#username_notice').html("此用户名已经被注册！").attr("style", "color:#FF0000");
+                }
+            },
+            dataType: 'json'
+        });
+    }
+    function checkEmail(email) {
+
+        if (isEmail(email)) {            
+            var url = "../../login/CheckEmail";
+            //$("#email_notice").html("电子邮箱可用！").attr("style", "color:green");
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { email: email },
+                success: function (data) {
+                    if (data.message == 'OK') {
+                        $('#email_notice').html("可以使用！").attr("style", "color:green");
+                    }
+                    else {
+                        $('#email_notice').html("此邮箱已经被使用！").attr("style", "color:#FF0000");
+                    }
+                },
+                dataType: 'json'
+            });
+        } else {
+            $("#email_notice").html("请输入正确的电子邮件格式！").attr("style", "color:#FF0000");            
+        }
+        function isEmail(str) {
+            var myReg = /^[-_A-Za-z0-9]+@@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/; 
+            if (myReg.test(str)){
+                return true; 
+            } 
+            return false; 
+        }
+    }
+    function check_password(pass) {
+        if (pass.trim()=="") {
+            $('#password_notice').html("密码不能为空！").attr("style", "color:#FF0000");
+        }
+    }
+    function checkIntensity() {
+
+    }
+    function check_conform_password(cpass) {
+        if ($("#password1").val()!=cpass) {
+            $('#password_notice').html("两次密码输入的不一致！").attr("style", "color:#FF0000");
+        }
+        else {
+            $('#password_notice').html("*");
+        }
+    }
+    $(function () {
+        $("#valiCode").bind("click", function () {
+            this.src = "/Home/GetValidateCode?time=" + (new Date()).getTime();
+        });
+    });
+</script>
+
+<div class="usBox">
+    <div class="usBox_1">
+        <div class="login_tab">
+            <ul>
+                <li><a href="~/Login">用户登录</a></li>
+                <li ><a href="~/Login/weixinlogin">微信登录</a></li>
+                <li class="active"><a href="~/Login/Reg">用户注册</a></li>
+            </ul>
+        </div>
+        @using (Html.BeginForm("DoReg", "Login"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+  
+            <table width="100%" border="0" align="left" cellpadding="5" cellspacing="3">
+                <tr>
+                    <td width="25%" align="right">昵称</td>
+                    <td width="65%">
+                        <input name="name" type="text" size="25" id="name"  class="inputBg" />
+                        <span id="name_notice" style="color: #FF0000">*</span>
+                    </td>
+                </tr>               
+                <tr>
+                    <td align="right">电子邮箱</td>
+                    <td>
+                        <input name="email" type="text" size="25" id="email" onblur="checkEmail(this.value);" class="inputBg" />
+                        <span id="email_notice" style="color: #FF0000">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">密码</td>
+                    <td>
+                        <input name="password" type="password" id="password1" size="25"  onblur="check_password(this.value);" onkeyup="checkIntensity(this.value)" class="inputBg" />
+                        <span style="color: #FF0000" id="password_notice">*</span>
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td align="right">确认密码</td>
+                    <td>
+                        <input name="confirm_password" type="password" id="conform_password" size="25"  onblur="check_conform_password(this.value);" class="inputBg" />
+                        <span style="color: #FF0000" id="conform_password_notice">*</span>
+                    </td>
+                </tr>
+                
+
+                <tr>
+                    <td align="right">验证码</td>
+                    <td>
+                        <input type="text" size="8" name="code" class="inputBg" />
+                        <img src="/Home/GetValidateCode" alt="captcha" style="vertical-align: middle; cursor: pointer;" onclick="this.src='/Home/GetValidateCode?'+Math.random()" />
+                    </td>
+                </tr>
+                @*<tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <label>
+                            <input name="agreement" type="checkbox" value="1" checked="checked" />
+                            我已看过并接受《<a href="article.php@cat_id=-1" style="color: blue" target="_blank">用户协议</a>》
+                        </label>
+                    </td>
+                </tr>*@
+                <tr>
+                    <td>&nbsp;</td>
+                    <td align="left">
+                        <input name="act" type="hidden" value="act_register">
+                        <input type="hidden" name="back_act" value="" />
+                        <input name="Submit" type="submit" value="注&nbsp;&nbsp;&nbsp;&nbsp;册" style="cursor:pointer;" class="myButton">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<a href="/login/getpassword" class="f6">找回密码</a> 
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                
+
+            </table>
+        }
+        <div class="blank"></div>
+    </div>
+
+</div>
+
+

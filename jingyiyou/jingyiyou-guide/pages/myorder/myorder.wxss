@@ -1,0 +1,54 @@
+/* pages/myorder/myorder.wxss */
+.myorder-item-container {
+    width:100%;
+    min-height: 320rpx;
+    height: auto;
+    border-top: 0.3px solid #999;
+    border-bottom: 00.3px solid #999;
+}
+
+.myorder-item-container .line {
+    width: 100%;
+    min-height: 75rpx;
+    height: auto;
+    line-height: 71rpx;
+    font-size: 35rpx;    
+    border: 0px solid red;
+}
+
+.myorder-item-container .line .tag {
+    width: 55rpx;
+    height: 55rpx;
+    border-radius: 55rpx;
+    background-color: #999;
+    margin-top: 8rpx;
+    margin-left: 7rpx;
+    float: left;
+}
+
+.myorder-item-container .line .text {
+    width: 515rpx;
+    height: 75rpx;
+    margin-top: 0rpx;
+    margin-left: 3rpx;
+    text-align: left;
+    text-indent: 8rpx;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border: 0px solid red;
+    float: left;    
+}
+
+.myorder-item-container .line .status {
+    width: 145rpx;
+    height: 55rpx;
+    line-height: 55rpx;
+    font-size: 25rpx;
+    text-align: center;
+    margin-top: 9rpx;
+    margin-left: 7rpx;
+    border: 1px solid #999;
+    border-radius: 35rpx;
+    float: left;
+}

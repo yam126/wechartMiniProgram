@@ -1,0 +1,158 @@
+﻿@model ncc2019.Orders
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = "设置项";
+}
+<script src="~/Scripts/m/bootstrap-switch.min.js"></script>
+<link href="~/css/bootstrap-switch.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    .switch-right {
+        float: right;
+        /*margin-top:0.1em;*/
+        padding-top: 0.1em;
+    }
+
+    .pull-right {
+        margin-right: 1.5em;
+    }
+
+        .pull-right a {
+            font-size: 1.2em;
+        }
+</style>
+
+
+<div class="panel panel-default ect-category-all ect-border-radius0">
+    <ul>
+        @{
+            ViewBag.sortname = "未设置";
+            if (Model.ToGoodSort != null)
+            {
+                ViewBag.sortname = Model.ToGoodSort;
+            }
+            ViewBag.pricezone = "未设置";
+            if (Model.ToPriceZone != null)
+            {
+                ViewBag.pricezone = Model.ToPriceZone + "元";
+            }
+            ViewBag.noshowprice = "";
+            if (Model.ToShowPrice == (int)ShiFouStatus.否)
+            {
+                ViewBag.noshowprice = "checked";
+            }
+            ViewBag.paylate = "";
+            if (Model.PayLate == (int)ShiFouStatus.是)
+            {
+                ViewBag.paylate = "checked";
+            }
+        }
+        <li class="" onclick="window.location = '/guide/setgoodsort?orderid=@ViewBag.orderid'">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>类别限制</h3>
+                    <h5></h5>
+                </div>
+                <div class="pull-right ect-category-right">
+                    <a>@ViewBag.sortname</a>
+
+                    <i class="fa fa-angle-right ect-transition05"></i>
+                </div>
+            </div>
+        </li>
+        <li class="" onclick="window.location = '/guide/setpricezone?orderid=@ViewBag.orderid'">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>价格区间</h3>
+                    <h5></h5>
+                </div>
+                <div class="pull-right ect-category-right">
+                    <a>@ViewBag.pricezone</a>
+                    <i class="fa fa-angle-right ect-transition05"></i>
+                </div>
+            </div>
+        </li>
+        @if (ViewBag.canselnum != null)
+        {
+            <li class="">
+                <div class="media panel-body">
+                    <div class="pull-left ect-category-right">
+                        <h3>Ta有 @ViewBag.canselnum 个礼物可以选择</h3>
+                        <h5></h5>
+                    </div>
+                    @*<div class="pull-right ect-category-right">
+                            <a></a>
+                            <i class="fa fa-angle-right ect-transition05"></i>
+                        </div>*@
+                </div>
+            </li>
+        }
+        <li class="">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>价格对Ta保密</h3>
+                    <h5></h5>
+                </div>
+                <div class="switch switch-right" data-on="primary" data-off="info">
+                    <input type="checkbox" id="cbnoshowparice" @ViewBag.noshowprice checked />
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>等Ta选完礼物再付款</h3>
+                    <h5></h5>
+                </div>
+                <div class="switch switch-right" data-on="primary" data-off="info">
+                    <input type="checkbox" onchange="return paylate(this)" id="cbpaylate" @ViewBag.paylate />
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+@using (Html.BeginForm("SettingFor", "guide", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" value="" name="noshowparice" id="noshowparice" />
+    <input type="hidden" value="" name="paylate" id="paylate" />
+    <input type="hidden" value="@ViewBag.orderid" name="orderid" id="orderid" />
+}
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btnok()">下  一  步</button>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".switch input").bootstrapSwitch();
+    });
+    function btnok() {
+        if ('@ViewBag.sortname' == '') {
+            alert('请选择分类！');
+            return false;
+        }
+        if ('@ViewBag.pricezone' == '') {
+            alert('请选择价格！');
+            return false;
+        }
+        if ('@ViewBag.canselnum' == '' || '@ViewBag.canselnum' == '0') {
+            alert('Ta没有可以选择的礼物，请重新选择分类或价格！');
+            return false;
+        }
+        //window.location = '/send/?orderid=@ViewBag.orderid';
+        $('#noshowparice').val($("#cbnoshowparice")[0].checked);
+        $('#paylate').val($("#cbpaylate")[0].checked);
+        $('#formok').submit();
+    }
+    function paylate(obj) {
+        if ($(obj)[0].checked == true) {
+            alert("您的好友选择完礼物后，系统会发付款通知给您，您付完款后Ta才能收到礼物，超过24小时未完成付款，系统将自动取消订单！");
+            return true;
+        }
+        else {
+            alert("您需要先按选择的礼物中最贵的付款，当对方确认礼物后，将会将剩余的金额退还到您的账户！");
+            return false;
+        }
+    }
+
+</script>

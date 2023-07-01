@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "新用户注册";
+}
+
+
+<div class="con">
+
+    <div class="user-register">
+        <div class="tab-pane" id="two">
+            @using (Html.BeginForm("DoReg", "Login", FormMethod.Post, new { id="formok"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <input type="hidden" name="flag" id="flag" value="register">
+                <div class="flow-consignee ect-bg-colorf">
+                    <ul>
+                        <li>
+                            <div class="input-text">
+                                <b>姓名：</b><span>
+                                              <input placeholder="请输入您的姓名，方便您接收或送出礼物" name="name" type="text" id="name" datatype="*3-15" errormsg="用户名必须为3-15个字符" nullmsg="请填写信息！">
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-text">
+                                <b>电子邮箱：</b><span>
+                                    <input placeholder="请输入电子邮箱，用作登陆账户" name="email" type="text" id="email" datatype="e" nullmsg="请填写信息！">
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-text">
+                                <b>密码：</b><span>
+                                    <input placeholder="请输入登录密码" class="inputBg" name="password" id="password1" type="password" datatype="*6-16" nullmsg="请填写信息！" style="display: inline-block;">
+                                    <input placeholder="请输入登录密码" class="inputBg" id="password_text" type="text" style="display: none;">
+                                </span><i class="glyphicon glyphicon-eye-open" onclick="clickText();"></i>
+                            </div>
+                        </li>
+                        @*<li>
+                                <div class="input-text code">
+                                    <b>验证码：</b><span>
+                                        <input placeholder="请输入验证码" name="captcha" id="captcha" type="text" datatype="*" nullmsg="请填写信息！">
+                                    </span><img class="pull-right" src="/source/mobile/index.php?m=default&amp;c=public&amp;a=captcha&amp;rand=1232523837" alt="captcha" onclick="this.src='/source/mobile/index.php?m=default&amp;c=public&amp;a=captcha&amp;t=Math.random%28%29'">
+                                </div>
+                            </li>*@
+                    </ul>
+                </div>
+                @*<p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
+                        <input id="agreement" name="agreement" type="checkbox" value="1" checked="checked">
+                        <label for="agreement"> 我已看过并接受《<a href="/source/mobile/index.php?m=default&amp;c=article&amp;a=info&amp;aid=6" style="color:blue" target="_blank">用户协议</a>》<i></i></label>
+                    </p>*@
+                @*<div class="ect-padding-lr ect-padding-tb">
+                    <input name="act" type="hidden" value="act_register">
+                    <input name="enabled_sms" type="hidden" value="0">
+                    
+                    <button href="flow_consignee.html" name="Submit" type="submit" onclick="return checkinput()" class="btn btn-info ect-btn-info ect-colorf">下一步</button>
+                </div>*@
+                <input type="hidden" name="type" value="@ViewBag.type" />
+            }
+        </div>
+    </div>
+</div>
+<div class="btnpanel">
+    <button name="Submit" type="button" onclick="return checkinput()" class="btn btn-info ect-colorf button_only">确   定</button>
+    </div>
+    @*<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>*@
+
+
+
+    <script type="text/javascript">
+        /*点击更换密码框为文本框*/
+        function clickText() {
+            if ($("#password_text").is(":hidden") && $("#password1").is(":visible") && !$(".input-text .glyphicon-eye-open").hasClass("glyphicon-eye-close")) {
+                var pwd = $("#password1").val();
+                $("#password1").hide();
+                $("#password_text").val(pwd).show();
+                $(".input-text .glyphicon-eye-open").addClass("glyphicon-eye-close");
+            } else {
+                var pwd_text = $("#password_text").val();
+                $("#password_text").hide();
+                $("#password1").val(pwd_text).show();
+                $(".input-text .glyphicon-eye-open").removeClass("glyphicon-eye-close");
+            }
+        }
+        function checkinput() {
+            if ($('#name').val().trim() == "") {
+                showAlertMessage("姓名不能为空！");
+                return false;
+            }
+            if ($('#email').val().trim() == "") {
+                showAlertMessage("电子邮箱不能为空！");
+                return false;
+            }
+            if ($('#password1').val().trim() == "") {
+                showAlertMessage("密码不能为空！");
+                return false;
+            }
+            $("#formok").submit();
+            return true;
+        }
+    </script>
+

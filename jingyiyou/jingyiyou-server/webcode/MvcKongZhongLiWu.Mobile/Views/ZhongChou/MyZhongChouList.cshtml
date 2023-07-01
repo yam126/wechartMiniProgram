@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ncc2019.Orders>
+@using ncc2019.Common.Enum
+@using ncc2019.Common.Tool
+
+<link href="~/css/user.css" rel="stylesheet" />
+
+<div class="ect-pro-list user-order" style="border-bottom:none;">
+    <ul id="J_ItemList">
+        @if (Model.Count() == 0)
+        {
+            <div class="panel-body" style="text-align:center;">@ViewBag.show</div>
+        }
+        @foreach (var item in Model)
+        {
+            if (item.OrderStatus == (int)OrderStatus.众筹成功)
+            {
+                if (item.ToAddress == null)
+                {
+                    ViewBag.url = "/address?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+                }
+                else
+                {
+                    ViewBag.url = "/myorder/routeinfo?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+                }
+            }
+            else
+            {
+
+                ViewBag.url = "/zhongchou/MemberList?orderid=" + DESEncrypt.Encrypt(item.OrderID.ToString());
+            }
+            
+                <li class="single_item" id="more_element_1" onclick="javascript: window.location = '@ViewBag.url'">
+                    <img src="@item.Goods.ImgUrl" class="pull-left">
+                    <dl>
+                        <dt>
+                            <h4 class="title">订单号：@item.OrderID</h4>
+                        </dt>
+                        <dd>众筹状态：@EnumTool.GetEnumName(typeof(OrderStatus), item.OrderStatus)</dd>
+                        <dd>礼物总金额：<span class="ect-color">￥@Html.Raw(item.TotalPayment)元</span></dd>
+                        <dd>众筹时间：@item.AddDate</dd>
+                    </dl>
+                    <i class="pull-right fa fa-angle-right"></i>
+                </li>
+            
+           
+        }
+        @*<div class="more_loader_spinner" style="display: none;"><div style="text-align:center; margin:10px;"><img src="/source/mobile/themes/default/images/loader.gif"></div></div>*@
+    </ul>
+</div>

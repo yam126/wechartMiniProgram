@@ -1,0 +1,25 @@
+<!--pages/regist/regist.wxml-->
+<view class="page">
+    <!--手机号-->
+    <view class="mobileNumber-contianer">
+        <view class="label">
+            手机号
+        </view>
+        <view class="txtMobileNumber-contianer">
+            <input 
+            class="txtMobileNumber" 
+            bindinput="receiveInputPhoneNumber" 
+            value="{{PhoneNumber}}" 
+            placeholder="请输入手机号" />
+        </view>
+        <view class="getMobileNumber-contianer">
+            <view class="btnGetMobileNumber">获取</view>
+        </view>
+    </view>
+    <!--/手机号-->
+    <view class="btnSave-container">
+        <view bindtap="onRegistClick" class="btnSave">
+         注册
+        </view>
+    </view>
+</view>

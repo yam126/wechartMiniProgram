@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "打开礼物";
+}
+<div class="blank5"></div>
+<div class="Area">
+    <div class="box" style="margin:auto;text-align:center;vertical-align:middle;margin-top:70px;margin-bottom:70px;">
+        <div style="height:200px;">
+            @*@using (Html.BeginForm("Verf", "Gift"))
+            {
+                <a>请输入打开礼物的密码：</a>
+                <input type="text" name="thepass" />
+                <input type="hidden" name="shorturl" value="@ViewBag.shorturl" />
+                <input id="Button1" type="submit" value="确定" />
+            }*@
+            <img src="@ViewBag.WeiXinQrCode" width="200px" height="200px" />
+        </div>
+        <h4>请用微信扫描以上二维码打开礼物</h4>
+
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ncc2019.ZGGMachine>
+@{
+    ViewBag.Title = "智裹裹列表";
+
+}
+
+<style type="text/css">
+    .boxitem {
+        width: 100% !important;
+        background-color: burlywood;
+    }
+
+    .boxname {
+        width: 100%;
+        float: left;
+    }
+
+  
+</style>
+<section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+
+    <p><b>附近可以使用的智裹裹</b></p>
+
+    <ul>
+        <li>
+            <dl>
+                @foreach (var item in Model)
+                {
+                    <dt class="boxitem" >
+                     
+                        <a class="boxname" onclick="window.location = '/main/UserChoice?mid=@ncc2019.Common.Tool.DESEncrypt.Encrypt(item.MachineID)'"> 智裹裹 @item.ShowCode</a>
+                    </dt>
+                }
+            </dl>
+        </li>
+    </ul>
+</section>
+

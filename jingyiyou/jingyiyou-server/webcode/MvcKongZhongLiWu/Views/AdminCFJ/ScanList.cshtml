@@ -1,0 +1,90 @@
+﻿@model PagedList<ncc2019.CFJControl>
+@using Webdiyer.WebControls.Mvc
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = "吹风机使用管理";
+}
+<div class="block clearfix">
+    @Html.Partial("~/views/part/cfj/AdminLeft.cshtml", ncc2019.Common.Enum.AdminPageType.OrderList);
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+
+                    <h5><span>吹风机使用管理</span></h5>
+
+
+                    <div class="blank"></div>
+                    <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                        <tbody>
+                            <tr align="center">
+                                <td bgcolor="#ffffff">ID</td>
+                                <td bgcolor="#ffffff">扫描时间</td>
+                                <td bgcolor="#ffffff">吹风时间</td>
+                                <td bgcolor="#ffffff">吹风时长</td>
+                                <td bgcolor="#ffffff">执行机器</td>
+                                <td bgcolor="#ffffff">扫描人</td>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+
+                                var member = new ncc2019.KongZhongLiWuEntities().Members.Where(c=>c.WechatOpenid== item.WXOpenID).FirstOrDefault();
+
+                                <tr>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.CFJControlID)
+                                    </td>
+
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.AddDate)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.ExeTime)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.DelayTime)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.MachineCode)
+                                    </td>
+                                    @*<td bgcolor="#ffffff" width="50px" style="text-align:center;">
+
+                                        @if (member.HeadImgUrl != null)
+                                        { <img src="@member.HeadImgUrl" width="20px" height="20px;" />}
+                                    </td>*@
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => member.Name)
+                                    </td>
+                                    
+                                    @*<td bgcolor="#ffffff">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.MemberID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.MemberID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.MemberID }) |
+                                            <a href="/adminmember/sendmsg/@item.MemberID">发消息</a>
+                                        </td>*@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div id="pager" class="pagebar">
+                        <span style="margin-right: 10px;" class="f_l ">总计 <b>@ViewBag.totalCount</b>  个记录</span>
+
+                    </div>
+                    @Html.Pager(Model, new PagerOptions
+               {
+                   PageIndexParameterName = "pageindex",
+                   ShowPageIndexBox = true,
+                   FirstPageText = "首页",
+                   PrevPageText = "上一页",
+                   NextPageText = "下一页",
+                   LastPageText = "末页",
+                   PageIndexBoxType = PageIndexBoxType.TextBox,
+                   PageIndexBoxWrapperFormatString = "请输入页数{0}",
+                   GoButtonText = "转到"
+               })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

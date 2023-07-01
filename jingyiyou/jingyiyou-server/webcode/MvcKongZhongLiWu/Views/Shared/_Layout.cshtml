@@ -1,0 +1,211 @@
+﻿@using ncc2019.Common.Tool
+@using ncc2019.Common.Enum
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="空中礼物为您打造不同凡响的送礼体验，不仅仅是礼物充满惊喜与创意，送礼的过程更加精彩！" />
+    <meta name="Keywords" content="空中礼物,生日礼物,创意礼物,礼物网,礼物,礼品,民族特色,地域特色" />
+
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    
+    @RenderSection("HeadScript", false)
+</head>
+<body @if (ViewBag.IsIndex == true)    { @Html.Raw("class='index_page'") }>
+    <div class="top_nav">
+        <div class="block">
+            <ul class="top_bav_l">
+                <li class="top_sc">
+                    @*<a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏我们</a>*@
+                </li>
+
+            </ul>
+
+            <div class="header_r">
+
+                <font id="ECS_MEMBERZONE">
+
+                    欢迎来到空中礼物，@if (!SessionHelper.IsLogin())
+                           {
+                               <a href="~/Login">登录</a> @Html.Raw("|")<a href="/login/weixinlogin">微信登陆</a> @Html.Raw("|") <a href="~/login/reg">注册</a>
+                           }
+                           else
+                           {<a>@SessionHelper.CurMemberInfo.Name</a> 
+                     if (SessionHelper.CurMemberInfo.UserLevel==(int)UserLevel.管理员){   @Html.Raw("|") <a href="/admin/productlist">后台管理</a>}
+                        @Html.Raw("|") <a href="/myorder?type=send">送出的礼物</a>
+                        @Html.Raw("|") <a href="/myorder?type=get">收获的礼物</a>                        
+                        @Html.Raw("|") <a href="/my/Info">我的地盘</a> 
+                        @Html.Raw("|") <a href="/login/logout">退出</a> }
+
+
+                </font>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div style="background: #f8f7f7" class="clearfix">
+        <div class="block header">
+            <div class="top">
+                <a href="/" class="logo">
+                    <img src="/images/logo2.png" width="140px" height="80px" />
+                </a>
+                <div class="head_search">
+                    <div class="top_search">
+
+                        <form id="searchForm" name="searchForm" method="get" action="/search" style="_position: relative; top: 5px;">
+                            <input name="key" type="text" id="keyword" class="keyword" value="" />
+                            <input value="搜索" id="seachbtn" type="submit" />
+                        </form>
+                        <div class="vjia-suggest-container">
+                            <div class="vjia-suggest-content"></div>
+                            <ol></ol>
+                        </div>
+                        <div style="clear: both"></div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="menu_box clearfix">
+        <div class="block">
+            <div class="menu">
+                <a href="/" class="cur">首页<span></span></a>
+                <a href="~/search?key=新奇创意">
+                     <span>新奇创意</span>
+                </a>
+
+                <a href="~/search?key=高科技">
+                    高科技<span></span>
+                </a>
+
+                <a href="/search?key=节日礼物">
+                    节日礼物 <span></span>
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-success" style="display:none;"></div>
+    <div class="alert alert-danger" style="display:none;"></div>
+    @*<div class="blank"></div>*@
+    @RenderBody()
+
+    <div id="VjiaFooter" class="block">
+        <div class="foot">
+            <div class="f_t">
+                <div class="email">
+                    Email订阅最新特惠信息：
+                    <input type="text" id="user_email" class="inp" maxlength="100" onclick="javascript: this.value = '';" style="vertical-align: middle" />
+                    <input type="image" style="vertical-align: middle" src="~/css/images/subscibe.gif" class="subscribe_forindex" value="订阅" onclick="add_email_list();" />
+                    <span></span>
+                </div>
+                @*<ul class="phone">
+                    <li class="goodness">
+                        <img src="~/css/images/fot_service.jpg" />
+                    </li>
+                </ul>*@
+            </div>
+            <div class="f_b clearfix" style="width:900px;">
+                <div class="help">
+                    <ul class="noborder_l">
+                        <li class="t"><a  title="新手上路 ">新手上路 </a></li>
+                        <li><a href="/home/info?id=1">购物流程</a></li>
+                        <li><a href="/home/info?id=2">账户充值</a></li>
+                        
+                    </ul>
+                    <ul>
+                        <li class="t"><a  title="网站信息 ">网站信息 </a></li>
+                        <li><a href="/home/info?id=3">关于我们</a></li>
+                        <li><a href="/home/info?id=4">联系我们</a></li>
+                        <li><a href="/feedback">意见反馈</a></li>
+                    </ul>
+                    <ul>
+                        <li class="t"><a  title="配送与支付 ">配送与支付 </a></li>
+                        <li><a href="/home/info?id=5">配送方式</a></li>                        
+                        <li><a href="/home/info?id=6">配送价格</a></li>
+                        @*<li><a href="/home/info?id=7">支付方式</a></li>*@
+                        <li><a href="http://m.kuaidi100.com" target="_blank">快递查询</a></li>
+                    </ul>
+                    
+                    <ul class="noborder_r">
+                        <li class="t"><a  title="服务保证 ">服务保证 </a></li>
+                        <li><a href="/home/info?id=8">退换货原则</a></li>
+                        <li><a href="/home/info?id=9">售后服务保证</a></li>
+                        <li><a href="/home/info?id=10">产品质量保证</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+        @*<div class="box_1">
+            <div class="links clearfix">
+                [<a href="../../www.ecmoban.com/default.htm" target="_blank" title="ecshop模板堂">ecshop模板堂</a>]
+            </div>
+        </div>*@
+        <div class="blank"></div>
+        <div class="copyRight">
+            @*<div class="f_nav">
+                <a href="article.php@id=1">免责条款</a>
+                |
+                <a href="article.php@id=2">隐私保护</a>
+                |
+                <a href="article.php@id=3">咨询热点</a>
+                |
+                <a href="article.php@id=4">联系我们</a>
+                |
+                <a href="article.php@id=5">公司简介</a>
+                |
+                <a href="wholesale.php">批发方案</a>
+                |
+                <a href="myship.php">配送方式</a>
+            </div>*@
+            <div style="line-height: 22px;">
+                &copy; 2012-2015 空中礼物 京ICP备14061467号-1 
+                <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1254977099'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1254977099%26l%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+
+            </div>
+
+            <div class="blank"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //通用-警示框
+        function showAlertMessage(message) {
+            $('.alert-danger').html("<div style='width:1200px;'><strong>出错啦！</strong> " + message + "<br /></div>");
+            $('.alert-danger').show();
+        }
+        function showSuccessMessage(message) {
+            $('.alert-success').html("<div style='width:1200px;'>" + message + "<br /></div>");
+            $('.alert-success').show();
+        }
+        $(function () {
+            @if (ViewBag.dangermessage != null)
+            {
+               @Html.Raw("showAlertMessage('"+ViewBag.dangermessage+"')");
+            }
+            
+             @if (ViewBag.successmessage != null)
+             {
+               @Html.Raw("showSuccessMessage('"+ViewBag.successmessage+"')");
+             }
+            
+        });
+    </script>
+    
+</body>
+</html>

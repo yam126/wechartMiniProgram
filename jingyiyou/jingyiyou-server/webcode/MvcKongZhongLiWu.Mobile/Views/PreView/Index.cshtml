@@ -1,0 +1,26 @@
+﻿@model ncc2019.Orders
+
+@{
+    ViewBag.Title = "预览";
+}
+
+<div id="focus" class="focus goods-focus ect-padding-lr ect-margin-tb">
+
+
+    <div class="bd">
+        <div class="tempWrap">
+            <ul id="Gallery">
+                <li><a href="@Model.Goods.ImgUrl"><img alt="@Model.Goods.Name" src="@Model.Goods.ImgUrl" height="100px" width="100%"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="Area">
+    <div class="box">
+        @Html.Raw(Model.SayEtc)
+        <br />
+        请猛击&nbsp;<a href="/gift/@Model.ShortUrl" style="color:blue">这里</a>&nbsp;打开礼物,<br />
+        或者复制以下链接到浏览器打开
+    http://localhost/gift/@Model.ShortUrl
+</div>
+</div>

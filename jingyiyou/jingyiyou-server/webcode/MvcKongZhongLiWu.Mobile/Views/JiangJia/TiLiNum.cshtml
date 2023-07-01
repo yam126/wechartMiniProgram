@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "购买体力数量";
+}
+
+
+
+<script type="text/javascript">
+
+    function changePrice(type) {
+        if (type == 'n') {
+
+            $('.form-num').val(parseFloat($('.form-num').val()) + 1);
+
+        } else {
+
+            $('.form-num').val(parseFloat($('.form-num').val()) - 1);
+
+        }
+    }
+    function btn_ok() {
+        
+        $('#formok').submit();
+    }
+</script>
+@using (Html.BeginForm("tilinum", "jiangjia", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <section class="ect-padding-lr ect-padding-tb goods-option">
+        <br />
+
+        <div class="goods-num" style="text-align:center;vertical-align:middle;">
+            <span class="pull-left">请输入体力数量（单价1元）：</span>
+            <div class="input-group pull-left wrap">
+                <span class="input-group-addon sup" onclick="changePrice('p')">-</span>
+                <input type="number" class="form-contro form-num" name="tilinum" id="tilinum" autocomplete="off" value="1" />
+                <span class="input-group-addon plus" onclick="changePrice('n')">+</span>
+            </div>
+        </div>
+
+    </section>
+
+    <input type="hidden" name="goodid" value="@ViewBag.goodid" />
+
+}
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btn_ok()">确定购买</button>
+
+</div>

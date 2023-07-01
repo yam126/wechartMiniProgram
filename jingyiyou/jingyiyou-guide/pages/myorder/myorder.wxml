@@ -1,0 +1,32 @@
+<!--pages/myorder/myorder.wxml-->
+<view class="page">
+    <!--单个订单模板-->
+    <view wx:for="{{guideOrders}}" wx:key="{{OrderID}}" wx:for-item="orderItem" class="myorder-item-container">
+        <view class="line">
+            <view class="tag">
+            </view>
+            <view class="text">
+                {{orderItem.Memo}} {{orderItem.AddDate}}
+            </view>
+            <view wx:if="{{orderItem.OrderStatus==0}}" class="status">
+                  未开始
+            </view>
+            <view wx:if="{{orderItem.OrderStatus==1}}" class="status">
+                  进行中
+            </view>
+            <view wx:if="{{orderItem.OrderStatus==2}}" class="status">
+                  已完成
+            </view>                         
+        </view>
+        <view class="line">
+            订单详情
+        </view>
+        <view class="line">
+            价格{{orderItem.TotalPayment}}元 讲解时长{{orderItem.ServiceMinute}}分钟
+        </view>
+        <view class="line">
+            客户手机号:{{orderItem.Phone}} 
+        </view>
+    </view>
+    <!--/单个订单模板-->  
+</view>

@@ -1,0 +1,71 @@
+﻿@model ncc2019.GoodSort
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<div class="Area">
+
+    <h3>Are you sure you want to delete this?</h3>
+    <fieldset>
+        <legend>GoodSort</legend>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.ParentID)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ParentID)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.AddDate)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.AddDate)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Enabled)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Enabled)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.GoodSortOrder)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.GoodSortOrder)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.ShowInIndex)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ShowInIndex)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.ShowName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ShowName)
+        </div>
+    </fieldset>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <p>
+            <input type="submit" value="Delete" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    }
+</div>

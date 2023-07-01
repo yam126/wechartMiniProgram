@@ -1,0 +1,13 @@
+a, a:hover, a:active, a:focus{
+	text-decoration:none;
+	border:none;
+	outline:none;
+	/*color: #00F !important;*/
+	/*color: inherit !important;*/
+	}
+#head
+{
+	display: none;
+}
+
+/*img { max-width: 100%; }*/

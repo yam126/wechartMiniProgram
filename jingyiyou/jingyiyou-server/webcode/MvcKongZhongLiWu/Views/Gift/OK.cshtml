@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "恭喜您购买成功！";
+}
+<style type="text/css">
+    .textcenter {
+        margin: auto;
+        width: 100%;
+        text-align: center;
+        height: 300px;
+        line-height: 300px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        setInterval(jumpurl, 1000);
+    });
+    function jumpurl() {
+        window.location = "/myorder?type=send";
+    }
+</script>
+<body>
+    <div class="Area textcenter">
+        恭喜您购买成功！空中礼物正在为您火速配送中，请耐心等待礼物送达！
+    </div>
+</body>
+</html>

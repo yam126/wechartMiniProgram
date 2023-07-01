@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "购买体力成功";
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div style=" text-align:center;">
+            您的体力购买成功！
+            <br /><br />
+
+            <button class="btn-info ect-btn-info" onclick="window.location='/jiangjia/good?id=@ViewBag.goodid'">返回参与抢购</button>
+        </div> 
+        <br /><br />      
+        @if (ViewBag.guanzhu == false && ViewBag.isweixin == true)
+        {
+            <a>关注我们的微信公众号，方便您随时跟踪订单情况等高级服务。</a><br />
+            <strong> 关注方法：</strong><a>将手指放到以下二维码上2秒钟，然后选择识别图中的二维码即可关注。</a>
+            <br /><br />
+            <img width="200px" height="200px" src="@ViewBag.imgurl" />
+        }
+    </div>
+
+</div>

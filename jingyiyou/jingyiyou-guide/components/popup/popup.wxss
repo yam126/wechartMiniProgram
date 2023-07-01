@@ -1,0 +1,93 @@
+/* components/popup/popup.wxss */
+.popup {
+    z-index: 9;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+  }
+   
+  .popup-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80%;
+    max-width: 600rpx;
+    border: 2rpx solid #ccc;
+    border-radius: 20rpx;
+    box-sizing: bordre-box;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    background: rgba(250,250,250,1);
+  }
+   
+  .popup-title {
+    width: 100%;
+    padding: 20rpx;
+    text-align: center;
+    font-size: 40rpx;
+    border-bottom: 0rpx solid red;
+  }
+   
+  .popup-con {
+    margin: 36rpx 10rpx;
+    text-align: center;
+    display: flex;
+    flex-direction:column;
+  }
+
+  .popup-con .option-item {
+      width: 98%;
+      height: 85rpx;
+      display: flex;
+      flex-direction:row;
+      border-top: 0.5rpx solid #999;
+      border-bottom: 0.5rpx solid #999;
+  }
+
+  .popup-con .option-item .icon {
+      width: 35rpx;
+      height: 85rpx;
+      margin-left: 15rpx;
+  }
+
+  .popup-con .option-item .label {
+      width: 445rpx;
+      height: 85rpx;
+      line-height: 85rpx;
+      font-size: 32rpx;
+      text-align: left;
+      text-indent: 15rpx;
+      margin-left: 7rpx;
+      border: 0px solid red;
+  }
+
+  .popup-con .option-item .checkmark {
+    width: 35rpx;
+    height: 85rpx;
+    margin-left: 65rpx;
+}
+   
+  .popup-con image {
+    width: 196rpx;
+    height: 196rpx;
+  }
+   
+  .popup-btn {
+    display: flex;
+    justify-content: space-around;
+  }
+   
+  .popup-btn text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 106rpx;
+    border-top: 2rpx solid #EDEDED;
+  }
+  .popup-btn .btn-no {
+    border-right: 2rpx solid #EDEDED;
+  }

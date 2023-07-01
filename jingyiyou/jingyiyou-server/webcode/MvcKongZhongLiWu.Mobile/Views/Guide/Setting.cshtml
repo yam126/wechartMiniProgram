@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "设置项";
+}
+
+<script src="~/Scripts/m/bootstrap-switch.min.js"></script>
+<link href="~/css/bootstrap-switch.min.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $(".switch input").bootstrapSwitch();
+    });
+    function btnok() {
+        if (!$('[name="addressbysef"]')[0].checked) {
+            if ($("#recname").val().trim() == "") {
+                alert("收货人姓名不能为空！");
+                return false;
+            }
+            if ($("#recphone").val().trim() == "") {
+                alert("收货人电话不能为空！");
+                return false;
+            }
+            if ($("#recaddress").val().trim() == "") {
+                alert("收货地址不能为空！");
+                return false;
+            }
+        }
+        $('#formok').submit();
+        return true;
+    }
+    function claddress(obj) {
+        if (!$(obj)[0].checked) {
+            $('.address').show();
+        } else {
+            $('.address').hide();
+        }
+    }
+</script>
+<style type="text/css">
+    .switch-right {
+        float: right;
+        /*margin-top:0.1em;*/
+        padding-top: 0.1em;
+    }
+
+    .address {
+        display: none;
+    }
+
+    .userCenterBox td {
+        margin-top: 10px;
+        line-height: 30px;
+    }
+
+    .userCenterBox input {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        /*margin-right:10px;*/
+    }
+
+    .inputBg {
+        width: 90%;
+        margin-right: 10px;
+    }
+</style>
+
+
+
+<div class="panel panel-default ect-category-all ect-border-radius0">
+    @using (Html.BeginForm("Setting", "guide", FormMethod.Post, new { id = "formok" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <ul>
+            <li class="secret">
+                <div class="media panel-body">
+                    <div class="pull-left ect-category-right">
+                        <h3>价格对Ta保密</h3>
+                        <h5></h5>
+                    </div>
+                    <div class="switch switch-right" data-on="primary" data-off="info">
+                        <input type="checkbox" id="cbnoshowparice" name="noshowparice" checked />
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="media panel-body">
+                    <div class="pull-left ect-category-right">
+                        <h3>让Ta自己填写地址</h3>
+                        <h5></h5>
+                    </div>
+                    <div class="switch switch-right" data-on="primary" data-off="info">
+                        <input onchange="claddress(this)" type="checkbox" name="addressbysef" checked />
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="userCenterBox boxCenterList clearfix address">
+
+
+                <table border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                    <tbody>
+
+                        <tr>
+                            <td bgcolor="#ffffff" align="right">收货人姓名：</td>
+                            <td bgcolor="#ffffff">
+                                <input id="recname" name="toname" type="text" value="" class="inputBg" />
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td bgcolor="#ffffff" align="right">收货人电话：</td>
+                            <td bgcolor="#ffffff">
+                                <input id="recphone" name="tophone" type="tel" value="" class="inputBg" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#ffffff" align="right">收货地址：</td>
+                            <td bgcolor="#ffffff">
+                                <input id="recaddress" name="toaddress" type="text" value="" class="inputBg" />
+
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+                <input type="hidden" name="orderid" value="@ViewBag.orderid" />
+             
+
+            </li>
+        </ul>
+    }
+</div>
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btnok()">下  一  步</button>
+</div>

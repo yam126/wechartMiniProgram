@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ncc2019.Goods>
+
+
+<div class="block clearfix">
+
+    <div class="AreaL">
+
+        <div id="category_tree">
+            <div class="tit">所有商品分类</div>
+            @foreach (var sort in (List<ncc2019.GoodSort>)ViewBag.GoodSort)
+            {
+                <dl class="clearfix">
+                    <div class="dt">
+
+                        <div id="HandleLI2_1">
+                            <a class="a"
+                               href="search?key=@sort.Name">
+                                @sort.Name
+                            </a>
+                        </div>
+                    </div>
+                </dl>
+            }
+
+        </div>
+        <div class="blank"></div>
+    </div>
+
+
+    <div class="AreaR">
+
+        <div class="box">
+            <div class="box_1">
+                <h3>
+                    <span>@ViewBag.Title</span>
+                    <a href="search?key=@ViewBag.key&sorttype=time&order=@ViewBag.time_next_order">
+                        <img src="~/css/images/goods_id_@ViewBag.time_img_order@Html.Raw(".gif")" />
+                    </a>
+                    <a href="search?key=@ViewBag.key&sorttype=price&order=@ViewBag.price_next_order">
+                        <img src="~/css/images/shop_price_@ViewBag.price_img_order@Html.Raw(".gif")" />
+                    </a>
+                </h3>
+
+              
+                    <div style="padding: 11px 0px 10px 5px; border: currentColor;" class="clearfix goodsBox">
+                        @foreach (var item in Model)
+                        {
+                            <div class="goodsItem">
+
+                                <a href="~/Home/Details?id=@item.GoodID" target="_blank"><img src="@item.ImgUrl" alt="@item.Name" class="goodsimg"  /></a><br />
+                                <p class="f1"><a href="~/Home/Details?id=@item.GoodID" target="_blank" title="@item.Name">@item.Name</a></p>
+                                <font class="f1">
+                                    ￥@item.Payment 元
+                                </font>
+
+                            </div>
+                        }
+                    </div>
+
+    
+
+            </div>
+        </div>
+        <div class="blank"></div>
+
+        <div id="pager" class="pagebar">
+            <span style="margin-right: 10px;" class="f_l ">总计 <b>@Model.Count()</b>  个记录</span>
+
+        </div>
+
+
+
+
+    </div>
+
+</div>

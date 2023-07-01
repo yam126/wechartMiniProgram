@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "价格区间选择";
+}
+<style type="text/css">
+    .selected {
+        background: rgba(93,173,226,1);
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $('.con .ect-bg').hide();
+    });
+    function setprice(pricezone, obj) {
+        $('.sortlist li').removeClass('selected');
+        $(obj).addClass('selected');
+        $('#pricezone').val(pricezone);
+    }
+    function btnok() {
+
+        $('#formok').submit();
+    }
+</script>
+<div class="panel panel-default ect-category-all ect-border-radius0 sortlist">
+    <ul>
+       
+        <li class="" onclick="setprice('0-100',this)">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>0-100元</h3>
+                    <h5></h5>
+                </div>
+            </div>
+        </li>       
+        <li class="" onclick="setprice('100-200',this)">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>100-200元</h3>
+                    <h5></h5>
+                </div>
+            </div>
+        </li>       
+        <li class="" onclick="setprice('200-300',this)">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>200-300元</h3>
+                    <h5></h5>
+                </div>
+            </div>
+        </li>        
+        <li class="" onclick="setprice('300-500',this)">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>300-500元</h3>
+                    <h5></h5>
+                </div>
+            </div>
+        </li>
+        @*<li class="" onclick="setprice('500以上',this)">
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3>500元以上</h3>
+                    <h5></h5>
+                </div>
+            </div>
+        </li>*@
+    </ul>
+</div>
+@using (Html.BeginForm("SetPriceZone", "guide", FormMethod.Post, new { id = "formok" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" value="" name="pricezone" id="pricezone" />
+    <input type="hidden" value="@ViewBag.orderid" name="orderid" id="orderid" />
+}
+<div class="btnpanel">
+    <button type="button" class="btn btn-info ect-colorf button_only" onclick="btnok()">确   定</button>
+</div>

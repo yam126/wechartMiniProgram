@@ -1,0 +1,429 @@
+/* pages/regist/regist.wxss */
+/* pages/myedit/myedit.wxss */
+
+.btnSave-container {
+    width: 98%;
+    height: 138rpx;
+    margin-left: 0.5%;
+    margin-top: 10rpx;
+    border: 0px solid red;  
+}
+
+.btnSave {
+    width:36%;
+    height: 89rpx;
+    line-height: 89rpx;
+    font-size: 55rpx;
+    text-align: center;
+    font-weight: 100;
+    color: black;
+    margin-left:32%;
+    margin-top: 25rpx;
+    margin-bottom: 27rpx;
+    border-radius: 25rpx;
+    background-color: #999;
+}
+
+.Attractions {
+    width: 98%;
+    height: 218rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 10rpx;
+    border: 0px solid red;  
+}
+
+.Attractions .label {
+    width: 25%;
+    height: 218rpx;
+    line-height:65rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 5rpx;
+    color: black;
+    border: 0px solid red;
+}
+
+.Attractions .Attractions-list-container {
+    width: 74%;
+    height: 218rpx;
+    margin: 0;
+    border: 0px solid red;
+}
+
+.Attractions .Attractions-list-container .Attractions-item {
+    min-width:75rpx;
+    width: auto;
+    height: 55rpx;
+    line-height: 55rpx;
+    font-size: 25rpx;
+    color: black;
+    margin-top: 5rpx;
+    margin-left: 10rpx;
+    background-color: #43cf7c;
+    text-align: center;
+    border-radius: 15rpx;
+    float: left;
+}
+
+.Attractions .Attractions-list-container .add-item {
+    min-width:75rpx;
+    width: auto;
+    height: 55rpx;
+    line-height: 55rpx;
+    font-size: 25rpx;
+    color: black;
+    margin-top: 5rpx;
+    margin-left: 10rpx;
+    background-color: #999;
+    text-align: center;
+    border-radius: 15rpx;
+    float: left;
+}
+
+.tag-container {
+    width: 98%;
+    height: 218rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 10rpx;
+    border: 0px solid red;
+}
+
+.tag-container  .label {
+    width: 21%;
+    height: 218rpx;
+    line-height:65rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 5rpx;
+    color: black;
+    border: 0px solid red;
+}
+
+.tag-container .tag-list-container {
+    width: 78%;
+    height: 218rpx;
+    margin: 0;
+    border: 0px solid red;
+}
+
+.tag-container .tag-list-container .tag-item {
+    min-width:75rpx;
+    width: auto;
+    height: 55rpx;
+    line-height: 55rpx;
+    font-size: 25rpx;
+    color: black;
+    margin-top: 5rpx;
+    margin-left: 10rpx;
+    background-color: #43cf7c;
+    text-align: center;
+    border-radius: 15rpx;
+    float: left;
+}
+
+.tag-container .tag-list-container .add-item {
+    min-width:75rpx;
+    width: auto;
+    height: 55rpx;
+    line-height: 55rpx;
+    font-size: 25rpx;
+    color: black;
+    margin-top: 5rpx;
+    margin-left: 10rpx;
+    background-color: #999;
+    text-align: center;
+    border-radius: 15rpx;
+    float: left;
+}
+
+.PersonalIntroduction-container {
+    width: 98%;
+    height: 218rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 10rpx;
+    border: 0px solid red;
+}
+
+.PersonalIntroduction-container .label {
+    width: 21%;
+    height: 218rpx;
+    line-height:65rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 5rpx;
+    color: black;
+    border: 0px solid red;
+}
+
+.PersonalIntroduction-container .txtarea-container {
+    width: 78%;
+    height: 218rpx;
+    margin: 0;
+    border: 0px solid red;
+}
+
+.PersonalIntroduction-container .txtarea-container .txtIntorduction {
+    width: 89%;
+    height: 185rpx;
+    line-height: 85rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 16rpx;
+    margin-left: 2.5%;
+    margin-top:12rpx;
+    border-radius: 15rpx;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border:1px solid #999;
+}
+
+.userFace-container {
+    width: 98%;
+    height: 218rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 10rpx;
+    border: 0px solid red;
+}
+
+.userFace-container .label {
+    width: 50%;
+    height: 218rpx;
+    line-height: 315rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 35rpx;
+    color: black;
+    border: 0px solid red;
+}
+
+.userFace-container .image-container {
+    width: 50%;
+    height: 218rpx;
+    line-height: 315rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 35rpx;
+    color: black;
+    position: relative;
+    border: 0px solid red;
+}
+
+.userFace-container .image-container image {
+    width: 155rpx;
+    height: 125rpx;
+    margin-top: 47rpx;
+    margin-left: 117rpx;
+    border-radius: 15rpx;
+}
+
+.userFace-container .image-container .tips {
+    width: 121rpx;
+    height: 35rpx;
+    line-height: 35rpx;
+    font-size: 23rpx;
+    color: #999;
+    font-weight: 700;
+    text-align: left;
+    text-indent: 18rpx;
+    top:65rpx;
+    left: 165rpx;
+    z-index: 6;
+    position:absolute;
+    border:0px solid red;
+}
+
+.video-container {
+    width: 98%;
+    height: 218rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 10rpx;
+    border: 0px solid red;
+}
+
+.video-container .label {
+    width: 50%;
+    height: 218rpx;
+    line-height: 315rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 35rpx;
+    color: black;
+    border: 0px solid red;
+}
+
+.video-container .image-container {
+    width: 50%;
+    height: 218rpx;
+    line-height: 315rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 35rpx;
+    color: black;
+    position: relative;
+    border: 0px solid red;
+}
+
+.video-container .image-container image {
+    width: 155rpx;
+    height: 125rpx;
+    margin-top: 47rpx;
+    margin-left: 117rpx;
+    border-radius: 15rpx;
+}
+
+.video-container .image-container .tips {
+    width: 155rpx;
+    height: 65rpx;
+    line-height: 65rpx;
+    font-size: 31rpx;
+    color: rgb(33, 113, 167);
+    font-weight: 700;
+    text-align: left;
+    text-indent: 3rpx;
+    top:75rpx;
+    left: 165rpx;
+    z-index: 6;
+    text-shadow:3rpx 3rpx 10rpx rgb(178, 182, 197);
+    position:absolute;
+    border:0px solid red;
+}
+
+.nickname-contianer {
+    width: 98%;
+    height: 85rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 21rpx;
+    border: 0px solid red;
+}
+
+.nickname-contianer .label {
+    width: 125rpx;
+    height: 85rpx;
+    line-height: 85rpx;
+    font-size: 35rpx;
+    text-align: center;
+    border: 0px solid red;
+}
+
+.nickname-contianer .txtNickName-contianer {
+    width: 655rpx;
+    height: 85rpx;
+    border: 0px solid red;
+}
+
+.nickname-contianer .txtNickName-contianer .txtNickName {
+    width: 85%;
+    height: 65rpx;
+    margin-left: 7.5%;
+    margin-top: 8rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 10rpx;
+    border: 1px solid #999;
+    border-radius: 15rpx;
+}
+
+.mobileNumber-contianer {
+    width: 98%;
+    height: 85rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 21rpx;
+    border: 0px solid red;
+}
+
+.mobileNumber-contianer .label {
+    width: 125rpx;
+    height: 85rpx;
+    line-height: 85rpx;
+    font-size: 35rpx;
+    text-align: center;
+    border: 0px solid red;
+}
+
+.mobileNumber-contianer .txtMobileNumber-contianer {
+    width: 435rpx;
+    height: 85rpx;
+    border: 0px solid red;
+}
+
+.mobileNumber-contianer .txtMobileNumber-contianer .txtMobileNumber {
+    width: 85%;
+    height: 65rpx;
+    margin-left: 7.5%;
+    margin-top: 8rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 10rpx;
+    border: 1px solid #999;
+    border-radius: 15rpx;
+}
+
+.mobileNumber-contianer .getMobileNumber-contianer {
+    width: 135rpx;
+    height: 85rpx;
+    border: 0px solid red;
+}
+
+.mobileNumber-contianer .getMobileNumber-contianer .btnGetMobileNumber {
+    width: 85%;
+    height: 65rpx;
+    line-height: 65rpx;
+    font-size: 35rpx;
+    text-align: center;
+    margin-top: 9rpx;
+    margin-left: 7.5%;
+    color: rgb(102, 90, 90);
+    background-color: rgba(172, 168, 168, 0.897);
+    border-radius: 15rpx;
+}
+
+.idcard-contianer {
+    width: 98%;
+    height: 85rpx;
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5%;
+    margin-top: 21rpx;
+    border: 0px solid red;
+}
+
+.idcard-contianer .label {
+    width: 145rpx;
+    height: 85rpx;
+    line-height: 85rpx;
+    font-size: 35rpx;
+    text-align: center;
+    border: 0px solid red;
+}
+
+.idcard-contianer .txtIdCard-contianer {
+    width: 625rpx;
+    height: 85rpx;
+    border: 0px solid red;
+}
+
+.idcard-contianer .txtIdCard-contianer .txtIdCard {
+    width: 85%;
+    height: 65rpx;
+    margin-left: 7.5%;
+    margin-top: 8rpx;
+    font-size: 35rpx;
+    text-align: left;
+    text-indent: 10rpx;
+    border: 1px solid #999;
+    border-radius: 15rpx;
+}

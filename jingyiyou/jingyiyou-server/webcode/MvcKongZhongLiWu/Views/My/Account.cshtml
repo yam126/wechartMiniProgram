@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Account";
+}
+<div class="blank5"></div>
+<div class="block clearfix">
+
+    @Html.Partial("~/views/part/MyLeft.cshtml", ncc2019.Common.Enum.MyPageType.Payment);
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1" style="min-height:300px;padding-left:20px;padding-top:20px;">
+
+                <h4 style="float:left;"> 账户余额：</h4><p>@ViewBag.Balance</p>
+
+            </div>
+        </div>
+
+    </div>
+</div>

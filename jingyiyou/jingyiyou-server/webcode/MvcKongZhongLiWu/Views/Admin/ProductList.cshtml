@@ -1,0 +1,142 @@
+﻿@model PagedList<ncc2019.Goods>
+@using Webdiyer.WebControls.Mvc
+@using ncc2019.Common.Enum
+@{
+    ViewBag.Title = "ProductList";
+}
+
+<script type="text/javascript">
+    function del() {
+        return confirm("确认删除?");
+    }
+</script>
+<style type="text/css">
+    .mtable td {
+        overflow: hidden;
+        /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis;
+        /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+        white-space: nowrap; /* 不换行 */
+    }
+
+    .text-overflow {
+        width: 200px;
+        overflow: hidden;
+        ; /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis;
+        ; /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+        white-space: nowrap; /* 不换行 */
+    }
+</style>
+<div class="block clearfix">
+
+    @Html.Partial("~/views/part/AdminLeft.cshtml", ncc2019.Common.Enum.AdminPageType.GoodList);
+
+    <div class="AreaR">
+        <div class="box">
+            <div class="box_1">
+                <div style="_height: 1%;" class="userCenterBox boxCenterList clearfix">
+                    <h5><span>礼物列表</span></h5>
+                    <div style="float:left;width:100%;">
+                        <div class="blank"></div>
+                 
+                        <input class="bnt_blue_1" name="gen_code" value="添加" onclick="window.location = '/admin/productedit'" type="button" style=" float:left;margin-right:50px;">
+                        <input class="bnt_blue_1" name="gen_code" value="Ali添加" onclick="window.location = '/admin/getgoodinfo'" type="button" style=" float:left;margin-right:20px;">
+                        @using (Html.BeginForm("ProductList", "Admin", FormMethod.Get))
+                        {
+
+                            <label>名称：</label><input type="text" name="sname" /> <label>标签：</label>
+                            <input type="text" name="stag" />
+                            <input class="bnt_blue_1" value="搜索" type="submit">
+                        }
+                    </div>
+                    <div class="blank"></div>
+                    <table class="mtable" border="0" cellspacing="1" cellpadding="5" width="100%" bgcolor="#dddddd">
+                        <thead>
+                            <tr align="center">
+                                <td bgcolor="#ffffff">ID</td>
+                                <td bgcolor="#ffffff">名称</td>
+                                <td bgcolor="#ffffff">单价</td>
+                                <td bgcolor="#ffffff">售出</td>
+                                <td bgcolor="#ffffff">标签</td>
+                                <td bgcolor="#ffffff">浏览</td>
+                                <td bgcolor="#ffffff">添加时间</td>
+                                <td bgcolor="#ffffff">添加人</td>
+                                <td bgcolor="#ffffff">状态</td>
+                                <td bgcolor="#ffffff">操作</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.GoodID)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        <div class='text-overflow'><a title="@item.Name"> @item.Name</a></div>
+                                    </td>
+
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.Payment)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.BuyCount)
+                                    </td>
+
+                                    <td bgcolor="#ffffff" style="width:200px;">
+                                        <div class='text-overflow'><a title="@item.Tags"> @item.Tags</a></div>
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.ViewCount)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.DisplayFor(modelItem => item.AddDate)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @ncc2019.Common.Model.MemberInfo.GetMemberName(item.AddMemberID)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @EnumTool.GetEnumName(typeof(GoodStatus), item.Status)
+                                    </td>
+                                    <td bgcolor="#ffffff">
+                                        @Html.ActionLink("编辑", "ProductEdit", new { id = item.GoodID }, new { target = "_blank" }) |
+                                        @Html.ActionLink("预览", "../Home/Details", new { id = item.GoodID }, new { target = "_blank" }) |
+                                        @Html.ActionLink("删除", "ProductDelete", new { id = item.GoodID }, new { onclick = "return del()" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <div class="blank5"></div>
+
+
+                    <div id="pager" class="pagebar">
+                        <span style="margin-right: 10px;" class="f_l ">总计 <b>@ViewBag.totalCount</b>  个记录</span>
+
+                    </div>
+                    @Html.Pager(Model, new PagerOptions
+                                 {
+                                     PageIndexParameterName = "pageindex",
+                                     ShowPageIndexBox = true,
+                                     FirstPageText = "首页",
+                                     PrevPageText = "上一页",
+                                     NextPageText = "下一页",
+                                     LastPageText = "末页",
+                                     PageIndexBoxType = PageIndexBoxType.TextBox,
+                                     PageIndexBoxWrapperFormatString = "请输入页数{0}",
+                                     GoButtonText = "转到"
+                                 })
+
+
+                    <div class="blank5"></div>
+                    <div class="blank"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

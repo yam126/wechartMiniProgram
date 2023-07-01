@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "扫码打开吹风机";
+}
+
+
+<script type="text/javascript">
+    var key = "";
+    var mcode = '@ViewBag.mcode';
+
+    $(function () {
+        hidhistory();
+        hidmune();
+        getQrCode();
+        //setInterval(function () {
+        //    getQrCode();
+        //}, 60000);
+    })
+
+    function getQrCode() {
+        jQuery.post("/CFJ/GetQrCodeUrl", { mcode:mcode, key: key }, function (res) {
+            if (res.state == "ok") {
+                key = res.key;
+                $("#qrcode").attr("src", res.url);
+            } else if (res.state == "error") {
+                return false;
+            }
+        }, "json");
+    }
+</script>
+
+<div style="width:100%;text-align:center;">
+    <img id="qrcode" src="" />
+</div>

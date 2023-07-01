@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ncc2019.GoodSort>
+@using ncc2019.Common.Tool
+@{
+    ViewBag.Title = "分类选择";
+}
+<script type="text/javascript">
+    $(function () {
+        $('.con .ect-bg').hide();
+    });
+</script>
+<style type="text/css">
+    .sort li{
+        float:left;
+        margin-left:5em;
+        /*border:solid;
+        border-width:1px;*/
+        padding:3px;
+        margin-top:2em;
+        width:5em;
+        text-align:center;
+    }
+</style>
+@{
+    ViewBag.t = new Random().Next(0, 100000000);
+}
+<div class="con">
+    <header class="ect-header ect-margin-tb ect-margin-lr text-center">
+        <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a>
+        <span>分类选择</span>
+        <a href="javascript:openSearch();" class="pull-right ect-icon ect-icon1 ect-icon-search1"></a>
+    </header>
+    <div class="panel panel-default ect-category-all ect-border-radius0">
+        <ul class="sort">
+            <li onclick="window.location = '/search?key=校园生活&t=@ViewBag.t'">
+                <img src="/images/store.png" />
+                <p>校园生活</p>
+            </li>
+            <li onclick="window.location = '/search?key=女神频道&t=@ViewBag.t'">
+                <img src="/images/fashion.png" />
+                <p>女神频道</p>
+            </li>
+            <li onclick="window.location = '/search?key=型男频道&t=@ViewBag.t'">
+                <img src="/images/equipment.png" />
+                <p>型男频道</p>
+            </li>
+            <li onclick="window.location = '/search?key=吃货地带&t=@ViewBag.t'">
+                <img src="/images/donut.png" />
+                <p>吃货地带</p>
+            </li>
+            <li onclick="window.location = '/search?key=电子贺卡&t=@ViewBag.t'">
+                <img src="/images/mail.png" />
+                <p>免费贺卡</p>
+            </li>
+            <li onclick="window.location = '/search?key=节日礼物&t=@ViewBag.t'">
+                <img src="/images/ebo-birthday.png" />
+                <p>生日礼物</p>
+            </li>
+            <li onclick="window.location = '/search?key=一本好书&t=@ViewBag.t'">
+                <img src="/images/book-bookmark-icon.png" />
+                <p>精品书籍</p>
+            </li>
+            @if (SessionHelper.CurMemberInfo != null && SessionHelper.CurMemberInfo.UserLevel == (int)ncc2019.Common.Enum.UserLevel.管理员) 
+            {
+                        <li onclick="window.location = '/search?key=自动降价&t=@ViewBag.t'">
+                            <img src="/images/coupon.png" />
+                            <p>自动降价</p>
+                        </li>
+            }
+        </ul>
+        @*<ul>
+        @foreach (var item in Model)
+        {
+            <a href="/search?key=@item.Name">
+                <li class="">
+                    <div class="media panel-body">
+                        <div class="pull-left ect-category-right">
+                            <h3>@item.Name</h3>
+                            <h5></h5>
+                        </div>
+                        <i class="fa fa-angle-right ect-transition05"></i>
+
+                    </div>
+
+                </li>
+            </a>
+        }
+    </ul>*@
+    </div>
+</div>

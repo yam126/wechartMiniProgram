@@ -1,0 +1,509 @@
+/*leo move arrow icon from left to right side 把箭頭移到右側*/
+.ui-accordion-icons .ui-accordion-header a { padding-left: 0.3em; } 
+.ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: 100%; margin-left: -30px; top: 50%; margin-top: -8px; }
+
+/*Leo add 子項目內容背景圖設定*/
+
+
+/* reset */
+body, div, ul, li, h1, h2, h3, h4, h5, h6, pre, form, input, textarea, p, th, td {
+	margin:0;
+	padding:0;
+	
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+img {
+	border:0;
+}
+ul {
+	list-style:none;
+}
+a, a:hover, a:active, a:focus{
+	text-decoration:none;
+	border:none;
+	outline:none;
+	/***color:#666;***/
+	}
+:focus {
+    outline: 0;
+}
+/* reset */
+
+html { 
+overflow-x: hidden; overflow-y: auto; 
+}
+
+
+/*Leo add 背景顏色*/
+body {
+	/*font-family:Georgia, "Times New Roman", Times, serif;*/
+	 background:url("/images/qingtie/bg_top2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/bg_top2.png*/ repeat;
+}	
+
+/*
+.ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {style: clear }
+*/
+
+
+
+/*預載圖片*/
+#preload-01 { background: url("/images/qingtie/btn_bg2_over.png") no-repeat -9999px -9999px; }
+#preload-02 { background: url("/images/qingtie/btn_bg2_on.png") no-repeat -9999px -9999px; }
+
+
+/*====主頁外框 Start====*/
+/*框內的高度及寬度都會變化*/
+
+#outter{
+/*外框*/
+	padding: 3px 0px 40px 0px;
+	background: url("/images/qingtie/bg_top1.png") center bottom repeat-x;
+	
+}
+
+.outter-main-tl{
+/*左上框*/
+	font-size:15%; /*fix IE6*/
+}
+.outter-main-tm{
+/*上框*/
+	font-size:15%; /*fix IE6*/
+}
+.outter-main-tr{
+/*右上框*/
+	font-size:15%; /*fix IE6*/
+}
+.outter-main-bl{
+/*左下框*/
+	font-size:15%; /*fix IE6*/
+}
+.outter-main-bm{
+/*下框*/
+	font-size:15%; /*fix IE6*/
+	
+}
+.outter-main-br{
+/*右下框*/
+	font-size:15%; /*fix IE6*/
+}
+.outter-main-ml{
+/*左框*/
+	width:auto;
+}
+.outter-main-mr{
+/*右框 内容*/
+	width:auto;
+}
+
+.outter-main-mm{
+/*中框*/
+}
+
+/*====主頁外框 End====*/
+
+
+/*====主頁內框 Start====*/
+/*
+注意主頁內框的上框及下框要留足夠的高度給上標及下標題文字顯示
+height:40px 以上比較保險;
+
+*/
+#inner{
+	
+}
+
+
+.inner-main-tl{
+/*左上框*/
+}
+.inner-main-tm{
+/*上框*/
+	align:center;
+	text-align:center;
+
+}
+.inner-main-tr{
+/*右上框*/
+}
+.inner-main-bl{
+/*左下框*/
+}
+.inner-main-bm{
+/*下框*/
+	margin: 0px 10px 10px 10px;
+	display:block;
+	background-color:#FFF;
+	padding:5px 8px 8px 8px ;
+	-moz-box-shadow:	-1px 4px 5px 2px rgba(20%,20%,20%,0.3),4px 4px 5px 2px rgba(20%,20%,20%,0.3);
+	-webkit-box-shadow:	-1px 4px 5px 2px rgba(20%,20%,20%,0.3),4px 4px 5px 2px rgba(20%,20%,20%,0.3);
+	box-shadow:			-1px 4px 5px 2px rgba(20%,20%,20%,0.3),4px 4px 5px 2px rgba(20%,20%,20%,0.3);
+
+
+	text-align:center;
+	line-height:1.2;
+	color:#E6465A;
+}
+.inner-main-br{
+/*右下框*/
+}
+.inner-main-ml{
+/*左框*/
+}
+.inner-main-mr{
+/*右框 内容*/
+}
+.inner-main-mm{
+/*中框*/
+	margin: 10px 10px 0px 10px;
+	display:block;
+	background-color:#FFF;
+	padding:8px 8px 0px 8px ;
+	-moz-box-shadow:	4px 0px 5px 2px rgba(20%,20%,20%,0.3),-1px 0px 5px 2px rgba(20%,20%,20%,0.3);
+	-webkit-box-shadow:	4px 0px 5px 2px rgba(20%,20%,20%,0.3),-1px 0px 5px 2px rgba(20%,20%,20%,0.3);
+	box-shadow:			4px 0px 5px 2px rgba(20%,20%,20%,0.3),-1px 0px 5px 2px rgba(20%,20%,20%,0.3);
+
+
+}
+
+/*====主頁內框 End====*/
+.inner-main-mm img{
+}
+
+#img_videobutton{
+	width: 60px;
+	height: 60px;
+	position:absolute;
+	background:url("/images/qingtie/video.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/icons/video.png*/ left bottom no-repeat;
+	background-size:contain;
+	z-index: 99;
+	top: -60px;
+	cursor:pointer;
+	
+}
+
+
+/*====主頁內框 End====*/
+
+
+
+/*====Main-title Start====*/
+/*框內的高度及寬度都會變化*/
+
+#main-title{
+/*外框*/
+ 	margin: 0px auto;
+	width:320px;
+ }
+
+.main-title-tl{
+/*左上框*/
+	font-size:15%; /*fix IE6*/
+}
+.main-title-tm{
+/*上框*/
+	height:38px;
+	background:url("/images/qingtie/title_bg1.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/title_bg1.png*/ center top no-repeat;
+}
+.main-title-tr{
+/*右上框*/
+	font-size:15%; /*fix IE6*/
+}
+.main-title-bl{
+/*左下框*/
+	font-size:15%; /*fix IE6*/
+}
+.main-title-bm{
+/*下框*/
+	height:30px;
+	background:url("/images/qingtie/title_bg1.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/title_bg1.png*/ center bottom no-repeat;
+}
+.main-title-br{
+/*右下框*/
+	font-size:15%; /*fix IE6*/
+}
+.main-title-ml{
+/*左框*/
+	width:auto;
+}
+.main-title-mr{
+/*右框 内容*/
+	width:auto;
+}
+
+.main-title-mm{
+/*中框*/
+	display:block;
+	background:url("/css/qingtie/mini/images/title_bg2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/title_bg2.png*/ repeat-y;
+	font-size:22px;
+	color:#FFF;
+	line-height:1.2;
+	text-align:center;
+}
+
+/*====main-title End====*/
+
+
+/*====Sub-title Start====*/
+/*框內的高度及寬度都會變化*/
+
+#sub-title{
+/*外框*/
+}
+
+.sub-title-tl{
+/*左上框*/
+	font-size:15%; /*fix IE6*/
+}
+.sub-title-tm{
+/*上框*/
+	font-size:15%; /*fix IE6*/
+}
+.sub-title-tr{
+/*右上框*/
+	font-size:15%; /*fix IE6*/
+}
+.sub-title-bl{
+/*左下框*/
+	font-size:15%; /*fix IE6*/
+}
+.sub-title-bm{
+/*下框*/
+	font-size:15%; /*fix IE6*/
+}
+.sub-title-br{
+/*右下框*/
+	font-size:15%; /*fix IE6*/
+}
+.sub-title-ml{
+/*左框*/
+	width:auto;
+}
+.sub-title-mr{
+/*右框 内容*/
+	width:auto;
+}
+
+.sub-title-mm{
+/*中框*/
+}
+
+/*====sub-title End====*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*====按鈕外框 Start====*/
+
+.button{
+/*最外框*/
+	display:block;
+	height:40px;
+	background:url("/css/qingtie/mini/images/btn_bg1.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/btn_bg1.png*/ repeat-x;
+	color:#FFF;
+	font-size:20px;
+/*	font-weight:bold;*/
+	
+	
+}
+
+.ui-state-hover .button { background-position:left -40px; }
+.ui-state-hover1 .button { background-position:left -40px; }
+.ui-state-active .button { background-position:left -80px; }
+
+
+
+/*框內的高度及寬度都會變化*/
+.button-tl{
+/*左上框*/
+}
+.button-tm{
+/*上框*/
+}
+.button-tr{
+/*右上框*/
+}
+.button-bl{
+/*左下框*/
+}
+.button-bm{
+/*下框*/
+}
+.button-br{
+/*右下框*/
+}
+.button-ml{
+/*左框*/
+}
+.button-mr{
+/*右框 内容*/
+}
+
+#button1 > .button-mr{
+/*右框 内容*/
+	width:auto;
+	background-image:url("/images/qingtie/btn_bg2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/btn_bg2.png*/; background-position:right 0px; background-repeat:no-repeat; 	
+}
+#button2 > .button-mr{
+/*右框 内容*/
+	width:auto;
+	background-image:url("/images/qingtie/btn_bg2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/btn_bg2.png*/; background-position:right -40px; background-repeat:no-repeat; 	
+}
+#button3 > .button-mr{
+/*右框 内容*/
+	width:auto;
+	background-image:url("/images/qingtie/btn_bg2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/btn_bg2.png*/; background-position:right -80px; background-repeat:no-repeat; 	
+}
+#button4 > .button-mr{
+/*右框 内容*/
+	width:auto;
+	background-image:url("/images/qingtie/btn_bg2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/btn_bg2.png*/; background-position:right -120px; background-repeat:no-repeat; 	
+}
+#button5 > .button-mr{
+/*右框 内容*/
+	width:auto;
+	background-image:url("/images/qingtie/btn_bg2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/btn_bg2.png*/; background-position:right -160px; background-repeat:no-repeat; 	
+}
+#button6 > .button-mr{
+/*右框 内容*/
+	width:auto;
+	background-image:url("/images/qingtie/btn_bg2.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/btn_bg2.png*/; background-position:right -200px; background-repeat:no-repeat; 	
+}
+
+.ui-state-hover1 #button1 > .button-mr {background-image:url("/images/qingtie/btn_bg2_over.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_over.png*/; }
+.ui-state-hover1 #button2 > .button-mr {background-image:url("/images/qingtie/btn_bg2_over.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_over.png*/; }
+.ui-state-hover1 #button3 > .button-mr {background-image:url("/images/qingtie/btn_bg2_over.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_over.png*/; }
+.ui-state-hover1 #button4 > .button-mr {background-image:url("/images/qingtie/btn_bg2_over.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_over.png*/; }
+.ui-state-hover1 #button5 > .button-mr {background-image:url("/images/qingtie/btn_bg2_over.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_over.png*/; }
+.ui-state-hover1 #button6 > .button-mr {background-image:url("/images/qingtie/btn_bg2_over.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_over.png*/; }
+
+.ui-state-active #button1 > .button-mr {background-image:url("/images/qingtie/btn_bg2_on.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_on.png*/; }
+.ui-state-active #button2 > .button-mr {background-image:url("/images/qingtie/btn_bg2_on.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_on.png*/; }
+.ui-state-active #button3 > .button-mr {background-image:url("/images/qingtie/btn_bg2_on.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_on.png*/; }
+.ui-state-active #button4 > .button-mr {background-image:url("/images/qingtie/btn_bg2_on.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_on.png*/; }
+.ui-state-active #button5 > .button-mr {background-image:url("/images/qingtie/btn_bg2_on.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_on.png*/; }
+.ui-state-active #button6 > .button-mr {background-image:url("/images/qingtie/btn_bg2_on.png")/*tpa=http://youvividassets.youvivid.net/css/mini//images/qingtie/btn_bg2_on.png*/; }
+
+.button-mm{
+/*中框 */
+	
+ 
+}
+
+.button-mm a{
+	color:#FFF;
+	font-size:20px;
+/*	font-weight:bold; */
+	font-weight: normal;
+	}
+
+
+
+.ui-state-active .button-mm{
+/*中框 開啟*/
+}
+
+.ui-state-hover .button-mm{
+/*中框 鼠標On Rollover */
+}
+
+
+/*====按鈕外框 End====*/
+
+
+
+/*====內容外框 Start====*/
+
+.detail {
+/*最外框*/
+
+	padding:10px 15px;
+	-moz-box-shadow:0px 0px 5px 3px rgba(30%,30%,30%,0.5) inset;
+	-webkit-box-shadow:0px 0px 5px 3px rgba(30%,30%,30%,0.5) inset;
+	box-shadow:0px 0px 5px 3px rgba(30%,30%,30%,0.5) inset;
+	color:#333;
+	line-height:1.3;
+	letter-spacing:1px;
+
+}
+
+
+/*框內的高度及寬度都會變化*/
+.detail-tl{
+/*左上框*/
+	font-size:15%; /*fix IE6*/
+}
+.detail-tm{
+/*上框*/
+	font-size:15%; /*fix IE6*/
+}
+.detail-tr{
+/*右上框*/
+	font-size:15%; /*fix IE6*/
+}
+.detail-bl{
+/*左下框*/
+	font-size:15%; /*fix IE6*/
+}
+.detail-bm{
+/*下框*/
+	font-size:15%; /*fix IE6*/
+}
+.detail-br{
+/*右下框*/
+	font-size:15%; /*fix IE6*/
+}
+.detail-ml{
+/*左框*/
+	width:auto;
+}
+.detail-mr{
+/*右框 内容*/
+	width:auto;
+}
+
+.detail-mm p{
+/*中框 */
+}
+
+.detail-mm {
+/*中框 */
+}
+
+#footer{
+	height:30px;
+	background:url("/images/qingtie/bg_bottom.png")/*tpa=http://youvividassets.youvivid.net/css/mini/images/bg_bottom.png*/ repeat-x;
+	padding-top:40px;
+	}
+#footer #copyright{
+	font-size:14px;
+	color:#E6465A;
+	text-align:center;
+	}
+
+
+.ui-accordion .ui-accordion-content { padding: 0;}
+.ui-accordion .ui-accordion-content-active { display: block; }
+
+/*====內容外框 End====*/
+

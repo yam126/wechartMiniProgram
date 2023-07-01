@@ -1,0 +1,480 @@
+﻿@model ncc2019.Goods
+
+@{
+    ViewBag.Title = "ProductEdit";
+}
+<script charset="utf-8" src="../../editor/kindeditor.js"></script>
+
+<script src="~/Scripts/Jcrop/js/jquery.Jcrop.js"></script>
+<link href="~/Scripts/Jcrop/css/jquery.Jcrop.css" rel="stylesheet" />
+@section HeadScript{
+    <script src="../../Scripts/jquery.form.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var x = y = w = h = 0;
+        $(function () {
+            $(".banner").hide();
+            if ($("#showimgex").attr("src") != "") {
+                $(".banner").show();
+            }
+            $("#btn_show").bind("click", function () {
+                //$("#form_upload").show();
+                var options = {
+                    success: function (responseText, statusText, xhr, $form) {
+                        responseText = JSON.parse(responseText);
+                        var picPath = responseText.pic;
+                        if (picPath == "") {
+                            alert(responseText.error);
+                        }
+                        else {
+                            $(".jcrop-holder img").last().attr("src", picPath);
+                            $("#showimg").attr("src", picPath);
+                            $("#imgurl").val(picPath);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    }
+                };
+
+                //$("#form_upload").ajaxForm(options);
+                $("#form_upload").ajaxSubmit(options);
+            });
+
+            $("#btn_showex").bind("click", function () {
+                //$("#form_upload").show();
+                var options = {
+                    success: function (responseText, statusText, xhr, $form) {
+                        responseText = JSON.parse(responseText);
+                        var picPath = responseText.pic;
+                        if (picPath == "") {
+                            alert(responseText.error);
+                        }
+                        else {
+                            //$("#form_upload").hide();
+                            $("#showimgex").attr("src", picPath);
+                            $("#imgurlex").val(picPath);
+                            $(".banner").show();
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    }
+                };
+
+                //$("#form_upload").ajaxForm(options);
+                $("#form_uploadex").ajaxSubmit(options)
+            });
+
+            $('#showimg').Jcrop({
+                onChange: updateCoords,
+                onSelect: updateCoords
+            });
+            $("#btn_cut").click(function () {
+                $.ajax({
+                    url: '../CutImg',
+                    data: { 'xstr': x, 'ystr': y, 'wstr': w, 'hstr': h, url: $("#showimg").attr("src") },
+                    datatype: "text/json",
+                    type: 'post',
+                    success: function (o) {
+                        $("#showimg").attr("src", o.src);
+                        $("#showimg").attr("style", "display:block;");
+                        $('#showimg').removeData("Jcrop");
+                        $(".jcrop-holder").remove();
+
+                        $('#showimg').Jcrop({
+                            onChange: updateCoords,
+                            onSelect: updateCoords
+                        });
+                    }
+                });
+                return false;
+            });
+        });
+
+        function updateCoords(c) {
+            x = c.x;
+            y = c.y;
+            w = c.w;
+            h = c.h;
+
+        };
+
+        function tagchecked(text, cbid) {
+
+            if ($('#' + cbid).attr('checked') == 'checked') {
+                $('#Tags').val($('#Tags').val() + "," + text);
+            }
+
+        }
+    </script>
+    <style type="text/css">
+        .editor-label{
+            font-size:16px;
+        }
+    </style>
+}
+
+<div class="Area">
+
+
+    <div class="editor-label">推广图片上传</div>
+    <div class="editor-field">
+        <form id="form_uploadex" style="padding:20px; " action="~/admin/upload?t=1" method="post" enctype="multipart/form-data">
+            <input name="upImg" style="width:350px;height:25px;" size="38" type="file" /><input class="bnt_blue_1" type="button" id="btn_showex" value="上传图片" /><br />
+        </form>
+        <img alt="@Model.BannerImgUrl" id="showimgex" src="@Model.BannerImgUrl" />
+
+    </div>
+
+    <div class="editor-label">图片上传</div>
+    <div class="editor-field">
+        <form id="form_upload" style="padding:20px; " action="~/admin/upload?t=2" method="post" enctype="multipart/form-data">
+            <input name="upImg" style="width:350px;height:25px;" size="38" type="file" /><input class="bnt_blue_1" type="button" id="btn_show" value="上传图片" /><br />
+        </form>
+        <img alt="@Model.ImgUrl" id="showimg" src="@Model.ImgUrl" />
+        <input class="bnt_blue_1" type="button" id="btn_cut" value="裁剪" />
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+        @Html.ValidationSummary(true);
+
+
+        <fieldset>
+            <legend>Good</legend>
+            <input id="imgurlex" name="bannerimgurl" type="hidden" value="@Model.BannerImgUrl" />
+            <input id="imgurl" name="imgurl" type="hidden" value="@Model.ImgUrl" />
+            @Html.HiddenFor(model => model.GoodID)
+
+            <div class="editor-label">
+                名称
+            </div>
+            <div class="editor-field">
+                @*@Html.EditorFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)*@
+                <input class="text-box single-line" id="Name" name="Name" type="text" value="@Model.Name" style="width:700px;" />
+            </div>
+            <div class="banner editor-label">
+                类型
+            </div>
+            <div class=" banner editor-field">
+                @Html.DropDownList("GoodType", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.GoodType), @Model.GoodType.ToString()))
+            </div>
+
+            <div class="banner editor-label">
+                参数（只有虚拟礼物需要填写礼物相对路径）
+            </div>
+            <div class=" banner editor-field">
+                <input class="text-box single-line" id="Param" name="Param" type="text" value="@Model.Param" style="width:700px;" />
+            </div>
+
+            <div class="banner editor-label">
+                显示到推广
+            </div>
+            <div class=" banner editor-field">
+                @Html.DropDownList("IsShowBanner", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.ShiFouStatus), @Model.Status.ToString()))
+            </div>
+
+            <div class="banner editor-label">
+                推广位置排序
+            </div>
+            <div class="banner editor-field">
+                <input type="text" value="@Model.BannerOrder" />
+            </div>
+
+
+            <div class="editor-label">
+                产品分组
+            </div>
+            <div class="editor-field">
+                @foreach (SelectListItem item in ViewBag.SortList)
+                {
+                    var ischecked = "";
+                    if (item.Selected)
+                    {
+                        ischecked = "checked='checked'";
+                    }
+                    <input id="cb_@item.Value" name="goodsort" type="checkbox" onclick="tagchecked('@item.Text','cb_@item.Value')" value="@item.Value" @ischecked />
+                    <label for="cb_@item.Value">@item.Text</label>
+
+                }
+            </div>
+            <div class="editor-label">
+                产品属性
+            </div>
+            <div class="editor-field">
+                <ul class="showul">
+                    @if (Model.GoodID > 0) { 
+                    <li>
+                        <input value="添加" type="button" onclick="addproperty()" />
+                    </li>
+                    
+                    foreach (ncc2019.GoodProperty item in ViewBag.goodp)
+                    {
+                        <li id="p_@item.GoodPropertyID">
+                            <label class="laedit">@item.Name</label>:<label class="lacontent">@item.Content</label>
+                            <input type="button" value="编辑" onclick="pefordite('@item.GoodPropertyID')" />
+                            <input type="button" value="删除" onclick="fnpdel('@item.GoodPropertyID')" />
+                        </li>
+                    }
+                    }
+                </ul>
+                <ul>
+                    <li class="editli" style="display:none;">
+                        <label>名称</label><input type="text" id="pname" name="pname" style="width:100px;" />
+                        <label>属性</label><input type="text" id="pcontent" name="pcontent" style="width:400px;" />
+                        <input type="hidden" name="pid" id="pid" value="" />
+                        <input type="button" class="myButton" id="btnpedit" value="编辑" onclick="fnpedit()" />
+                        <input type="button" class="myButton" id="btnpadd" value="添加" onclick="fnpadd()" />
+                    </li>
+                </ul>
+            </div>
+            <div class="editor-label">
+                进货单价
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.OrgPayment)
+                @Html.ValidationMessageFor(model => model.OrgPayment)
+            </div>
+            <div class="editor-label">
+                内部标注，仅内部可见（如：进货原地址）
+            </div>
+            <div class="editor-field">
+                <textarea class="text-box single-line" id="Memo" name="Memo" style="width:700px;">@Model.Memo</textarea>
+            </div>
+
+            <div class="editor-label">
+                销售单价
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Payment)
+                @Html.ValidationMessageFor(model => model.Payment)
+            </div>
+            <div class="editor-label">
+                原始价格（在自动降价产品中有用）
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Payment2)
+                @Html.ValidationMessageFor(model => model.Payment2)
+            </div>
+            <div class="editor-label">
+                降价幅度
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.DownPayment)
+                @Html.ValidationMessageFor(model => model.DownPayment)
+            </div>
+            <div class="editor-label">
+                需要体力
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NeedTiLiNum)
+                @Html.ValidationMessageFor(model => model.NeedTiLiNum)
+            </div>
+            <div class="editor-label">
+                快递费
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ExpressFee)
+                @Html.ValidationMessageFor(model => model.ExpressFee)
+            </div>
+            <div class="editor-label">
+                总数
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.TotalNum)
+                @Html.ValidationMessageFor(model => model.TotalNum)
+            </div>
+
+            <div class="editor-label">
+                购买数量
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.BuyCount)
+                @Html.ValidationMessageFor(model => model.BuyCount)
+            </div>
+            <div class="editor-label">
+                参与人数
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.JoinPeopleNum)
+                @Html.ValidationMessageFor(model => model.JoinPeopleNum)
+            </div>
+            <div class="editor-label">
+                开始时间
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.BeginDate)
+                @Html.ValidationMessageFor(model => model.BeginDate)
+            </div>
+            <div class="editor-label">
+                结束时间
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.EndDate)
+                @Html.ValidationMessageFor(model => model.EndDate)
+            </div>
+
+            <div class="editor-label">
+                标签
+            </div>
+            <div class="editor-field">
+                <input class="text-box single-line" id="Tags" name="Tags" type="text" value="@Model.Tags" style="width:700px;" />
+            </div>
+
+            <div class="editor-label">
+                说明
+            </div>
+            <div class="editor-field">
+
+                @Html.TextAreaFor(model => model.Intro, new { @style = "width:700px;height:150px" })
+            </div>
+
+
+
+            <div class="editor-label">
+                描述
+            </div>
+            <div class="editor-field" id="editor_id">
+
+                <textarea id='demo_12_id' name='Desc' style='width:700px;height:500px;'>
+                    @Html.Raw(Model.Desc)
+                </textarea>
+
+
+            </div>
+            <div class="editor-label">
+                排序
+            </div>
+            <div class="editor-field" id="editor_id">
+                @Html.EditorFor(model => model.GoodOrder)
+                @Html.ValidationMessageFor(model => model.GoodOrder)
+
+            </div>
+            <div class="editor-label">
+                上架状态
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("Status", ncc2019.Common.Enum.EnumTool.ConvertList(typeof(ncc2019.Common.Enum.GoodStatus), @Model.Status.ToString()))
+                @Html.ValidationMessageFor(model => model.Status)
+            </div>
+            <p>
+                <div class="blank5"></div>
+                <input class="myButton" type="submit" value="保存" />
+            </p>
+        </fieldset>
+
+    }
+    <script type="text/javascript">
+        var editor_id = 'demo_12_id';
+        var _imageUploadJson = "../../editor/asp.net/upload_json.ashx";
+        var _fileManagerJson = "../../editor/asp.net/file_manager_json.ashx";
+        var _allowFileManager = true;
+        var editor;
+        var options = {
+            filterMode: false,
+            uploadJson: _imageUploadJson,
+            fileManagerJson: _fileManagerJson,
+            allowFileManager: _allowFileManager
+        };
+
+        //$("<textarea id='demo_12_id' name='content' style='width:700px;height:300px;' ></textarea>").appendTo("#editor_id");
+
+        KindEditor.ready(function (K) {
+            K.create('#demo_12_id', options);
+            K.create('#demo_13_id', options);
+        });
+
+        function fnpadd() {
+
+
+            var pname=$('#pname').val();
+            var pcontent = $('#pcontent').val();
+            var goodid = '@Model.GoodID';
+
+            if (pname=='') {
+                alert('名称不能为空！');
+            }
+            if (pcontent == '') {
+                alert('属性不能为空！');
+            }
+
+            $.post("/admin/AddProperty", { pname: pname, pcontent: pcontent, goodid: goodid }, function (res) {
+                if (res.state=="ok") {
+                    //alert("添加成功！");
+                    var pid = res.pid;
+                    $('<li id="p_' + pid + '"><label class="laedit">' + pname + '</label>:<label class="lacontent">' + pcontent + '</label>' +
+                        '<input type="button"  value="编辑" onclick="pefordite(\'' + pid + '\')" />' +
+                        '<input type="button" value="删除" onclick="fnpdel(\'' + pid + '\')" />' +
+                    '</li>').appendTo('.showul');
+                    $('.editli').hide();
+                } else {
+                    alert("添加失败！");
+                }
+            }, "json");
+        }
+        function fnpdel(pid) {
+            if (!confirm("确定删除？")) { return; }
+
+            $.post("/admin/DeleteProperty",  { pid:pid }, function (res) {
+                if (res.state == "ok") {
+                    //alert("删除成功！");
+                    $('#p_' + pid).remove();
+                } else {
+                    alert("删除失败！");
+                }
+            }, "json");
+
+        }
+        function fnpedit() {
+
+            var pname = $('#pname').val();
+            var pcontent = $('#pcontent').val();
+            var pid = $('#pid').val();
+            if (pname == '') {
+                alert('名称不能为空！');
+            }
+            if (pcontent == '') {
+                alert('属性不能为空！');
+            }
+
+            $.post("/admin/EditProperty",  { pname: pname, pcontent: pcontent, pid: pid }, function (res) {
+                if (res.state == "ok") {
+                    showSuccessMessage("编辑成功！");
+                    $('#p_' + pid + ' .laedit').html(pname);
+                    $('#p_' + pid + ' .lacontent').html(pcontent);
+                    $('.editli').hide();
+                } else {
+                    showAlertMessage("编辑失败！");
+                }
+            }, "json");
+        }
+        function pefordite(pid)
+        {
+            $('.editli').show();
+            $('#btnpedit').show();
+            $('#btnpadd').hide();
+            $('#pname').val($('#p_' + pid + ' .laedit').html());
+            $('#pcontent').val($('#p_' + pid + ' .lacontent').html());
+            $('#pid').val(pid);
+        }
+        function addproperty() {
+            $('.editli').show();
+            $('#btnpadd').show();
+            $('#btnpedit').hide();
+            $('#pname').val('');
+            $('#pcontent').val('');
+            $('#pid').val('');
+        }
+
+    </script>
+
+
+
+    <div>
+        @Html.ActionLink("返回产品列表", "../admin/ProductList")
+    </div>
+</div>

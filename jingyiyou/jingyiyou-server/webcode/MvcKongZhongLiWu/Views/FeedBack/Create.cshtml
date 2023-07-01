@@ -1,0 +1,52 @@
+﻿@model ncc2019.FeedBack
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>FeedBack</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TheContent)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TheContent)
+            @Html.ValidationMessageFor(model => model.TheContent)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddDate)
+            @Html.ValidationMessageFor(model => model.AddDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OperID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OperID)
+            @Html.ValidationMessageFor(model => model.OperID)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

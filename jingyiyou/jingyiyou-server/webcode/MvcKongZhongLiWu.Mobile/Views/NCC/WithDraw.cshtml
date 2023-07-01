@@ -1,0 +1,426 @@
+﻿@{
+    ViewBag.Title = "新彩Club-提现";
+    Layout = "~/Views/Shared/_Layout-cnn.cshtml";
+}
+<style type="text/css">
+    #app {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #2c3e50;
+    }
+
+    #app, .fullscreen {
+        width: 100%;
+        min-height: 100%;
+        margin: 0 auto;
+    }
+
+    #app {
+        background: #1b0e30;
+    }
+
+    #app, .help-bd {
+        background: #362b49;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .headers {
+        position: relative;
+        height: .5rem;
+        line-height: .5rem;
+        background: #362b49;
+    }
+
+        .headers .header-l {
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding-top: .1rem;
+        }
+
+            .headers .header-l .item {
+                float: left;
+                margin-left: .1rem;
+            }
+
+            .headers .header-l .goback {
+                width: .3rem;
+                height: .3rem;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAC0CAMAAAD/wb/1AAAAk1BMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ROyVeAAAAMHRSTlMA8JAI+PTly7kjF/zhpYMxD8/GnnBpUC0F6bCWiX5YVUIoJR8ZDNu/Ylw42Kp3ZUlhRnvyAAABj0lEQVRo3u3Z2XKCMBSA4QMqssjihrbuuK/N+z9dzRlz4zTSHBxg2vPf6cynJBlgIMBxVZd1l2Tr70RrRLSbjhCoaVYWfBEtdjW3a2UHBOtUYz1lhwT78QZ7K2AP5nZlvcEey7UjZecE23rYRbk2VjYl2CbdntT/Ek7+lDjPWGI/sLsFQtFDd4vpRhHdJunpW3RvXL62lYYiel+hdkl6UgP9SdL9GuhLIR2RdIi26wNV49lJ1XQL2ygDjuP+R8K4WmCO4/5OfBniOM4svgxxHMdx1SUMqhf24RclGmxdG7l27mgPuzN/TTP35Zh7Jz1tzJpCi2+4FxmuNXa5kxvRtgZDMpU/3Yy2P1A/xAOLQYcBvIu45xzguaElZ3QIoMWyU1vypw3+GL8MfXiFsWMHX6ZnoErsQAhxXgLkYZzVlhy6nQC2cOSn2RjyMbbpB3KIgzvwcGldDyAfq+K9NOcUl9ZZAJhggHQnOS5tAqYYxgNL2nYMYIgxfxLIpSVgbOUDEWOMGZvj2t2r+LmI4yrvG3jk9W2dFDstAAAAAElFTkSuQmCC) no-repeat;
+                background-size: .3rem .9rem;
+            }
+
+        .headers .tit {
+            font-size: .16rem;
+            line-height: .5rem;
+            color: #fff;
+            text-align: center;
+        }
+
+    .widthdraw-bd {
+        min-height: 6.05rem;
+    }
+
+    .user-bd {
+        position: relative;
+        margin-top: .1rem;
+        border-left: 1px solid #5a4950;
+        background: #362b49;
+    }
+
+    .sample-widthdraw {
+        min-height: 1.8rem;
+        padding: 0 .1rem;
+    }
+
+    .fm-base .item {
+        padding: .05rem 0;
+        border-bottom: 1px solid #493455;
+        text-align: left;
+    }
+
+        .fm-base .item .tit {
+            float: left;
+            width: .66rem;
+            color: #fff;
+            font-size: .14rem;
+            text-align: right;
+            line-height: .3rem;
+        }
+
+        .fm-base .item .txt {
+            overflow: hidden;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 0 .08rem;
+            font-size: .14rem;
+        }
+
+            .fm-base .item .txt .inner {
+                position: relative;
+                display: block;
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                -moz-box-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+            }
+
+            .fm-base .item .txt .only-txt {
+                display: block;
+                line-height: .3rem;
+                color: #fff;
+            }
+
+        .fm-base .item:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .fm-base .item .txt .ipt-txt {
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            height: .3rem;
+            font-size: .14rem;
+            color: #fff;
+        }
+
+    input, textarea {
+        outline: none;
+    }
+
+    .fm-base .item .txt .getsmscode {
+        line-height: .3rem;
+        color: #fff;
+        font-size: .14rem;
+    }
+
+    .fm-base .item .txt .ipt-txt:disabled {
+        color: #7b6888;
+    }
+
+    .btn-flex {
+        padding: .15rem .15rem 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .btn-primary {
+        height: .4rem;
+        line-height: .4rem;
+        color: #fff;
+        font-size: .15rem;
+        border-radius: .05rem;
+        background: #e02447;
+    }
+
+    .btn-flex .btn {
+        display: block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -moz-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: 0;
+        text-align: center;
+        margin-right: 15px;
+    }
+
+        .btn-flex .btn:last-child, .btn-flex .last {
+            margin-right: 0;
+        }
+
+    .doc-infor {
+        padding: .2rem .15rem 0;
+    }
+
+        .doc-infor p {
+            padding-bottom: .05rem;
+            line-height: .2rem;
+            color: #999;
+            font-size: 0.14rem;
+        }
+
+    em, i {
+        font-style: normal;
+    }
+
+    .doc-infor p .icon-dot {
+        float: left;
+        width: .04rem;
+        height: .04rem;
+        background: #999;
+        margin-right: .08rem;
+        border-radius: .04rem;
+        margin-top: .08rem;
+    }
+
+    .doc-infor p .txt {
+        display: block;
+        overflow: hidden;
+    }
+
+    .lnk {
+        color: #2f8fff;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .fm-base .item .tit {
+        float: left;
+        width: .66rem;
+        color: #fff;
+        font-size: .14rem;
+        text-align: right;
+        line-height: .3rem;
+    }
+
+    .fm-base .item .txt {
+        overflow: hidden;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 0 .08rem;
+        font-size: .14rem;
+    }
+
+        .fm-base .item .txt .select-area {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -moz-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            line-height: .3rem;
+        }
+
+            .fm-base .item .txt .select-area .select {
+                background: none;
+                color: #fff;
+                display: block;
+                height: .3rem;
+            }
+
+                .fm-base .item .txt .select-area .select option {
+                    color: #666;
+                }
+
+    option {
+        font-weight: normal;
+        display: block;
+        white-space: pre;
+        min-height: 1.2em;
+        padding: 0px 2px 1px;
+    }
+
+    .fm-base .item .txt .select-area .select {
+        background: none;
+        color: #fff;
+        display: block;
+        height: .3rem;
+    }
+
+    .fm-base .item {
+        padding: .05rem 0;
+        border-bottom: 1px solid #493455;
+        text-align: left;
+    }
+</style>
+<script type="text/javascript">
+    var app = new function () {
+        this.data = {
+            totalTime: 60,
+            user: null
+        }
+        this.checkLogind = function () {
+
+            var user = com.getUser();
+            if (user != null) {
+                app.data.user = user;
+                $('.realname').val(user.realname);
+                $('.phone').val(user.phone);
+            }
+        }
+        this.initPage = function () {
+            com.initPage();
+            app.checkLogind();
+            app.bindEvents();
+        }
+        this.bindEvents = function () {
+            $('.getsmscode').click(function () {
+                app.data.totalTime = 60;
+                setInterval(verifyCodeTimer, 1000);
+                $.ajax({
+                    url: "/apis/SendVerifCodeWithToken",
+                    data: {
+                        token: app.data.user.token
+                    },
+                    success: function (res) {
+                        if (res.result == "ok") {
+                            app.showAlertMessage("发送成功！");
+                        } else {
+                            com.showAlertMessage('发送失败！');
+                        }
+
+                    }
+                });
+            })
+            //验证码倒计时
+            function verifyCodeTimer() {
+                app.data.totalTime = app.data.totalTime - 1;
+                $('.getsmscode').html(app.data.totalTime);
+                if (app.data.totalTime <= 0) {
+                    clearInterval(verifyCodeTimer);
+                    app.data.totalTime = 0;
+                    $('.getsmscode').html("获取验证码");
+                }
+            }
+
+            $('.goback').click(function () {
+                window.history.back(-1);
+            })
+
+            $('.btnok').click(function () {
+                $.ajax({
+                    url: "/apis/PayToUserBank",
+                    data: {
+                        token: app.data.user.token,
+                        bankno: $('.bankno').val(),
+                        amount: $('.amount').val(),
+                        bankcode: $('.bankcode').val(),
+                        verifycode: $('.verifycode').val()
+                    },
+                    success: function (res) {
+                        if (res.result == "ok") {
+                            com.showAlertMessage("提现成功！");
+                        } else {
+                            com.showAlertMessage('提现失败！' + res.message);
+                        }
+
+                    }
+                });
+            })
+        }
+    }
+    $(function () {
+        app.initPage();
+        //$('body').css('font-size','36px;')
+    });
+</script>
+<div class="user-bg">
+    <div class="headers">
+        <header>
+            <div class="header">
+                <span class="header-l">
+                    <span class="item goback"></span>
+                </span><h2 class="tit">提现</h2>
+                <span class="header-r">
+                    <span class="item email" style="display: none;"></span>
+                </span>
+            </div>
+        </header>
+    </div>
+    <div class="user-bd widthdraw-bd">
+        <div class="sample-widthdraw">
+            <div class="new-widthdraw">
+                <ul class="fm-base">
+                    <li class="item">
+                        <span class="tit">持卡人</span>
+                        <div class="txt">
+                            <span class="inner"><span class="only-txt realname"></span></span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <span class="tit">开户行</span><div class="txt">
+                            <span class="select-area">
+                                <select class="select bankcode">
+                                    <option value="1002">工商银行</option>
+                                    <option value="1005">农业银行</option>
+                                    <option value="1003">建设银行</option>
+                                    <option value="1001">招商银行</option>
+                                </select>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="item"><span class="tit">银行卡</span><div class="txt"><span class="inner"><input type="text" placeholder="银行卡持卡人必须与实名一致" class="ipt-txt bankno"></span></div></li>
+                    <li class="item" style="display: none;"><span class="tit">开户省市</span><div class="txt"><span class="select-area"><select class="select"><option value="110000">北京市</option><option value="120000">天津市</option><option value="130000">河北省</option><option value="140000">山西省</option><option value="150000">内蒙古自治区</option><option value="210000">辽宁省</option><option value="220000">吉林省</option><option value="230000">黑龙江省</option><option value="310000">上海市</option><option value="320000">江苏省</option><option value="330000">浙江省</option><option value="340000">安徽省</option><option value="350000">福建省</option><option value="360000">江西省</option><option value="370000">山东省</option><option value="410000">河南省</option><option value="420000">湖北省</option><option value="430000">湖南省</option><option value="440000">广东省</option><option value="450000">广西壮族自治区</option><option value="460000">海南省</option><option value="500000">重庆市</option><option value="510000">四川省</option><option value="520000">贵州省</option><option value="530000">云南省</option><option value="540000">西藏自治区</option><option value="610000">陕西省</option><option value="620000">甘肃省</option><option value="630000">青海省</option><option value="640000">宁夏回族自治区</option><option value="650000">新疆维吾尔自治区</option></select></span><span class="select-area"><select class="select"><option value="110100">北京市</option></select></span></div></li>
+                    <li class="item" style="display: none;"><span class="tit">开户行名</span><div class="txt"><span class="inner"><input type="text" placeholder="请填写开户支行" class="ipt-txt"></span></div></li>
+                    <li class="item"><span class="tit">提现金额</span><div class="txt"><span class="inner"><input type="text" maxlength="20" placeholder="最少提现10元，每日只能提款一次" class="ipt-txt amount"></span></div></li>
+                    <li class="item"><span class="tit">手机号</span><div class="txt"><span class="inner"><input type="text" placeholder="请填写11位手机号" disabled="disabled" class="ipt-txt phone"></span><span class="getsmscode">获取验证码</span></div></li>
+                    <li class="item"><span class="tit">验证码</span><div class="txt"><span class="inner"><input type="text" placeholder="请输入短信验证码" class="ipt-txt verifycode"></span></div></li>
+                </ul><div class="btn-flex"><button class="btn btn-primary btnok">确认提现</button></div>
+            </div>
+        </div><div class="doc-infor">
+            @*<p>
+                    <i class="icon-dot"></i>
+                    <span class="txt">提现成功后，请在<a class="lnk" href="/#/my/withdraw">“提现记录”</a>中查看记录；</span>
+                </p>*@
+            <p>
+                <i class="icon-dot"></i>
+                <span class="txt">每笔提款最小金额为10元，每天限提款1次。优惠期间，提款手续费由平台承担；</span>
+            </p>
+            <p>
+                <i class="icon-dot"></i><span class="txt">银行卡号请填写持卡人的卡号，否则提款不成功；</span>
+            </p>
+            <p>
+                <i class="icon-dot"></i><span class="txt">为防止恶意提款或洗钱行为，若每笔充值资金的消费不足30%，提款不成功；</span>
+            </p>
+        </div>
+    </div>
+</div>
